@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
+    "export": "next build && next export",
+    "preview": "npx serve@14 out",
     "test": "node --test tests/fontSettingsLogic.test.mjs"
   },
   "dependencies": {
