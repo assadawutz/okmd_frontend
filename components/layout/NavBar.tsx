@@ -1,10 +1,12 @@
 'use client'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-
+import { useEffect, useMemo, useRef, useState } from 'react'
 import FontSettings from './FontSettings'
+
+type NavLink = {
+  label: string
+  href: string
+}
 
 const focusableSelectors = [
   'a[href]',
@@ -13,211 +15,200 @@ const focusableSelectors = [
   'select:not([disabled])',
   'textarea:not([disabled])',
   '[tabindex]:not([tabindex="-1"])',
-].join(',')
+].join(', ')
 
 export default function NavBar() {
-  const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const mobileMenuRef = useRef<HTMLDivElement | null>(null)
+  const menuRef = useRef<HTMLDivElement | null>(null)
   const toggleButtonRef = useRef<HTMLButtonElement | null>(null)
 
-  const primaryLinks = useMemo(
+  const navLinks = useMemo<NavLink[]>(
     () => [
-      { href: '/', label: 'หน้าแรก' },
-      { href: '/about', label: 'เกี่ยวกับเรา' },
-      { href: '/projects', label: 'โครงการ' },
-      { href: '/services', label: 'บริการ' },
-      { href: '/news', label: 'ข่าวสาร' },
+      { label: 'หน้าแรก', href: '/' },
+      { label: 'ภารกิจหลัก', href: '#mission' },
+      { label: 'บริการความรู้', href: '#services' },
+      { label: 'ข่าวและกิจกรรม', href: '#news' },
+      { label: 'คลังสื่อ', href: '#media' },
     ],
     [],
   )
 
   useEffect(() => {
-    if (!mobileOpen) {
-      return
-    }
-
-    const menuNode = mobileMenuRef.current
-    if (!menuNode) {
-      return
-    }
-
-    const previousFocus = document.activeElement as HTMLElement | null
-    const focusable = Array.from(
-      menuNode.querySelectorAll<HTMLElement>(focusableSelectors),
-    )
-
-    if (!focusable.length) {
-      menuNode.focus()
-    } else {
-      focusable[0].focus()
-    }
+    if (!mobileOpen) return
 
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (!mobileOpen) return
+
       if (event.key === 'Escape') {
         event.preventDefault()
         setMobileOpen(false)
+        toggleButtonRef.current?.focus()
         return
       }
 
-      if (event.key !== 'Tab' || !focusable.length) {
-        return
-      }
+      if (event.key !== 'Tab') return
+
+      const container = menuRef.current
+      if (!container) return
+
+      const focusable = Array.from(container.querySelectorAll<HTMLElement>(focusableSelectors))
+      if (focusable.length === 0) return
 
       const firstElement = focusable[0]
       const lastElement = focusable[focusable.length - 1]
+      const isShift = event.shiftKey
+      const activeElement = document.activeElement as HTMLElement | null
 
-      if (event.shiftKey) {
-        if (document.activeElement === firstElement) {
-          event.preventDefault()
-          lastElement.focus()
-        }
-        return
-      }
-
-      if (document.activeElement === lastElement) {
+      if (!isShift && activeElement === lastElement) {
         event.preventDefault()
         firstElement.focus()
+      }
+
+      if (isShift && activeElement === firstElement) {
+        event.preventDefault()
+        lastElement.focus()
       }
     }
 
     document.addEventListener('keydown', handleKeyDown)
-
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
-      if (previousFocus) {
-        previousFocus.focus()
-      } else if (toggleButtonRef.current) {
-        toggleButtonRef.current.focus()
-      }
     }
   }, [mobileOpen])
 
-  const closeMobileMenu = () => setMobileOpen(false)
+  useEffect(() => {
+    if (mobileOpen) {
+      const container = menuRef.current
+      const focusable = container?.querySelectorAll<HTMLElement>(focusableSelectors)
+      focusable?.[0]?.focus()
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileOpen])
+
+  const closeMobileMenu = () => {
+    setMobileOpen(false)
+    toggleButtonRef.current?.focus()
+  }
 
   return (
-    <header className='bg-sky-900 text-sky-50 shadow-lg'>
-      <div className='border-b border-sky-800 bg-sky-900'>
-        <div className='mx-auto flex h-12 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8'>
-          <div className='flex items-center gap-3'>
-            <Link href='/' className='flex items-center gap-2 text-base font-semibold tracking-wide text-white hover:text-sky-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300'>
-              <span className='inline-flex h-9 w-9 items-center justify-center rounded-full bg-sky-700 text-sm font-bold uppercase'>OK</span>
-              <span className='hidden sm:inline'>Office of Knowledge Management</span>
-            </Link>
-            <span className='hidden text-xs font-medium text-sky-200 lg:inline'>สร้างองค์ความรู้เพื่อทุกคน</span>
+    <header className="w-full bg-white shadow-lg">
+      <div className="bg-sky-900 text-white">
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded bg-amber-300 text-base font-black text-sky-900">
+              OK
+            </span>
+            <div className="text-xs sm:text-sm">
+              <p className="font-semibold leading-tight">สำนักงานบริหารและพัฒนาองค์ความรู้</p>
+              <p className="text-white/80">Office of Knowledge Management and Development</p>
+            </div>
           </div>
-          <div className='flex items-center gap-4'>
+          <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
             <FontSettings />
             <button
-              type='button'
-              className='hidden h-9 items-center rounded-full border border-sky-700 px-4 text-sm font-medium text-sky-100 transition-colors hover:border-sky-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 lg:inline-flex'
+              type="button"
+              className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              ค้นหา
+              <span className="hidden sm:inline">ค้นหา</span>
+              <span className="sm:hidden">ค้นหา</span>
             </button>
             <a
-              href='/contact'
-              className='hidden h-9 items-center rounded-full bg-sky-600 px-4 text-sm font-semibold text-white transition-colors hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 sm:inline-flex'
+              href="tel:021054000"
+              className="inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-300 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-sky-900 transition hover:bg-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              ติดต่อเรา
+              ติดต่อ 02-105-4000
             </a>
           </div>
         </div>
       </div>
-      <div className='bg-sky-800'>
-        <div className='mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8'>
-          <nav className='hidden items-center gap-6 text-sm font-medium md:flex'>
-            {primaryLinks.map((item) => {
-              const isActive = pathname === item.href
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={isActive ? 'page' : undefined}
-                  className={`rounded-md px-1 py-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 ${
-                    isActive
-                      ? 'text-white'
-                      : 'text-sky-100 hover:text-white'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              )
-            })}
+
+      <div className="bg-sky-700 text-white">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-3">
+            <button
+              ref={toggleButtonRef}
+              type="button"
+              className="inline-flex items-center justify-center rounded-md border border-white/40 p-2 text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:hidden"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-navigation"
+              aria-label={mobileOpen ? 'ปิดเมนูหลัก' : 'เปิดเมนูหลัก'}
+              onClick={() => setMobileOpen((prev) => !prev)}
+            >
+              <span className="sr-only">เมนู</span>
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                {mobileOpen ? (
+                  <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                ) : (
+                  <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                )}
+              </svg>
+            </button>
+            <span className="hidden text-lg font-semibold md:inline-flex">OKMD Portal</span>
+          </div>
+
+          <nav className="hidden items-center gap-6 text-sm font-semibold md:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="rounded px-2 py-1 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="hidden md:block">
+            <a
+              href="#join"
+              className="inline-flex items-center gap-2 rounded-full bg-amber-300 px-4 py-2 text-sm font-bold text-sky-900 shadow transition hover:bg-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              สมัครร่วมโครงการ
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="mobile-navigation"
+        ref={menuRef}
+        className={`md:hidden ${
+          mobileOpen ? 'pointer-events-auto max-h-screen opacity-100' : 'pointer-events-none max-h-0 opacity-0'
+        } overflow-hidden bg-sky-800 text-white transition-all duration-300 ease-in-out`}
+      >
+        <div className="space-y-4 px-4 py-4">
+          <nav className="flex flex-col gap-2 text-base font-semibold">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="rounded px-3 py-2 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                onClick={closeMobileMenu}
+              >
+                {link.label}
+              </a>
+            ))}
           </nav>
           <a
-            href='/donate'
-            className='hidden rounded-full bg-amber-400 px-5 py-2 text-sm font-semibold text-sky-900 transition-colors hover:bg-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 md:inline-flex'
+            href="#join"
+            className="flex items-center justify-center rounded-full bg-amber-300 px-4 py-2 text-sm font-bold text-sky-900 shadow transition hover:bg-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            onClick={closeMobileMenu}
           >
-            สนับสนุนเรา
+            สมัครร่วมโครงการ
           </a>
-          <button
-            ref={toggleButtonRef}
-            type='button'
-            className='inline-flex items-center justify-center rounded-md border border-sky-700 p-2 text-sky-100 transition-colors hover:border-sky-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 md:hidden'
-            aria-expanded={mobileOpen}
-            aria-controls='mobile-navigation'
-            onClick={() => setMobileOpen((prev) => !prev)}
-          >
-            <span className='sr-only'>เปิดเมนูหลัก</span>
-            <span className='flex h-5 w-5 flex-col justify-between'>
-              <span className={`block h-[2px] w-full rounded-full bg-current transition-transform ${mobileOpen ? 'translate-y-[6px] rotate-45' : ''}`}></span>
-              <span className={`block h-[2px] w-full rounded-full bg-current transition-opacity ${mobileOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-              <span className={`block h-[2px] w-full rounded-full bg-current transition-transform ${mobileOpen ? '-translate-y-[6px] -rotate-45' : ''}`}></span>
-            </span>
-          </button>
         </div>
       </div>
-      {mobileOpen ? (
-        <div
-          id='mobile-navigation'
-          ref={mobileMenuRef}
-          tabIndex={-1}
-          className='md:hidden border-t border-sky-700 bg-sky-900 px-4 pb-6 pt-4 shadow-inner sm:px-6'
-        >
-          <nav className='flex flex-col gap-2 text-base font-medium'>
-            {primaryLinks.map((item) => {
-              const isActive = pathname === item.href
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={isActive ? 'page' : undefined}
-                  className={`rounded-md px-3 py-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 ${
-                    isActive
-                      ? 'bg-sky-800 text-white'
-                      : 'text-sky-100 hover:bg-sky-800 hover:text-white'
-                  }`}
-                  onClick={closeMobileMenu}
-                >
-                  {item.label}
-                </Link>
-              )
-            })}
-          </nav>
-          <div className='mt-4 flex flex-col gap-2'>
-            <button
-              type='button'
-              className='h-10 rounded-full border border-sky-700 px-4 text-sm font-medium text-sky-100 transition-colors hover:border-sky-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300'
-            >
-              ค้นหา
-            </button>
-            <a
-              href='/contact'
-              className='h-10 rounded-full bg-sky-600 px-4 text-sm font-semibold text-white transition-colors hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300'
-              onClick={closeMobileMenu}
-            >
-              ติดต่อเรา
-            </a>
-            <a
-              href='/donate'
-              className='h-10 rounded-full bg-amber-400 px-4 text-sm font-semibold text-sky-900 transition-colors hover:bg-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200'
-              onClick={closeMobileMenu}
-            >
-              สนับสนุนเรา
-            </a>
-          </div>
-        </div>
-      ) : null}
     </header>
   )
 }

@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start"
+    "start": "next start",
+    "test": "node --test tests/fontSettingsLogic.test.mjs"
   },
   "dependencies": {
     "react": "19.1.0",

@@ -19,8 +19,76 @@
   }
 }
 
+html.font-scale-sm body {
+  font-size: 15px;
+}
+
+html.font-scale-md body {
+  font-size: 16px;
+}
+
+html.font-scale-lg body {
+  font-size: 18px;
+}
+
+html.high-contrast {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+html.high-contrast body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+html.high-contrast a {
+  color: #ffd54f;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.font-scale-sm {
+  font-size: 15px;
+}
+
+html.font-scale-base {
+  font-size: 16px;
+}
+
+html.font-scale-lg {
+  font-size: 18px;
+}
+
+html.contrast-high {
+  color-scheme: only light;
+}
+
+html.contrast-high body {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+html.contrast-high a {
+  color: #ffeb3b;
+}
+
+html.contrast-high .contrast-surface {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html.contrast-high .contrast-toggle {
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+html.contrast-high .contrast-toggle[aria-pressed="true"] {
+  background-color: #ffeb3b !important;
+  color: #000000 !important;
 }
