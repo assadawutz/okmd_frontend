@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import FontSettings from "@/components/layout/FontSettings";
 import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/layout/Footer";
 import RelatedLinks from "@/components/layout/RelatedLinks";
@@ -27,13 +26,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="th" className="font-scale-base">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <FontSettings/>
         <NavBar/>
-        
+
         {children}
         <RelatedLinks/>
         <Footer/>
