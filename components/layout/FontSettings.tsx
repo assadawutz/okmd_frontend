@@ -1,139 +1,154 @@
-"use client";
+'use client'
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  FONT_SIZE_CLASSES,
-  FONT_SIZE_SEQUENCE,
-  contrastToStorage,
-  decreaseFontSize,
-  increaseFontSize,
-  storageToContrast,
-  storageToFontSize,
-} from "./fontSettingsLogic.mjs";
+import { useEffect, useMemo, useState } from 'react'
 
-const FONT_SIZE_KEY = "okmd:font-size";
-const CONTRAST_KEY = "okmd:contrast";
+type FontScale = 'sm' | 'md' | 'lg'
 
-type FontSize = (typeof FONT_SIZE_SEQUENCE)[number];
-
-type ButtonConfig = {
-  id: string;
-  label: string;
-  title: string;
-  action: () => void;
-  isActive: boolean;
-  text: string;
-  disabled?: boolean;
-};
+const FONT_SCALE_STORAGE_KEY = 'okmd-font-scale'
+const CONTRAST_STORAGE_KEY = 'okmd-contrast-mode'
+const FONT_SCALE_CLASSES: Record<FontScale, string> = {
+  sm: 'font-scale-sm',
+  md: 'font-scale-md',
+  lg: 'font-scale-lg',
+}
 
 export default function FontSettings() {
-  const [fontSize, setFontSize] = useState<FontSize>("base");
-  const [highContrast, setHighContrast] = useState(false);
+  const [fontScale, setFontScale] = useState<FontScale>('md')
+  const [highContrast, setHighContrast] = useState(false)
+  const [hydrated, setHydrated] = useState(false)
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const storedSize = storageToFontSize(window.localStorage.getItem(FONT_SIZE_KEY));
-    const storedContrast = storageToContrast(window.localStorage.getItem(CONTRAST_KEY));
-    setFontSize(storedSize);
-    setHighContrast(storedContrast);
-  }, []);
-
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const root = document.documentElement;
-    FONT_SIZE_SEQUENCE.forEach((size) => {
-      root.classList.remove(FONT_SIZE_CLASSES[size]);
-    });
-    root.classList.add(FONT_SIZE_CLASSES[fontSize]);
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(FONT_SIZE_KEY, fontSize);
-    }
-  }, [fontSize]);
-
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const root = document.documentElement;
-    root.classList.toggle("contrast-high", highContrast);
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(CONTRAST_KEY, contrastToStorage(highContrast));
-    }
-  }, [highContrast]);
-
-  const handleDecrease = useCallback(() => {
-    setFontSize((current) => decreaseFontSize(current));
-  }, []);
-
-  const handleReset = useCallback(() => {
-    setFontSize("base");
-  }, []);
-
-  const handleIncrease = useCallback(() => {
-    setFontSize((current) => increaseFontSize(current));
-  }, []);
-
-  const handleContrast = useCallback(() => {
-    setHighContrast((current) => !current);
-  }, []);
-
-  const buttons: ButtonConfig[] = useMemo(
+  const fontOptions = useMemo(
     () => [
-      {
-        id: "decrease",
-        label: "ลดขนาดตัวอักษร",
-        title: "ลดขนาดตัวอักษร",
-        action: handleDecrease,
-        isActive: fontSize === "small",
-        text: "A-",
-        disabled: fontSize === "small",
-      },
-      {
-        id: "reset",
-        label: "ขนาดมาตรฐาน",
-        title: "ตั้งค่าขนาดตัวอักษรเป็นมาตรฐาน",
-        action: handleReset,
-        isActive: fontSize === "base",
-        text: "A",
-      },
-      {
-        id: "increase",
-        label: "เพิ่มขนาดตัวอักษร",
-        title: "เพิ่มขนาดตัวอักษร",
-        action: handleIncrease,
-        isActive: fontSize === "large",
-        text: "A+",
-        disabled: fontSize === "large",
-      },
-      {
-        id: "contrast",
-        label: "โหมดคอนทราสต์สูง",
-        title: "สลับโหมดคอนทราสต์สูง",
-        action: handleContrast,
-        isActive: highContrast,
-        text: "คอนทราสต์",
-      },
+      { label: 'A-', value: 'sm' as FontScale, description: 'ลดขนาดตัวอักษร' },
+      { label: 'A', value: 'md' as FontScale, description: 'ขนาดมาตรฐาน' },
+      { label: 'A+', value: 'lg' as FontScale, description: 'เพิ่มขนาดตัวอักษร' },
     ],
-    [fontSize, handleContrast, handleDecrease, handleIncrease, handleReset, highContrast]
-  );
+    [],
+  )
 
-  const baseButtonClass =
-    "flex h-8 items-center justify-center rounded-full border border-slate-300 px-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 aria-pressed:bg-blue-600 aria-pressed:text-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600";
+  useEffect(() => {
+    setHydrated(true)
+    if (typeof window === 'undefined') return
+
+    const storedScale = window.localStorage.getItem(FONT_SCALE_STORAGE_KEY) as FontScale | null
+    const storedContrast = window.localStorage.getItem(CONTRAST_STORAGE_KEY)
+
+    if (storedScale && storedScale in FONT_SCALE_CLASSES) {
+      setFontScale(storedScale)
+      applyFontScale(storedScale)
+    } else {
+      applyFontScale('md')
+    }
+
+    if (storedContrast === 'high') {
+      setHighContrast(true)
+      applyContrastMode(true)
+    } else {
+      applyContrastMode(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!hydrated || typeof window === 'undefined') return
+    applyFontScale(fontScale)
+    window.localStorage.setItem(FONT_SCALE_STORAGE_KEY, fontScale)
+  }, [fontScale, hydrated])
+
+  useEffect(() => {
+    if (!hydrated || typeof window === 'undefined') return
+    applyContrastMode(highContrast)
+    window.localStorage.setItem(CONTRAST_STORAGE_KEY, highContrast ? 'high' : 'normal')
+  }, [highContrast, hydrated])
+
+  const handleFontScaleChange = (value: FontScale) => {
+    setFontScale(value)
+  }
+
+  const handleContrastToggle = () => {
+    setHighContrast((prev) => !prev)
+  }
+
+  if (!hydrated) {
+    return (
+      <div className="flex items-center gap-1 text-xs text-white/80" aria-hidden="true">
+        {fontOptions.map((option) => (
+          <span
+            key={option.value}
+            className="inline-flex h-8 w-8 items-center justify-center rounded border border-white/20 bg-white/10"
+          >
+            {option.label}
+          </span>
+        ))}
+        <span className="inline-flex h-8 items-center justify-center rounded border border-white/20 bg-white/10 px-3">
+          Contrast
+        </span>
+      </div>
+    )
+  }
 
   return (
-    <div className="flex flex-wrap items-center justify-end gap-2 text-xs font-medium text-slate-700 md:gap-3">
-      {buttons.map((button) => (
-        <button
-          key={button.id}
-          type="button"
-          className={`${baseButtonClass} ${button.id === "contrast" ? "contrast-toggle" : ""}`}
-          aria-label={button.label}
-          aria-pressed={button.isActive}
-          title={button.title}
-          onClick={button.action}
-          disabled={button.disabled}
+    <div className="flex items-center gap-2 text-white" aria-label="ตั้งค่าการแสดงผล">
+      <div className="flex items-center gap-1" role="group" aria-label="ปรับขนาดตัวอักษร">
+        {fontOptions.map((option) => {
+          const isActive = fontScale === option.value
+          return (
+            <button
+              key={option.value}
+              type="button"
+              className={`inline-flex h-8 w-8 items-center justify-center rounded border text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                isActive ? 'border-white bg-white text-sky-900 shadow' : 'border-white/40 bg-white/10 hover:bg-white/20'
+              }`}
+              aria-pressed={isActive}
+              aria-label={option.description}
+              title={option.description}
+              onClick={() => handleFontScaleChange(option.value)}
+            >
+              {option.label}
+            </button>
+          )
+        })}
+      </div>
+      <button
+        type="button"
+        className={`inline-flex h-8 items-center justify-center gap-2 rounded border px-3 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+          highContrast ? 'border-amber-300 bg-amber-300 text-sky-900 shadow' : 'border-white/40 bg-white/10 hover:bg-white/20'
+        }`}
+        aria-pressed={highContrast}
+        aria-label={highContrast ? 'ปิดโหมด contrast สูง' : 'เปิดโหมด contrast สูง'}
+        title={highContrast ? 'ปิดโหมด contrast สูง' : 'เปิดโหมด contrast สูง'}
+        onClick={handleContrastToggle}
+      >
+        <span className="text-xs font-bold uppercase tracking-wide">Contrast</span>
+        <span className="sr-only">{highContrast ? 'เปิดใช้งานอยู่' : 'ยังไม่เปิดใช้งาน'}</span>
+        <span
+          className={`h-2.5 w-6 rounded-full border ${
+            highContrast ? 'border-sky-900 bg-sky-900' : 'border-white/40 bg-white/30'
+          }`}
+          aria-hidden="true"
         >
-          {button.text}
-        </button>
-      ))}
+          <span
+            className={`block h-2 w-2 rounded-full bg-white transition-transform ${
+              highContrast ? 'translate-x-3' : 'translate-x-0'
+            }`}
+          />
+        </span>
+      </button>
     </div>
-  );
+  )
+}
+
+function applyFontScale(scale: FontScale) {
+  if (typeof document === 'undefined') return
+  const { classList } = document.documentElement
+  Object.values(FONT_SCALE_CLASSES).forEach((className) => {
+    if (classList.contains(className)) {
+      classList.remove(className)
+    }
+  })
+  classList.add(FONT_SCALE_CLASSES[scale])
+}
+
+function applyContrastMode(enabled: boolean) {
+  if (typeof document === 'undefined') return
+  document.documentElement.classList.toggle('high-contrast', enabled)
 }
