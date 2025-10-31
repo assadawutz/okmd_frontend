@@ -12,6 +12,12 @@ const FONT_SCALE_CLASSES: Record<FontScale, string> = {
   lg: 'font-scale-lg',
 }
 
+const controls = [
+  { label: 'A-', aria: 'ลดขนาดตัวอักษร' },
+  { label: 'A', aria: 'รีเซ็ตขนาดตัวอักษร' },
+  { label: 'A+', aria: 'เพิ่มขนาดตัวอักษร' },
+]
+
 export default function FontSettings() {
   const [fontScale, setFontScale] = useState<FontScale>('md')
   const [highContrast, setHighContrast] = useState(false)
