@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const heroHighlights = [
@@ -6,244 +7,241 @@ const heroHighlights = [
   { label: "ชั่วโมงเนื้อหา", value: "4,500" },
 ];
 
-const missionItems = [
+const highlightCards = [
   {
-    title: "จุดประกายการเรียนรู้",
+    variant: "story",
+    eyebrow: "Future Ready City",
+    title: "เมืองการเรียนรู้ต้นแบบ",
     description:
-      "ออกแบบกิจกรรมและพื้นที่สร้างสรรค์เพื่อให้คนทุกช่วงวัยเข้าถึงประสบการณ์การเรียนรู้ที่หลากหลาย",
+      "เจาะลึกระบบนิเวศการเรียนรู้ของ OKMD ที่ผสานเทคโนโลยีกับชุมชน เพื่อสร้างพื้นที่การเรียนรู้ตลอดชีวิต",
+    action: { label: "ชมเคสศึกษา", href: "#" },
   },
   {
-    title: "เชื่อมโยงเครือข่าย",
+    variant: "event",
+    eyebrow: "30",
+    meta: "มี.ค. 2568",
+    title: "OKMD Knowledge Festival",
     description:
-      "ร่วมมือกับพันธมิตรทั้งภาครัฐ เอกชน และชุมชน เพื่อขยายผลโครงการด้านความรู้อย่างยั่งยืน",
+      "อัปเดตกิจกรรม เวทีเสวนา และเวิร์กช็อปที่ต่อยอดทักษะพลเมืองสร้างสรรค์จากทั่วประเทศ",
+    action: { label: "ดูตารางกิจกรรม", href: "#" },
   },
   {
-    title: "พัฒนานวัตกรรม",
+    variant: "insight",
+    eyebrow: "Insight Toolkit",
+    title: "เรียนรู้แบบ Personalised",
     description:
-      "วิจัยและทดลองเครื่องมือการเรียนรู้ใหม่ๆ เพื่อเตรียมคนไทยให้พร้อมกับอนาคต",
+      "สำรวจไลบรารีคู่มือและชุดกิจกรรมที่ออกแบบสำหรับผู้เรียนในแต่ละช่วงวัย พร้อมสื่อประกอบดาวน์โหลดฟรี",
+    action: { label: "ดาวน์โหลดเครื่องมือ", href: "#" },
   },
 ];
 
-const serviceCards = [
+const recommendedCards = [
   {
-    title: "คลังความรู้ดิจิทัล",
-    description: "สื่อมัลติมีเดีย บทเรียนออนไลน์ และฐานข้อมูลเปิดเพื่อการศึกษา",
-    icon: "📚",
+    variant: "light",
+    title: "Unleash Your Potential",
+    description:
+      "ออกแบบเส้นทางการเรียนรู้แบบผสมผสานด้วยสื่อมัลติมีเดียและกิจกรรมภาคสนามจากเครือข่ายพันธมิตร OKMD",
+    action: { label: "เริ่มสำรวจ", href: "#" },
   },
   {
-    title: "พื้นที่สร้างสรรค์",
-    description: "TK Park, Makerspace, Learning Space สำหรับกิจกรรมและเวิร์กช็อป",
-    icon: "🛠️",
+    variant: "dark",
+    title: "Creative Citizen Program",
+    description:
+      "โปรแกรมเข้มข้น 12 สัปดาห์ สำหรับเยาวชนที่ต้องการต่อยอดไอเดียสู่โครงการจริง พร้อมการโค้ชแบบตัวต่อตัว",
+    action: { label: "สมัครโปรแกรม", href: "#" },
+  },
+];
+
+const shelfHighlights = [
+  {
+    title: "Design Thinking Playbook",
+    description: "กิจกรรมฝึกทักษะคิดเชิงออกแบบสำหรับห้องเรียนและชุมชน",
   },
   {
-    title: "โปรแกรมพัฒนาเยาวชน",
-    description: "โครงการ Civic Education และหลักสูตรเสริมทักษะพลเมือง",
-    icon: "🌱",
+    title: "Community Learning Lab",
+    description: "โมเดลพื้นที่การเรียนรู้ที่ขยายได้จริงในทุกจังหวัด",
   },
   {
-    title: "เครือข่ายชุมชน",
-    description: "สนับสนุนแหล่งเรียนรู้ท้องถิ่นและต้นแบบเศรษฐกิจสร้างสรรค์",
-    icon: "🤝",
+    title: "Digital Civic Class",
+    description: "เส้นทางเรียนรู้ทักษะพลเมืองดิจิทัลสำหรับเยาวชน",
+  },
+];
+
+const shelfCategories = [
+  "Active Learning", "Creative Economy", "Civic Education", "Digital Skills", "Lifelong Learning", "Maker Space",
+];
+
+const activityThumbs = [
+  "Future School Lab",
+  "Design Jam",
+  "Learning Playground",
+  "Culture Hack",
+  "Young Innovator",
+];
+
+const activitySchedule = [
+  {
+    time: "09:00",
+    title: "Co-design Workshop",
+    description: "ร่วมออกแบบกิจกรรมกับครูแกนนำและผู้เชี่ยวชาญ",
+  },
+  {
+    time: "11:30",
+    title: "Learning Space Tour",
+    description: "สำรวจพื้นที่สร้างสรรค์และชุดเครื่องมือทดลอง",
+  },
+  {
+    time: "14:00",
+    title: "Community Pitch",
+    description: "นำเสนอไอเดียเพื่อรับคำปรึกษาจากที่ปรึกษา OKMD",
+  },
+  {
+    time: "16:00",
+    title: "Networking Meetup",
+    description: "เชื่อมต่อเครือข่ายและจับคู่ความร่วมมือใหม่",
   },
 ];
 
 const newsItems = [
   {
-    title: "OKMD Knowledge Festival 2025",
+    title: "เปิดตัว OKMD Learning Portal โฉมใหม่",
     description:
-      "เทศกาลการเรียนรู้ระดับประเทศที่รวมคอนเทนต์ แรงบันดาลใจ และเทคโนโลยีการศึกษาไว้ในที่เดียว",
+      "อัปเดตแพลตฟอร์มการเรียนรู้ด้วยคอนเทนต์แบบปรับตามผู้ใช้ และระบบติดตามความก้าวหน้าเรียลไทม์",
     date: "15 มี.ค. 2568",
   },
   {
-    title: "เปิดตัวแพลตฟอร์ม OKMD Learning Portal โฉมใหม่",
+    title: "เทศกาลการเรียนรู้ระดับประเทศ 2025",
     description:
-      "ประสบการณ์การเรียนรู้แบบ Personalized พร้อมคอร์สและเส้นทางการเรียนรู้กว่า 500 รายการ",
-    date: "28 ก.พ. 2568",
+      "รวมแรงบันดาลใจจากวิทยากรสร้างสรรค์ กิจกรรมลงมือทำ และพื้นที่ทดลองเทคโนโลยีการศึกษา",
+    date: "05 มี.ค. 2568",
   },
   {
-    title: "อบรมครูแกนนำพื้นที่ภาคเหนือ",
+    title: "อบรมเครือข่ายครูพื้นที่ภาคเหนือ",
     description:
-      "ยกระดับการสอนด้วยเครื่องมือการเรียนรู้เชิงประสบการณ์และกิจกรรมออกแบบคิดเชิงสร้างสรรค์",
-    date: "12 ก.พ. 2568",
-  },
-];
-
-const mediaGalleries = [
-  {
-    title: "Inspiration Talk",
-    description: "บทสัมภาษณ์แรงบันดาลใจจากนักสร้างสรรค์ทั่วประเทศ",
-  },
-  {
-    title: "Learning Playbook",
-    description: "แนวทางจัดกิจกรรมการเรียนรู้ที่นำไปใช้ได้จริง",
-  },
-  {
-    title: "OKMD Podcast",
-    description: "เรียนรู้ผ่านเรื่องเล่า เข้าใจประเด็นใหม่ในเวลาไม่กี่นาที",
+      "เสริมศักยภาพครูแกนนำด้วยเครื่องมือการเรียนรู้แบบ Active Learning และการออกแบบประสบการณ์",
+    date: "18 ก.พ. 2568",
   },
 ];
 
 export default function Home() {
   return (
-    <div className="bg-slate-50" id="top">
-      <section className="relative overflow-hidden bg-gradient-to-br from-sky-800 via-sky-700 to-sky-500 py-16 text-white">
-        <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.18),_transparent_60%)] md:block" />
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 lg:flex-row lg:items-center lg:gap-16">
-          <div className="flex-1 space-y-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
-              Knowledge for Better Life
-            </p>
-            <h1 className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
-              สร้างโอกาสการเรียนรู้ให้ทุกคน เข้าถึงง่าย ใช้ได้จริง
-            </h1>
-            <p className="max-w-xl text-base text-white/80 sm:text-lg">
-              OKMD มุ่งพัฒนาระบบนิเวศการเรียนรู้ที่เปิดกว้าง สนับสนุนทั้งผู้เรียน ผู้สอน และชุมชนให้เติบโตอย่างเท่าเทียม
-              พร้อมต่อยอดทักษะที่จำเป็นในโลกอนาคต
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="#services"
-                className="inline-flex items-center justify-center rounded-full bg-amber-300 px-6 py-3 text-sm font-bold text-sky-900 shadow-lg transition hover:bg-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                สำรวจบริการความรู้
-              </Link>
-              <Link
-                href="#join"
-                className="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold transition hover:border-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                สมัครร่วมโครงการ
-              </Link>
-            </div>
-            <div className="grid grid-cols-3 gap-3 rounded-2xl border border-white/20 bg-white/10 p-4 text-center text-sm font-medium backdrop-blur md:max-w-lg">
-              {heroHighlights.map((item) => (
-                <div key={item.label} className="space-y-1">
-                  <p className="text-2xl font-bold text-white">{item.value}</p>
-                  <p className="text-white/80">{item.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative flex-1">
-            <div className="relative mx-auto h-80 max-w-md overflow-hidden rounded-[2.5rem] border border-white/20 bg-white/10 p-6 backdrop-blur-lg">
-              <div className="absolute inset-0 bg-[conic-gradient(at_top,_rgba(255,255,255,0.18),_transparent_65%)]" aria-hidden />
-              <div className="relative flex h-full flex-col justify-between gap-6">
-                <div className="space-y-3">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-amber-200">
-                    Learning Journey
-                  </p>
-                  <h2 className="text-2xl font-bold leading-snug">
-                    วางแผนการเรียนรู้ที่เหมาะกับคุณใน 5 ขั้นตอน
-                  </h2>
-                  <p className="text-sm text-white/80">
-                    เริ่มจากสำรวจความสนใจ ตั้งเป้าหมาย เลือกสื่อการเรียนรู้ ทดลองปฏิบัติ และแบ่งปันผลลัพธ์ร่วมกับชุมชนออนไลน์ของเรา
-                  </p>
-                </div>
-                <div className="space-y-3 text-sm text-white/80">
-                  <div className="flex items-center gap-3 rounded-xl bg-white/10 p-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-300 text-base font-bold text-sky-900">
-                      01
-                    </span>
-                    <div>
-                      <p className="font-semibold text-white">สำรวจความสนใจ</p>
-                      <p className="text-xs text-white/70">เลือกหัวข้อที่คุณอยากรู้จากกว่า 25 หมวดหมู่</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 rounded-xl bg-white/10 p-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-300 text-base font-bold text-sky-900">
-                      02
-                    </span>
-                    <div>
-                      <p className="font-semibold text-white">ต่อยอดด้วยกิจกรรม</p>
-                      <p className="text-xs text-white/70">เลือกกิจกรรมภาคสนาม เวิร์กช็อป หรือคลาสออนไลน์</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="mission" className="bg-white py-16">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4">
-          <div className="max-w-3xl space-y-4">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sky-600">MISSION</p>
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-              ภารกิจหลักของ OKMD ในการขับเคลื่อนสังคมแห่งการเรียนรู้
-            </h2>
-            <p className="text-base text-slate-600">
-              เราประสานความร่วมมือและออกแบบโครงการที่เน้นผู้เรียนเป็นศูนย์กลาง โดยใช้ข้อมูลและงานวิจัยเพื่อเพิ่มผลลัพธ์ที่วัดได้จริง
-            </p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {missionItems.map((item) => (
-              <div key={item.title} className="flex h-full flex-col gap-3 rounded-2xl border border-sky-100 bg-slate-50 p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-sky-900">{item.title}</h3>
-                <p className="text-sm text-slate-600">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="services" className="bg-sky-900 py-16 text-white">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4">
-          <div className="flex flex-col gap-3 text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-300">SERVICES</p>
-            <h2 className="text-2xl font-bold sm:text-3xl">
-              บริการความรู้สำหรับทุกช่วงวัยและทุกพื้นที่
-            </h2>
-            <p className="text-sm text-white/70 sm:text-base">
-              เลือกบริการที่ตอบโจทย์เป้าหมายของคุณ ตั้งแต่การค้นคว้า ไปจนถึงการลงมือทำและต่อยอดเป็นธุรกิจสร้างสรรค์
-            </p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-2">
-            {serviceCards.map((service) => (
-              <div
-                key={service.title}
-                className="flex h-full flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition hover:-translate-y-1 hover:border-amber-200/40 hover:bg-white/10"
-              >
-                <span className="text-3xl" aria-hidden>
-                  {service.icon}
+    <div id="top" className="okmd-page">
+      <section className="okmd-hero">
+        <div className="okmd-container">
+          <div className="okmd-hero__grid">
+            <div className="okmd-hero__content">
+              <div className="okmd-hero__brand-row">
+                <span className="okmd-hero__brand-icon" aria-hidden>
+                  <Image src="/globe.svg" alt="" width={44} height={44} />
                 </span>
-                <h3 className="text-lg font-semibold text-amber-200">{service.title}</h3>
-                <p className="text-sm text-white/80">{service.description}</p>
-                <Link
-                  href="#contact"
-                  className="mt-auto inline-flex w-max items-center gap-2 text-sm font-semibold text-white transition hover:text-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                >
-                  ดูรายละเอียดบริการ →
+                <span className="okmd-hero__brand-name">OKMD</span>
+              </div>
+              <h1>
+                สร้างโอกาสการเรียนรู้ให้ทุกคน
+                <span> เข้าถึงง่าย ใช้ได้จริง</span>
+              </h1>
+              <p className="okmd-hero__lead">
+                เราออกแบบระบบนิเวศการเรียนรู้ที่ผสานข้อมูล พื้นที่ และกิจกรรม ให้ทุกคนสามารถก้าวสู่เป้าหมายได้อย่างมั่นใจ
+                พร้อมทีมโค้ชและสื่อประกอบครบถ้วน
+              </p>
+              <div className="okmd-hero__cta">
+                <Link href="#search" className="okmd-btn okmd-btn--primary">
+                  สำรวจบริการความรู้
+                </Link>
+                <Link href="#join" className="okmd-btn okmd-btn--outline">
+                  สมัครร่วมโครงการ
                 </Link>
               </div>
-            ))}
+              <div className="okmd-hero__stats">
+                {heroHighlights.map((item) => (
+                  <div key={item.label}>
+                    <p>{item.value}</p>
+                    <span>{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="okmd-hero__visual">
+              <div className="okmd-hero__visual-card">
+                <Image
+                  src="/window.svg"
+                  alt="พื้นที่การเรียนรู้แบบเปิด"
+                  width={920}
+                  height={540}
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+          <div className="okmd-hero__pager" aria-hidden>
+            <span className="okmd-hero__pager-bar" />
+            <span className="okmd-hero__pager-dot" />
+            <span className="okmd-hero__pager-dot" />
           </div>
         </div>
       </section>
 
-      <section id="news" className="bg-white py-16">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4">
-          <div className="flex flex-col gap-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sky-600">NEWS & EVENTS</p>
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">ข่าวและกิจกรรมล่าสุด</h2>
-            <p className="text-base text-slate-600">
-              ติดตามความเคลื่อนไหว โครงการ และกิจกรรมเรียนรู้ที่เกิดขึ้นทั่วประเทศ
-            </p>
+      <section id="search" className="okmd-search">
+        <div className="okmd-container">
+          <div className="okmd-search__frame">
+            <div className="okmd-search__card">
+              <p className="okmd-search__eyebrow">KNOWLEDGE IS OPPORTUNITY</p>
+              <div className="okmd-search__body">
+                <h2>ค้นหาทรัพยากรการเรียนรู้ที่ตรงกับคุณ</h2>
+                <p>
+                  เริ่มจากเลือกหมวดหมู่และรูปแบบการเรียนรู้ เพื่อรับคำแนะนำสื่อและกิจกรรมที่ตอบโจทย์ที่สุด
+                </p>
+              </div>
+              <form className="okmd-search__form">
+                <label>
+                  <span>หมวดหมู่</span>
+                  <select>
+                    <option>เลือกหมวดหมู่</option>
+                    <option>Creative Economy</option>
+                    <option>Active Learning</option>
+                    <option>Digital Skills</option>
+                  </select>
+                </label>
+                <label>
+                  <span>รูปแบบ</span>
+                  <select>
+                    <option>ทั้งหมด</option>
+                    <option>เวิร์กช็อป</option>
+                    <option>คอร์สออนไลน์</option>
+                    <option>แหล่งเรียนรู้ออนไลน์</option>
+                  </select>
+                </label>
+                <label>
+                  <span>คำค้นหา</span>
+                  <input type="search" placeholder="เช่น Civic Education" />
+                </label>
+                <button type="submit" className="okmd-search__button" aria-label="ค้นหา">
+                  <span aria-hidden>ค้นหา</span>
+                </button>
+              </form>
+            </div>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {newsItems.map((news) => (
-              <article
-                key={news.title}
-                className="flex h-full flex-col gap-4 rounded-2xl border border-slate-200 bg-slate-50/80 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">{news.date}</p>
-                <h3 className="text-lg font-semibold text-slate-900">{news.title}</h3>
-                <p className="text-sm text-slate-600">{news.description}</p>
-                <Link
-                  href="#"
-                  className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-sky-700 transition hover:text-sky-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
-                >
-                  อ่านเพิ่มเติม →
+        </div>
+      </section>
+
+      <section id="mission" className="okmd-highlight">
+        <div className="okmd-container">
+          <div className="okmd-section-header">
+            <p>MISSION</p>
+            <h2>ภารกิจหลักของ OKMD ในการขับเคลื่อนการเรียนรู้</h2>
+          </div>
+          <div className="okmd-highlight__grid">
+            {highlightCards.map((card) => (
+              <article key={card.title} className={`okmd-highlight__card okmd-highlight__card--${card.variant}`}>
+                <div className="okmd-highlight__content">
+                  <span>{card.eyebrow}</span>
+                  {card.meta ? <small>{card.meta}</small> : null}
+                  <h3>{card.title}</h3>
+                  <p>{card.description}</p>
+                </div>
+                <Link href={card.action.href} className="okmd-card-link">
+                  {card.action.label}
                 </Link>
               </article>
             ))}
@@ -251,62 +249,153 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="media" className="bg-slate-100 py-16">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4">
-          <div className="flex flex-col gap-3 text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sky-600">MEDIA LIBRARY</p>
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">คลังสื่อสร้างแรงบันดาลใจ</h2>
-            <p className="text-sm text-slate-600 sm:text-base">
-              เลือกฟัง อ่าน หรือชมสื่อการเรียนรู้ที่เราคัดสรร เพื่อเติมไอเดียใหม่ให้โครงการของคุณ
-            </p>
+      <section id="services" className="okmd-recommended">
+        <div className="okmd-container">
+          <div className="okmd-section-header okmd-section-header--light">
+            <p>SERVICES</p>
+            <h2>บริการและโปรแกรมแนะนำสำหรับเป้าหมายของคุณ</h2>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {mediaGalleries.map((media) => (
-              <div
-                key={media.title}
-                className="flex h-full flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="h-32 rounded-xl bg-gradient-to-br from-sky-200 via-sky-100 to-white" aria-hidden />
-                <div className="space-y-2">
-                  <h3 className="text-lg font-semibold text-slate-900">{media.title}</h3>
-                  <p className="text-sm text-slate-600">{media.description}</p>
+          <div className="okmd-recommended__grid">
+            {recommendedCards.map((card) => (
+              <article key={card.title} className={`okmd-recommended__card okmd-recommended__card--${card.variant}`}>
+                <div>
+                  <h3>{card.title}</h3>
+                  <p>{card.description}</p>
                 </div>
-                <Link
-                  href="#"
-                  className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-sky-700 transition hover:text-sky-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
-                >
-                  เข้าชมสื่อ →
+                <Link href={card.action.href} className="okmd-card-link">
+                  {card.action.label}
                 </Link>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="join" className="relative overflow-hidden bg-gradient-to-r from-amber-300 via-amber-200 to-amber-100 py-16">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.5),_transparent_65%)]" aria-hidden />
-        <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center gap-6 px-4 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sky-900">JOIN US</p>
-          <h2 className="text-2xl font-bold text-sky-900 sm:text-3xl">
-            ร่วมขับเคลื่อนสังคมการเรียนรู้กับ OKMD
-          </h2>
-          <p className="max-w-2xl text-base text-sky-900/80">
-            แบ่งปันไอเดีย สมัครเป็นวิทยากร หรือเป็นส่วนหนึ่งของเครือข่ายต้นแบบจากทั่วประเทศ เพื่อร่วมกันสร้างการเปลี่ยนแปลง
-          </p>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-full bg-sky-900 px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-sky-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-900"
-            >
-              นัดหมายพูดคุยกับทีมเรา
-            </Link>
-            <Link
-              href="mailto:contact@okmd.or.th"
-              className="inline-flex items-center justify-center rounded-full border border-sky-900/40 px-6 py-3 text-sm font-semibold text-sky-900 transition hover:bg-white/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-900"
-            >
-              ส่งข้อเสนอความร่วมมือ
+      <section id="media" className="okmd-shelf">
+        <div className="okmd-container okmd-shelf__grid">
+          <div className="okmd-shelf__list">
+            <div className="okmd-section-header">
+              <p>MEDIA LIBRARY</p>
+              <h2>คลังทรัพยากรแนะนำสำหรับครูและผู้เรียน</h2>
+            </div>
+            <ul>
+              {shelfCategories.map((item) => (
+                <li key={item}>
+                  <button type="button">{item}</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="okmd-shelf__cover">
+            <div className="okmd-shelf__cover-media">
+              <Image src="/file.svg" alt="ปกคลังความรู้" width={360} height={520} />
+            </div>
+            <div className="okmd-hero__pager okmd-hero__pager--shelf" aria-hidden>
+              <span className="okmd-hero__pager-bar" />
+              <span className="okmd-hero__pager-dot" />
+              <span className="okmd-hero__pager-dot" />
+            </div>
+          </div>
+          <div className="okmd-shelf__description">
+            <div className="okmd-shelf__insights">
+              {shelfHighlights.map((item) => (
+                <div key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              ))}
+            </div>
+            <Link href="#" className="okmd-card-link">
+              ดาวน์โหลดแคตตาล็อกฉบับเต็ม
             </Link>
           </div>
+        </div>
+      </section>
+
+      <section className="okmd-activity">
+        <div className="okmd-container">
+          <div className="okmd-section-header">
+            <p>ACTIVITY</p>
+            <h2>กิจกรรมประจำเดือนและเวิร์กช็อปลงพื้นที่</h2>
+          </div>
+          <div className="okmd-activity__thumbs">
+            {activityThumbs.map((title) => (
+              <button key={title} type="button">
+                {title}
+              </button>
+            ))}
+          </div>
+          <div className="okmd-activity__grid">
+            <div className="okmd-activity__calendar">
+              <div className="okmd-activity__calendar-inner">
+                <span>มีนาคม 2568</span>
+                <strong>OKMD Learning Lab</strong>
+                <p>ลงทะเบียนภายใน 20 มี.ค. 2568</p>
+              </div>
+            </div>
+            <ul className="okmd-activity__schedule">
+              {activitySchedule.map((slot) => (
+                <li key={slot.time}>
+                  <span>{slot.time}</span>
+                  <div>
+                    <h3>{slot.title}</h3>
+                    <p>{slot.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="news" className="okmd-news">
+        <div className="okmd-container">
+          <div className="okmd-section-header okmd-section-header--center">
+            <p>NEWS</p>
+            <h2>ข่าวและอัปเดตจาก OKMD</h2>
+          </div>
+          <div className="okmd-news__grid">
+            {newsItems.map((news) => (
+              <article key={news.title}>
+                <span>{news.date}</span>
+                <h3>{news.title}</h3>
+                <p>{news.description}</p>
+                <Link href="#" className="okmd-card-link">
+                  อ่านเพิ่มเติม
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="join" className="okmd-cta">
+        <div className="okmd-container okmd-cta__grid">
+          <div className="okmd-cta__copy">
+            <p>JOIN US</p>
+            <h2>ร่วมเป็นส่วนหนึ่งของเครือข่ายการเรียนรู้ OKMD</h2>
+            <p>
+              สมัครเป็นวิทยากร เจ้าภาพพื้นที่ต้นแบบ หรือพัฒนาหลักสูตรร่วมกับเรา เพื่อขยายโอกาสการเรียนรู้ไปทุกจังหวัด
+            </p>
+          </div>
+          <form className="okmd-cta__form">
+            <label>
+              <span>อีเมล</span>
+              <input type="email" placeholder="name@example.com" required />
+            </label>
+            <label>
+              <span>ประเภทความสนใจ</span>
+              <select>
+                <option>เลือกหัวข้อ</option>
+                <option>ร่วมจัดกิจกรรม</option>
+                <option>ขอคำปรึกษา</option>
+                <option>สมัครเป็นวิทยากร</option>
+              </select>
+            </label>
+            <button type="submit" className="okmd-btn okmd-btn--primary">
+              ส่งคำขอ
+            </button>
+          </form>
         </div>
       </section>
     </div>
