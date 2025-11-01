@@ -30,10 +30,11 @@ export default function NavBar() {
   const navLinks = useMemo<NavLink[]>(
     () => [
       { label: 'หน้าแรก', href: '/' },
-      { label: 'ภารกิจหลัก', href: '#mission' },
-      { label: 'บริการความรู้', href: '#services' },
-      { label: 'ข่าวและกิจกรรม', href: '#news' },
-      { label: 'คลังสื่อ', href: '#media' },
+      { label: 'ภารกิจหลัก', href: '/#mission' },
+      { label: 'บริการความรู้', href: '/#services' },
+      { label: 'ข่าวและกิจกรรม', href: '/#news' },
+      { label: 'คลังสื่อ', href: '/#media' },
+      { label: 'เข้าสู่ระบบ', href: '/login' },
     ],
     [],
   )
@@ -222,9 +223,9 @@ export default function NavBar() {
       <div
         id="mobile-navigation"
         ref={menuRef}
-        className={`md:hidden ${
+        className={`${
           mobileOpen ? 'pointer-events-auto max-h-screen opacity-100' : 'pointer-events-none max-h-0 opacity-0'
-        } overflow-hidden bg-sky-800 text-white transition-all duration-300 ease-in-out`}
+        } overflow-hidden bg-sky-800 text-white transition-all duration-300 ease-in-out md:hidden`}
       >
         <div className="space-y-4 px-4 py-4">
           <nav className="flex flex-col gap-2 text-base font-semibold">
