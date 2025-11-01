@@ -14,7 +14,7 @@
     "test": "node --test tests/fontSettingsLogic.test.mjs"
   },
   "dependencies": {
-    "next": "14.2.13",
+    "next": "14.2.32",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
