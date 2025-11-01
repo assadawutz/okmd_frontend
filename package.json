@@ -1,5 +1,4 @@
 {
-<<<<<<< Updated upstream
   "name": "okmd-frontend",
   "version": "0.1.0",
   "private": true,
@@ -15,43 +14,17 @@
     "test": "node --test tests/fontSettingsLogic.test.mjs"
   },
   "dependencies": {
-    "next": "14.2.13",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "autoprefixer": "10.4.19",
+    "@types/react": "file:types/react",
+    "@types/react-dom": "file:types/react-dom",
+    "autoprefixer": "file:local-packages/autoprefixer",
     "postcss": "8.4.38",
     "tailwindcss": "3.4.14",
     "typescript": "5.5.4"
   }
 }
-=======
-  "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
-}
->>>>>>> Stashed changes
