@@ -5,16 +5,16 @@
 @import "./okmd.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --font-geist-sans: Arial, Helvetica, sans-serif;
+  --background: var(--surface-base);
+  --foreground: var(--ink);
+  --font-geist-sans: var(--font-body);
   --font-geist-mono: "Courier New", Courier, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--surface-base);
+    --foreground: var(--ink);
   }
 }
 
@@ -47,7 +47,7 @@ html.high-contrast a {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
