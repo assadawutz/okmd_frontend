@@ -7,7 +7,7 @@ import {
   increaseFontSize,
   storageToContrast,
   storageToFontSize,
-} from "../components/layout/fontSettingsLogic.mjs";
+} from "../components/fontSettingsLogic.mjs";
 
 test("increaseFontSize progresses until the maximum", () => {
   assert.equal(increaseFontSize("base"), "large");
