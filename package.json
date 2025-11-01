@@ -11,15 +11,13 @@
     "test": "node --test tests/fontSettingsLogic.test.mjs"
   },
   "dependencies": {
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "next": "14.2.15"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "next": "^14.2.13"
   },
   "devDependencies": {
     "typescript": "^5",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
     "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4"
   }
