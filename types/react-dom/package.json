@@ -1,0 +1,5 @@
+{
+  "name": "@types/react-dom",
+  "version": "18.0.0-local",
+  "types": "index.d.ts"
+}
