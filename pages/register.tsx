@@ -1,189 +1,233 @@
 import Link from "next/link";
 
-const benefitItems = [
+import PageHero from "@/components/okmd/PageHero";
+import PageSection from "@/components/okmd/PageSection";
+
+const profileTypes = [
   {
-    title: "เส้นทางการเรียนรู้ส่วนบุคคล",
-    description: "จัดชุดเนื้อหาและกิจกรรมให้ตรงกับเป้าหมายการพัฒนาทักษะของคุณ",
+    title: "บุคคลทั่วไป",
+    description: "เข้าถึงคอร์สออนไลน์ บทความ และกิจกรรมที่คุณสนใจ พร้อมรับคำแนะนำส่วนตัว", 
   },
   {
-    title: "คลังความรู้พรีเมียม",
-    description: "เข้าถึงบทเรียน เอกสาร และสื่อเฉพาะสำหรับสมาชิก OKMD",
+    title: "ครูและโค้ชการเรียนรู้",
+    description: "จัดการหลักสูตรสำหรับผู้เรียน เชื่อมโยงแหล่งเรียนรู้ และติดตามผลแบบเรียลไทม์", 
   },
   {
-    title: "ชุมชนแลกเปลี่ยน",
-    description: "ร่วมกิจกรรม เวิร์กช็อป และแลกเปลี่ยนประสบการณ์กับเครือข่ายผู้เรียนทั่วประเทศ",
+    title: "ภาคีเครือข่าย",
+    description: "ร่วมพัฒนาโครงการกับ OKMD บริหารสมาชิกชุมชน และแชร์องค์ความรู้ให้สาธารณะ", 
   },
 ];
 
-const steps = [
+const onboardingPerks = [
   {
-    title: "กรอกข้อมูลพื้นฐาน",
-    description: "ระบุชื่อ นามสกุล อีเมล และรหัสผ่านเพื่อสร้างบัญชี",
+    title: "คลังเนื้อหา 4,500 ชั่วโมง",
+    detail: "บทเรียน วิดีโอ Podcast และ Toolkit ที่อัปเดตทุกสัปดาห์ แยกตามความสนใจ",
   },
   {
-    title: "ยืนยันอีเมล",
-    description: "เราจะส่งลิงก์ยืนยันเพื่อเปิดใช้งานบัญชีของคุณ",
+    title: "กิจกรรมพิเศษสำหรับสมาชิก",
+    detail: "เวิร์กช็อปและ Learning Tour รอบพิเศษ พร้อมสิทธิ์ Early Bird",
   },
   {
-    title: "เริ่มต้นสำรวจคลังความรู้",
-    description: "จัดการโปรไฟล์ กำหนดเป้าหมาย และเลือกเนื้อหาที่สนใจ",
+    title: "แดชบอร์ดความก้าวหน้า",
+    detail: "ติดตามการเรียนรู้ของคุณและทีมด้วยสถิติที่อ่านง่าย พร้อมคำแนะนำถัดไป",
   },
 ];
 
 export default function RegisterPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="bg-gradient-to-br from-amber-300 via-amber-200 to-amber-100 py-16 text-sky-900">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 lg:flex-row lg:items-center">
-          <div className="flex-1 space-y-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-700">Create Account</p>
-            <h1 className="text-3xl font-bold leading-tight sm:text-4xl">สมัครสมาชิก OKMD Learning Portal</h1>
-            <p className="max-w-2xl text-sm text-sky-800/80 sm:text-base">
-              สร้างบัญชีเพื่อรับประสบการณ์การเรียนรู้แบบ Personalized พร้อมการติดตามความก้าวหน้าและสิทธิพิเศษอีกมากมาย
-            </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {benefitItems.map((item) => (
-                <div key={item.title} className="rounded-2xl border border-amber-400/40 bg-white/70 p-5 shadow">
-                  <h3 className="text-base font-semibold text-sky-900">{item.title}</h3>
-                  <p className="mt-2 text-sm text-sky-800/80">{item.description}</p>
-                </div>
-              ))}
+    <div className="bg-slate-50">
+      <PageHero
+        eyebrow="Join the Movement"
+        title="สมัครสมาชิก OKMD Portal เพื่อปลดล็อกประสบการณ์การเรียนรู้ใหม่"
+        description="สร้างโปรไฟล์ เชื่อมต่อเครือข่าย และรับการคัดสรรคอนเทนต์ที่ตอบโจทย์คุณที่สุด"
+        actions={
+          <>
+            <Link
+              href="/login"
+              className="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              มีบัญชีอยู่แล้ว? เข้าสู่ระบบ
+            </Link>
+            <Link
+              href="/"
+              className="inline-flex items-center justify-center rounded-full bg-amber-300 px-6 py-3 text-sm font-bold text-sky-900 shadow-lg transition hover:bg-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              สำรวจโครงการของเรา
+            </Link>
+          </>
+        }
+      >
+        <form className="mx-auto w-full max-w-lg space-y-4 rounded-3xl border border-white/20 bg-white/10 p-6 shadow-lg backdrop-blur">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-1">
+              <label htmlFor="firstName" className="text-sm font-semibold text-white">
+                ชื่อ
+              </label>
+              <input
+                id="firstName"
+                name="firstName"
+                required
+                className="w-full rounded-xl border border-white/20 bg-white/20 px-4 py-3 text-sm text-white placeholder:text-white/60 focus:border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                placeholder="ชื่อจริง"
+              />
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/login"
-                className="inline-flex items-center justify-center rounded-full border border-sky-700 px-6 py-3 text-sm font-semibold text-sky-900 transition hover:bg-sky-900 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700"
-              >
-                มีบัญชีแล้ว? เข้าสู่ระบบ
-              </Link>
-              <Link
-                href="/"
-                className="inline-flex items-center justify-center rounded-full border border-transparent bg-sky-900 px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-sky-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-900"
-              >
-                กลับหน้าหลัก
-              </Link>
-            </div>
-          </div>
-          <div className="flex-1">
-            <div className="mx-auto w-full max-w-md rounded-3xl bg-white p-8 shadow-xl">
-              <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">สมัครสมาชิก</p>
-              <h2 className="mt-2 text-2xl font-bold text-sky-900">เริ่มสร้างโปรไฟล์การเรียนรู้ของคุณ</h2>
-              <p className="mt-3 text-sm text-slate-600">
-                กรอกข้อมูลตามแบบฟอร์มด้านล่าง เพื่อให้ระบบแนะนำคอนเทนต์และกิจกรรมที่ตรงกับความสนใจของคุณมากที่สุด
-              </p>
-              <form className="mt-6 space-y-4">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="block text-sm">
-                    <span className="mb-2 block font-medium text-slate-800">ชื่อ</span>
-                    <input
-                      type="text"
-                      className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
-                      placeholder="ชื่อจริง"
-                    />
-                  </label>
-                  <label className="block text-sm">
-                    <span className="mb-2 block font-medium text-slate-800">นามสกุล</span>
-                    <input
-                      type="text"
-                      className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
-                      placeholder="นามสกุล"
-                    />
-                  </label>
-                </div>
-                <label className="block text-sm">
-                  <span className="mb-2 block font-medium text-slate-800">อีเมล</span>
-                  <input
-                    type="email"
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
-                    placeholder="you@example.com"
-                  />
-                </label>
-                <label className="block text-sm">
-                  <span className="mb-2 block font-medium text-slate-800">รหัสผ่าน</span>
-                  <input
-                    type="password"
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
-                    placeholder="••••••••"
-                  />
-                </label>
-                <label className="block text-sm">
-                  <span className="mb-2 block font-medium text-slate-800">ยืนยันรหัสผ่าน</span>
-                  <input
-                    type="password"
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
-                    placeholder="••••••••"
-                  />
-                </label>
-                <label className="flex items-center gap-3 text-sm text-slate-600">
-                  <input type="checkbox" className="h-4 w-4 rounded border-slate-300 text-sky-700 focus:ring-sky-500" />
-                  <span>
-                    ยอมรับ
-                    <Link href="/#privacy" className="font-semibold text-sky-700 underline-offset-4 hover:underline">
-                      {' '}นโยบายคุ้มครองข้อมูลส่วนบุคคล
-                    </Link>
-                  </span>
-                </label>
-                <button
-                  type="submit"
-                  className="w-full rounded-full bg-sky-900 px-6 py-3 text-sm font-bold text-white shadow transition hover:bg-sky-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-900"
-                >
-                  สมัครสมาชิก
-                </button>
-              </form>
-              <p className="mt-6 text-center text-sm text-slate-600">
-                มีบัญชีอยู่แล้ว?{' '}
-                <Link href="/login" className="font-semibold text-sky-700 underline-offset-4 hover:underline">
-                  เข้าสู่ระบบ
-                </Link>
-              </p>
+            <div className="space-y-1">
+              <label htmlFor="lastName" className="text-sm font-semibold text-white">
+                นามสกุล
+              </label>
+              <input
+                id="lastName"
+                name="lastName"
+                required
+                className="w-full rounded-xl border border-white/20 bg-white/20 px-4 py-3 text-sm text-white placeholder:text-white/60 focus:border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                placeholder="นามสกุล"
+              />
             </div>
           </div>
-        </div>
-      </section>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-1">
+              <label htmlFor="email" className="text-sm font-semibold text-white">
+                อีเมล
+              </label>
+              <input
+                id="email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                required
+                className="w-full rounded-xl border border-white/20 bg-white/20 px-4 py-3 text-sm text-white placeholder:text-white/60 focus:border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                placeholder="you@example.com"
+              />
+            </div>
+            <div className="space-y-1">
+              <label htmlFor="phone" className="text-sm font-semibold text-white">
+                เบอร์ติดต่อ
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                className="w-full rounded-xl border border-white/20 bg-white/20 px-4 py-3 text-sm text-white placeholder:text-white/60 focus:border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                placeholder="080-000-0000"
+              />
+            </div>
+          </div>
+          <div className="space-y-1">
+            <label htmlFor="organization" className="text-sm font-semibold text-white">
+              หน่วยงาน / สังกัด (ถ้ามี)
+            </label>
+            <input
+              id="organization"
+              className="w-full rounded-xl border border-white/20 bg-white/20 px-4 py-3 text-sm text-white placeholder:text-white/60 focus:border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300"
+              placeholder="ชื่อองค์กรหรือสถานศึกษา"
+            />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-1">
+              <label htmlFor="password" className="text-sm font-semibold text-white">
+                สร้างรหัสผ่าน
+              </label>
+              <input
+                id="password"
+                type="password"
+                autoComplete="new-password"
+                minLength={8}
+                required
+                className="w-full rounded-xl border border-white/20 bg-white/20 px-4 py-3 text-sm text-white placeholder:text-white/60 focus:border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                placeholder="อย่างน้อย 8 ตัวอักษร"
+              />
+            </div>
+            <div className="space-y-1">
+              <label htmlFor="confirmPassword" className="text-sm font-semibold text-white">
+                ยืนยันรหัสผ่าน
+              </label>
+              <input
+                id="confirmPassword"
+                type="password"
+                autoComplete="new-password"
+                minLength={8}
+                required
+                className="w-full rounded-xl border border-white/20 bg-white/20 px-4 py-3 text-sm text-white placeholder:text-white/60 focus:border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                placeholder="กรอกอีกครั้ง"
+              />
+            </div>
+          </div>
+          <div className="space-y-1">
+            <label htmlFor="profileType" className="text-sm font-semibold text-white">
+              บทบาทหลักของคุณ
+            </label>
+            <select
+              id="profileType"
+              className="w-full rounded-xl border border-white/20 bg-white/20 px-4 py-3 text-sm text-slate-900 focus:border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300"
+              defaultValue="general"
+            >
+              <option value="general">บุคคลทั่วไป</option>
+              <option value="teacher">ครู / โค้ชการเรียนรู้</option>
+              <option value="partner">ภาคีเครือข่าย</option>
+            </select>
+          </div>
+          <label className="flex items-start gap-3 text-xs text-white/80">
+            <input type="checkbox" required className="mt-1 h-4 w-4 rounded border-white/30 bg-white/10 text-amber-300 focus:ring-amber-200" />
+            ฉันยอมรับข้อตกลงการใช้งานและนโยบายคุ้มครองข้อมูลส่วนบุคคลของ OKMD
+          </label>
+          <button
+            type="submit"
+            className="w-full rounded-full bg-white px-6 py-3 text-sm font-bold text-sky-900 transition hover:bg-amber-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            สมัครสมาชิก
+          </button>
+        </form>
+      </PageHero>
 
-      <section className="bg-white py-16">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 lg:flex-row">
-          <div className="flex-1 space-y-6">
-            <h2 className="text-2xl font-bold text-sky-900">สมัครง่ายภายในไม่กี่นาที</h2>
-            <ol className="space-y-4 text-sm text-slate-700">
-              {steps.map((step, index) => (
-                <li key={step.title} className="flex gap-4 rounded-2xl bg-slate-50 p-5 shadow-sm">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-100 text-base font-bold text-sky-700">
-                    {index + 1}
-                  </span>
-                  <div>
-                    <p className="font-semibold text-slate-900">{step.title}</p>
-                    <p className="text-slate-600">{step.description}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <div className="flex-1 space-y-6">
-            <h3 className="text-xl font-bold text-sky-900">สิทธิประโยชน์ที่คุณจะได้รับ</h3>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {benefitItems.map((item) => (
-                <div key={item.title} className="rounded-2xl border border-sky-100 bg-slate-50 p-5 shadow-sm">
-                  <h4 className="text-base font-semibold text-sky-900">{item.title}</h4>
-                  <p className="mt-2 text-sm text-slate-600">{item.description}</p>
-                </div>
-              ))}
+      <PageSection
+        eyebrow="Profile Types"
+        title="เลือกบทบาทที่ตรงกับคุณ เพื่อรับประสบการณ์ที่เหมาะสม"
+        description="เราปรับประสบการณ์ตามบทบาทของคุณ เพื่อให้เนื้อหาและกิจกรรมที่เสนอมีความหมายที่สุด"
+      >
+        <div className="grid gap-6 md:grid-cols-3">
+          {profileTypes.map((profile) => (
+            <div
+              key={profile.title}
+              className="flex h-full flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            >
+              <h3 className="text-lg font-semibold text-sky-900">{profile.title}</h3>
+              <p className="text-sm text-slate-600">{profile.description}</p>
             </div>
-            <div className="rounded-3xl border border-sky-100 bg-slate-50 p-6 text-sm text-slate-600">
-              <p>
-                หากต้องการความช่วยเหลือในการสมัครสมาชิก สามารถติดต่อศูนย์บริการลูกค้าได้ที่
-                <a href="tel:021054000" className="font-semibold text-sky-700 underline-offset-4 hover:underline">
-                  {' '}0-2105-4000
-                </a>
-                หรืออีเมล
-                <a href="mailto:contact@okmd.or.th" className="font-semibold text-sky-700 underline-offset-4 hover:underline">
-                  {' '}contact@okmd.or.th
-                </a>
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
-      </section>
-    </main>
+      </PageSection>
+
+      <PageSection
+        variant="muted"
+        eyebrow="Member Perks"
+        title="สิทธิประโยชน์เมื่อสมัครสมาชิกวันนี้"
+        description="ใช้งานได้ฟรีทันที พร้อมโปรแกรมอัปเกรดสำหรับทีมและองค์กรในอนาคต"
+      >
+        <div className="grid gap-6 md:grid-cols-3">
+          {onboardingPerks.map((perk) => (
+            <div
+              key={perk.title}
+              className="flex h-full flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            >
+              <h3 className="text-lg font-semibold text-sky-900">{perk.title}</h3>
+              <p className="text-sm text-slate-600">{perk.detail}</p>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-2xl border border-sky-200 bg-white/70 p-6 text-sky-900 shadow-inner">
+          <h3 className="text-lg font-semibold">พร้อมสำหรับการใช้ในองค์กร?</h3>
+          <p className="mt-2 text-sm text-slate-600">
+            ติดต่อทีม Customer Success เพื่อออกแบบแผนการใช้งานสำหรับหน่วยงาน พร้อมฟีเจอร์จัดการสมาชิกและรายงานแบบกำหนดเอง
+          </p>
+          <Link
+            href="mailto:partnership@okmd.or.th"
+            className="mt-4 inline-flex items-center justify-center rounded-full bg-sky-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-sky-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-900"
+          >
+            นัดหมายพูดคุยกับทีม
+          </Link>
+        </div>
+      </PageSection>
+    </div>
   );
 }
