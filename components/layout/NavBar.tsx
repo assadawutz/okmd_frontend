@@ -1,11 +1,16 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import FontSettings from './FontSettings'
 
 type NavLink = {
   label: string
   href: string
+}
+
+type AuthLink = NavLink & {
+  variant: 'ghost' | 'primary'
 }
 
 const focusableSelectors = [
@@ -29,6 +34,14 @@ export default function NavBar() {
       { label: 'บริการความรู้', href: '#services' },
       { label: 'ข่าวและกิจกรรม', href: '#news' },
       { label: 'คลังสื่อ', href: '#media' },
+    ],
+    [],
+  )
+
+  const authLinks = useMemo<AuthLink[]>(
+    () => [
+      { label: 'เข้าสู่ระบบ', href: '/login', variant: 'ghost' },
+      { label: 'สมัครสมาชิก', href: '/register', variant: 'primary' },
     ],
     [],
   )
@@ -110,6 +123,19 @@ export default function NavBar() {
           </div>
           <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
             <FontSettings />
+            {authLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                  link.variant === 'primary'
+                    ? 'bg-amber-300 text-sky-900 shadow hover:bg-amber-200'
+                    : 'border border-white/40 bg-white/10 text-white hover:bg-white/20'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
             <button
               type="button"
               className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -159,23 +185,36 @@ export default function NavBar() {
 
           <nav className="hidden items-center gap-6 text-sm font-semibold md:flex">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="rounded px-2 py-1 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
-          <div className="hidden md:block">
-            <a
+          <div className="hidden items-center gap-3 md:flex">
+            {authLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                  link.variant === 'primary'
+                    ? 'bg-amber-300 text-sky-900 shadow hover:bg-amber-200'
+                    : 'border border-white/40 bg-white/10 text-white hover:bg-white/20'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
               href="#join"
               className="inline-flex items-center gap-2 rounded-full bg-amber-300 px-4 py-2 text-sm font-bold text-sky-900 shadow transition hover:bg-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               สมัครร่วมโครงการ
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -190,22 +229,44 @@ export default function NavBar() {
         <div className="space-y-4 px-4 py-4">
           <nav className="flex flex-col gap-2 text-base font-semibold">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="rounded px-3 py-2 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 onClick={closeMobileMenu}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
-          <a
+          <div className="flex flex-col gap-2">
+            {authLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`flex items-center justify-center rounded-full px-4 py-2 text-sm font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                  link.variant === 'primary'
+                    ? 'bg-amber-300 text-sky-900 shadow hover:bg-amber-200'
+                    : 'border border-white/40 bg-white/10 text-white hover:bg-white/20'
+                }`}
+                onClick={closeMobileMenu}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          <Link
             href="#join"
             className="flex items-center justify-center rounded-full bg-amber-300 px-4 py-2 text-sm font-bold text-sky-900 shadow transition hover:bg-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             onClick={closeMobileMenu}
           >
             สมัครร่วมโครงการ
+          </Link>
+          <a
+            href="tel:021054000"
+            className="flex items-center justify-center rounded-full border border-amber-300 bg-transparent px-4 py-2 text-sm font-semibold text-amber-200 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            ติดต่อ 02-105-4000
           </a>
         </div>
       </div>
