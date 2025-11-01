@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import FontSettings from './FontSettings'
 
@@ -25,10 +26,11 @@ export default function NavBar() {
   const navLinks = useMemo<NavLink[]>(
     () => [
       { label: 'หน้าแรก', href: '/' },
-      { label: 'ภารกิจหลัก', href: '#mission' },
-      { label: 'บริการความรู้', href: '#services' },
-      { label: 'ข่าวและกิจกรรม', href: '#news' },
-      { label: 'คลังสื่อ', href: '#media' },
+      { label: 'ภารกิจหลัก', href: '/#mission' },
+      { label: 'บริการความรู้', href: '/#services' },
+      { label: 'ข่าวและกิจกรรม', href: '/#news' },
+      { label: 'คลังสื่อ', href: '/#media' },
+      { label: 'เข้าสู่ระบบ', href: '/login' },
     ],
     [],
   )
@@ -159,23 +161,23 @@ export default function NavBar() {
 
           <nav className="hidden items-center gap-6 text-sm font-semibold md:flex">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="rounded px-2 py-1 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
           <div className="hidden md:block">
-            <a
-              href="#join"
+            <Link
+              href="/register"
               className="inline-flex items-center gap-2 rounded-full bg-amber-300 px-4 py-2 text-sm font-bold text-sky-900 shadow transition hover:bg-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               สมัครร่วมโครงการ
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -183,30 +185,30 @@ export default function NavBar() {
       <div
         id="mobile-navigation"
         ref={menuRef}
-        className={`md:hidden ${
+        className={`${
           mobileOpen ? 'pointer-events-auto max-h-screen opacity-100' : 'pointer-events-none max-h-0 opacity-0'
-        } overflow-hidden bg-sky-800 text-white transition-all duration-300 ease-in-out`}
+        } overflow-hidden bg-sky-800 text-white transition-all duration-300 ease-in-out md:hidden`}
       >
         <div className="space-y-4 px-4 py-4">
           <nav className="flex flex-col gap-2 text-base font-semibold">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="rounded px-3 py-2 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 onClick={closeMobileMenu}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
-          <a
-            href="#join"
+          <Link
+            href="/register"
             className="flex items-center justify-center rounded-full bg-amber-300 px-4 py-2 text-sm font-bold text-sky-900 shadow transition hover:bg-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             onClick={closeMobileMenu}
           >
             สมัครร่วมโครงการ
-          </a>
+          </Link>
         </div>
       </div>
     </header>
