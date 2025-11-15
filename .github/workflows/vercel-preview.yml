@@ -1,0 +1,26 @@
+
+name: Vercel Preview
+on:
+  push:
+    branches: [main, dev, feature/**]
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with: {version: 9}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm build
+      - name: Deploy
+        run: |
+          npm install -g vercel
+          vercel --token=$VERCEL_TOKEN --prod=false --yes
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

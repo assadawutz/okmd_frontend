@@ -1,0 +1,1 @@
+export default function Home(){return(<div style={{padding:40}}>OKMD FULL V7 — REAL USE</div>);}
