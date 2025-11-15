@@ -1,1 +1,9 @@
-export default function Root({children}){return(<html><body>{children}</body></html>);}
+import type { ReactNode } from "react";
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+    return (
+        <html lang="th">
+            <body>{children}</body>
+        </html>
+    );
+}
