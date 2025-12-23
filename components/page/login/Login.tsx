@@ -113,16 +113,17 @@ export default function Login() {
                   สมัครสมาชิก
                 </Link>
               </p>
+              </div>
             </div>
-          </div>
 
-          <div className="col-span-12 sm:col-span-10 sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4 mt-4 sm:mt-6 text-center">
-            <Link
-              href="/pdpa"
-              className="text-sm text-gray-500 hover:text-[#16A7CB]"
-            >
-              นโยบายความเป็นส่วนตัว
-            </Link>
+            <div className="col-span-12 sm:col-span-10 sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4 mt-4 sm:mt-6 text-center">
+              <Link
+                href="/pdpa"
+                className="text-sm text-gray-500 hover:text-[#16A7CB]"
+              >
+                นโยบายความเป็นส่วนตัว
+              </Link>
+            </div>
           </div>
         </div>
       </div>
