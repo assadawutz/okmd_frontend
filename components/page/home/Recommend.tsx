@@ -59,9 +59,30 @@ export default function RecommendSection() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover absolute inset-0 opacity-80 group-hover:scale-[1.05] transition duration-[1200ms]"
                 />
-
-
                 
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+                <div className="relative z-10 mt-auto p-6 md:p-8 w-full flex flex-col justify-end h-full">
+                  <span className="inline-flex items-center gap-2 text-[#74CEE2] text-sm font-medium uppercase tracking-wider mb-2">
+                    <Sparkles size={16} /> {item.tag}
+                  </span>
+                  
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-snug">
+                    {item.title}
+                  </h3>
+                  
+                  <p className="text-gray-300 text-base md:text-lg mb-6 line-clamp-3">
+                    {item.desc}
+                  </p>
+
+                  <div className="flex items-center text-white font-medium group/btn w-fit">
+                    View collection
+                    <span className="ml-2 bg-white/20 p-1 rounded-full group-hover/btn:bg-[#74CEE2] transition-colors">
+                      <ArrowUpRight size={16} />
+                    </span>
+                  </div>
+                </div>
+
               </article>
             ))}
           </div>

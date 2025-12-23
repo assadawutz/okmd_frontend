@@ -106,8 +106,14 @@ export default function ActivityBlock() {
                 <div className="absolute top-3 right-3 flex flex-wrap gap-2">
                     <img src="/mu-3.png" alt="" className="inline-block w-[40px] h-[40px] " />
                 </div>
-
                 
+                <div className="absolute bottom-4 left-4 right-4 text-white z-10">
+                   <span className="inline-block bg-[#74CEE2] text-xs font-bold px-2 py-1 rounded mb-2 text-[#1B1D20]">
+                      {item.tag}
+                   </span>
+                   <h3 className="text-xl font-bold leading-tight drop-shadow-md">{item.title}</h3>
+                   <p className="text-sm opacity-90 mt-1 drop-shadow-md">{item.location} • {item.dateLabel}</p>
+                </div>
               </article>
             ))}
           </div>
@@ -128,9 +134,12 @@ export default function ActivityBlock() {
                   sizes="(max-width: 768px) 100vw, 25vw"
                   className={`${idx === 1 ? "object-contain bg-transparent" : "object-cover"} transition-all duration-500 group-hover:scale-105`}
                 />
-                <div className="absolute inset-0 bg-transparent" />
-
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 
+                <div className="absolute bottom-4 left-4 right-4 text-white z-10">
+                   <h3 className="text-lg font-bold leading-tight drop-shadow-md">{item.title}</h3>
+                   <p className="text-xs opacity-90 mt-1">{item.dateLabel}</p>
+                </div>
               </article>
             ))}
 

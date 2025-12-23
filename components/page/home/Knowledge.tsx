@@ -1,37 +1,10 @@
-// app/KnowledgePage.tsx
 "use client";
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import React, { type ReactNode } from "react";
 
-// --- 1. Component Definitions (Added '' prefix and kept taller image height) ---
-
-type BreadcrumbItem = {
-  label: string;
-  href?: string;
-};
-type BreadcrumbProps = {
-  items: BreadcrumbItem[];
-};
-function Breadcrumb({ items }: BreadcrumbProps) {
-  return (
-    <div className="flex items-center text-base text-gray-500 font-medium">
-      {items.map((item, index) => (
-        <React.Fragment key={index}>
-          {item.href ? (
-            <Link href={item.href} className="hover:text-gray-700 transition cursor-pointer">
-              {item.label}
-            </Link>
-          ) : (
-            <span className="text-[#74CEE2]">{item.label}</span>
-          )}
-          {index < items.length - 1 && <span className="mx-2">›</span>}
-        </React.Fragment>
-      ))}
-    </div>
-  );
-}
+// --- Subcomponents ---
 
 type MenuItem = {
   label: string;
@@ -75,7 +48,6 @@ function MagazineCard({ title, img, fileSize }: MagazineCardProps) {
       className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden transition-all duration-300 hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] h-full cursor-pointer flex flex-col"
       onClick={() => alert(`Mock Click: ${title}`)}
     >
-      {/* Retained Taller Height: h-[350px] sm:h-[380px] md:h-[400px] */}
       <div className="w-full h-[350px] sm:h-[380px] md:h-[400px] overflow-hidden">
         <img
           src={img}
@@ -151,9 +123,9 @@ function Pagination({ total, current }: PaginationProps) {
   );
 }
 
-// --- 2. Main Component ---
+// --- Main Component ---
 
-export default function KnowledgePage() {
+export default function KnowledgeShelfSection() {
   const MENU: MenuItem[] = [
     { label: "OKMD หนังสือนิตยสาร", value: "magazine" },
     { label: "OKMD แนะนำหนังสือดี", value: "recommend" },
@@ -164,7 +136,6 @@ export default function KnowledgePage() {
   const [selectedMenu, setSelectedMenu] = useState("magazine");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // DATA_SOURCE matches the 6 magazines shown in the image 
   const DATA_SOURCE: Record<string, MagazineCardProps[]> = {
     magazine: [
       { title: "The Knowledge vol.39 (AI DEEPFAKE)", img: "/kn-1.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
@@ -173,7 +144,6 @@ export default function KnowledgePage() {
       { title: "The Knowledge vol.36 (AI)", img: "/kn-4.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
       { title: "The Knowledge vol.35 (FUTURE VEHICLES)", img: "/kn-5.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
       { title: "The Knowledge vol.34 (COST OF READING)", img: "/kn-6.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      // Added more mock data for pagination simulation
       { title: "The Knowledge vol.33", img: "/kn-1.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
       { title: "The Knowledge vol.32", img: "/kn-2.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
       { title: "The Knowledge vol.31", img: "/kn-3.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
@@ -217,26 +187,12 @@ export default function KnowledgePage() {
   }, [selectedMenu]);
 
   return (
-    <main className="w-full bg-white pb-16">
-      {/* BREADCRUMB BAR */}
-      <div className="w-full bg-white">
-        <div className="container mx-auto px-6 h-[84px] flex items-center">
-          <Breadcrumb
-            items={[
-              { label: "หน้าหลัก", href: "/" },
-              { label: "ตู้ความรู้" },
-            ]}
-          />
-        </div>
-      </div>
-
-      {/* MAIN PAGE CONTAINER */}
+    <section className="w-full bg-white pb-16 pt-12">
       <div className="container mx-auto px-6">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
           ตู้ <span className="text-[#74CEE2]">ความรู้</span>
-        </h1>
+        </h2>
 
-        {/* FLEX GRID LAYOUT */}
         <div className="mt-8 md:mt-12 grid grid-cols-12 gap-x-12 gap-y-10">
           {/* LEFT SIDEBAR */}
           <aside className="col-span-12 md:col-span-3 pb-4 md:pb-0">
@@ -249,11 +205,11 @@ export default function KnowledgePage() {
 
           {/* RIGHT CONTENT */}
           <section className="col-span-12 md:col-span-9 space-y-10 md:space-y-12">
-            <h2 className="text-3xl md:text-4xl font-bold leading-snug text-gray-800">
+            <h3 className="text-3xl md:text-4xl font-bold leading-snug text-gray-800">
               {PAGE_TITLE}
-            </h2>
+            </h3>
 
-            {/* CARD GRID: Set to 3 columns on large screens (lg:grid-cols-3) */}
+            {/* CARD GRID */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
               {paginatedData.map((item) => (
                 <div key={item.title} className="col-span-1 h-full">
@@ -273,7 +229,6 @@ export default function KnowledgePage() {
           </section>
         </div>
       </div>
-
-    </main>
+    </section>
   );
 }
