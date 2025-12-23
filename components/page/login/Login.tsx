@@ -114,6 +114,7 @@ export default function Login() {
                 </Link>
               </p>
             </div>
+            </div>
           </div>
 
           <div className="col-span-12 sm:col-span-10 sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4 mt-4 sm:mt-6 text-center">
