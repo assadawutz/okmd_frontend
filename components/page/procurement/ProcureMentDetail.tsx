@@ -46,8 +46,17 @@ const METHOD_MAP: Record<string, string> = {
     'special-emergency': 'วิธีการพิเศษ / กรณีฉุกเฉิน',
 };
 
+interface ProcurementData {
+    id: string;
+    title?: string;
+    type?: string;
+    status?: string;
+    method?: string;
+    [key: string]: unknown;
+}
+
 export default function ProcureMentDetail({ id }: { id: string }) {
-    const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<ProcurementData | null>(null);
 
     useEffect(() => {
         const fetchDetail = async () => {

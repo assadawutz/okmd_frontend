@@ -5,6 +5,16 @@ import Select from "@/components/ui/Select";
 import { BsBank, BsQrCodeScan } from "react-icons/bs";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 
+interface Step2ReceiptProps {
+  donorType: string;
+  setDonorType: (type: string) => void;
+  paymentMethod: string;
+  setPaymentMethod: (method: string) => void;
+  form: Record<string, string>;
+  setForm: (form: Record<string, string> | ((prev: Record<string, string>) => Record<string, string>)) => void;
+  goToStep: (step: number) => void;
+}
+
 export default function Step2Receipt({
   donorType,
   setDonorType,
@@ -13,7 +23,7 @@ export default function Step2Receipt({
   form,
   setForm,
   goToStep,
-}: any) {
+}: Step2ReceiptProps) {
   return (
     <div className="text-center">
       {/* Title */}

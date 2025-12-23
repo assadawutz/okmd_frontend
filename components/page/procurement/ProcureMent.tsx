@@ -73,8 +73,17 @@ const LabelWithTooltip = ({ title, tooltip }: { title: string; tooltip: string }
 
 /* ================= COMPONENT ================= */
 
+interface ProcurementItem {
+  id: string;
+  title?: string;
+  type?: string;
+  status?: string;
+  method?: string;
+  [key: string]: unknown;
+}
+
 export default function ProcureMent() {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<ProcurementItem[]>([]);
   const [loading, setLoading] = useState(false);
 
   // filters (ยังไม่เอาไป query)
@@ -85,19 +94,19 @@ export default function ProcureMent() {
   const [startdate, setStartDate] = useState('');
   const [enddate, setEndDate] = useState('');
 
-  const fetchData = async () => {
-    setLoading(true);
-
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/procurement-announcements`
-    );
-    const result = await res.json();
-
-    setData(result.data || []);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/procurement-announcements`
+      );
+      const result = await res.json();
+
+      setData(result.data || []);
+      setLoading(false);
+    };
+
     fetchData();
   }, []);
 

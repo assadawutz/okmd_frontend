@@ -1,4 +1,15 @@
-export const NEWS_DATA: any = {
+interface NewsDataItem {
+  id: string;
+  title: string;
+  tag?: string;
+  date?: string;
+  img?: string;
+  infoImage?: string;
+  body?: string;
+  related?: Array<{ id: string; img?: string; title?: string }>;
+}
+
+export const NEWS_DATA: Record<string, NewsDataItem> = {
   "1": {
     id: "1",
     title: "OKMD จัดกิจกรรม Knowledge Day กระตุ้นการเรียนรู้ยุคใหม่",

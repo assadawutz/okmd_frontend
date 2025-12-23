@@ -38,7 +38,12 @@ export default function DropzoneInput({
   const baseUrl = "/api/uploads/";
 
   /** โหลดค่าเริ่มต้นจาก props */
-  useEffect(() => setFiles(value), [value]);
+  useEffect(() => {
+    if (value.length > 0 || files.length === 0) {
+      setFiles(value);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
   // useEffect(() => setOldFiles(apiFiles), [apiFiles]);
 
   /** Resize รูป */
@@ -193,7 +198,7 @@ export default function DropzoneInput({
                 className="relative w-28 h-36 border bg-white rounded-lg shadow-sm overflow-hidden flex flex-col text-xs group"
               >
                 {isImage ? (
-                  <img src={f.src} className="w-full h-24 object-cover" />
+                  <img src={f.src} alt={f.name} className="w-full h-24 object-cover" />
                 ) : (
                   <div className="w-full h-24 bg-gray-200 flex items-center justify-center">
                     📄 {f.name.split(".").pop()?.toUpperCase()}
@@ -211,9 +216,11 @@ export default function DropzoneInput({
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      f.isApi
-                        ? removeApiFile(i)
-                        : removeFile(i - oldFiles.length);
+                      if (f.isApi) {
+                        removeApiFile(i);
+                      } else {
+                        removeFile(i - oldFiles.length);
+                      }
                     }}
                     className="absolute top-1 right-1 bg-black/70 text-white rounded-full w-5 h-5 text-[10px] flex items-center justify-center opacity-0 group-hover:opacity-100"
                   >

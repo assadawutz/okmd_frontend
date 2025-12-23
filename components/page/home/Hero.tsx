@@ -1,6 +1,5 @@
 "use client";
 
-import { Divide } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -13,11 +12,9 @@ export default function Hero() {
   const [index, setIndex] = useState(0);
   const timer = useRef<NodeJS.Timeout | null>(null);
 
-  /* AUTOPLAY */
-  useEffect(() => {
-    startAuto();
-    return stopAuto;
-  }, [index]);
+  const stopAuto = () => {
+    if (timer.current) clearTimeout(timer.current);
+  };
 
   const startAuto = () => {
     stopAuto();
@@ -26,9 +23,12 @@ export default function Hero() {
     }, 4000);
   };
 
-  const stopAuto = () => {
-    if (timer.current) clearTimeout(timer.current);
-  };
+  /* AUTOPLAY */
+  useEffect(() => {
+    startAuto();
+    return stopAuto;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
 
   const goTo = (i: number) => {
     stopAuto();
