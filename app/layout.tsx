@@ -4,7 +4,6 @@ import "./globals.css";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import LogoBar from "@/components/Bar";
-import Breadcrumb from "@/components/Breadcrumb";
 
 const kanit = Kanit({
   subsets: ["latin", "thai"],

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Kanit } from "next/font/google";
-import { useRouter } from "next/navigation";
 import ShareButtons from "@/components/ShareButtons";
 import RelatedNews from "@/components/RelatedNews";
 
@@ -13,16 +12,15 @@ const kanit = Kanit({
   variable: "--font-kanit",
 });
 
-
 /* ================= TYPES ================= */
-
 
 interface NewsItem {
   id: number;
   title: string;
-  content: string; // HTML จาก API
+  content: string;
   banner: string;
   category_id: number;
+  category?: { id: number };
 }
 
 interface NewsReleaseDetailProps {
@@ -32,13 +30,10 @@ interface NewsReleaseDetailProps {
 /* ================= COMPONENT ================= */
 
 export default function NewsReleaseDetail({ newsId }: NewsReleaseDetailProps) {
-  const router = useRouter();
-
   const [newsItem, setNewsItem] = useState<NewsItem | null>(null);
-
- const [newsList, setNewsList] = useState<any[]>([]);
- const [relatedNews, setRelatedNews] = useState<any[]>([]);
- const [loading, setLoading] = useState(true);
+  const [newsList, setNewsList] = useState<NewsItem[]>([]);
+  const [relatedNews, setRelatedNews] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -75,7 +70,7 @@ export default function NewsReleaseDetail({ newsId }: NewsReleaseDetailProps) {
    const related = newsList
      .filter(
        (item) =>
-         item.id !== current.id && item.category?.id === current.category.id
+         item.id !== current.id && item.category?.id === current.category?.id
      )
      .slice(0, 4);
 

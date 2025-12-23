@@ -14,7 +14,6 @@ interface InputDateProps {
 
 export default function InputDate({
   label,
-  required = false,
   value,
   onChange,
   error,

@@ -4,7 +4,12 @@ import Breadcrumb from "@/components/Breadcrumb";
 import { NEWS_DATA } from "../../../../data/news";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, Key } from "react";
+
+interface RelatedNewsItem {
+  id: string;
+  img: string;
+  title: string;
+}
 
 export default function NewsDetail({ params }: { params: { id: string } }) {
   const n = NEWS_DATA[params.id];
@@ -109,7 +114,7 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
           <article className="col-span-12 md:col-span-10">
             <div className="space-y-6 text-[17px] leading-[30px] text-[#1B1D20]">
               {bodyParagraphs.length > 0
-                ? bodyParagraphs.map((para: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined, idx: Key | null | undefined) => (
+                ? bodyParagraphs.map((para: string, idx: number) => (
                   <p key={idx} className="whitespace-pre-line">
                     {para}
                   </p>
@@ -129,7 +134,7 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
 
-            {n.related?.map((r: any, i: number) => (
+            {n.related?.map((r: RelatedNewsItem, i: number) => (
               <Link key={i} href={`/news/detail/${r.id}`} className="group flex flex-col">
 
                 <div className="w-full h-[170px] rounded-xl overflow-hidden">

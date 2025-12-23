@@ -1,8 +1,7 @@
 "use client";
 
-import { Divide } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 const SLIDES = [
   { src: "/rectangle-689.png", alt: "AI-Driven Intelligence Banner 1" },
@@ -13,22 +12,22 @@ export default function Hero() {
   const [index, setIndex] = useState(0);
   const timer = useRef<NodeJS.Timeout | null>(null);
 
-  /* AUTOPLAY */
-  useEffect(() => {
-    startAuto();
-    return stopAuto;
-  }, [index]);
+  const stopAuto = useCallback(() => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
 
-  const startAuto = () => {
+  const startAuto = useCallback(() => {
     stopAuto();
     timer.current = setTimeout(() => {
       setIndex((prev) => (prev + 1) % SLIDES.length);
     }, 4000);
-  };
+  }, [stopAuto]);
 
-  const stopAuto = () => {
-    if (timer.current) clearTimeout(timer.current);
-  };
+  /* AUTOPLAY */
+  useEffect(() => {
+    startAuto();
+    return stopAuto;
+  }, [index, startAuto, stopAuto]);
 
   const goTo = (i: number) => {
     stopAuto();

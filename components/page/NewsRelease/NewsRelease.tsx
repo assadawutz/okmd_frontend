@@ -1,22 +1,21 @@
 'use client'
 
-import Image from "next/image";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import NewsCard from "@/components/NewCard";
 import { useEffect, useState } from "react";
-;
-interface NewsItem {
-   id: number;
-   title: string;
-   excerpt: string;
-   content: string;
-   cover_image: any;
- }
 
-  export default function NewsCorporatePage() {
-    const [news, setNews] = useState<NewsItem[]>([]);
-    const [loading, setLoading] = useState(true);
+interface NewsItem {
+  id: number;
+  title: string;
+  excerpt: string;
+  content: string;
+  cover_image: string | null;
+}
+
+export default function NewsReleasePage() {
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [, setLoading] = useState(true);
 
     const searchParams = useSearchParams();
     const categoryId = searchParams.get("category");
@@ -42,7 +41,7 @@ interface NewsItem {
       };
 
       fetchNews();
-    }, []);
+    }, [categoryId]);
     return (
       <div className="min-h-screen bg-white text-slate-800 font-sans pb-20">
         <main className="pl-24">
@@ -51,7 +50,7 @@ interface NewsItem {
 
           {/* Grid Container */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-            {news.map((newsItem : any) => (
+            {news.map((newsItem: NewsItem) => (
               <NewsCard
                 key={newsItem.id}
                 data={newsItem}
