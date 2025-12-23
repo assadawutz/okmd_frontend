@@ -2,12 +2,18 @@
 
 import { useEffect, useState } from 'react';
 
+interface AboutUsData {
+  title?: string;
+  content?: string;
+  [key: string]: unknown;
+}
+
 interface AboutUsProps {
   page: string;
 }
 
 const AboutOkmd = ({ page }: AboutUsProps) => {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<AboutUsData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +27,7 @@ const AboutOkmd = ({ page }: AboutUsProps) => {
 
         const result = await res.json();
         setData(result.data);
-      } catch (err) {
+      } catch {
         setData(null);
       } finally {
         setLoading(false);
@@ -47,7 +53,7 @@ const AboutOkmd = ({ page }: AboutUsProps) => {
 
       <div
         className="prose prose-lg max-w-none mt-6"
-        dangerouslySetInnerHTML={{ __html: data.content }}
+        dangerouslySetInnerHTML={{ __html: data.content || '' }}
       />
     </div>
   );

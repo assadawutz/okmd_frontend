@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function Donation() {
   const router = useRouter();
   // ข้อมูลโครงการบริจาค (จำลองข้อมูลจากภาพ)
-  const [projects, setProjects] = useState([
+  const [projects] = useState([
     {
       id: 1,
       title: "โครงการศูนย์การเรียนรู้แห่งชาติ NKC",

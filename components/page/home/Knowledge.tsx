@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Link from "next/link";
-import React, { type ReactNode } from "react";
+import React from "react";
 
 // --- Subcomponents ---
 

@@ -3,7 +3,6 @@
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { FiChevronDown } from 'react-icons/fi';
 
 type MenuItem = {
   id: number;

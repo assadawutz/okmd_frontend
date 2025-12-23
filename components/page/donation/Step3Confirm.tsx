@@ -1,6 +1,15 @@
 import Button from "@/components/ui/Button";
 import DropzoneInput from "@/components/ui/Dropzone";
+import Image from "next/image";
 import { MdOutlineArrowBackIos } from "react-icons/md";
+
+interface Step3ConfirmProps {
+  amount: number;
+  paymentMethod: string | null;
+  files: File[];
+  setFiles: (files: File[]) => void;
+  goToStep: (step: number) => void;
+}
 
 export default function Step3Confirm({
   amount,
@@ -8,7 +17,7 @@ export default function Step3Confirm({
   files,
   setFiles,
   goToStep,
-}: any) {
+}: Step3ConfirmProps) {
   return (
     <div className="text-center bg-white px-4 py-10 rounded-lg">
       <h2 className="text-4xl font-semibold mb-10 text-gray-900">
@@ -34,10 +43,12 @@ export default function Step3Confirm({
 
               {/* QR CODE BOX */}
               <div className=" rounded-lg p-6">
-                <img
-                  src={`/images/qrcodee-do.png`}
+                <Image
+                  src="/images/qrcodee-do.png"
                   alt="QR Code"
-                  className="w-64 h-64 mx-auto"
+                  width={256}
+                  height={256}
+                  className="mx-auto"
                 />
 
                 <div className="flex justify-between mt-6 text-[#666971] text-lg">

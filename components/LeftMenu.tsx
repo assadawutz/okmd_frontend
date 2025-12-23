@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 type MenuItem = { label: string; value: string };
 type Props = {
   items: MenuItem[];

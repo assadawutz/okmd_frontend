@@ -2,22 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Button from "@/components/ui/Button";
-import { DiFsharp } from "react-icons/di";
-import { FaStepBackward } from "react-icons/fa";
-import { MdOutlineArrowBackIos } from "react-icons/md";
-import { BsBank, BsQrCodeScan } from "react-icons/bs";
-import Input from "@/components/ui/Input";
-import Select from "@/components/ui/Select";
-import Dropzone from "@/components/ui/Dropzone";
-import DropzoneInput from "@/components/ui/Dropzone";
 import DonationLeftBanner from "./DonationLeftBanner";
 import StepIndicator from "./StepIndicator";
 import Step1Amount from "./Step1Amount";
 import Step2Receipt from "./Step2Receipt";
 import Step3Confirm from "./Step3Confirm";
-
-const predefinedAmounts = [2000, 1000, 500];
 
 export default function DonationAmountSelector({ id }: { id: string }) {
   const router = useRouter();
@@ -57,14 +46,15 @@ export default function DonationAmountSelector({ id }: { id: string }) {
     setCustomAmount("");
   };
 
-  const handleCustomChange = (e: any) => {
+  const handleCustomChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
     setCustomAmount(value);
     setSelectedAmount(null);
   };
 
-  const amountSelected =
+  const _amountSelected =
     selectedAmount || (customAmount ? parseInt(customAmount, 10) : 0);
+  void _amountSelected; // suppress unused warning
 
   // Sync UI เมื่อเปลี่ยน step ใน URL
   useEffect(() => {
@@ -103,8 +93,6 @@ export default function DonationAmountSelector({ id }: { id: string }) {
         {currentStep === 2 && (
           <Step2Receipt
             goToStep={goToStep}
-            selectedAmount={selectedAmount}
-            customAmount={customAmount}
             donorType={donorType}
             setDonorType={setDonorType}
             paymentMethod={paymentMethod}
