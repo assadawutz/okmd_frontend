@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import React from 'react';
 import { ChevronLeft, CheckCircle2, AlertCircle, Trash2, UploadCloud } from 'lucide-react';
 import Link from 'next/link';
 // import { motion, AnimatePresence } from 'framer-motion';
