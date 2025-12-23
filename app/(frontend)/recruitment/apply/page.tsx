@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { ChevronLeft, CheckCircle2, AlertCircle, Trash2, UploadCloud } from 'lucide-react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+// import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Page() {
   const [modal, setModal] = useState<'none' | 'save' | 'delete' | 'success'>('none');
@@ -36,10 +36,10 @@ export default function Page() {
         </div>
         <div className="flex justify-end pt-10 border-t border-slate-50"><button onClick={()=>setModal('save')} className="btn-primary px-16">ส่งข้อมูลใบสมัคร</button></div>
       </div>
-      <AnimatePresence>
+      {/* <AnimatePresence> */}
         {modal !== 'none' && (
-          <div className="modal-overlay" onClick={()=>setModal('none')}>
-            <motion.div initial={{scale:0.9, opacity:0}} animate={{scale:1, opacity:1}} className="bg-white rounded-[4rem] p-16 max-w-sm w-full text-center shadow-2xl" onClick={e=>e.stopPropagation()}>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={()=>setModal('none')}>
+            <div className="bg-white rounded-[4rem] p-16 max-w-sm w-full text-center shadow-2xl animate-in fade-in zoom-in duration-200" onClick={e=>e.stopPropagation()}>
               {modal === 'save' && <>
                 <div className="w-24 h-24 bg-blue-50 text-okmd rounded-full flex items-center justify-center mx-auto mb-8 text-5xl font-black italic">?</div>
                 <h3 className="text-2xl font-black mb-10 leading-tight">ยืนยันการส่ง<br/>ใบสมัคร?</h3>
@@ -55,10 +55,10 @@ export default function Page() {
                 <h3 className="text-2xl font-black mb-10 uppercase">ส่งสำเร็จ</h3>
                 <Link href="/recruitment/list" className="btn-primary w-full">กลับหน้าหลัก</Link>
               </>}
-            </motion.div>
+            </div>
           </div>
         )}
-      </AnimatePresence>
+      {/* </AnimatePresence> */}
     </main>
   );
 }

@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import LogoBar from "@/components/Bar";
 import Breadcrumb from "@/components/Breadcrumb";
 
