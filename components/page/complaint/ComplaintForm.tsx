@@ -32,7 +32,7 @@ export default function ComplaintForm({ mode }: { mode: string }) {
     return (
       <div className="p-8 border rounded-xl text-center bg-green-50">
         <div className="text-2xl font-bold text-green-600 mb-3">
-          ส่ง{mode}สำเร็จ!
+          ส่ง {mode} สำเร็จ!
         </div>
         <p className="text-gray-500">เจ้าหน้าที่จะติดต่อกลับโดยเร็วที่สุด</p>
       </div>
@@ -86,7 +86,7 @@ export default function ComplaintForm({ mode }: { mode: string }) {
           onClick={submit}
           className="col-span-12 bg-[#16A7CB] text-white rounded-lg py-3 font-semibold hover:bg-[#1397b6]"
         >
-          ส่ง{mode}
+          ส่ง {mode}
         </button>
       </div>
     </div>
