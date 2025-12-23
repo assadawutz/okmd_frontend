@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Footer from "@/components/layout/Footer";
+import NavBar from "@/components/layout/NavBar";
 import LogoBar from "@/components/Bar";
 import Breadcrumb from "@/components/Breadcrumb";
 
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="th" className={kanit.variable}>
       <body className={`bg-white text-[#1B1D20] antialiased ${kanit.className}`}>
-        <Header />
+        <NavBar />
         {/* <div className="container mx-auto "><Breadcrumb/></div> */}
         {/* MAIN LANDMARK — WCAG 2.1 Compliant */}
         <main id="main-content" role="main" tabIndex={-1} className="container mx-auto grid px-4 grid-cols-12">
