@@ -1,16 +1,9 @@
 'use client'
-import { Kanit } from "next/font/google";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ShareButtons from "@/components/ShareButtons";
 import RelatedNews from "@/components/RelatedNews";
 
-
-const kanit = Kanit({
-  subsets: ["thai", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-kanit",
-});
 
 const mockNews = [
   {
@@ -243,7 +236,7 @@ export default function CalenderEventDetail({
 
   return (
     <div
-      className={`${kanit.variable} font-kanit min-h-screen bg-white text-[#333]`}
+      className="min-h-screen bg-white text-[#333]"
     >
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-3">
         {/* Header */}

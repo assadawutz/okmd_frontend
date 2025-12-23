@@ -776,7 +776,7 @@ function FilesSection() {
     <div className="space-y-10">
       {/* Replaced bg-[#74CEE2] text-white font-bold px-8 py-6 rounded-xl text-xl shadow-lg */}
       <div className="bg-[#74CEE2] text-white font-bold px-8 py-6 rounded-xl text-xl shadow-lg">
-        เอกสาร "เรื่องร้องเรียน"
+        เอกสาร &quot;เรื่องร้องเรียน&quot;
       </div>
 
       {/* Replaced border border-gray-200 rounded-xl overflow-hidden bg-white shadow-md */}

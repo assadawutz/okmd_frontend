@@ -1,17 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Kanit } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import LogoBar from "@/components/Bar";
 import Breadcrumb from "@/components/Breadcrumb";
-
-const kanit = Kanit({
-  subsets: ["latin", "thai"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-kanit",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "OKMD Portal",
@@ -25,8 +17,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="th" className={kanit.variable}>
-      <body className={`bg-white text-[#1B1D20] antialiased ${kanit.className}`}>
+    <html lang="th">
+      <body className="bg-white text-[#1B1D20] antialiased">
         <Header />
         {/* <div className="container mx-auto "><Breadcrumb/></div> */}
         {/* MAIN LANDMARK — WCAG 2.1 Compliant */}

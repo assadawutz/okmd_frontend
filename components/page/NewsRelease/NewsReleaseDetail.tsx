@@ -2,16 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Kanit } from "next/font/google";
 import { useRouter } from "next/navigation";
 import ShareButtons from "@/components/ShareButtons";
 import RelatedNews from "@/components/RelatedNews";
-
-const kanit = Kanit({
-  subsets: ["thai", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-kanit",
-});
 
 
 /* ================= TYPES ================= */
@@ -99,7 +92,7 @@ export default function NewsReleaseDetail({ newsId }: NewsReleaseDetailProps) {
 
   return (
     <div
-      className={`${kanit.variable} font-kanit min-h-screen bg-white text-[#333]`}
+      className="min-h-screen bg-white text-[#333]"
     >
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 ">
         {/* Header */}
