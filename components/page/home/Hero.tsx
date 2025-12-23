@@ -13,11 +13,9 @@ export default function Hero() {
   const [index, setIndex] = useState(0);
   const timer = useRef<NodeJS.Timeout | null>(null);
 
-  /* AUTOPLAY */
-  useEffect(() => {
-    startAuto();
-    return stopAuto;
-  }, [index]);
+  const stopAuto = () => {
+    if (timer.current) clearTimeout(timer.current);
+  };
 
   const startAuto = () => {
     stopAuto();
@@ -26,9 +24,11 @@ export default function Hero() {
     }, 4000);
   };
 
-  const stopAuto = () => {
-    if (timer.current) clearTimeout(timer.current);
-  };
+  /* AUTOPLAY */
+  useEffect(() => {
+    startAuto();
+    return stopAuto;
+  }, [index]);
 
   const goTo = (i: number) => {
     stopAuto();
