@@ -1,0 +1,67 @@
+import React from 'react';
+import Link from 'next/link';
+const title = {
+  id_Ha: "นโยบายขององค์กรและนโยบายผู้บริหาร"
+};
+const data = [
+  {
+    id: 1,
+    title: "ประกาศเรื่องนโยบายบริหารทรัพยากรบุคคล ประจำปีงบประมาณ พ.ศ. 2566",
+    size: "392 KB",
+    href: ""
+  },
+  {
+    id: 2,
+    title: "ประกาศเรื่องนโยบายบริหารทรัพยากรบุคคล ประจำปีงบประมาณ พ.ศ. 2565",
+    size: "378 KB",
+    href: ""
+  },
+  {
+    id: 3,
+    title: "ประกาศเรื่องนโยบายบริหารทรัพยากรบุคคล ประจำปีงบประมาณ พ.ศ. 2564",
+    size: "286 KB",
+    href: ""
+  },
+  {
+    id: 4,
+    title: "ประกาศเรื่องนโยบายบริหารทรัพยากรบุคคล ประจำปีงบประมาณ พ.ศ. 2563",
+    size: "328 KB",
+    href: ""
+  },
+  {
+    id: 5,
+    title: "ประกาศสำนักงานบริหารและพัฒนาองค์ความรู้ เรื่อง เจตจำนงสุจริตในการบริหารงานของ สบร.",
+    size: "745.23 KB",
+    href: ""
+  },
+];
+export default function PerationalPlan() {
+  return (
+    <div>
+      <h1 className="text-3xl font-bold mb-10">{title.id_Ha}</h1>
+      <div className='w-full rounded-lg overflow-hidden container'>
+        <div className='bg-[#6BCFE3] text-white py-4 px-6 text-lg'>
+          รายงานนโยบายและแผนที่เกี่ยวข้อง
+        </div>
+        <div className='flex flex-col'>
+          {data.map((data, idx) => (
+            <Link
+              key={data.id}
+              href={data.href}
+              className={`block py-6 px-6 border-b border-gray-100 last:border-0 hover:opacity-80 transition-opacity
+            ${idx % 2 !== 0 ? 'bg-[#F2FBFC]' : 'bg-white'}
+            `}
+            >
+              <span className='text-sm'>
+                {data.title}
+                <p className='text-[#16A7CB]'>
+                  (ดาวน์โหลด pdf ขนาด {data.size})
+                </p>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
