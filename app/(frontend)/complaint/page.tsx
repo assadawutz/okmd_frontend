@@ -54,8 +54,16 @@ function FormRow({ children }: FormRowProps) {
 }
 
 function FormGrid({ label, placeholder, full, type = "text", options = [], colSpan = 6, fieldName, value, error, onChange }: FormGridProps) {
-  // Responsive grid columns
-  const containerClass = full ? "col-span-12" : `col-span-12 sm:col-span-6 md:col-span-${colSpan}`;
+  // Responsive grid columns - use explicit class mapping for Tailwind JIT
+  const getColSpanClass = (span: number): string => {
+    const colSpanMap: Record<number, string> = {
+      1: "md:col-span-1", 2: "md:col-span-2", 3: "md:col-span-3", 4: "md:col-span-4",
+      5: "md:col-span-5", 6: "md:col-span-6", 7: "md:col-span-7", 8: "md:col-span-8",
+      9: "md:col-span-9", 10: "md:col-span-10", 11: "md:col-span-11", 12: "md:col-span-12"
+    };
+    return colSpanMap[span] || "md:col-span-6";
+  };
+  const containerClass = full ? "col-span-12" : `col-span-12 sm:col-span-6 ${getColSpanClass(colSpan)}`;
   const isInvalid = !!error;
 
   // Responsive input class
@@ -529,7 +537,6 @@ function FormSection() {
             placeholder="กรอกรายละเอียดการร้องเรียน..."
             value={formData.details}
             onChange={(e: ChangeEvent<HTMLTextAreaElement>) => handleUpdate('details', e.target.value)}
-            // Replaced w-full border ${formErrors.details ? ... : ...} rounded-xl p-5 h-[250px] mt-4 resize-none text-lg
             className={`w-full border ${formErrors.details ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : 'border-gray-300 focus:border-[#74CEE2] focus:ring-[#74CEE2]/50'} rounded-xl p-5 h-[250px] mt-4 resize-none text-lg`}
           />
           {/* Replaced text-red-500 text-sm mt-1 */}

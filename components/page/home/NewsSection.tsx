@@ -18,8 +18,8 @@ export default function NewsSection() {
   const newsList = Object.values(NEWS_DATA).slice(0, 3) as NewsItem[];
 
   return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="container mx-auto px-6 lg:px-10">
+    <section className="bg-white py-16 md:py-24">
+      <div className="container mx-auto">
         
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 md:mb-12 gap-4">
           <div>

@@ -37,7 +37,7 @@ export default function Hero() {
 
   return (
     <section
-      className="w-full bg-white overflow-hidden"
+      className="w-full cursor-pointer bg-white overflow-hidden"
       aria-label="AI-Driven Hero Section"
       aria-live="off"
     >
@@ -71,9 +71,10 @@ export default function Hero() {
           })}
 
           {/* TEXT LAYER */}
-          <figcaption className="absolute inset-0 flex items-start z-20 pt-10 lg:pt-12 pointer-events-none">
-            <div className="container mx-auto px-6 lg:px-10">
-              <div className="max-w-2xl">
+          <figcaption className="absolute inset-0 flex items-top z-20 mt-8 pointer-events-none">
+            <div className="w-full flex justify-center">
+              <div className="container w-full">
+
                 <Image
                   src="/okmd_ai_logo.png"
                   width={72}
@@ -103,7 +104,7 @@ export default function Hero() {
         </figure>
 
         {/* PAGINATION DESKTOP */}
-        <nav className="w-full flex justify-center mt-6 pb-2" aria-label="Slide navigation">
+        <nav className="container mx-auto flex justify-center mt-8 pb-8" aria-label="Slide navigation">
           <ul className="flex items-center gap-3 list-none m-0 p-0">
             {SLIDES.map((_, i) => (
               <li key={i}>
@@ -150,12 +151,12 @@ export default function Hero() {
           })}
 
           {/* MOBILE TEXT */}
-          <figcaption className="absolute left-0 right-0 bottom-8 px-6 z-20">
-            <div className="max-w-xs">
-              <h2 className="text-[#1B1D20] font-bold text-2xl sm:text-3xl leading-tight">
+          <figcaption className="absolute container mx-auto px-4 bottom-[40px] left-0 right-0 z-20">
+            <div className="max-w-[300px]">
+              <h2 className="text-[#1B1D20] font-bold text-3xl leading-[24px]">
                 AI-Driven intelligence:
               </h2>
-              <p className="text-[#1B1D20] text-base sm:text-lg mt-2 leading-snug opacity-90">
+              <p className="text-[#1B1D20] text-lg mt-2 leading-[14px] opacity-90">
                 Search, summarize, and Recommend in an instant.
               </p>
             </div>
@@ -163,7 +164,7 @@ export default function Hero() {
         </figure>
 
         {/* PAGINATION MOBILE */}
-        <nav className="flex gap-2 mt-5 pb-2 justify-center px-4" aria-label="Mobile slide navigation">
+        <nav className="container mx-auto flex gap-2 mt-6 justify-center pb-8" aria-label="Mobile slide navigation">
           <ul className="flex gap-2 m-0 p-0 list-none">
             {SLIDES.map((_, i) => (
               <li key={i}>

@@ -104,11 +104,26 @@ export default function HighlightSection() {
                   {highlights[2].title}
                 </h3>
 
-                {highlights[2].desc && (
-                  <p className="text-sm text-[#7F8288] leading-relaxed line-clamp-4">
-                    {highlights[2].desc}
-                  </p>
-                )}
+              <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
+                อ่านต่อ <span>↗</span>
+              </a>
+            </div>
+          </div>
+        )}
+
+          {/* ROW 2 */}
+          {highlights.length >= 5 && (
+            <div className="flex mt-10 gap-10">
+
+            {/* BOX 4 */}
+            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
+              <Image
+                src={highlights[3].img}
+                fill
+                alt={highlights[3].title || "highlight-4"}
+                className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
+              />
+            </div>
 
                 <a href={highlights[2].link} className="inline-flex mt-5 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
                   อ่านต่อ <span>↗</span>
@@ -117,49 +132,14 @@ export default function HighlightSection() {
             </div>
           )}
 
-          {/* ROW 2 */}
-          {highlights.length >= 5 && (
-            <div className="grid grid-cols-12 gap-6 lg:gap-8 mt-6 lg:mt-8">
-
-              {/* BOX 4 */}
-              <div className="col-span-8 rounded-2xl h-[320px] lg:h-[340px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer">
-                <Image
-                  src={highlights[3].img}
-                  fill
-                  alt={highlights[3].title || "highlight-4"}
-                  className="object-cover transition-all duration-700 group-hover:scale-[1.05]"
-                />
-                <div className="bg-gradient-to-t from-black/50 via-transparent to-transparent inset-0 absolute" />
-              </div>
-
-              {/* BOX 5 */}
-              <div className="col-span-4 rounded-2xl h-[320px] lg:h-[340px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer">
-                <Image
-                  src={highlights[4].img}
-                  fill
-                  alt={highlights[4].title}
-                  className="object-cover transition-all duration-700 group-hover:scale-[1.05]"
-                />
-                <div className="bg-gradient-to-t from-black/60 via-black/20 to-transparent inset-0 absolute" />
-                <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg">
-                  <h3 className="font-semibold text-lg lg:text-xl leading-snug line-clamp-2">
-                    {highlights[4].title}
-                  </h3>
-                  <a href={highlights[4].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
-                    อ่านต่อ <span>↗</span>
-                  </a>
-                </div>
-              </div>
-
             </div>
           )}
         </div>
-      </div>
 
-      {/* ================= MOBILE ================= */}
-      {highlights.length > 0 && (
-        <div className="md:hidden px-4 sm:px-6">
-          <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory gap-4 pb-2 no-scrollbar">
+        {/* ================= MOBILE ================= */}
+        {highlights.length > 0 && (
+          <div className="w-full md:hidden">
+          <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
             {highlights.map((h, i) => (
               <div
                 key={h.id}
@@ -256,6 +236,7 @@ export default function HighlightSection() {
           </div>
         </div>
       )}
+      </div>
     </section>
   );
 }

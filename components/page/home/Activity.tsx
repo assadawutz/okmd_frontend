@@ -69,17 +69,16 @@ function formatDate(day: number) {
 export default function ActivityBlock() {
   return (
     <section aria-label="Activity Block" className="w-full bg-[#F8FBFD] py-16 md:py-20">
+      <div className="container mx-auto text-center flex flex-col gap-10 md:gap-12">
 
-      <div className="container mx-auto px-6 lg:px-10">
-
-        {/* Header */}
-        <div className="text-center mb-10 md:mb-12">
-          <h2 className="text-3xl md:text-4xl text-[#1B1D20] font-semibold">
-            Activity Calendar
-          </h2>
-          <p className="text-base md:text-lg mt-3 font-normal text-[#6ABBCE]">
-            ทุกกิจกรรมคือแรงบันดาลใจ สู่ความคิดที่แตกต่าง
-          </p>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-4">
+          <div>
+            <p className="text-4xl  text-[#000000] font-semibold">Activity Calendar</p>
+            <h2 className="text-sm mt-6 md:text-normal font-normal text-[#6ABBCE] leading-tight">
+ทุกกิจกรรมคือแรงบันดาลใจ สู่ความคิดที่แตกต่าง            </h2>
+           
+          </div>
+      
         </div>
 
         {/* ================= DESKTOP ================= */}

@@ -11,75 +11,12 @@ const MOCK_AI_SUMMARIES: Record<string, string> = {
 การศึกษาและการพัฒนาทักษะ: การเรียนรู้วิธีการเรียนรู้ (Meta Learning) จะเป็นสิ่งสำคัญในการปรับตัวในโลกที่เปลี่ยนแปลง
 นวัตกรรมและการออกแบบ: การเรียนรู้ด้านการออกแบบผลิตภัณฑ์และบริการที่ตอบโจทย์ผู้ใช้จะมีความสำคัญ
 การพัฒนาทักษะทางสังคมและอารมณ์: ทักษะการสื่อสารและการทำงานร่วมกับผู้อื่นจะยังคงมีความสำคัญในทุกอาชีพ
-การเลือกเรียนในด้านที่มีความสนใจและสามารถปรับตัวได้ตามแนวโน้มในอนาคตจะช่วยให้คุณประสบความสำเร็จในอาชีพได้`,
-  "ai": `AI หรือ ปัญญาประดิษฐ์ กำลังเปลี่ยนแปลงโลกในหลายมิติ:
-การศึกษา: AI ช่วยสร้างประสบการณ์การเรียนรู้แบบเฉพาะบุคคล ปรับเนื้อหาตามระดับความสามารถของผู้เรียน
-การทำงาน: AI Automation ช่วยเพิ่มประสิทธิภาพการทำงาน ลดงานซ้ำซ้อน และเพิ่มเวลาสำหรับงานสร้างสรรค์
-การสื่อสาร: Generative AI ช่วยสร้างเนื้อหา แปลภาษา และวิเคราะห์ข้อมูลได้รวดเร็ว
-ความท้าทาย: จำเป็นต้องพัฒนาทักษะใหม่เพื่อทำงานร่วมกับ AI อย่างมีประสิทธิภาพ`,
-  "okmd": `OKMD (สำนักงานบริหารและพัฒนาองค์ความรู้) คือหน่วยงานที่มุ่งเน้นการพัฒนาความรู้และการเรียนรู้ของคนไทย:
-พันธกิจ: ส่งเสริมการเรียนรู้ตลอดชีวิตและพัฒนาแหล่งเรียนรู้ที่ทันสมัย
-หน่วยงานในสังกัด: TK Park, Museum Siam, ศูนย์สร้างสรรค์งานออกแบบ
-กิจกรรม: จัดงาน OKMD Knowledge Festival, Brain-Based Learning และอีกมากมาย
-ทรัพยากร: นิตยสาร The Knowledge, Infographic, บทความวิจัย และหนังสือแนะนำ`,
-};
-
-// Mock search results
-const MOCK_SEARCH_RESULTS = [
-  {
-    title: "ปฏิรูปการเรียนรู้โอกาสในอนาคต",
-    text: "สำนักงานบริหารและพัฒนาองค์ความรู้ (องค์การมหาชน) ... จัดงานมหกรรมความรู้ (OKMD Knowledge Festival)"
-  },
-  {
-    title: "OKMD Family | 5 แหล่ง เที่ยว เรียน รู้ สุดคลาสิก",
-    text: "การเที่ยวชมแหล่งเรียนรู้อย่างพิพิธภัณฑ์ หรือห้องสมุด ... มีคุณค่าเกินกว่าจะประเมินได้"
-  },
-  {
-    title: "มันส์สมอง | เล่น ลอง เรียน : ทดลอง เรียนรู้",
-    text: "ทดลอง เรียนรู้ ใส่ไอเดียสนุกๆ สร้างสรรค์การสื่อสารใหม่ที่แตกต่าง..."
-  },
-  {
-    title: "LEARN LAB EXPO 2023 มหกรรมการศึกษา",
-    text: "ขอเชิญร่วมงาน LEARN LAB EXPO 2023 มหกรรมการศึกษา ... ณ มิวเซียมสยาม"
-  }
-];
-
+การเลือกเรียนในด้านที่มีความสนใจและสามารถปรับตัวได้ตามแนวโน้มในอนาคตจะช่วยให้คุณประสบความสำเร็จในอาชีพได้
+`;
 export default function OkmdSearchSection() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
-  const [aiSummary, setAiSummary] = useState("");
-  const [searchResults, setSearchResults] = useState<typeof MOCK_SEARCH_RESULTS>([]);
-
-  const handleSearch = () => {
-    if (!searchQuery.trim()) return;
-    
-    setIsSearching(true);
-    
-    // Simulate API delay
-    setTimeout(() => {
-      // Get AI summary based on query keywords
-      const lowerQuery = searchQuery.toLowerCase();
-      let summary = MOCK_AI_SUMMARIES.default;
-      
-      if (lowerQuery.includes("ai") || lowerQuery.includes("ปัญญาประดิษฐ์")) {
-        summary = MOCK_AI_SUMMARIES.ai;
-      } else if (lowerQuery.includes("okmd") || lowerQuery.includes("สำนักงาน")) {
-        summary = MOCK_AI_SUMMARIES.okmd;
-      }
-      
-      setAiSummary(summary);
-      setSearchResults(MOCK_SEARCH_RESULTS);
-      setIsSearching(false);
-      setHasSearched(true);
-    }, 800);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
+  return (
+    <section className="bg-white py-16 md:py-20">
+      <div className="container mx-auto flex flex-col">
 
   return (
     <section className="bg-white py-12 md:py-16">
@@ -95,16 +32,30 @@ export default function OkmdSearchSection() {
             KNOWLEDGE IS OPPORTUNITY
           </div>
 
-          {/* Title */}
-          <div className="mt-4 flex w-full flex-col items-center gap-3 sm:gap-4">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold leading-tight text-okmd-dark">
-              รวมไอเดียเด็ด แรงบันดาลใจเจ๋ง ๆ และ ความรู้นอกตำรา OKMD
-            </h2>
-            <p className="text-lg sm:text-xl lg:text-2xl text-okmd-cyan">
-              โลกของคนชอบคิดต่าง
-            </p>
-          </div>
-        </div>
+            {/* SEARCH BLOCK */}
+            <div className="relative mt-8 w-full px-0 sm:px-0">
+
+              {/* Gradient BG */}
+              <div className="h-[210px] sm:h-[177px] w-full p-3 rounded-3xl bg-gradient-to-r bg-[#1B1D20]" />
+
+              {/* White card */}
+              <div className="absolute left-[3%] top-[38%] lg:top-[32%] sm:left-[14px] sm:top-[51px] h-[105px] sm:h-[121px] w-[94%] sm:w-[calc(100%-28px)] rounded-2xl bg-white shadow-md" />
+
+              {/* Intro text */}
+              <div
+                className="
+    absolute 
+    left-[40px] right-[40px] top-[26px] 
+    sm:left-[0px] sm:top-[19px]
+    pl-2
+    text-sm sm:text-sm 
+    font-medium leading-5 text-white
+    max-w-[85%] sm:max-w-none
+  "
+              >
+                เรามอบประสบการณ์การค้นหาอย่างแม่นยำ
+                ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
+              </div>
 
         {/* SEARCH BLOCK */}
         <div className="mt-10 max-w-4xl mx-auto">
@@ -240,7 +191,7 @@ export default function OkmdSearchSection() {
           </div>
         )}
 
-      </div>
+        </div>
     </section>
   );
 }
