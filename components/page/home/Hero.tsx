@@ -37,7 +37,7 @@ export default function Hero() {
 
   return (
     <section
-      className="w-full cursor-pointer  bg-white overflow-hidden"
+      className="w-full bg-white overflow-hidden"
       aria-label="AI-Driven Hero Section"
       aria-live="off"
     >
@@ -71,9 +71,8 @@ export default function Hero() {
           })}
 
           {/* TEXT LAYER */}
-          <figcaption className="absolute inset-0 flex items-top z-20 mt-8 pointer-events-none ">
-            <div className="w-full flex justify-center">
-              <div className="container w-full px-10">
+          <figcaption className="absolute inset-0 z-20 pt-8 pointer-events-none">
+            <div className="container mx-auto px-6 lg:px-10">
 
                 <Image
                   src="/okmd_ai_logo.png"
@@ -98,7 +97,6 @@ export default function Hero() {
                 >
                   ดูรายละเอียด
                 </button>
-              </div>
             </div>
           </figcaption>
         </figure>
@@ -151,13 +149,17 @@ export default function Hero() {
           })}
 
           {/* MOBILE TEXT */}
-          <figcaption className="absolute container-center mx-6  bottom-[40px] w-[300px] z-20">
-            <h2 className="text-[#1B1D20] font-bold text-3xl leading-[24px]">
-              AI-Driven intelligence:
-            </h2>
-            <p className="text-[#1B1D20] text-lg mt-2 leading-[14px] opacity-90">
-              Search, summarize, and Recommend in an instant.
-            </p>
+          <figcaption className="absolute inset-x-0 bottom-10 z-20">
+            <div className="container mx-auto px-6 lg:px-10">
+              <div className="max-w-[320px]">
+                <h2 className="text-[#1B1D20] font-bold text-3xl leading-tight">
+                  AI-Driven intelligence:
+                </h2>
+                <p className="text-[#1B1D20] text-lg mt-2 opacity-90">
+                  Search, summarize, and Recommend in an instant.
+                </p>
+              </div>
+            </div>
           </figcaption>
         </figure>
 

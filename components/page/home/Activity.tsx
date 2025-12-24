@@ -125,7 +125,13 @@ export default function ActivityBlock() {
               <article
                 key={item.id}
                 aria-label={item.title}
-                className="relative  overflow-hidden group cursor-pointer  col-span-3 h-[312px]"
+                className="
+                  relative overflow-hidden group cursor-pointer col-span-12 sm:col-span-6 md:col-span-3 h-[312px]
+                  rounded-2xl
+                  shadow-[0_12px_30px_rgba(0,0,0,0.08)]
+                  transition-all duration-300
+                  hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)]
+                "
               >
                 <Image
                   src={item.img}

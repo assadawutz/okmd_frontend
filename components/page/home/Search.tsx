@@ -14,10 +14,7 @@ const aiSummary = `
 export default function OkmdSearchSection() {
   return (
     <section className="bg-white pb-16 pt-10">
-
-      {/* GRID CENTER */}
-      <div className="w-full flex justify-center">
-        <div className="w-full max-w-[1140px] mx-auto px-6 lg:px-10 flex flex-col">
+      <div className="container mx-auto px-6 lg:px-10">
 
           {/* -------------------------------------------------------------- */}
           {/* HEADER SEARCH ZONE */}
@@ -40,55 +37,39 @@ export default function OkmdSearchSection() {
             </div>
 
             {/* SEARCH BLOCK */}
-            <div className="relative mt-8 w-full max-w-[1140px] px-0 sm:px-0">
+            <div className="mt-10 w-full">
+              <div className="rounded-3xl bg-[#1B1D20] p-4 sm:p-6 md:p-8">
+                <p className="text-white text-sm sm:text-base font-medium leading-relaxed max-w-[720px]">
+                  เรามอบประสบการณ์การค้นหาอย่างแม่นยำ ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
+                </p>
 
-              {/* Gradient BG */}
-              <div className="h-[210px] sm:h-[177px] w-full p-3 rounded-3xl bg-gradient-to-r bg-[#1B1D20]" />
+                <div className="mt-5 sm:mt-6 rounded-2xl bg-white shadow-md p-4 sm:p-5 md:p-6">
+                  <div className="text-[13px] sm:text-sm font-medium leading-[20px] text-okmd-dark">
+                    การค้นหาที่ฉลาดและแม่นยำ
+                  </div>
 
-              {/* White card */}
-              <div className="absolute left-[3%] top-[38%] lg:top-[32%] sm:left-[14px] sm:top-[51px] h-[105px] sm:h-[121px] w-[94%] sm:w-[calc(100%-28px)] rounded-2xl bg-white shadow-md" />
+                  <div className="mt-3 flex items-center gap-3">
+                    <input
+                      type="text"
+                      placeholder="พิมพ์เป้าหมายของคุณที่นี่"
+                      className="
+                        flex-1 border-b-2 border-okmd-cyan bg-transparent pb-2
+                        text-base sm:text-lg
+                        text-okmd-gray font-light
+                        outline-none placeholder:text-okmd-gray
+                        focus:border-okmd-blue
+                      "
+                    />
 
-              {/* Intro text */}
-              <div
-                className="
-    absolute 
-    left-[40px] right-[40px] top-[26px] 
-    sm:left-[0px] sm:top-[19px]
-    pl-2
-    text-sm sm:text-sm 
-    font-medium leading-5 text-white
-    max-w-[85%] sm:max-w-none
-  "
-              >
-                เรามอบประสบการณ์การค้นหาอย่างแม่นยำ
-                ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
-              </div>
-
-              {/* Subtitle */}
-              <div className="absolute left-[30px] lg:left-[40px] top-[100px] lg:top-[80px] sm:left-[30px] sm:top-[74px] 
-                              text-[13px] sm:text-sm font-medium leading-[20px] text-okmd-dark">
-                การค้นหาที่ฉลาดและแม่นยำ
-              </div>
-
-              {/* Input */}
-              <div className="absolute left-[30px] lg:left-[40px] top-[110px] sm:left-[30px] sm:top-[97px] right-[40px] flex items-center">
-                <input
-                  type="text"
-                  placeholder="พิมพ์เป้าหมายของคุณที่นี่"
-                  className="
-                    p-1 flex-1 border-b-2 border-okmd-cyan bg-transparent pl-0 
-                    text-base sm:text-lg 
-                    text-okmd-gray font-light 
-                    outline-none placeholder:text-okmd-gray 
-                    focus:border-okmd-blue
-                  "
-                />
-
-                <button
-                  className="ml-3 flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-[#74CEE2] hover:scale-105 transition"
-                >
-                  <Search className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
-                </button>
+                    <button
+                      type="button"
+                      className="flex items-center justify-center h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-[#74CEE2] hover:scale-105 transition"
+                      aria-label="Search"
+                    >
+                      <Search className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -195,7 +176,6 @@ export default function OkmdSearchSection() {
 
 
         </div>
-      </div>
     </section>
   );
 }
