@@ -32,23 +32,24 @@ export default function HighlightSection() {
   }, [index, highlights.length]);
 
   return (
-    <section className="mx-auto bg-[#DFF1F9] w-full py-20">
-      {/* HEADER */}
-      <div className="text-center mb-16">
-              <h2 className="font-semibold text-okmd-dark leading-tight text-2xl sm:text-3xl lg:text-4xl">
-          Highlight
-        </h2> 
-        <p className="mt-2 text-xl opacity-90 text-[#16A7CB]">
-          ทุกจุดเด่น ถูกยกมาไว้ตรงนี้
-        </p>
-      </div>
+    <section className="bg-[#DFF1F9] w-full py-20">
+      <div className="container mx-auto">
+        {/* HEADER */}
+        <div className="text-center mb-16">
+          <h2 className="font-semibold text-okmd-dark leading-tight text-2xl sm:text-3xl lg:text-4xl">
+            Highlight
+          </h2> 
+          <p className="mt-2 text-xl opacity-90 text-[#16A7CB]">
+            ทุกจุดเด่น ถูกยกมาไว้ตรงนี้
+          </p>
+        </div>
 
-      {/* DESKTOP */}
-      <div className="flex-col w-full hidden items-center md:flex">
+        {/* DESKTOP */}
+        <div className="hidden md:flex flex-col gap-10">
 
-        {/* ROW 1 */}
-        {highlights.length >= 3 && (
-          <div className="flex px-6 gap-10 md:px-0">
+          {/* ROW 1 */}
+          {highlights.length >= 3 && (
+            <div className="flex gap-6 lg:gap-10 justify-center">
 
             {/* BOX 1 */}
             <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[335px] relative overflow-hidden group">
@@ -116,9 +117,9 @@ export default function HighlightSection() {
           </div>
         )}
 
-        {/* ROW 2 */}
-        {highlights.length >= 5 && (
-          <div className="container flex mt-10 px-6 gap-10 md:px-10">
+          {/* ROW 2 */}
+          {highlights.length >= 5 && (
+            <div className="flex gap-6 lg:gap-10 justify-center">
 
             {/* BOX 4 */}
             <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
@@ -149,13 +150,13 @@ export default function HighlightSection() {
               </div>
             </div>
 
-          </div>
-        )}
-      </div>
+            </div>
+          )}
+        </div>
 
-      {/* ================= MOBILE ================= */}
-      {highlights.length > 0 && (
-        <div className="w-full px-6 md:hidden">
+        {/* ================= MOBILE ================= */}
+        {highlights.length > 0 && (
+          <div className="md:hidden">
           <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
             {highlights.map((h, i) => (
             <div
@@ -229,24 +230,25 @@ export default function HighlightSection() {
             ))}
           </div>
 
-          {/* PAGINATION */}
-          <div className="flex mt-6 justify-center">
-            {highlights.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                if (!ref.current) return;
-                setIndex(i);
-                ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
-              }}
-              className={`mx-1 rounded-full transition-all ${
-                index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF]"
-              }`}
-            />
-            ))}
+            {/* PAGINATION */}
+            <div className="flex mt-6 justify-center">
+              {highlights.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  if (!ref.current) return;
+                  setIndex(i);
+                  ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
+                }}
+                className={`mx-1 rounded-full transition-all ${
+                  index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF]"
+                }`}
+              />
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   );
 }

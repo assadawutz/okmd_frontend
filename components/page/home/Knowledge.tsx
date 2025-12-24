@@ -186,15 +186,15 @@ export default function KnowledgeShelfSection() {
   }, [selectedMenu]);
 
   return (
-    <section className="w-full bg-white pb-16 pt-12">
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+    <section className="w-full bg-white py-16 md:py-20">
+      <div className="container mx-auto">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-8 md:mb-12">
           ตู้ <span className="text-[#74CEE2]">ความรู้</span>
         </h2>
 
-        <div className="mt-8 md:mt-12 grid grid-cols-12 gap-x-12 gap-y-10">
+        <div className="grid grid-cols-12 gap-x-8 lg:gap-x-12 gap-y-10">
           {/* LEFT SIDEBAR */}
-          <aside className="col-span-12 md:col-span-3 pb-4 md:pb-0">
+          <aside className="col-span-12 md:col-span-3">
             <LeftMenu
               items={MENU}
               active={selectedMenu}
@@ -204,12 +204,12 @@ export default function KnowledgeShelfSection() {
 
           {/* RIGHT CONTENT */}
           <section className="col-span-12 md:col-span-9 space-y-10 md:space-y-12">
-            <h3 className="text-3xl md:text-4xl font-bold leading-snug text-gray-800">
+            <h3 className="text-2xl md:text-3xl font-bold leading-snug text-gray-800">
               {PAGE_TITLE}
             </h3>
 
             {/* CARD GRID */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {paginatedData.map((item) => (
                 <div key={item.title} className="col-span-1 h-full">
                   <MagazineCard title={item.title} img={item.img} fileSize={item.fileSize} />
@@ -218,10 +218,10 @@ export default function KnowledgeShelfSection() {
             </div>
 
             {/* DIVIDER */}
-            <div className="w-full border-t border-black/10 mt-10"></div>
+            <div className="w-full border-t border-gray-200"></div>
 
             {/* PAGINATION */}
-            <div className="flex justify-center md:justify-end pt-6 pb-8">
+            <div className="flex justify-center md:justify-end">
               <Pagination total={totalPages} current={currentPage} />
             </div>
 

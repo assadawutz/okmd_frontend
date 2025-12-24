@@ -70,23 +70,20 @@ export default function ActivityBlock() {
   return (
     <section aria-label="Activity Block" className="w-full bg-[#F8FBFD] py-16 md:py-20">
 
-      <div className="container text-center mx-auto px-4 lg:px-8 flex flex-col gap-10 md:gap-12">
+      <div className="container mx-auto">
 
-        <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-4">
-          <div>
-            <p className="text-4xl  text-[#000000] font-semibold">Activity Calendar</p>
-            <h2 className="text-sm mt-6 md:text-normal font-normal text-[#6ABBCE] leading-tight">
-ทุกกิจกรรมคือแรงบันดาลใจ สู่ความคิดที่แตกต่าง            </h2>
-           
-          </div>
-      
+        <div className="text-center mb-10 md:mb-12">
+          <h2 className="text-3xl md:text-4xl text-[#000000] font-semibold">Activity Calendar</h2>
+          <p className="text-base md:text-lg mt-4 font-normal text-[#6ABBCE] leading-tight">
+            ทุกกิจกรรมคือแรงบันดาลใจ สู่ความคิดที่แตกต่าง
+          </p>
         </div>
 
         {/* ================= DESKTOP ================= */}
         <div className="hidden md:flex flex-col gap-10">
 
           {/* ---------------- ROW 1 ---------------- */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
             {ACTIVITIES.slice(0, 3).map((item) => (
               <article
@@ -198,9 +195,9 @@ export default function ActivityBlock() {
         </div>
 
         {/* ================= MOBILE ================= */}
-        <div className="md:hidden flex flex-col gap-8">
+        <div className="md:hidden space-y-8">
 
-          <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+          <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
             {ACTIVITIES.map((item) => (
               <article
                 key={item.id}

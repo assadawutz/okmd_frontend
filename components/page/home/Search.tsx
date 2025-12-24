@@ -14,10 +14,7 @@ const aiSummary = `
 export default function OkmdSearchSection() {
   return (
     <section className="bg-white pb-16 pt-10">
-
-      {/* GRID CENTER */}
-      <div className="w-full flex justify-center">
-        <div className="w-full max-w-[1140px] mx-auto px-6 lg:px-10 flex flex-col">
+      <div className="container mx-auto">
 
           {/* -------------------------------------------------------------- */}
           {/* HEADER SEARCH ZONE */}
@@ -40,7 +37,7 @@ export default function OkmdSearchSection() {
             </div>
 
             {/* SEARCH BLOCK */}
-            <div className="relative mt-8 w-full max-w-[1140px] px-0 sm:px-0">
+            <div className="relative mt-8 w-full">
 
               {/* Gradient BG */}
               <div className="h-[210px] sm:h-[177px] w-full p-3 rounded-3xl bg-gradient-to-r bg-[#1B1D20]" />
@@ -49,29 +46,18 @@ export default function OkmdSearchSection() {
               <div className="absolute left-[3%] top-[38%] lg:top-[32%] sm:left-[14px] sm:top-[51px] h-[105px] sm:h-[121px] w-[94%] sm:w-[calc(100%-28px)] rounded-2xl bg-white shadow-md" />
 
               {/* Intro text */}
-              <div
-                className="
-    absolute 
-    left-[40px] right-[40px] top-[26px] 
-    sm:left-[0px] sm:top-[19px]
-    pl-2
-    text-sm sm:text-sm 
-    font-medium leading-5 text-white
-    max-w-[85%] sm:max-w-none
-  "
-              >
+              <div className="absolute left-6 sm:left-8 right-6 sm:right-8 top-5 sm:top-[19px] text-sm font-medium leading-5 text-white">
                 เรามอบประสบการณ์การค้นหาอย่างแม่นยำ
                 ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
               </div>
 
               {/* Subtitle */}
-              <div className="absolute left-[30px] lg:left-[40px] top-[100px] lg:top-[80px] sm:left-[30px] sm:top-[74px] 
-                              text-[13px] sm:text-sm font-medium leading-[20px] text-okmd-dark">
+              <div className="absolute left-6 sm:left-8 top-[90px] sm:top-[74px] text-[13px] sm:text-sm font-medium leading-[20px] text-okmd-dark">
                 การค้นหาที่ฉลาดและแม่นยำ
               </div>
 
               {/* Input */}
-              <div className="absolute left-[30px] lg:left-[40px] top-[110px] sm:left-[30px] sm:top-[97px] right-[40px] flex items-center">
+              <div className="absolute left-6 sm:left-8 right-6 sm:right-8 top-[115px] sm:top-[97px] flex items-center">
                 <input
                   type="text"
                   placeholder="พิมพ์เป้าหมายของคุณที่นี่"
@@ -106,7 +92,7 @@ export default function OkmdSearchSection() {
                 height={46}
                 className="object-contain drop-shadow-sm"
               />
-              <h2 className="text-[28px] sm:text-[30px] font-semibold text-[#1B1D20]">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-[#1B1D20]">
                 ข้อมูลภาพรวมโดย AI
               </h2>
             </div>
@@ -115,26 +101,12 @@ export default function OkmdSearchSection() {
             <hr className="border-t border-[#E4E4E4] mb-8" />
 
             {/* Summary Box */}
-            <div className="
-      border border-[#E6E6E6]
-      bg-[#FFFFFF]
-      p-8 sm:p-10
-      rounded-2xl
-      shadow-[0_4px_24px_rgba(0,0,0,0.06)]
-      text-[17px] leading-[30px] text-[#444]
-    "
-            >
+            <div className="border border-[#E6E6E6] bg-[#FFFFFF] p-6 sm:p-8 md:p-10 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] text-base md:text-[17px] leading-relaxed md:leading-[30px] text-[#444]">
               <p className="whitespace-pre-line">
                 {aiSummary}
               </p>
 
-              <button className="
-        mt-6 inline-flex items-center gap-2
-        text-[#1B9DBC] text-[16px] font-medium
-        hover:text-[#168AAF] hover:underline
-        transition-all
-      "
-              >
+              <button className="mt-6 inline-flex items-center gap-2 text-[#1B9DBC] text-base font-medium hover:text-[#168AAF] hover:underline transition-all">
                 อ่านเพิ่มเติม
                 <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 3l6 5-6 5" />
@@ -148,7 +120,7 @@ export default function OkmdSearchSection() {
           {/* -------------------------------------------------------------- */}
           <div className="mt-16">
 
-            <h3 className="text-[22px] font-semibold text-[#1B1D20] mb-8">
+            <h3 className="text-xl md:text-[22px] font-semibold text-[#1B1D20] mb-8">
               ผลการค้นหา 4 รายการ
             </h3>
 
@@ -175,11 +147,11 @@ export default function OkmdSearchSection() {
               ].map((item, index) => (
                 <div key={index} className="group transition-all">
 
-                  <h4 className="text-[24px] font-semibold text-[#1B1D20] mb-2 group-hover:text-[#168AAF] transition-colors">
+                  <h4 className="text-xl md:text-2xl font-semibold text-[#1B1D20] mb-2 group-hover:text-[#168AAF] transition-colors">
                     {item.title}
                   </h4>
 
-                  <p className="text-[16px] text-[#898989] leading-[26px]">
+                  <p className="text-base text-[#898989] leading-relaxed">
                     {item.text}
                   </p>
 
@@ -193,8 +165,6 @@ export default function OkmdSearchSection() {
             </div>
           </div>
 
-
-        </div>
       </div>
     </section>
   );

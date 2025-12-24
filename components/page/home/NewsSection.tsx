@@ -18,10 +18,10 @@ export default function NewsSection() {
   const newsList = Object.values(NEWS_DATA).slice(0, 3) as NewsItem[];
 
   return (
-    <section className="bg-white py-16 md:py-24">
-      <div className="container mx-auto px-6 lg:px-10">
+    <section className="bg-white py-16 md:py-20">
+      <div className="container mx-auto">
         
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-[#1B1D20] mb-2">
               ข่าวสารและกิจกรรม
@@ -38,7 +38,7 @@ export default function NewsSection() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {newsList.map((news) => (
             <Link 
               key={news.id} 

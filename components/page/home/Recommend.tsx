@@ -23,19 +23,15 @@ const ITEMS = [
 export default function RecommendSection() {
   return (
     <section className="bg-[#0F0F0F] py-16 md:py-24">
-      <div className="w-full flex justify-center">
-        <div className="w-full container mx-auto px-6 lg:px-10 space-y-12">
+      <div className="container mx-auto">
 
-          <header className="text-center space-y-0">
-            
-            <div className="space-y-2">
-              <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                Smart Picks
-              </h2>
-              <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto">
-                ชุดเนื้อหาที่คัดสรรโดยทีมภัณฑารักษ์และ AI เพื่อให้คุณเจอแรงบันดาลใจได้ไวขึ้น
-              </p>
-            </div>
+          <header className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
+              Smart Picks
+            </h2>
+            <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto">
+              ชุดเนื้อหาที่คัดสรรโดยทีมภัณฑารักษ์และ AI เพื่อให้คุณเจอแรงบันดาลใจได้ไวขึ้น
+            </p>
           </header>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
@@ -87,7 +83,6 @@ export default function RecommendSection() {
             ))}
           </div>
 
-        </div>
       </div>
     </section>
   );

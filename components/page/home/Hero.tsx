@@ -37,14 +37,14 @@ export default function Hero() {
 
   return (
     <section
-      className="w-full cursor-pointer  bg-white overflow-hidden"
+      className="w-full bg-white"
       aria-label="AI-Driven Hero Section"
       aria-live="off"
     >
 
       {/* ========== DESKTOP ========== */}
       <div className="hidden md:block">
-        <figure className="relative w-full h-[560px] overflow-hidden mb-0">
+        <figure className="relative w-full h-[560px] overflow-hidden">
 
           {SLIDES.map((slide, i) => {
             const active = i === index;
@@ -71,9 +71,8 @@ export default function Hero() {
           })}
 
           {/* TEXT LAYER */}
-          <figcaption className="absolute inset-0 flex items-top z-20 mt-8 pointer-events-none ">
-            <div className="w-full flex justify-center">
-              <div className="container w-full px-10">
+          <figcaption className="absolute inset-0 flex items-center z-20 pointer-events-none">
+            <div className="container mx-auto">
 
                 <Image
                   src="/okmd_ai_logo.png"
@@ -83,50 +82,51 @@ export default function Hero() {
                   className="mb-6 transition-all hover:scale-[1.05] pointer-events-auto"
                 />
 
-                <h1 className="text-[#1B1D20] font-bold text-[64px] leading-[72px]">
+                <h1 className="text-[#1B1D20] font-bold text-4xl md:text-5xl lg:text-[64px] leading-tight lg:leading-[72px]">
                   AI-Driven intelligence:
                 </h1>
 
-                <p className="text-[#1B1D20] text-[24px] mt-4 opacity-90 max-w-[600px]">
+                <p className="text-[#1B1D20] text-lg md:text-xl lg:text-[24px] mt-4 opacity-90 max-w-[600px]">
                   Search, summarize, and Recommend in an instant.
                 </p>
 
                 <button
                   type="button"
-                  className="mt-6 bg-[#74CEE2] px-6 py-3 rounded-xl text-white text-[18px] font-medium
+                  className="mt-6 bg-[#74CEE2] px-6 py-3 rounded-xl text-white text-base md:text-lg font-medium
                     hover:bg-[#5FC4D8] active:scale-95 transition shadow-md pointer-events-auto"
                 >
                   ดูรายละเอียด
                 </button>
-              </div>
             </div>
           </figcaption>
         </figure>
 
         {/* PAGINATION DESKTOP */}
-        <nav className="w-full flex justify-center mt-8" aria-label="Slide navigation">
-          <ul className="flex items-center gap-3 list-none m-0 p-0">
-            {SLIDES.map((_, i) => (
-              <li key={i}>
-                <button
-                  type="button"
-                  onClick={() => goTo(i)}
-                  aria-label={`Go to slide ${i + 1}`}
-                  aria-pressed={i === index}
-                  className={`
-                    block transition-all rounded-full cursor-pointer
-                    ${i === index ? "w-12 h-2 bg-[#74CEE2]" : "w-2 h-2 bg-[#ECECED]"}
-                  `}
-                />
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="container mx-auto py-8">
+          <nav className="flex justify-center" aria-label="Slide navigation">
+            <ul className="flex items-center gap-3 list-none m-0 p-0">
+              {SLIDES.map((_, i) => (
+                <li key={i}>
+                  <button
+                    type="button"
+                    onClick={() => goTo(i)}
+                    aria-label={`Go to slide ${i + 1}`}
+                    aria-pressed={i === index}
+                    className={`
+                      block transition-all rounded-full cursor-pointer
+                      ${i === index ? "w-12 h-2 bg-[#74CEE2]" : "w-2 h-2 bg-[#ECECED]"}
+                    `}
+                  />
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
 
       {/* ========== MOBILE ========== */}
       <div className="md:hidden">
-        <figure className="relative w-full h-[300px] overflow-hidden m-0">
+        <figure className="relative w-full h-[300px] overflow-hidden">
 
           {SLIDES.map((slide, i) => {
             const active = i === index;
@@ -151,37 +151,40 @@ export default function Hero() {
           })}
 
           {/* MOBILE TEXT */}
-          <figcaption className="absolute container-center mx-6  bottom-[40px] w-[300px] z-20">
-            <h2 className="text-[#1B1D20] font-bold text-3xl leading-[24px]">
-              AI-Driven intelligence:
-            </h2>
-            <p className="text-[#1B1D20] text-lg mt-2 leading-[14px] opacity-90">
-              Search, summarize, and Recommend in an instant.
-            </p>
+          <figcaption className="absolute bottom-10 left-0 right-0 z-20">
+            <div className="container mx-auto">
+              <h2 className="text-[#1B1D20] font-bold text-2xl md:text-3xl leading-tight">
+                AI-Driven intelligence:
+              </h2>
+              <p className="text-[#1B1D20] text-base md:text-lg mt-2 leading-relaxed opacity-90">
+                Search, summarize, and Recommend in an instant.
+              </p>
+            </div>
           </figcaption>
         </figure>
 
         {/* PAGINATION MOBILE */}
-        <nav className="flex gap-2 mt-6 justify-center px-4" aria-label="Mobile slide navigation">
-          <ul className="flex gap-2 m-0 p-0 list-none">
-            {SLIDES.map((_, i) => (
-              <li key={i}>
-                <button
-                  type="button"
-                  aria-label={`Go to slide ${i + 1}`}
-                  aria-pressed={i === index}
-                  onClick={() => goTo(i)}
-                  className={`
-                    cursor-pointer block rounded-sm transition-all
-                    ${i === index ? "w-[21px] h-[5px] bg-[#74CEE2]" : "w-[21px] h-[5px] bg-[#C4C5C8]"}
-                  `}
-                />
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="container mx-auto py-6">
+          <nav className="flex justify-center" aria-label="Mobile slide navigation">
+            <ul className="flex gap-2 m-0 p-0 list-none">
+              {SLIDES.map((_, i) => (
+                <li key={i}>
+                  <button
+                    type="button"
+                    aria-label={`Go to slide ${i + 1}`}
+                    aria-pressed={i === index}
+                    onClick={() => goTo(i)}
+                    className={`
+                      cursor-pointer block rounded-sm transition-all
+                      ${i === index ? "w-[21px] h-[5px] bg-[#74CEE2]" : "w-[21px] h-[5px] bg-[#C4C5C8]"}
+                    `}
+                  />
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
-{/* <Divide className="my-10 mx-auto  w-64  h-[1.5px] bg-okmd-gray-light" /> */}
     </section>
   );
 }
