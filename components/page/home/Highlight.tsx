@@ -32,26 +32,27 @@ export default function HighlightSection() {
   }, [index, highlights.length]);
 
   return (
-    <section className="mx-auto bg-[#DFF1F9] w-full py-20">
-      {/* HEADER */}
-      <div className="text-center mb-16">
-              <h2 className="font-semibold text-okmd-dark leading-tight text-2xl sm:text-3xl lg:text-4xl">
-          Highlight
-        </h2> 
-        <p className="mt-2 text-xl opacity-90 text-[#16A7CB]">
-          ทุกจุดเด่น ถูกยกมาไว้ตรงนี้
-        </p>
-      </div>
+    <section className="mx-auto bg-[#DFF1F9] w-full py-16 md:py-20">
+      <div className="container mx-auto">
+        {/* HEADER */}
+        <div className="text-center mb-16">
+          <h2 className="font-semibold text-okmd-dark leading-tight text-2xl sm:text-3xl lg:text-4xl">
+            Highlight
+          </h2> 
+          <p className="mt-2 text-xl opacity-90 text-[#16A7CB]">
+            ทุกจุดเด่น ถูกยกมาไว้ตรงนี้
+          </p>
+        </div>
 
-      {/* DESKTOP */}
-      <div className="flex-col w-full hidden items-center md:flex">
+        {/* DESKTOP */}
+        <div className="flex-col w-full hidden items-center md:flex">
 
-        {/* ROW 1 */}
-        {highlights.length >= 3 && (
-          <div className="flex px-6 gap-10 md:px-0">
+          {/* ROW 1 */}
+          {highlights.length >= 3 && (
+            <div className="grid grid-cols-12 gap-6 w-full">
 
-            {/* BOX 1 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[335px] relative overflow-hidden group">
+              {/* BOX 1 */}
+              <div className="col-span-4 rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group">
               <Image  
                 src={highlights[0].img}
                 fill
@@ -70,10 +71,10 @@ export default function HighlightSection() {
                   อ่านต่อ <span>↗</span>
                 </a>
               </div>
-            </div>
+              </div>
 
-            {/* BOX 2 */}
-            <div className="bg-white flex rounded-2xl h-[330px] px-6 pt-10 pb-10 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] w-[365px] justify-between hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
+              {/* BOX 2 */}
+              <div className="col-span-4 bg-white flex rounded-2xl h-[330px] px-6 pt-10 pb-10 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] justify-between hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
               <div>
                 <p className="text-sm mb-1 text-gray-500">The Knowledge</p>
                 <h3 className="font-bold leading-snug text-4xl">{highlights[1].title.replace("The Knowledge\n", "")}</h3>
@@ -85,10 +86,10 @@ export default function HighlightSection() {
                 alt={highlights[1].title}
                 className="rounded-none shadow-md"
               />
-            </div>
+              </div>
 
-            {/* BOX 3 */}
-            <div className="bg-white rounded-2xl h-[330px] px-6 pt-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] w-[365px] relative overflow-hidden hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
+              {/* BOX 3 */}
+              <div className="col-span-4 bg-white rounded-2xl h-[330px] px-6 pt-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] relative overflow-hidden hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
               <Image
                 src={highlights[2].img}
                 width={150}
@@ -111,27 +112,27 @@ export default function HighlightSection() {
 
               <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
                 อ่านต่อ <span>↗</span>
-              </a>
+                </a>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* ROW 2 */}
-        {highlights.length >= 5 && (
-          <div className="container flex mt-10 px-6 gap-10 md:px-10">
+          {/* ROW 2 */}
+          {highlights.length >= 5 && (
+            <div className="grid grid-cols-12 gap-6 w-full mt-10">
 
-            {/* BOX 4 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
+              {/* BOX 4 */}
+              <div className="col-span-7 rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group">
               <Image
                 src={highlights[3].img}
                 fill
                 alt={highlights[3].title || "highlight-4"}
                 className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
               />
-            </div>
+              </div>
 
-            {/* BOX 5 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[365px] relative overflow-hidden group">
+              {/* BOX 5 */}
+              <div className="col-span-5 rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group">
               <Image
                 src={highlights[4].img}
                 fill
@@ -145,17 +146,17 @@ export default function HighlightSection() {
                 </h3>
                 <a href={highlights[4].link} className="flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
                   อ่านต่อ <span>↗</span>
-                </a>
+                  </a>
+                </div>
               </div>
+
             </div>
+          )}
+        </div>
 
-          </div>
-        )}
-      </div>
-
-      {/* ================= MOBILE ================= */}
-      {highlights.length > 0 && (
-        <div className="w-full px-6 md:hidden">
+        {/* ================= MOBILE ================= */}
+        {highlights.length > 0 && (
+          <div className="w-full md:hidden">
           <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
             {highlights.map((h, i) => (
             <div
@@ -232,21 +233,22 @@ export default function HighlightSection() {
           {/* PAGINATION */}
           <div className="flex mt-6 justify-center">
             {highlights.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                if (!ref.current) return;
-                setIndex(i);
-                ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
-              }}
-              className={`mx-1 rounded-full transition-all ${
-                index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF]"
-              }`}
-            />
+              <button
+                key={i}
+                onClick={() => {
+                  if (!ref.current) return;
+                  setIndex(i);
+                  ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
+                }}
+                className={`mx-1 rounded-full transition-all ${
+                  index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF]"
+                }`}
+              />
             ))}
           </div>
         </div>
       )}
+      </div>
     </section>
   );
 }
