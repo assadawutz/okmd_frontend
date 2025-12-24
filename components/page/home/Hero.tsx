@@ -44,7 +44,7 @@ export default function Hero() {
 
       {/* ========== DESKTOP ========== */}
       <div className="hidden md:block">
-        <figure className="relative w-full h-[560px] overflow-hidden mb-0">
+        <figure className="relative w-full h-[520px] lg:h-[560px] overflow-hidden mb-0">
 
           {SLIDES.map((slide, i) => {
             const active = i === index;
@@ -64,7 +64,7 @@ export default function Hero() {
                   fill
                   priority
                   sizes="100vw"
-                  className="object-cover transition-transform duration-[1200ms] hover:scale-[1.04]"
+                  className="object-cover transition-transform duration-[1200ms]"
                 />
               </div>
             );
@@ -77,24 +77,24 @@ export default function Hero() {
 
                 <Image
                   src="/okmd_ai_logo.png"
-                  width={80}
-                  height={80}
+                  width={72}
+                  height={72}
                   alt="OKMD AI Logo"
-                  className="mb-6 transition-all hover:scale-[1.05] pointer-events-auto"
+                  className="mb-5 transition-all hover:scale-[1.05] pointer-events-auto"
                 />
 
-                <h1 className="text-[#1B1D20] font-bold text-[64px] leading-[72px]">
+                <h1 className="text-[#1B1D20] font-bold text-4xl lg:text-5xl xl:text-[56px] leading-tight lg:leading-[1.15]">
                   AI-Driven intelligence:
                 </h1>
 
-                <p className="text-[#1B1D20] text-[24px] mt-4 opacity-90 max-w-[600px]">
+                <p className="text-[#1B1D20] text-lg lg:text-xl xl:text-2xl mt-3 lg:mt-4 opacity-90 max-w-xl">
                   Search, summarize, and Recommend in an instant.
                 </p>
 
                 <button
                   type="button"
-                  className="mt-6 bg-[#74CEE2] px-6 py-3 rounded-xl text-white text-[18px] font-medium
-                    hover:bg-[#5FC4D8] active:scale-95 transition shadow-md pointer-events-auto"
+                  className="mt-5 lg:mt-6 bg-[#74CEE2] px-5 lg:px-6 py-2.5 lg:py-3 rounded-xl text-white text-base lg:text-lg font-medium
+                    hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md pointer-events-auto"
                 >
                   ดูรายละเอียด
                 </button>
@@ -115,7 +115,7 @@ export default function Hero() {
                   aria-pressed={i === index}
                   className={`
                     block transition-all rounded-full cursor-pointer
-                    ${i === index ? "w-12 h-2 bg-[#74CEE2]" : "w-2 h-2 bg-[#ECECED]"}
+                    ${i === index ? "w-10 h-2 bg-[#74CEE2]" : "w-2 h-2 bg-[#ECECED] hover:bg-[#D1D5DB]"}
                   `}
                 />
               </li>
@@ -126,7 +126,7 @@ export default function Hero() {
 
       {/* ========== MOBILE ========== */}
       <div className="md:hidden">
-        <figure className="relative w-full h-[300px] overflow-hidden m-0">
+        <figure className="relative w-full h-[280px] sm:h-[320px] overflow-hidden m-0">
 
           {SLIDES.map((slide, i) => {
             const active = i === index;
@@ -174,8 +174,8 @@ export default function Hero() {
                   aria-pressed={i === index}
                   onClick={() => goTo(i)}
                   className={`
-                    cursor-pointer block rounded-sm transition-all
-                    ${i === index ? "w-[21px] h-[5px] bg-[#74CEE2]" : "w-[21px] h-[5px] bg-[#C4C5C8]"}
+                    cursor-pointer block rounded-full transition-all
+                    ${i === index ? "w-6 h-1.5 bg-[#74CEE2]" : "w-1.5 h-1.5 bg-[#C4C5C8]"}
                   `}
                 />
               </li>
