@@ -23,6 +23,8 @@ const ITEMS = [
 export default function RecommendSection() {
   return (
     <section className="bg-[#0F0F0F] py-16 md:py-24">
+      <div className="w-full flex justify-center">
+        <div className="container mx-auto space-y-12">
       <div className="container mx-auto space-y-12">
 
         <header className="text-center mb-10 md:mb-12">
