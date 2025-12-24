@@ -98,7 +98,6 @@ export default function Hero() {
                 >
                   ดูรายละเอียด
                 </button>
-              </div>
             </div>
           </figcaption>
         </figure>
