@@ -3,7 +3,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import React, { type ReactNode } from "react";
+import React from "react";
 
 // --- 1. Component Definitions (Added '' prefix and kept taller image height) ---
 

@@ -5,8 +5,17 @@ import Link from "next/link";
 import { ArrowRight, Calendar } from "lucide-react";
 import { NEWS_DATA } from "@/data/news";
 
+interface NewsItem {
+  id: string;
+  title: string;
+  tag: string;
+  date: string;
+  img: string;
+  body: string;
+}
+
 export default function NewsSection() {
-  const newsList = Object.values(NEWS_DATA).slice(0, 3) as any[];
+  const newsList = Object.values(NEWS_DATA).slice(0, 3) as NewsItem[];
 
   return (
     <section className="bg-white py-16 md:py-24">

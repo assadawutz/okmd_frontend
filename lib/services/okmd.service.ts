@@ -1,13 +1,38 @@
-/**
- * OKMD Service Layer (Recruitment)
- * แยก logic/data ออกจาก UI components
- *
- * NOTE:
- * - ตอนนี้ยังไม่มี API จริงใน repo นี้ จึงใช้ mock data ให้ build/run ผ่าน
- * - สามารถเปลี่ยนไปเรียก API จริงได้ภายหลัง
- */
+// Mock data for job listings
+const mockJobs = [
+  {
+    id: '1',
+    title: 'นักวิชาการคอมพิวเตอร์',
+    dept: 'ฝ่ายเทคโนโลยีสารสนเทศ',
+    loc: 'กรุงเทพมหานคร',
+    type: 'พนักงานประจำ',
+    quota: 2,
+  },
+  {
+    id: '2',
+    title: 'นักวิเคราะห์นโยบายและแผน',
+    dept: 'ฝ่ายแผนงานและพัฒนา',
+    loc: 'กรุงเทพมหานคร',
+    type: 'พนักงานประจำ',
+    quota: 1,
+  },
+  {
+    id: '3',
+    title: 'นักจัดการงานทั่วไป',
+    dept: 'ฝ่ายบริหารงานทั่วไป',
+    loc: 'กรุงเทพมหานคร',
+    type: 'พนักงานสัญญาจ้าง',
+    quota: 3,
+  },
+];
 
-export interface JobItem {
+// Mock passed candidates
+const passedCandidates: Record<string, string> = {
+  '1234567890123': 'นายสมชาย ใจดี',
+  '9876543210987': 'นางสาวสมหญิง รักเรียน',
+};
+
+export interface Job {
   id: string;
   title: string;
   dept: string;
@@ -16,64 +41,24 @@ export interface JobItem {
   quota: number;
 }
 
-export interface ApplicationStatusResponse {
-  status: "passed" | "failed";
+export interface StatusResult {
+  status: 'passed' | 'failed';
   name?: string;
 }
 
-/**
- * Fetch jobs list (server component usage)
- * TODO: Replace with actual API call
- */
-export async function fetchJobs(): Promise<JobItem[]> {
-  return [
-    {
-      id: "1",
-      title: "Frontend Developer",
-      dept: "Digital Product",
-      loc: "Bangkok",
-      type: "Full-time",
-      quota: 1,
-    },
-    {
-      id: "2",
-      title: "UX/UI Designer",
-      dept: "Creative",
-      loc: "Bangkok",
-      type: "Contract",
-      quota: 1,
-    },
-    {
-      id: "3",
-      title: "Content Editor",
-      dept: "Knowledge",
-      loc: "Hybrid",
-      type: "Part-time",
-      quota: 2,
-    },
-  ];
+export async function fetchJobs(): Promise<Job[]> {
+  // Simulate API delay
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  return mockJobs;
 }
 
-/**
- * Check application status (client component usage)
- * TODO: Replace with actual API call
- */
-export async function checkStatus(
-  citizenId: string
-): Promise<ApplicationStatusResponse> {
-  const cid = (citizenId ?? "").replace(/\D/g, "");
-
-  // Basic validation
-  if (cid.length !== 13) {
-    return { status: "failed" };
+export async function checkStatus(cid: string): Promise<StatusResult> {
+  // Simulate API delay
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  
+  const name = passedCandidates[cid];
+  if (name) {
+    return { status: 'passed', name };
   }
-
-  // Mock rule: even last digit => passed
-  const last = Number(cid[cid.length - 1]);
-  if (Number.isFinite(last) && last % 2 === 0) {
-    return { status: "passed", name: "ผู้สมัคร (ตัวอย่าง)" };
-  }
-
-  return { status: "failed" };
+  return { status: 'failed' };
 }
-

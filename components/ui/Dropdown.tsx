@@ -22,7 +22,6 @@ interface DropdownProps {
 
 const Dropdown = ({
   label,
-  required = false,
   value,
   onChange,
   options,

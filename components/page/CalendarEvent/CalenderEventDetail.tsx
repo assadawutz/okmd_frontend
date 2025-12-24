@@ -1,6 +1,5 @@
 'use client'
 import { Kanit } from "next/font/google";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ShareButtons from "@/components/ShareButtons";
 import RelatedNews from "@/components/RelatedNews";
@@ -221,7 +220,6 @@ interface CalenderEventDetailProps {
 export default function CalenderEventDetail({
   newsId,
 }: CalenderEventDetailProps) {
-  const router = useRouter();
   const newsItem = mockNews.find((item) => item.id.toString() === newsId);
 
   if (!newsItem)

@@ -1,14 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { Share2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface RelatedNewsItem {
   id: number | string;
   title: string;
-  banner: string;
+  banner?: string;
+  cover_image?: string | null;
   category?: {
-    slug: string;
+    id?: number;
+    slug?: string;
   };
 }
 
@@ -16,26 +19,29 @@ interface RelatedNewsProps {
   items: RelatedNewsItem[];
 }
 
-function RelatedNewsCard({ id, title, banner, category }: RelatedNewsItem) {
+function RelatedNewsCard({ id, title, banner, cover_image, category }: RelatedNewsItem) {
   const router = useRouter();
+  const imageUrl = banner || cover_image || "/news1.png";
+  const hasLink = category?.slug || category?.id;
 
   const handleClick = () => {
     if (category?.slug) {
       router.push(`/${category.slug}/${id}`);
+    } else if (category?.id) {
+      router.push(`/news/${id}`);
     }
   };
 
   return (
     <div
-      className={`group w-full ${
-        category?.slug ? "cursor-pointer" : "cursor-default"
-      }`}
+      className={`group w-full ${hasLink ? "cursor-pointer" : "cursor-default"}`}
       onClick={handleClick}
     >
       <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-3">
-        <img
-          src={banner}
+        <Image
+          src={imageUrl}
           alt={title}
+          fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
@@ -45,7 +51,7 @@ function RelatedNewsCard({ id, title, banner, category }: RelatedNewsItem) {
         {title}
       </h3>
 
-      {category?.slug && (
+      {hasLink && (
         <div className="flex items-center text-xs text-cyan-500 font-semibold gap-1">
           <Share2 size={12} className="rotate-180" />
           <span>อ่านต่อ</span>
