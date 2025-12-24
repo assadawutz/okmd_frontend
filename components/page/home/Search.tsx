@@ -15,9 +15,7 @@ export default function OkmdSearchSection() {
   return (
     <section className="bg-white pb-16 pt-10">
 
-      {/* GRID CENTER */}
-      <div className="w-full flex justify-center">
-        <div className="w-full max-w-[1140px] mx-auto px-6 lg:px-10 flex flex-col">
+      <div className="w-full flex flex-col">
 
           {/* -------------------------------------------------------------- */}
           {/* HEADER SEARCH ZONE */}
@@ -40,7 +38,7 @@ export default function OkmdSearchSection() {
             </div>
 
             {/* SEARCH BLOCK */}
-            <div className="relative mt-8 w-full max-w-[1140px] px-0 sm:px-0">
+            <div className="relative mt-8 w-full">
 
               {/* Gradient BG */}
               <div className="h-[210px] sm:h-[177px] w-full p-3 rounded-3xl bg-gradient-to-r bg-[#1B1D20]" />
@@ -75,6 +73,7 @@ export default function OkmdSearchSection() {
                 <input
                   type="text"
                   placeholder="พิมพ์เป้าหมายของคุณที่นี่"
+                  aria-label="Search"
                   className="
                     p-1 flex-1 border-b-2 border-okmd-cyan bg-transparent pl-0 
                     text-base sm:text-lg 
@@ -85,6 +84,7 @@ export default function OkmdSearchSection() {
                 />
 
                 <button
+                  type="button"
                   className="ml-3 flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-[#74CEE2] hover:scale-105 transition"
                 >
                   <Search className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
@@ -194,7 +194,6 @@ export default function OkmdSearchSection() {
           </div>
 
 
-        </div>
       </div>
     </section>
   );

@@ -43,9 +43,10 @@ type MagazineCardProps = {
 };
 function MagazineCard({ title, img, fileSize }: MagazineCardProps) {
   return (
-    <div
-      className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden transition-all duration-300 hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] h-full cursor-pointer flex flex-col"
-      onClick={() => alert(`Mock Click: ${title}`)}
+    <button
+      type="button"
+      className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden transition-all duration-300 hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] h-full cursor-pointer flex flex-col text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#74CEE2] focus-visible:ring-offset-2"
+      aria-label={title}
     >
       <div className="w-full h-[350px] sm:h-[380px] md:h-[400px] overflow-hidden">
         <img
@@ -65,15 +66,16 @@ function MagazineCard({ title, img, fileSize }: MagazineCardProps) {
           </span>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 
 type PaginationProps = {
   total: number;
   current: number;
+  onChange: (next: number) => void;
 };
-function Pagination({ total, current }: PaginationProps) {
+function Pagination({ total, current, onChange }: PaginationProps) {
   const pageRange = 3;
   const pages = useMemo(() => {
     const p: (number | string)[] = [];
@@ -93,7 +95,8 @@ function Pagination({ total, current }: PaginationProps) {
       <button
         disabled={current === 1}
         className={`${buttonClass} ${current === 1 ? disabledClass : normalClass}`}
-        onClick={() => alert("Mock: Go to previous page")}
+        onClick={() => onChange(Math.max(1, current - 1))}
+        aria-label="Previous page"
       >
         {"<"}
       </button>
@@ -104,7 +107,8 @@ function Pagination({ total, current }: PaginationProps) {
           ) : (
             <button
               className={`${buttonClass} ${p === current ? activeClass : normalClass}`}
-              onClick={() => alert(`Mock: Go to page ${p}`)}
+              onClick={() => onChange(p as number)}
+              aria-label={`Go to page ${p}`}
             >
               {p}
             </button>
@@ -114,7 +118,8 @@ function Pagination({ total, current }: PaginationProps) {
       <button
         disabled={current === total}
         className={`${buttonClass} ${current === total ? disabledClass : normalClass}`}
-        onClick={() => alert("Mock: Go to next page")}
+        onClick={() => onChange(Math.min(total, current + 1))}
+        aria-label="Next page"
       >
         {">"}
       </button>
@@ -187,7 +192,7 @@ export default function KnowledgeShelfSection() {
 
   return (
     <section className="w-full bg-white pb-16 pt-12">
-      <div className="container mx-auto px-6">
+      <div className="w-full">
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
           ตู้ <span className="text-[#74CEE2]">ความรู้</span>
         </h2>
@@ -222,7 +227,7 @@ export default function KnowledgeShelfSection() {
 
             {/* PAGINATION */}
             <div className="flex justify-center md:justify-end pt-6 pb-8">
-              <Pagination total={totalPages} current={currentPage} />
+              <Pagination total={totalPages} current={currentPage} onChange={setCurrentPage} />
             </div>
 
           </section>
