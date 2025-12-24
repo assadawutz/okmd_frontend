@@ -186,8 +186,8 @@ export default function KnowledgeShelfSection() {
   }, [selectedMenu]);
 
   return (
-    <section className="w-full bg-white pb-16 pt-12">
-      <div className="container mx-auto px-6">
+    <section className="w-full bg-white py-20">
+      <div className="container mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
           ตู้ <span className="text-[#74CEE2]">ความรู้</span>
         </h2>

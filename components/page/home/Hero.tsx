@@ -71,9 +71,8 @@ export default function Hero() {
           })}
 
           {/* TEXT LAYER */}
-          <figcaption className="absolute inset-0 flex items-top z-20 mt-8 pointer-events-none ">
-            <div className="w-full flex justify-center">
-              <div className="container w-full px-10">
+          <figcaption className="absolute inset-0 flex items-center z-20 pointer-events-none">
+            <div className="container mx-auto">
 
                 <Image
                   src="/okmd_ai_logo.png"
@@ -83,28 +82,27 @@ export default function Hero() {
                   className="mb-6 transition-all hover:scale-[1.05] pointer-events-auto"
                 />
 
-                <h1 className="text-[#1B1D20] font-bold text-[64px] leading-[72px]">
+                <h1 className="text-[#1B1D20] font-bold text-5xl md:text-6xl leading-tight">
                   AI-Driven intelligence:
                 </h1>
 
-                <p className="text-[#1B1D20] text-[24px] mt-4 opacity-90 max-w-[600px]">
+                <p className="text-[#1B1D20] text-xl md:text-2xl mt-4 opacity-90 max-w-[600px]">
                   Search, summarize, and Recommend in an instant.
                 </p>
 
                 <button
                   type="button"
-                  className="mt-6 bg-[#74CEE2] px-6 py-3 rounded-xl text-white text-[18px] font-medium
+                  className="mt-6 bg-[#74CEE2] px-6 py-3 rounded-xl text-white text-lg font-medium
                     hover:bg-[#5FC4D8] active:scale-95 transition shadow-md pointer-events-auto"
                 >
                   ดูรายละเอียด
                 </button>
-              </div>
             </div>
           </figcaption>
         </figure>
 
         {/* PAGINATION DESKTOP */}
-        <nav className="w-full flex justify-center mt-8" aria-label="Slide navigation">
+        <nav className="w-full flex justify-center mt-8 mb-6" aria-label="Slide navigation">
           <ul className="flex items-center gap-3 list-none m-0 p-0">
             {SLIDES.map((_, i) => (
               <li key={i}>

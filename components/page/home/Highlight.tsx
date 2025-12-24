@@ -32,126 +32,127 @@ export default function HighlightSection() {
   }, [index, highlights.length]);
 
   return (
-    <section className="mx-auto bg-[#DFF1F9] w-full py-20">
-      {/* HEADER */}
-      <div className="text-center mb-16">
-              <h2 className="font-semibold text-okmd-dark leading-tight text-2xl sm:text-3xl lg:text-4xl">
-          Highlight
-        </h2> 
-        <p className="mt-2 text-xl opacity-90 text-[#16A7CB]">
-          ทุกจุดเด่น ถูกยกมาไว้ตรงนี้
-        </p>
-      </div>
+    <section className="bg-[#DFF1F9] w-full py-20">
+      <div className="container mx-auto">
+        {/* HEADER */}
+        <div className="text-center mb-16">
+          <h2 className="font-semibold text-okmd-dark leading-tight text-2xl sm:text-3xl lg:text-4xl">
+            Highlight
+          </h2> 
+          <p className="mt-2 text-xl opacity-90 text-[#16A7CB]">
+            ทุกจุดเด่น ถูกยกมาไว้ตรงนี้
+          </p>
+        </div>
 
-      {/* DESKTOP */}
-      <div className="flex-col w-full hidden items-center md:flex">
+        {/* DESKTOP */}
+        <div className="hidden md:block space-y-10">
 
-        {/* ROW 1 */}
-        {highlights.length >= 3 && (
-          <div className="flex px-6 gap-10 md:px-0">
+          {/* ROW 1 */}
+          {highlights.length >= 3 && (
+            <div className="grid grid-cols-12 gap-6 lg:gap-8">
 
-            {/* BOX 1 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[335px] relative overflow-hidden group">
-              <Image  
-                src={highlights[0].img}
-                fill
-                alt={highlights[0].title}
-                className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
-              />
-              <div className="bg-gradient-to-b from-black/20 via-black/40 to-black/70 inset-0 absolute" />
-              <div className="space-y-3 text-white bottom-6 left-6 absolute drop-shadow-lg">
-                <h3 className="font-semibold text-[20px] leading-[28px] whitespace-pre-line">
-                  {highlights[0].title}
+              {/* BOX 1 */}
+              <div className="col-span-12 md:col-span-4 rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group">
+                <Image  
+                  src={highlights[0].img}
+                  fill
+                  alt={highlights[0].title}
+                  className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
+                />
+                <div className="bg-gradient-to-b from-black/20 via-black/40 to-black/70 inset-0 absolute" />
+                <div className="space-y-3 text-white bottom-6 left-6 absolute drop-shadow-lg">
+                  <h3 className="font-semibold text-[20px] leading-[28px] whitespace-pre-line">
+                    {highlights[0].title}
+                  </h3>
+                  {highlights[0].desc && (
+                    <p className="opacity-90 text-[14px]">{highlights[0].desc}</p>
+                  )}
+                  <a href={highlights[0].link} className="flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
+                    อ่านต่อ <span>↗</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* BOX 2 */}
+              <div className="col-span-12 md:col-span-4 bg-white flex rounded-2xl h-[330px] px-6 pt-10 pb-10 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] justify-between hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
+                <div>
+                  <p className="text-sm mb-1 text-gray-500">The Knowledge</p>
+                  <h3 className="font-bold leading-snug text-4xl">{highlights[1].title.replace("The Knowledge\n", "")}</h3>
+                </div>
+                <Image
+                  src={highlights[1].img}
+                  width={180}
+                  height={260}
+                  alt={highlights[1].title}
+                  className="rounded-none shadow-md"
+                />
+              </div>
+
+              {/* BOX 3 */}
+              <div className="col-span-12 md:col-span-4 bg-white rounded-2xl h-[330px] px-6 pt-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] relative overflow-hidden hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
+                <Image
+                  src={highlights[2].img}
+                  width={150}
+                  height={150}
+                  alt="highlight-3-icon"
+                  className="opacity-30 right-4 bottom-4 absolute"
+                />
+
+                <p className="font-bold text-lg mb-2 tracking-tight">OKMD</p>
+
+                <h3 className="font-medium mb-3 text-[16px] text-[#1B1D20] leading-6">
+                  {highlights[2].title}
                 </h3>
-                {highlights[0].desc && (
-                  <p className="opacity-90 text-[14px]">{highlights[0].desc}</p>
+
+                {highlights[2].desc && (
+                  <p className="text-sm text-[#7F8288] leading-5 line-clamp-3">
+                    {highlights[2].desc}
+                  </p>
                 )}
-                <a href={highlights[0].link} className="flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
+
+                <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
                   อ่านต่อ <span>↗</span>
                 </a>
               </div>
             </div>
+          )}
 
-            {/* BOX 2 */}
-            <div className="bg-white flex rounded-2xl h-[330px] px-6 pt-10 pb-10 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] w-[365px] justify-between hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
-              <div>
-                <p className="text-sm mb-1 text-gray-500">The Knowledge</p>
-                <h3 className="font-bold leading-snug text-4xl">{highlights[1].title.replace("The Knowledge\n", "")}</h3>
+          {/* ROW 2 */}
+          {highlights.length >= 5 && (
+            <div className="grid grid-cols-12 gap-6 lg:gap-8">
+
+              {/* BOX 4 */}
+              <div className="col-span-12 md:col-span-8 rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group">
+                <Image
+                  src={highlights[3].img}
+                  fill
+                  alt={highlights[3].title || "highlight-4"}
+                  className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
+                />
               </div>
-              <Image
-                src={highlights[1].img}
-                width={180}
-                height={260}
-                alt={highlights[1].title}
-                className="rounded-none shadow-md"
-              />
-            </div>
 
-            {/* BOX 3 */}
-            <div className="bg-white rounded-2xl h-[330px] px-6 pt-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] w-[365px] relative overflow-hidden hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
-              <Image
-                src={highlights[2].img}
-                width={150}
-                height={150}
-                alt="highlight-3-icon"
-                className="opacity-30 right-4 bottom-4 absolute"
-              />
-
-              <p className="font-bold text-lg mb-2 tracking-tight">OKMD</p>
-
-              <h3 className="font-medium mb-3 text-[16px] text-[#1B1D20] leading-6">
-                {highlights[2].title}
-              </h3>
-
-              {highlights[2].desc && (
-                <p className="text-sm text-[#7F8288] leading-5 line-clamp-3">
-                  {highlights[2].desc}
-                </p>
-              )}
-
-              <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
-                อ่านต่อ <span>↗</span>
-              </a>
-            </div>
-          </div>
-        )}
-
-        {/* ROW 2 */}
-        {highlights.length >= 5 && (
-          <div className="container flex mt-10 px-6 gap-10 md:px-10">
-
-            {/* BOX 4 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
-              <Image
-                src={highlights[3].img}
-                fill
-                alt={highlights[3].title || "highlight-4"}
-                className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
-              />
-            </div>
-
-            {/* BOX 5 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[365px] relative overflow-hidden group">
-              <Image
-                src={highlights[4].img}
-                fill
-                alt={highlights[4].title}
-                className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
-              />
-              <div className="bg-black/25 inset-0 absolute" />
-              <div className="space-y-3 text-white bottom-6 left-6 absolute drop-shadow-lg">
-                <h3 className="font-semibold text-xl leading-snug">
-                  {highlights[4].title}
-                </h3>
-                <a href={highlights[4].link} className="flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
-                  อ่านต่อ <span>↗</span>
-                </a>
+              {/* BOX 5 */}
+              <div className="col-span-12 md:col-span-4 rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group">
+                <Image
+                  src={highlights[4].img}
+                  fill
+                  alt={highlights[4].title}
+                  className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
+                />
+                <div className="bg-black/25 inset-0 absolute" />
+                <div className="space-y-3 text-white bottom-6 left-6 absolute drop-shadow-lg">
+                  <h3 className="font-semibold text-xl leading-snug">
+                    {highlights[4].title}
+                  </h3>
+                  <a href={highlights[4].link} className="flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
+                    อ่านต่อ <span>↗</span>
+                  </a>
+                </div>
               </div>
-            </div>
 
-          </div>
-        )}
-      </div>
+            </div>
+          )}
+        </div>
 
       {/* ================= MOBILE ================= */}
       {highlights.length > 0 && (
@@ -247,6 +248,7 @@ export default function HighlightSection() {
           </div>
         </div>
       )}
+      </div>
     </section>
   );
 }
