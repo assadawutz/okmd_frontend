@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { Search, CheckCircle2, XCircle } from 'lucide-react';
-import { checkStatus } from '@/lib/services/okmd.service';
+import { checkStatus, type StatusResult } from '@/lib/services/okmd.service';
 
 export default function Page() {
   const [cid, setCid] = useState('');
