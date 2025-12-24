@@ -16,16 +16,16 @@ type LeftMenuProps = {
 };
 function LeftMenu({ items, active, onSelect }: LeftMenuProps) {
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col space-y-1.5">
       {items.map((item) => (
         <button
           key={item.value}
           onClick={() => onSelect(item.value)}
           className={`
-            text-left px-5 py-4 rounded-xl text-lg font-semibold transition w-full cursor-pointer
+            text-left px-4 py-3 lg:px-5 lg:py-3.5 rounded-xl text-base lg:text-lg font-semibold transition-all w-full cursor-pointer
             ${active === item.value
-              ? "bg-[#E8F6FB] text-[#16A7CB] hover:bg-[#dcf4fa]"
-              : "text-gray-700 hover:bg-gray-50"
+              ? "bg-[#E8F6FB] text-[#16A7CB] shadow-sm"
+              : "text-gray-700 hover:bg-gray-50 hover:text-[#16A7CB]"
             }
           `}
         >
@@ -44,23 +44,23 @@ type MagazineCardProps = {
 function MagazineCard({ title, img, fileSize }: MagazineCardProps) {
   return (
     <div
-      className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden transition-all duration-300 hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] h-full cursor-pointer flex flex-col"
+      className="group bg-white rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.06)] overflow-hidden transition-all duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-1 h-full cursor-pointer flex flex-col border border-gray-100"
       onClick={() => alert(`Mock Click: ${title}`)}
     >
-      <div className="w-full h-[350px] sm:h-[380px] md:h-[400px] overflow-hidden">
+      <div className="w-full h-[300px] sm:h-[340px] lg:h-[360px] overflow-hidden">
         <img
           src={img}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.05]"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         />
       </div>
-      <div className="p-6 flex flex-col justify-between flex-grow">
-        <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2">
+      <div className="p-4 lg:p-5 flex flex-col justify-between flex-grow">
+        <h3 className="text-base lg:text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-[#16A7CB] transition-colors">
           {title}
         </h3>
-        <div className="flex justify-between items-center mt-4 pt-2 border-t border-gray-100">
-          <span className="text-sm text-gray-500 line-clamp-1">{fileSize}</span>
-          <span className="text-sm text-[#16A7CB] font-semibold hover:underline whitespace-nowrap">
+        <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-100 gap-2">
+          <span className="text-xs lg:text-sm text-gray-500 line-clamp-1 flex-1">{fileSize}</span>
+          <span className="text-xs lg:text-sm text-[#16A7CB] font-semibold group-hover:underline whitespace-nowrap">
             อ่านเพิ่มเติม ↗
           </span>
         </div>
@@ -186,15 +186,15 @@ export default function KnowledgeShelfSection() {
   }, [selectedMenu]);
 
   return (
-    <section className="w-full bg-white pb-16 pt-12">
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+    <section className="w-full bg-white py-16 md:py-20">
+      <div className="container mx-auto px-6 lg:px-10">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
           ตู้ <span className="text-[#74CEE2]">ความรู้</span>
         </h2>
 
-        <div className="mt-8 md:mt-12 grid grid-cols-12 gap-x-12 gap-y-10">
+        <div className="mt-8 md:mt-12 grid grid-cols-12 gap-x-6 lg:gap-x-10 gap-y-8">
           {/* LEFT SIDEBAR */}
-          <aside className="col-span-12 md:col-span-3 pb-4 md:pb-0">
+          <aside className="col-span-12 md:col-span-3 pb-2 md:pb-0">
             <LeftMenu
               items={MENU}
               active={selectedMenu}
@@ -203,13 +203,13 @@ export default function KnowledgeShelfSection() {
           </aside>
 
           {/* RIGHT CONTENT */}
-          <section className="col-span-12 md:col-span-9 space-y-10 md:space-y-12">
-            <h3 className="text-3xl md:text-4xl font-bold leading-snug text-gray-800">
+          <section className="col-span-12 md:col-span-9 space-y-8 md:space-y-10">
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-snug text-gray-800">
               {PAGE_TITLE}
             </h3>
 
             {/* CARD GRID */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {paginatedData.map((item) => (
                 <div key={item.title} className="col-span-1 h-full">
                   <MagazineCard title={item.title} img={item.img} fileSize={item.fileSize} />
@@ -218,10 +218,10 @@ export default function KnowledgeShelfSection() {
             </div>
 
             {/* DIVIDER */}
-            <div className="w-full border-t border-black/10 mt-10"></div>
+            <div className="w-full border-t border-gray-200"></div>
 
             {/* PAGINATION */}
-            <div className="flex justify-center md:justify-end pt-6 pb-8">
+            <div className="flex justify-center md:justify-end pt-4 pb-2">
               <Pagination total={totalPages} current={currentPage} />
             </div>
 

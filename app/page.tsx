@@ -10,7 +10,7 @@ import NewsSection from "@/components/page/home/NewsSection";
 
 export default function HomePage() {
   return (
-    <div className="bg-white min-h-screen w-full col-span-12">
+    <div className="bg-white min-h-screen w-full col-span-12 overflow-x-hidden">
       <Hero />
       <OkmdSearchSection />
       <HighlightSection />
