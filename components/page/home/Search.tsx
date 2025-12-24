@@ -17,7 +17,7 @@ export default function OkmdSearchSection() {
 
       {/* GRID CENTER */}
       <div className="w-full flex justify-center">
-        <div className="w-full max-w-[1140px] mx-auto px-6 lg:px-10 flex flex-col">
+          <div className="container mx-auto flex flex-col">
 
           {/* -------------------------------------------------------------- */}
           {/* HEADER SEARCH ZONE */}
@@ -40,7 +40,7 @@ export default function OkmdSearchSection() {
             </div>
 
             {/* SEARCH BLOCK */}
-            <div className="relative mt-8 w-full max-w-[1140px] px-0 sm:px-0">
+            <div className="relative mt-8 w-full">
 
               {/* Gradient BG */}
               <div className="h-[210px] sm:h-[177px] w-full p-3 rounded-3xl bg-gradient-to-r bg-[#1B1D20]" />

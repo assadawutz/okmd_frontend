@@ -73,7 +73,7 @@ export default function Hero() {
           {/* TEXT LAYER */}
           <figcaption className="absolute inset-0 flex items-top z-20 mt-8 pointer-events-none ">
             <div className="w-full flex justify-center">
-              <div className="container w-full px-10">
+              <div className="container w-full">
 
                 <Image
                   src="/okmd_ai_logo.png"

@@ -70,7 +70,7 @@ export default function ActivityBlock() {
   return (
     <section aria-label="Activity Block" className="w-full bg-[#F8FBFD] py-16 md:py-20">
 
-      <div className="container text-center mx-auto px-4 lg:px-8 flex flex-col gap-10 md:gap-12">
+      <div className="container mx-auto flex flex-col gap-10 md:gap-12">
 
         <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-4">
           <div>
@@ -92,7 +92,7 @@ export default function ActivityBlock() {
               <article
                 key={item.id}
                 aria-label={`Activity ${item.title}`}
-                className="relative h-[235px] rounded-2xl overflow-hidden group cursor-pointer shadow-[0_12px_30px_rgba(0,0,0,0.08)]"
+                className="relative h-[235px] rounded-2xl overflow-hidden group cursor-pointer shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300"
               >
                 <Image
                   src={item.img}
@@ -125,7 +125,7 @@ export default function ActivityBlock() {
               <article
                 key={item.id}
                 aria-label={item.title}
-                className="relative  overflow-hidden group cursor-pointer  col-span-3 h-[312px]"
+                className="relative overflow-hidden group cursor-pointer col-span-3 h-[312px] rounded-2xl hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300"
               >
                 <Image
                   src={item.img}
