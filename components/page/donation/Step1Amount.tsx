@@ -11,6 +11,15 @@ interface Step1AmountProps {
   goToStep: (step: number) => void;
 }
 
+interface Step1AmountProps {
+  predefinedAmounts: number[];
+  selectedAmount: number | null;
+  customAmount: string;
+  handlePredefinedClick: (amount: number) => void;
+  handleCustomChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  goToStep: (step: number) => void;
+}
+
 export default function Step1Amount({
   predefinedAmounts,
   selectedAmount,
