@@ -44,14 +44,14 @@ export default function HighlightSection() {
       </div>
 
       {/* DESKTOP */}
-      <div className="flex-col w-full hidden items-center md:flex">
+      <div className="hidden md:flex flex-col w-full">
 
         {/* ROW 1 */}
         {highlights.length >= 3 && (
-          <div className="flex px-6 gap-10 md:px-0">
+          <div className="grid grid-cols-3 gap-8 w-full">
 
             {/* BOX 1 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[335px] relative overflow-hidden group">
+            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-full relative overflow-hidden group">
               <Image  
                 src={highlights[0].img}
                 fill
@@ -73,7 +73,7 @@ export default function HighlightSection() {
             </div>
 
             {/* BOX 2 */}
-            <div className="bg-white flex rounded-2xl h-[330px] px-6 pt-10 pb-10 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] w-[365px] justify-between hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
+            <div className="bg-white flex rounded-2xl h-[330px] px-6 pt-10 pb-10 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] w-full justify-between hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
               <div>
                 <p className="text-sm mb-1 text-gray-500">The Knowledge</p>
                 <h3 className="font-bold leading-snug text-4xl">{highlights[1].title.replace("The Knowledge\n", "")}</h3>
@@ -88,7 +88,7 @@ export default function HighlightSection() {
             </div>
 
             {/* BOX 3 */}
-            <div className="bg-white rounded-2xl h-[330px] px-6 pt-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] w-[365px] relative overflow-hidden hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
+            <div className="bg-white rounded-2xl h-[330px] px-6 pt-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] w-full relative overflow-hidden hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)]">
               <Image
                 src={highlights[2].img}
                 width={150}
@@ -118,10 +118,10 @@ export default function HighlightSection() {
 
         {/* ROW 2 */}
         {highlights.length >= 5 && (
-          <div className="container flex mt-10 px-6 gap-10 md:px-10">
+          <div className="grid grid-cols-12 mt-10 gap-8 w-full">
 
             {/* BOX 4 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
+            <div className="col-span-8 rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-full relative overflow-hidden group">
               <Image
                 src={highlights[3].img}
                 fill
@@ -131,7 +131,7 @@ export default function HighlightSection() {
             </div>
 
             {/* BOX 5 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[365px] relative overflow-hidden group">
+            <div className="col-span-4 rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-full relative overflow-hidden group">
               <Image
                 src={highlights[4].img}
                 fill
