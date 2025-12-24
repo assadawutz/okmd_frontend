@@ -3,6 +3,7 @@
 
 import { useState, useCallback, useMemo, type ChangeEvent, type FormEvent } from "react";
 import React from "react";
+import { submitComplaint, type ComplaintFormData as ServiceComplaintFormData } from "@/lib/services/complaint.service";
 
 // --- 1. Type Definitions ---
 
@@ -326,7 +327,7 @@ function FormSection() {
     return errors;
   };
 
-  // Mock Submission Handler (NO API CALL)
+  // Submission Handler using Service Layer
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSubmissionStatus('submitting');
@@ -344,14 +345,25 @@ function FormSection() {
       return;
     }
 
-    // 3. Validation Success: Mock the submission success state
-    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-
-    // Success scenario
-    setSubmissionStatus('success');
-    setSubmitMessage(`ส่งเรื่องร้องเรียนสำเร็จแล้ว! (เลขที่ติดตาม: OKMD-${Date.now().toString().slice(-6)})`);
-    setFormData(initialFormState); // Reset form state on success
-    setFormErrors({}); // Clear any residual errors
+    // 3. Validation Success: Submit via service
+    try {
+      const response = await submitComplaint(formData as ServiceComplaintFormData);
+      
+      if (response.success) {
+        setSubmissionStatus('success');
+        setSubmitMessage(response.message);
+        setFormData(initialFormState); // Reset form state on success
+        setFormErrors({}); // Clear any residual errors
+      } else {
+        setSubmissionStatus('error');
+        setSubmitMessage(response.message || 'เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง');
+      }
+    } catch (error) {
+      // Handle network or other errors
+      setSubmissionStatus('error');
+      setSubmitMessage('เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง');
+      console.error('Complaint submission error:', error);
+    }
   };
 
   return (

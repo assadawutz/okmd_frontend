@@ -1,5 +1,15 @@
 import Button from "@/components/ui/Button";
 import { MdOutlineArrowBackIos } from "react-icons/md";
+import React from "react";
+
+interface Step1AmountProps {
+  predefinedAmounts: number[];
+  selectedAmount: number | null;
+  customAmount: string;
+  handlePredefinedClick: (amount: number) => void;
+  handleCustomChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  goToStep: (step: number) => void;
+}
 
 interface Step1AmountProps {
   predefinedAmounts: number[];

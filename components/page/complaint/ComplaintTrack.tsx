@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function ComplaintTrack() {
   const [trackId, setTrackId] = useState("");
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<{ trackingId: string; detail: string; updatedAt: string } | "not-found" | null>(null);
 
   const search = () => {
     const r = TRACK_DATA.find((x) => x.trackingId === trackId);

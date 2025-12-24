@@ -1,5 +1,4 @@
 import CalendarEventListPage from "@/components/page/CalendarEvent/CalendarEventList";
-import CalenderEventListPage from "@/components/page/CalendarEvent/CalendarEventList";
 
 
 

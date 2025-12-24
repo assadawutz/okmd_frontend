@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import clsx from "clsx";
 
@@ -37,14 +37,14 @@ export default function DropzoneInput({
   const [oldFiles, setOldFiles] = useState<ApiFile[]>(apiFiles);
   const baseUrl = "/api/uploads/";
 
-  /** โหลดค่าเริ่มต้นจาก props */
-  useEffect(() => {
-    if (value.length > 0 || files.length === 0) {
+  /** Sync ไฟล์เมื่อ value เปลี่ยน (ตรวจสอบเพื่อหลีกเลี่ยง re-render loop) */
+  const valueRef = React.useRef(value);
+  React.useEffect(() => {
+    if (valueRef.current !== value) {
+      valueRef.current = value;
       setFiles(value);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
-  // useEffect(() => setOldFiles(apiFiles), [apiFiles]);
 
   /** Resize รูป */
   const resizeImage = (file: File) =>

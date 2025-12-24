@@ -6,21 +6,26 @@ interface NewsCardProps {
   data: {
     id: number;
     title: string;
-    description: string;
-    image: string;
+    description?: string;
+    excerpt?: string;
+    image?: string;
+    cover_image?: string | null;
   };
-  path: string; // path ของหน้าที่ต้องการไป
+  path: string;
 }
 
 export default function NewsCard({ data, path }: NewsCardProps) {
+  const imageUrl = data.image || data.cover_image || "/news1.png";
+  const descriptionText = data.description || data.excerpt || "";
+
   return (
     <Link href={path} className="flex flex-col gap-4 group cursor-pointer">
       {/* รูปภาพ */}
       <div className="relative w-full aspect-[4/3] overflow-hidden rounded-xl bg-gray-100">
-        <img
-          src={data.image}
+        <Image
+          src={imageUrl}
           alt={data.title}
-          
+          fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </div>
@@ -32,7 +37,7 @@ export default function NewsCard({ data, path }: NewsCardProps) {
         </h3>
 
         <p className="text-gray-500 text-sm line-clamp-2 font-light">
-          {data.description}
+          {descriptionText}
         </p>
 
         <div className="mt-2 flex items-center text-black text-sm font-normal hover:underline gap-1">

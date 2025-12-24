@@ -1,15 +1,15 @@
-interface NewsDataItem {
+interface NewsItem {
   id: string;
   title: string;
-  tag?: string;
-  date?: string;
-  img?: string;
-  infoImage?: string;
-  body?: string;
-  related?: Array<{ id: string; img?: string; title?: string }>;
+  tag: string;
+  date: string;
+  img: string;
+  infoImage: string;
+  body: string;
+  related: { id: string; img: string; title: string }[];
 }
 
-export const NEWS_DATA: Record<string, NewsDataItem> = {
+export const NEWS_DATA: Record<string, NewsItem> = {
   "1": {
     id: "1",
     title: "OKMD จัดกิจกรรม Knowledge Day กระตุ้นการเรียนรู้ยุคใหม่",

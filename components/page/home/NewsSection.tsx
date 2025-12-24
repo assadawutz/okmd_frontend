@@ -8,10 +8,10 @@ import { NEWS_DATA } from "@/data/news";
 interface NewsItem {
   id: string;
   title: string;
-  tag?: string;
-  date?: string;
-  img?: string;
-  [key: string]: unknown;
+  tag: string;
+  date: string;
+  img: string;
+  body: string;
 }
 
 export default function NewsSection() {
@@ -19,7 +19,7 @@ export default function NewsSection() {
 
   return (
     <section className="bg-white py-16 md:py-24">
-      <div className="container mx-auto px-6 lg:px-10">
+      <div className="container mx-auto">
         
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
           <div>

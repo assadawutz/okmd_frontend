@@ -74,17 +74,15 @@ const LabelWithTooltip = ({ title, tooltip }: { title: string; tooltip: string }
 /* ================= COMPONENT ================= */
 
 interface ProcurementItem {
-  id: string;
-  title?: string;
-  type?: string;
-  status?: string;
-  method?: string;
-  [key: string]: unknown;
+  id: number;
+  title: string;
+  start_date: string;
+  status: string;
 }
 
 export default function ProcureMent() {
   const [data, setData] = useState<ProcurementItem[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // filters (ยังไม่เอาไป query)
   const [search, setSearch] = useState('');
@@ -95,19 +93,31 @@ export default function ProcureMent() {
   const [enddate, setEndDate] = useState('');
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchData = async () => {
-      setLoading(true);
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/procurement-announcements`
+        );
+        const result = await res.json();
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/procurement-announcements`
-      );
-      const result = await res.json();
-
-      setData(result.data || []);
-      setLoading(false);
+        if (isMounted) {
+          setData(result.data || []);
+          setLoading(false);
+        }
+      } catch {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
     };
 
     fetchData();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

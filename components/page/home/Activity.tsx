@@ -69,8 +69,7 @@ function formatDate(day: number) {
 export default function ActivityBlock() {
   return (
     <section aria-label="Activity Block" className="w-full bg-[#F8FBFD] py-16 md:py-20">
-
-      <div className="container text-center mx-auto px-4 lg:px-8 flex flex-col gap-10 md:gap-12">
+      <div className="container mx-auto text-center flex flex-col gap-10 md:gap-12">
 
         <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-4">
           <div>

@@ -5,6 +5,12 @@ import { NEWS_DATA } from "../../../../data/news";
 import Image from "next/image";
 import Link from "next/link";
 
+interface RelatedNewsItem {
+  id: string;
+  img: string;
+  title: string;
+}
+
 export default function NewsDetail({ params }: { params: { id: string } }) {
   const n = NEWS_DATA[params.id];
   const bodyParagraphs = (n?.body || "").split("\n\n").filter(Boolean);
@@ -128,7 +134,7 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
 
-            {n.related?.map((r: { id: string; title?: string; image?: string }, i: number) => (
+            {n.related?.map((r: RelatedNewsItem, i: number) => (
               <Link key={i} href={`/news/detail/${r.id}`} className="group flex flex-col">
 
                 <div className="w-full h-[170px] rounded-xl overflow-hidden">

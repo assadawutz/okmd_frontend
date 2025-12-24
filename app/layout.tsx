@@ -4,7 +4,6 @@ import "./globals.css";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import LogoBar from "@/components/Bar";
-import Breadcrumb from "@/components/Breadcrumb";
 
 const kanit = Kanit({
   subsets: ["latin", "thai"],
@@ -26,7 +25,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="th" className={kanit.variable}>
-      <body className={`bg-white text-[#1B1D20] antialiased ${kanit.className}`}>
+      <body     className={`bg-white text-[#1B1D20] antialiased ${kanit.className}`}>
         <Header />
         {/* <div className="container mx-auto "><Breadcrumb/></div> */}
         {/* MAIN LANDMARK — WCAG 2.1 Compliant */}
