@@ -70,7 +70,7 @@ export default function ActivityBlock() {
   return (
     <section aria-label="Activity Block" className="w-full bg-[#F8FBFD] py-16 md:py-20">
 
-      <div className="container text-center mx-auto px-4 lg:px-8 flex flex-col gap-10 md:gap-12">
+      <div className="w-full text-center flex flex-col gap-10 md:gap-12">
 
         <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-4">
           <div>
@@ -92,7 +92,7 @@ export default function ActivityBlock() {
               <article
                 key={item.id}
                 aria-label={`Activity ${item.title}`}
-                className="relative h-[235px] rounded-2xl overflow-hidden group cursor-pointer shadow-[0_12px_30px_rgba(0,0,0,0.08)]"
+                className="relative h-[235px] rounded-2xl overflow-hidden group cursor-pointer shadow-[0_12px_30px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-1 focus-within:-translate-y-1"
               >
                 <Image
                   src={item.img}
@@ -125,7 +125,7 @@ export default function ActivityBlock() {
               <article
                 key={item.id}
                 aria-label={item.title}
-                className="relative  overflow-hidden group cursor-pointer  col-span-3 h-[312px]"
+                className="relative overflow-hidden group cursor-pointer col-span-3 h-[312px] rounded-2xl shadow-[0_12px_30px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-1"
               >
                 <Image
                   src={item.img}
@@ -134,7 +134,7 @@ export default function ActivityBlock() {
                   sizes="(max-width: 768px) 100vw, 25vw"
                   className={`${idx === 1 ? "object-contain bg-transparent" : "object-cover"} transition-all duration-500 group-hover:scale-105`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
                 
                 <div className="absolute bottom-4 left-4 right-4 text-white z-10">
                    <h3 className="text-lg font-bold leading-tight drop-shadow-md">{item.title}</h3>
