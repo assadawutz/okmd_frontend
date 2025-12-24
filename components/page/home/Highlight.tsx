@@ -159,7 +159,7 @@ export default function HighlightSection() {
       {/* ================= MOBILE ================= */}
       {highlights.length > 0 && (
         <div className="md:hidden px-4 sm:px-6">
-          <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory gap-4 pb-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory gap-4 pb-2 no-scrollbar">
             {highlights.map((h, i) => (
               <div
                 key={h.id}
