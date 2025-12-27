@@ -20,7 +20,7 @@ export default function Hero() {
     stopAuto();
     timer.current = setTimeout(() => {
       setIndex((prev) => (prev + 1) % SLIDES.length);
-    }, 4000);
+    }, 5000);
   }, [stopAuto]);
 
   /* AUTOPLAY */
@@ -37,73 +37,71 @@ export default function Hero() {
 
   return (
     <section
-      className="w-full cursor-pointer bg-white overflow-hidden"
+      className="w-full bg-[#C5DBE3] overflow-hidden"
       aria-label="AI-Driven Hero Section"
       aria-live="off"
     >
 
       {/* ========== DESKTOP ========== */}
       <div className="hidden md:block">
-        <figure className="relative w-full h-[520px] lg:h-[560px] overflow-hidden mb-0">
+        <div className="container mx-auto px-6 lg:px-10">
+          <div className="relative min-h-[480px] lg:min-h-[520px] xl:min-h-[560px] flex items-center">
 
-          {SLIDES.map((slide, i) => {
-            const active = i === index;
-            return (
-              <div
-                key={i}
-                aria-hidden={!active}
-                className={`
-                  absolute inset-0 transition-all duration-[1200ms]
-                  ease-[cubic-bezier(.16,.84,.44,1)]
-                  ${active ? "opacity-100 scale-100 translate-x-0" : "opacity-0 scale-105 translate-x-6"}
-                `}
-              >
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  priority
-                  sizes="100vw"
-                  className="object-cover transition-transform duration-[1200ms]"
-                />
-              </div>
-            );
-          })}
-
-          {/* TEXT LAYER */}
-          <figcaption className="absolute inset-0 flex items-top z-20 mt-8 pointer-events-none">
-            <div className="w-full flex justify-center">
-              <div className="container w-full">
-
+            {/* LEFT CONTENT */}
+            <div className="relative z-20 max-w-[600px] py-12">
+              {/* OKMD AI Logo */}
+              <div className="flex items-center gap-2 mb-6">
                 <Image
                   src="/okmd_ai_logo.png"
-                  width={72}
-                  height={72}
+                  width={56}
+                  height={56}
                   alt="OKMD AI Logo"
-                  className="mb-5 transition-all hover:scale-[1.05] pointer-events-auto"
+                  className="transition-all hover:scale-[1.05]"
                 />
+              </div>
 
-                <h1 className="text-[#1B1D20] font-bold text-4xl lg:text-5xl xl:text-[56px] leading-tight lg:leading-[1.15]">
-                  AI-Driven intelligence:
-                </h1>
+              <h1 className="text-[#1B1D20] font-bold text-4xl lg:text-5xl xl:text-[52px] leading-[1.1] mb-4">
+                AI-Driven intelligence:
+              </h1>
 
-                <p className="text-[#1B1D20] text-lg lg:text-xl xl:text-2xl mt-3 lg:mt-4 opacity-90 max-w-xl">
-                  Search, summarize, and Recommend in an instant.
-                </p>
+              <p className="text-[#1B1D20] text-lg lg:text-xl xl:text-2xl mb-6 opacity-85">
+                Search, summarize, and Recommend in an instant.
+              </p>
 
-                <button
-                  type="button"
-                  className="mt-5 lg:mt-6 bg-[#74CEE2] px-5 lg:px-6 py-2.5 lg:py-3 rounded-xl text-white text-base lg:text-lg font-medium
-                    hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md pointer-events-auto"
-                >
-                  ดูรายละเอียด
-                </button>
+              <button
+                type="button"
+                className="bg-[#74CEE2] px-6 py-3 rounded-xl text-white text-base lg:text-lg font-medium
+                  hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md"
+              >
+                ดูรายละเอียด
+              </button>
             </div>
-          </figcaption>
-        </figure>
+
+            {/* RIGHT AI ROBOT IMAGE */}
+            <div className="absolute right-0 top-0 bottom-0 w-[55%] lg:w-[50%] flex items-center justify-end">
+              <div className="relative w-full h-full">
+                {/* AI Chip Icon */}
+                <div className="absolute right-[20%] top-[30%] z-10">
+                  <div className="w-32 h-32 lg:w-40 lg:h-40 border-2 border-[#74CEE2]/50 rounded-lg flex items-center justify-center">
+                    <span className="text-[#74CEE2] text-4xl lg:text-5xl font-light">AI</span>
+                  </div>
+                </div>
+                {/* Robot Hand Image - using existing image */}
+                <Image
+                  src="/rectangle-689.png"
+                  alt="AI Robot Hand"
+                  fill
+                  className="object-contain object-right"
+                  priority
+                />
+              </div>
+            </div>
+
+          </div>
+        </div>
 
         {/* PAGINATION DESKTOP */}
-        <nav className="container mx-auto flex justify-center mt-8 pb-8" aria-label="Slide navigation">
+        <nav className="container mx-auto flex justify-center pb-8" aria-label="Slide navigation">
           <ul className="flex items-center gap-3 list-none m-0 p-0">
             {SLIDES.map((_, i) => (
               <li key={i}>
@@ -114,7 +112,7 @@ export default function Hero() {
                   aria-pressed={i === index}
                   className={`
                     block transition-all rounded-full cursor-pointer
-                    ${i === index ? "w-10 h-2 bg-[#74CEE2]" : "w-2 h-2 bg-[#ECECED] hover:bg-[#D1D5DB]"}
+                    ${i === index ? "w-10 h-2 bg-[#74CEE2]" : "w-2 h-2 bg-[#9AACB1] hover:bg-[#7A9AA1]"}
                   `}
                 />
               </li>
@@ -125,45 +123,38 @@ export default function Hero() {
 
       {/* ========== MOBILE ========== */}
       <div className="md:hidden">
-        <figure className="relative w-full h-[280px] sm:h-[320px] overflow-hidden m-0">
+        <div className="container mx-auto px-4 py-10">
+          
+          {/* OKMD AI Logo */}
+          <div className="flex items-center gap-2 mb-5">
+            <Image
+              src="/okmd_ai_logo.png"
+              width={48}
+              height={48}
+              alt="OKMD AI Logo"
+            />
+          </div>
 
-          {SLIDES.map((slide, i) => {
-            const active = i === index;
-            return (
-              <div
-                key={i}
-                aria-hidden={!active}
-                className={`
-                  absolute inset-0 transition-all duration-[1000ms]
-                  ${active ? "opacity-100 scale-100 translate-x-0" : "opacity-0 scale-105 translate-x-4"}
-                `}
-              >
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  sizes="100vw"
-                  className="object-cover"
-                />
-              </div>
-            );
-          })}
+          <h2 className="text-[#1B1D20] font-bold text-3xl leading-tight mb-3">
+            AI-Driven intelligence:
+          </h2>
 
-          {/* MOBILE TEXT */}
-          <figcaption className="absolute container mx-auto px-4 bottom-[40px] left-0 right-0 z-20">
-            <div className="max-w-[300px]">
-              <h2 className="text-[#1B1D20] font-bold text-3xl leading-[24px]">
-                AI-Driven intelligence:
-              </h2>
-              <p className="text-[#1B1D20] text-lg mt-2 leading-[14px] opacity-90">
-                Search, summarize, and Recommend in an instant.
-              </p>
-            </div>
-          </figcaption>
-        </figure>
+          <p className="text-[#1B1D20] text-base mb-5 opacity-85">
+            Search, summarize, and Recommend in an instant.
+          </p>
+
+          <button
+            type="button"
+            className="bg-[#74CEE2] px-5 py-2.5 rounded-xl text-white text-base font-medium
+              hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md"
+          >
+            ดูรายละเอียด
+          </button>
+
+        </div>
 
         {/* PAGINATION MOBILE */}
-        <nav className="container mx-auto flex gap-2 mt-6 justify-center pb-8" aria-label="Mobile slide navigation">
+        <nav className="container mx-auto flex gap-2 justify-center pb-8" aria-label="Mobile slide navigation">
           <ul className="flex gap-2 m-0 p-0 list-none">
             {SLIDES.map((_, i) => (
               <li key={i}>
@@ -174,7 +165,7 @@ export default function Hero() {
                   onClick={() => goTo(i)}
                   className={`
                     cursor-pointer block rounded-full transition-all
-                    ${i === index ? "w-6 h-1.5 bg-[#74CEE2]" : "w-1.5 h-1.5 bg-[#C4C5C8]"}
+                    ${i === index ? "w-6 h-1.5 bg-[#74CEE2]" : "w-1.5 h-1.5 bg-[#9AACB1]"}
                   `}
                 />
               </li>

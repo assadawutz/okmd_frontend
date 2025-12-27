@@ -12,19 +12,55 @@ const MOCK_AI_SUMMARIES: Record<string, string> = {
 นวัตกรรมและการออกแบบ: การเรียนรู้ด้านการออกแบบผลิตภัณฑ์และบริการที่ตอบโจทย์ผู้ใช้จะมีความสำคัญ
 การพัฒนาทักษะทางสังคมและอารมณ์: ทักษะการสื่อสารและการทำงานร่วมกับผู้อื่นจะยังคงมีความสำคัญในทุกอาชีพ
 การเลือกเรียนในด้านที่มีความสนใจและสามารถปรับตัวได้ตามแนวโน้มในอนาคตจะช่วยให้คุณประสบความสำเร็จในอาชีพได้
-`;
+`,
+};
+
+const MOCK_SEARCH_RESULTS = [
+  {
+    title: "การเรียนรู้ในยุค AI",
+    text: "การเตรียมความพร้อมสำหรับการทำงานในยุคดิจิทัลที่มี AI เข้ามามีบทบาทสำคัญ",
+  },
+  {
+    title: "ทักษะแห่งอนาคต",
+    text: "ทักษะที่จำเป็นสำหรับการทำงานในปี 2025 และหลังจากนั้น",
+  },
+  {
+    title: "การพัฒนาตนเองอย่างยั่งยืน",
+    text: "แนวทางการเรียนรู้ตลอดชีวิตเพื่อความสำเร็จในอาชีพ",
+  },
+];
+
 export default function OkmdSearchSection() {
-  return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="container mx-auto flex flex-col">
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [aiSummary, setAiSummary] = useState("");
+  const [searchResults, setSearchResults] = useState<typeof MOCK_SEARCH_RESULTS>([]);
+
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) return;
+
+    setIsSearching(true);
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    setAiSummary(MOCK_AI_SUMMARIES.default);
+    setSearchResults(MOCK_SEARCH_RESULTS);
+    setHasSearched(true);
+    setIsSearching(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <section className="bg-white py-12 md:py-16">
       <div className="container mx-auto px-6 lg:px-10">
 
-        {/* -------------------------------------------------------------- */}
-        {/* HEADER SEARCH ZONE */}
-        {/* -------------------------------------------------------------- */}
+        {/* HEADER */}
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
 
           {/* Small Title */}
@@ -32,30 +68,14 @@ export default function OkmdSearchSection() {
             KNOWLEDGE IS OPPORTUNITY
           </div>
 
-            {/* SEARCH BLOCK */}
-            <div className="relative mt-8 w-full px-0 sm:px-0">
-
-              {/* Gradient BG */}
-              <div className="h-[210px] sm:h-[177px] w-full p-3 rounded-3xl bg-gradient-to-r bg-[#1B1D20]" />
-
-              {/* White card */}
-              <div className="absolute left-[3%] top-[38%] lg:top-[32%] sm:left-[14px] sm:top-[51px] h-[105px] sm:h-[121px] w-[94%] sm:w-[calc(100%-28px)] rounded-2xl bg-white shadow-md" />
-
-              {/* Intro text */}
-              <div
-                className="
-    absolute 
-    left-[40px] right-[40px] top-[26px] 
-    sm:left-[0px] sm:top-[19px]
-    pl-2
-    text-sm sm:text-sm 
-    font-medium leading-5 text-white
-    max-w-[85%] sm:max-w-none
-  "
-              >
-                เรามอบประสบการณ์การค้นหาอย่างแม่นยำ
-                ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
-              </div>
+          {/* Main Title */}
+          <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-bold text-okmd-dark">
+            รวมไอเดียเด็ด แรงบันดาลใจเจ๋ง ๆ และความรู้มากมาย <span className="text-[#16A7CB]">OKMD</span>
+          </h2>
+          <p className="mt-2 text-base sm:text-lg text-gray-500">
+            ในทุกแหล่งความรู้ของสำนักงาน
+          </p>
+        </div>
 
         {/* SEARCH BLOCK */}
         <div className="mt-10 max-w-4xl mx-auto">
@@ -103,11 +123,9 @@ export default function OkmdSearchSection() {
           </div>
         </div>
 
-        {/* -------------------------------------------------------------- */}
-        {/*             SECTION: ข้อมูลภาพรวมโดย AI (Show only when searched) */}
-        {/* -------------------------------------------------------------- */}
+        {/* AI SEARCH RESULTS */}
         {hasSearched && (
-          <div className="mt-12 md:mt-16 animate-fadeIn">
+          <div className="mt-12 md:mt-16 animate-fadeIn max-w-4xl mx-auto">
 
             {/* Title row */}
             <div className="flex items-center gap-3 sm:gap-4 mb-4">
@@ -157,9 +175,7 @@ export default function OkmdSearchSection() {
               </button>
             </div>
 
-            {/* -------------------------------------------------------------- */}
-            {/*                     SEARCH RESULTS LIST                         */}
-            {/* -------------------------------------------------------------- */}
+            {/* SEARCH RESULTS LIST */}
             <div className="mt-10 md:mt-12">
 
               <h3 className="text-xl sm:text-2xl font-semibold text-[#1B1D20] mb-6 sm:mb-8">
@@ -191,7 +207,7 @@ export default function OkmdSearchSection() {
           </div>
         )}
 
-        </div>
+      </div>
     </section>
   );
 }
