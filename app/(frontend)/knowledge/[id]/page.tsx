@@ -41,7 +41,7 @@ export default function ShelfDetailPage() {
 
       {/* Breadcrumb */}
       <div className="w-full bg-white ">
-        <div className="container mx-auto px-4 sm:px-6 h-14 sm:h-20 flex items-center">
+        <div className="container px-4 sm:px-6 h-14 sm:h-20 flex items-center">
           <Breadcrumb
             items={[
               { label: "หน้าหลัก", href: "/" },
@@ -53,7 +53,7 @@ export default function ShelfDetailPage() {
       </div>
 
       {/* MAIN */}
-      <div className="container mx-auto px-4 sm:px-6 pt-10 sm:pt-16 grid grid-cols-12 gap-10 sm:gap-16 lg:gap-20">
+      <div className="container px-4 sm:px-6 pt-10 sm:pt-16 grid grid-cols-12 gap-10 sm:gap-16 lg:gap-20">
 
         {/* ============ MOBILE FIRST → IMAGE AT TOP ============ */}
         <div className="col-span-12 md:col-span-5 flex justify-center md:justify-start">
@@ -118,7 +118,7 @@ export default function ShelfDetailPage() {
       </div>
 
       {/* ============ RELATED SECTION ============ */}
-      <div className="container mx-auto px-4 sm:px-6 mt-20 sm:mt-24 mb-16">
+      <div className="container px-4 sm:px-6 mt-20 sm:mt-24 mb-16">
         <hr className="mb-8 sm:mb-12 border-t border-[#E5E5E5]" />
 
         <h3 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12">Related</h3>

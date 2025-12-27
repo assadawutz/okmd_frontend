@@ -92,7 +92,7 @@ export default function ProcureMentDetail({ id }: { id: string }) {
                 <div className="container">Breadcrumb</div>
                 <AboutBanner />
             </main>
-            <div className='container mx-auto px-4 py-10'>
+            <div className='container py-10'>
                 <header className="mb-8">
                     <h1 className="text-3xl font-extrabold mb-4">
                         Procurement <span className="text-[#74CEE2]">Announcement</span>

@@ -54,7 +54,7 @@ export default function Footer() {
 
       {/* GLOBAL CONTAINER */}
       <div className="relative z-10 w-full flex justify-center">
-        <div className="w-full container mx-auto px-6 lg:px-10 pt-16 pb-14">
+        <div className="w-full container pt-16 pb-14">
 
           {/* ===================================================== */}
           {/* TOP BLOCK */}

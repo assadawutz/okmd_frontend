@@ -88,7 +88,7 @@ export default function NewsCorporateDetail({ newsId }: NewsCorporateDetailProps
     <div
       className={`${kanit.variable} font-kanit min-h-screen bg-white text-[#333]`}
     >
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 ">
+      <main className="container py-8 ">
         {/* Header */}
         <header className="mb-6 flex flex-col md:flex-row md:items-end justify-between">
           <h1 className="text-2xl md:text-3xl font-bold leading-tight max-w-4xl text-gray-900 ">
@@ -130,7 +130,7 @@ export default function NewsCorporateDetail({ newsId }: NewsCorporateDetailProps
         </div>
 
         {/* Related */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+        <div className="container mt-16">
           <RelatedNews items={relatedNews} />
         </div>
       </main>

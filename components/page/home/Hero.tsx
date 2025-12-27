@@ -73,7 +73,7 @@ export default function Hero() {
           {/* TEXT LAYER */}
           <figcaption className="absolute inset-0 flex items-top z-20 mt-8 pointer-events-none">
             <div className="w-full flex justify-center">
-              <div className="container w-full">
+              <div className="container">
 
                 <Image
                   src="/okmd_ai_logo.png"
@@ -98,12 +98,13 @@ export default function Hero() {
                 >
                   ดูรายละเอียด
                 </button>
+              </div>
             </div>
           </figcaption>
         </figure>
 
         {/* PAGINATION DESKTOP */}
-        <nav className="container mx-auto flex justify-center mt-8 pb-8" aria-label="Slide navigation">
+        <nav className="container flex justify-center mt-8 pb-8" aria-label="Slide navigation">
           <ul className="flex items-center gap-3 list-none m-0 p-0">
             {SLIDES.map((_, i) => (
               <li key={i}>
@@ -150,7 +151,7 @@ export default function Hero() {
           })}
 
           {/* MOBILE TEXT */}
-          <figcaption className="absolute container mx-auto px-4 bottom-[40px] left-0 right-0 z-20">
+          <figcaption className="absolute container bottom-[40px] left-0 right-0 z-20 px-4">
             <div className="max-w-[300px]">
               <h2 className="text-[#1B1D20] font-bold text-3xl leading-[24px]">
                 AI-Driven intelligence:
@@ -163,7 +164,7 @@ export default function Hero() {
         </figure>
 
         {/* PAGINATION MOBILE */}
-        <nav className="container mx-auto flex gap-2 mt-6 justify-center pb-8" aria-label="Mobile slide navigation">
+        <nav className="container flex gap-2 mt-6 justify-center pb-8" aria-label="Mobile slide navigation">
           <ul className="flex gap-2 m-0 p-0 list-none">
             {SLIDES.map((_, i) => (
               <li key={i}>

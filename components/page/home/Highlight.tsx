@@ -34,7 +34,7 @@ export default function HighlightSection() {
   return (
     <section className="bg-[#DFF1F9] w-full py-16 md:py-20">
       {/* HEADER */}
-      <div className="container mx-auto px-6 lg:px-10 text-center mb-10 md:mb-14">
+      <div className="container text-center mb-10 md:mb-14">
         <h2 className="font-semibold text-okmd-dark leading-tight text-2xl sm:text-3xl lg:text-4xl">
           Highlight
         </h2> 
@@ -45,7 +45,7 @@ export default function HighlightSection() {
 
       {/* DESKTOP */}
       <div className="hidden md:block">
-        <div className="container mx-auto px-6 lg:px-10">
+        <div className="container">
 
           {/* ROW 1 */}
           {highlights.length >= 3 && (
@@ -114,24 +114,15 @@ export default function HighlightSection() {
           {/* ROW 2 */}
           {highlights.length >= 5 && (
             <div className="flex mt-10 gap-10">
-
-            {/* BOX 4 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
-              <Image
-                src={highlights[3].img}
-                fill
-                alt={highlights[3].title || "highlight-4"}
-                className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
-              />
-            </div>
-
-                <a href={highlights[2].link} className="inline-flex mt-5 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
-                  อ่านต่อ <span>↗</span>
-                </a>
+              {/* BOX 4 */}
+              <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
+                <Image
+                  src={highlights[3].img}
+                  fill
+                  alt={highlights[3].title || "highlight-4"}
+                  className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
+                />
               </div>
-            </div>
-          )}
-
             </div>
           )}
         </div>
@@ -139,11 +130,11 @@ export default function HighlightSection() {
         {/* ================= MOBILE ================= */}
         {highlights.length > 0 && (
           <div className="w-full md:hidden">
-          <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+          <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar px-4 -mx-4">
             {highlights.map((h, i) => (
               <div
                 key={h.id}
-                className="bg-white rounded-2xl flex-shrink-0 h-[300px] w-[85vw] max-w-[340px] shadow-[0_6px_18px_rgba(0,0,0,0.10)] snap-center overflow-hidden"
+                className="bg-white rounded-2xl flex-shrink-0 h-[300px] w-[85vw] max-w-[340px] shadow-[0_6px_18px_rgba(0,0,0,0.10)] snap-center overflow-hidden ml-4 first:ml-0"
               >
                 {/* MOBILE TYPE MATCHING */}
                 {i === 0 && (

@@ -21,7 +21,7 @@ export default function Login() {
     <div className="w-full min-h-screen bg-white">
       {/* Hero Banner */}
       <SubHeroBanner image="/login-hero.jpg" height="h-[250px]">
-        <div className="container mx-auto px-6 md:px-12">
+        <div className="container">
           <h1 className="text-4xl md:text-5xl font-bold">
             เข้าสู่ <span className="text-[#74CEE2]">ระบบ</span>
           </h1>
@@ -29,7 +29,7 @@ export default function Login() {
       </SubHeroBanner>
 
       {/* Breadcrumb */}
-      <div className="container mx-auto pt-4 sm:pt-6 md:pt-8 mb-4 sm:mb-6 md:mb-8">
+      <div className="container pt-4 sm:pt-6 md:pt-8 mb-4 sm:mb-6 md:mb-8">
         <div className="grid grid-cols-12">
           <div className="col-span-12">
             <div className="text-sm sm:text-base md:text-lg text-gray-500 font-medium">
@@ -44,7 +44,7 @@ export default function Login() {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto pb-8 sm:pb-12 md:pb-16">
+      <div className="container pb-8 sm:pb-12 md:pb-16">
         <div className="grid grid-cols-12">
           <div className="col-span-12 sm:col-span-10 sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4">
             <div className="bg-white rounded-xl shadow-md p-6 sm:p-7 md:p-8">

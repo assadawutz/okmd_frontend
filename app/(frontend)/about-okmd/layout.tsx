@@ -19,7 +19,7 @@ export default function AboutOkmdLayout({
       <AboutBanner />
 
       {/* ===== Content Area (Sidebar + Page Content) ===== */}
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-12">
+      <div className="container grid grid-cols-1 md:grid-cols-12">
 
         <aside className="md:col-span-3 mt-5 mb-5">
           <Sidebar />  

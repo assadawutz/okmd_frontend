@@ -862,7 +862,7 @@ export default function ComplaintPage() {
     <main className="w-full min-h-screen bg-white pb-16 sm:pb-24 md:pb-32">
 
       {/* Breadcrumb */}
-      <div className="container mx-auto pt-4 sm:pt-6 md:pt-8 mb-4 sm:mb-6 md:mb-8">
+      <div className="container pt-4 sm:pt-6 md:pt-8 mb-4 sm:mb-6 md:mb-8">
         <div className="grid grid-cols-12">
           <div className="col-span-12">
             <div className="text-sm sm:text-base md:text-lg text-gray-500 mb-4 sm:mb-5 md:mb-6 font-medium">
@@ -889,7 +889,7 @@ export default function ComplaintPage() {
       </div>
 
       {/* MAIN LAYOUT */}
-      <div className="container mx-auto">
+      <div className="container">
         <div className="grid grid-cols-12 gap-4 sm:gap-6 md:gap-8 lg:gap-12 xl:gap-16">
 
           {/* LEFT MENU */}

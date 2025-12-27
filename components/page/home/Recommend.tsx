@@ -23,7 +23,7 @@ const ITEMS = [
 export default function RecommendSection() {
   return (
     <section className="bg-[#0F0F0F] py-20">
-      <div className="container mx-auto">
+      <div className="container">
         <div className="space-y-12">
 
         <header className="text-center mb-10 md:mb-12">
@@ -83,6 +83,7 @@ export default function RecommendSection() {
               </article>
             ))}
           </div>
+        </div>
       </div>
     </section>
   );

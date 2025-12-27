@@ -35,7 +35,7 @@ export default function Donation() {
           )
         "
       >
-        <div className="container mx-auto h-full flex flex-col justify-center px-4 md:px-0">
+        <div className="container h-full flex flex-col justify-center">
           <h1 className="text-7xl font-light">
             <svg
               width="397"
@@ -77,7 +77,7 @@ export default function Donation() {
       </SubHeroBanner>
 
       {/* Project Section */}
-      <div className="container mx-auto py-12 px-4 md:px-0 ">
+      <div className="container py-12 ">
         <div className="text-xl font-bold text-[#000000] mt-8">
           เริ่มต้นการ
           <span className="text-[#74CEE2] text-5xl ml-2">แบ่งปัน</span>

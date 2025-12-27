@@ -76,7 +76,7 @@ export default function NewsPage() {
       {/* BREADCRUMB */}
       {/* Applied  prefix */}
       <div className="border-b border-zinc-200">
-        <div className="container mx-auto px-6 h-20 flex items-center text-base md:text-sm text-[#6A6A6A]">
+        <div className="container h-20 flex items-center text-base md:text-sm text-[#6A6A6A]">
           {/* Added hover:text-sky-500 and cursor-pointer */}
           <Link href="/" className="hover:text-sky-500 cursor-pointer">
             หน้าหลัก
@@ -89,7 +89,7 @@ export default function NewsPage() {
 
       {/* MAIN */}
       {/* Adjusted padding and gap for mobile */}
-      <div className="container mx-auto px-6 pt-8 md:pt-12 grid grid-cols-12 gap-8 md:gap-16">
+      <div className="container pt-8 md:pt-12 grid grid-cols-12 gap-8 md:gap-16">
 
         {/* LEFT MENU */}
         {/* Adjusted column span and added mb-8 for mobile spacing */}

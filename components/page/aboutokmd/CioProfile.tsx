@@ -12,7 +12,7 @@ const data = [
 
 export default function CioProfile() {
   return (
-    <div className="container mx-auto">
+    <div className="container">
       <h1 className="text-3xl font-bold mb-10">{data[0].title}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-12">
 

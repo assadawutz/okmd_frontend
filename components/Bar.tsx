@@ -16,7 +16,7 @@ export default function LogoBar() {
       className="w-full bg-[#1F1F1F] py-2 md:py-3"
     >
       <div className="w-full flex justify-center">
-        <div className="w-full container mx-auto px-6 md:px-10">
+        <div className="w-full container">
 
           {/* LOGO ROW */}
           <ul className="flex flex-wrap justify-center items-center gap-6 md:gap-28 list-none m-0 p-0">
