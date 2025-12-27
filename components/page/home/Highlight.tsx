@@ -45,7 +45,7 @@ export default function HighlightSection() {
 
       {/* DESKTOP */}
       <div className="hidden md:block">
-        <div className="container mx-auto px-6 lg:px-10">
+        <div className="container mx-auto">
 
           {/* ROW 1 */}
           {highlights.length >= 3 && (
@@ -67,14 +67,14 @@ export default function HighlightSection() {
                   {highlights[0].desc && (
                     <p className="opacity-90 text-sm line-clamp-2">{highlights[0].desc}</p>
                   )}
-                  <a href={highlights[0].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
+                  <a aria-label={`อ่านต่อเกี่ยวกับ ${highlights[0].title}`} href={highlights[0].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
                     อ่านต่อ <span>↗</span>
                   </a>
                 </div>
               </div>
 
               {/* BOX 2 */}
-              <div className="col-span-4 bg-white flex rounded-2xl h-[320px] lg:h-[340px] p-5 lg:p-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] justify-between hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)] cursor-pointer">
+              <div className="col-span-4 bg-white flex rounded-2xl h-[320px] lg:h-[340px] p-5 lg:p-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] justify-between items-center hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)] cursor-pointer">
                 <div className="flex flex-col justify-center">
                   <p className="text-sm mb-1 text-gray-500">The Knowledge</p>
                   <h3 className="font-bold leading-snug text-3xl lg:text-4xl">{highlights[1].title.replace("The Knowledge\n", "")}</h3>
@@ -104,42 +104,46 @@ export default function HighlightSection() {
                   {highlights[2].title}
                 </h3>
 
-              <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
-                อ่านต่อ <span>↗</span>
-              </a>
-            </div>
-          </div>
-        )}
-
-          {/* ROW 2 */}
-          {highlights.length >= 5 && (
-            <div className="flex mt-10 gap-10">
-
-            {/* BOX 4 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
-              <Image
-                src={highlights[3].img}
-                fill
-                alt={highlights[3].title || "highlight-4"}
-                className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
-              />
-            </div>
-
-                <a href={highlights[2].link} className="inline-flex mt-5 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
+                <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
                   อ่านต่อ <span>↗</span>
                 </a>
               </div>
             </div>
           )}
 
+          {/* ROW 2 */}
+          {highlights.length >= 5 && (
+            <div className="flex mt-10 gap-10">
+
+              {/* BOX 4 */}
+              <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
+                <Image
+                  src={highlights[3].img}
+                  fill
+                  alt={highlights[3].title || "highlight-4"}
+                  className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
+                />
+              </div>
+
+              {/* BOX 5 (Implicitly based on original code structure which seemed to have a dangling link) */}
+              {/* Based on original code, there was an anchor tag outside of Box 4 but inside the flex container. 
+                  I'll assume it's meant to be a separate block or part of the layout. 
+                  However, standardizing it to be safe. */}
+               <div className="flex flex-col justify-center">
+                  <a href={highlights[2].link} className="inline-flex mt-5 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
+                    อ่านต่อ <span>↗</span>
+                  </a>
+               </div>
             </div>
           )}
-        </div>
 
-        {/* ================= MOBILE ================= */}
-        {highlights.length > 0 && (
-          <div className="w-full md:hidden">
-          <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+        </div>
+      </div>
+
+      {/* ================= MOBILE ================= */}
+      {highlights.length > 0 && (
+        <div className="w-full md:hidden">
+          <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar px-4 pb-8 gap-4">
             {highlights.map((h, i) => (
               <div
                 key={h.id}
@@ -236,7 +240,6 @@ export default function HighlightSection() {
           </div>
         </div>
       )}
-      </div>
     </section>
   );
 }

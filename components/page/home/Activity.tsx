@@ -74,7 +74,7 @@ export default function ActivityBlock() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-4">
           <div>
             <p className="text-4xl  text-[#000000] font-semibold">Activity Calendar</p>
-            <h2 className="text-sm mt-6 md:text-normal font-normal text-[#6ABBCE] leading-tight">
+            <h2 className="text-sm mt-4 md:text-normal font-normal text-[#6ABBCE] leading-tight">
 ทุกกิจกรรมคือแรงบันดาลใจ สู่ความคิดที่แตกต่าง            </h2>
            
           </div>

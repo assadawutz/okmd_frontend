@@ -83,6 +83,7 @@ export default function RecommendSection() {
               </article>
             ))}
           </div>
+        </div>
       </div>
     </section>
   );

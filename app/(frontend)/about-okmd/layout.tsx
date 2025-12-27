@@ -25,7 +25,7 @@ export default function AboutOkmdLayout({
           <Sidebar />  
         </aside>
 
-        <main className="container md:col-span-9 mb-5">
+        <main className="md:col-span-9 mb-5">
           {children}
         </main>
 
