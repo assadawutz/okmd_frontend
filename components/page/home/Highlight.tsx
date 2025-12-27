@@ -104,41 +104,47 @@ export default function HighlightSection() {
                   {highlights[2].title}
                 </h3>
 
-              <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
-                อ่านต่อ <span>↗</span>
-              </a>
-            </div>
-          </div>
-        )}
-
-          {/* ROW 2 */}
-          {highlights.length >= 5 && (
-            <div className="flex mt-10 gap-10">
-
-            {/* BOX 4 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
-              <Image
-                src={highlights[3].img}
-                fill
-                alt={highlights[3].title || "highlight-4"}
-                className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
-              />
-            </div>
-
-                <a href={highlights[2].link} className="inline-flex mt-5 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
+                <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
                   อ่านต่อ <span>↗</span>
                 </a>
               </div>
             </div>
           )}
 
+          {/* ROW 2 */}
+          {highlights.length >= 5 && (
+            <div className="flex mt-10 gap-10">
+              {/* BOX 4 */}
+              <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
+                <Image
+                  src={highlights[3].img}
+                  fill
+                  alt={highlights[3].title || "highlight-4"}
+                  className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
+                />
+              </div>
+
+              <div className="flex flex-col justify-center">
+                 {/* Fixed dangling link issue by assuming it belongs to a description or standalone */}
+                 {highlights.length >= 5 && (
+                   <div className="w-[300px]">
+                      {/* Assuming content for the 5th item or something related */}
+                      <p className="text-xl font-bold mb-4">{highlights[4].title}</p>
+                      <a href={highlights[4].link} className="inline-flex mt-5 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
+                        อ่านต่อ <span>↗</span>
+                      </a>
+                   </div>
+                 )}
+              </div>
             </div>
           )}
-        </div>
 
-        {/* ================= MOBILE ================= */}
-        {highlights.length > 0 && (
-          <div className="w-full md:hidden">
+        </div>
+      </div>
+
+      {/* ================= MOBILE ================= */}
+      {highlights.length > 0 && (
+        <div className="w-full md:hidden">
           <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
             {highlights.map((h, i) => (
               <div
@@ -236,7 +242,6 @@ export default function HighlightSection() {
           </div>
         </div>
       )}
-      </div>
     </section>
   );
 }

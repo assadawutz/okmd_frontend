@@ -5,18 +5,53 @@ import Image from "next/image";
 import { Search, Loader2 } from "lucide-react";
 
 // Mock data for AI summary based on search query
-const MOCK_AI_SUMMARIES: Record<string, string> = {
-  default: `ในปี 2025 การเลือกเรียนควรพิจารณาจากแนวโน้มและความต้องการของตลาดแรงงาน รวมถึงการพัฒนาเทคโนโลยีที่มีการเปลี่ยนแปลงอย่างรวดเร็ว ดังนี้
+const MOCK_AI_SUMMARY_TEXT = `ในปี 2025 การเลือกเรียนควรพิจารณาจากแนวโน้มและความต้องการของตลาดแรงงาน รวมถึงการพัฒนาเทคโนโลยีที่มีการเปลี่ยนแปลงอย่างรวดเร็ว ดังนี้
 เทคโนโลยีสารสนเทศและการสื่อสาร: ความต้องการผู้เชี่ยวชาญด้าน IT, AI, และการพัฒนาแอปพลิเคชันยังคงสูง
 การศึกษาและการพัฒนาทักษะ: การเรียนรู้วิธีการเรียนรู้ (Meta Learning) จะเป็นสิ่งสำคัญในการปรับตัวในโลกที่เปลี่ยนแปลง
 นวัตกรรมและการออกแบบ: การเรียนรู้ด้านการออกแบบผลิตภัณฑ์และบริการที่ตอบโจทย์ผู้ใช้จะมีความสำคัญ
 การพัฒนาทักษะทางสังคมและอารมณ์: ทักษะการสื่อสารและการทำงานร่วมกับผู้อื่นจะยังคงมีความสำคัญในทุกอาชีพ
-การเลือกเรียนในด้านที่มีความสนใจและสามารถปรับตัวได้ตามแนวโน้มในอนาคตจะช่วยให้คุณประสบความสำเร็จในอาชีพได้
-`;
+การเลือกเรียนในด้านที่มีความสนใจและสามารถปรับตัวได้ตามแนวโน้มในอนาคตจะช่วยให้คุณประสบความสำเร็จในอาชีพได้`;
+
 export default function OkmdSearchSection() {
-  return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="container mx-auto flex flex-col">
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [aiSummary, setAiSummary] = useState("");
+  const [searchResults, setSearchResults] = useState<{ title: string; text: string }[]>([]);
+
+  const handleSearch = () => {
+    if (!searchQuery.trim()) return;
+    
+    setIsSearching(true);
+    setHasSearched(false);
+
+    // Simulate API call
+    setTimeout(() => {
+      setAiSummary(MOCK_AI_SUMMARY_TEXT);
+      setSearchResults([
+        {
+          title: "แนวทางการพัฒนาทักษะในยุค AI",
+          text: "การปรับตัวให้เข้ากับเทคโนโลยี AI เป็นสิ่งสำคัญสำหรับบุคลากรในทุกสาขาอาชีพ..."
+        },
+        {
+          title: "OKMD กับภารกิจสร้างสังคมแห่งการเรียนรู้",
+          text: "สำนักงานบริหารและพัฒนาองค์ความรู้ (องค์การมหาชน) หรือ OKMD มุ่งมั่นที่จะ..."
+        },
+        {
+          title: "ห้องสมุดมีชีวิต: แหล่งเรียนรู้ที่ทุกคนเข้าถึงได้",
+          text: "TK Park และแหล่งเรียนรู้อื่นๆ ภายใต้การกำกับดูแลของ OKMD..."
+        }
+      ]);
+      setIsSearching(false);
+      setHasSearched(true);
+    }, 1500);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <section className="bg-white py-12 md:py-16">
@@ -32,72 +67,48 @@ export default function OkmdSearchSection() {
             KNOWLEDGE IS OPPORTUNITY
           </div>
 
-            {/* SEARCH BLOCK */}
-            <div className="relative mt-8 w-full px-0 sm:px-0">
-
-              {/* Gradient BG */}
-              <div className="h-[210px] sm:h-[177px] w-full p-3 rounded-3xl bg-gradient-to-r bg-[#1B1D20]" />
-
-              {/* White card */}
-              <div className="absolute left-[3%] top-[38%] lg:top-[32%] sm:left-[14px] sm:top-[51px] h-[105px] sm:h-[121px] w-[94%] sm:w-[calc(100%-28px)] rounded-2xl bg-white shadow-md" />
-
+          {/* SEARCH BLOCK */}
+          <div className="mt-10 w-full max-w-4xl mx-auto">
+            {/* Dark container */}
+            <div className="bg-[#1B1D20] rounded-2xl sm:rounded-3xl p-4 sm:p-5">
               {/* Intro text */}
-              <div
-                className="
-    absolute 
-    left-[40px] right-[40px] top-[26px] 
-    sm:left-[0px] sm:top-[19px]
-    pl-2
-    text-sm sm:text-sm 
-    font-medium leading-5 text-white
-    max-w-[85%] sm:max-w-none
-  "
-              >
-                เรามอบประสบการณ์การค้นหาอย่างแม่นยำ
-                ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
-              </div>
-
-        {/* SEARCH BLOCK */}
-        <div className="mt-10 max-w-4xl mx-auto">
-          {/* Dark container */}
-          <div className="bg-[#1B1D20] rounded-2xl sm:rounded-3xl p-4 sm:p-5">
-            {/* Intro text */}
-            <p className="text-sm sm:text-base font-medium text-white mb-4">
-              เรามอบประสบการณ์การค้นหาอย่างแม่นยำ ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
-            </p>
-
-            {/* White card with search */}
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
-              <p className="text-sm font-medium text-okmd-dark mb-2">
-                การค้นหาที่ฉลาดและแม่นยำ
+              <p className="text-sm sm:text-base font-medium text-white mb-4 text-left">
+                เรามอบประสบการณ์การค้นหาอย่างแม่นยำ ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
               </p>
-              <div className="flex items-center gap-3">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="พิมพ์เป้าหมายของคุณที่นี่ เช่น AI, OKMD, การเรียนรู้"
-                  className="
-                    flex-1 border-b-2 border-okmd-cyan bg-transparent
-                    py-2 text-base sm:text-lg
-                    text-okmd-dark font-light
-                    outline-none placeholder:text-okmd-gray-light
-                    focus:border-okmd-cyan-dark transition-colors
-                  "
-                />
-                <button
-                  type="button"
-                  onClick={handleSearch}
-                  disabled={isSearching || !searchQuery.trim()}
-                  className="flex-shrink-0 flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#74CEE2] hover:bg-[#5FC4D8] hover:scale-105 active:scale-95 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                >
-                  {isSearching ? (
-                    <Loader2 className="h-5 w-5 text-white animate-spin" />
-                  ) : (
-                    <Search className="h-5 w-5 text-white" />
-                  )}
-                </button>
+
+              {/* White card with search */}
+              <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
+                <p className="text-sm font-medium text-okmd-dark mb-2 text-left">
+                  การค้นหาที่ฉลาดและแม่นยำ
+                </p>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="พิมพ์เป้าหมายของคุณที่นี่ เช่น AI, OKMD, การเรียนรู้"
+                    className="
+                      flex-1 border-b-2 border-okmd-cyan bg-transparent
+                      py-2 text-base sm:text-lg
+                      text-okmd-dark font-light
+                      outline-none placeholder:text-okmd-gray-light
+                      focus:border-okmd-cyan-dark transition-colors
+                    "
+                  />
+                  <button
+                    type="button"
+                    onClick={handleSearch}
+                    disabled={isSearching || !searchQuery.trim()}
+                    className="flex-shrink-0 flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#74CEE2] hover:bg-[#5FC4D8] hover:scale-105 active:scale-95 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  >
+                    {isSearching ? (
+                      <Loader2 className="h-5 w-5 text-white animate-spin" />
+                    ) : (
+                      <Search className="h-5 w-5 text-white" />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -107,7 +118,7 @@ export default function OkmdSearchSection() {
         {/*             SECTION: ข้อมูลภาพรวมโดย AI (Show only when searched) */}
         {/* -------------------------------------------------------------- */}
         {hasSearched && (
-          <div className="mt-12 md:mt-16 animate-fadeIn">
+          <div className="mt-12 md:mt-16 animate-fadeIn max-w-4xl mx-auto">
 
             {/* Title row */}
             <div className="flex items-center gap-3 sm:gap-4 mb-4">
@@ -191,7 +202,7 @@ export default function OkmdSearchSection() {
           </div>
         )}
 
-        </div>
+      </div>
     </section>
   );
 }
