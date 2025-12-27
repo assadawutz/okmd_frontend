@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import type { KeyboardEvent } from "react";
 import Image from "next/image";
 import { Search, Loader2 } from "lucide-react";
+import { NEWS_DATA } from "@/data/news";
 
 // Mock data for AI summary based on search query
 const MOCK_AI_SUMMARIES: Record<string, string> = {
@@ -12,50 +14,62 @@ const MOCK_AI_SUMMARIES: Record<string, string> = {
 นวัตกรรมและการออกแบบ: การเรียนรู้ด้านการออกแบบผลิตภัณฑ์และบริการที่ตอบโจทย์ผู้ใช้จะมีความสำคัญ
 การพัฒนาทักษะทางสังคมและอารมณ์: ทักษะการสื่อสารและการทำงานร่วมกับผู้อื่นจะยังคงมีความสำคัญในทุกอาชีพ
 การเลือกเรียนในด้านที่มีความสนใจและสามารถปรับตัวได้ตามแนวโน้มในอนาคตจะช่วยให้คุณประสบความสำเร็จในอาชีพได้
-`;
+`
+};
+
+type SearchResultItem = {
+  title: string;
+  text: string;
+};
+
 export default function OkmdSearchSection() {
-  return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="container mx-auto flex flex-col">
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [aiSummary, setAiSummary] = useState(MOCK_AI_SUMMARIES.default);
+  const [searchResults, setSearchResults] = useState<SearchResultItem[]>([]);
+
+  const handleSearch = () => {
+    const q = searchQuery.trim();
+    if (!q) return;
+
+    setIsSearching(true);
+
+    const query = q.toLowerCase();
+    const results = Object.values(NEWS_DATA)
+      .filter((n) => {
+        const haystack = `${n.title}\n${n.body}`.toLowerCase();
+        return haystack.includes(query);
+      })
+      .map((n) => ({
+        title: n.title,
+        text: n.body.replace(/\s+/g, " ").trim(),
+      }));
+
+    setSearchResults(results);
+    setAiSummary(MOCK_AI_SUMMARIES.default);
+    setHasSearched(true);
+    setIsSearching(false);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    handleSearch();
+  };
 
   return (
     <section className="bg-white py-12 md:py-16">
       <div className="container mx-auto px-6 lg:px-10">
-
         {/* -------------------------------------------------------------- */}
         {/* HEADER SEARCH ZONE */}
         {/* -------------------------------------------------------------- */}
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-
           {/* Small Title */}
           <div className="text-xs sm:text-sm font-light uppercase tracking-[8px] sm:tracking-[12px] text-okmd-cyan">
             KNOWLEDGE IS OPPORTUNITY
           </div>
-
-            {/* SEARCH BLOCK */}
-            <div className="relative mt-8 w-full px-0 sm:px-0">
-
-              {/* Gradient BG */}
-              <div className="h-[210px] sm:h-[177px] w-full p-3 rounded-3xl bg-gradient-to-r bg-[#1B1D20]" />
-
-              {/* White card */}
-              <div className="absolute left-[3%] top-[38%] lg:top-[32%] sm:left-[14px] sm:top-[51px] h-[105px] sm:h-[121px] w-[94%] sm:w-[calc(100%-28px)] rounded-2xl bg-white shadow-md" />
-
-              {/* Intro text */}
-              <div
-                className="
-    absolute 
-    left-[40px] right-[40px] top-[26px] 
-    sm:left-[0px] sm:top-[19px]
-    pl-2
-    text-sm sm:text-sm 
-    font-medium leading-5 text-white
-    max-w-[85%] sm:max-w-none
-  "
-              >
-                เรามอบประสบการณ์การค้นหาอย่างแม่นยำ
-                ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
-              </div>
+        </div>
 
         {/* SEARCH BLOCK */}
         <div className="mt-10 max-w-4xl mx-auto">
@@ -68,9 +82,7 @@ export default function OkmdSearchSection() {
 
             {/* White card with search */}
             <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
-              <p className="text-sm font-medium text-okmd-dark mb-2">
-                การค้นหาที่ฉลาดและแม่นยำ
-              </p>
+              <p className="text-sm font-medium text-okmd-dark mb-2">การค้นหาที่ฉลาดและแม่นยำ</p>
               <div className="flex items-center gap-3">
                 <input
                   type="text"
@@ -104,11 +116,10 @@ export default function OkmdSearchSection() {
         </div>
 
         {/* -------------------------------------------------------------- */}
-        {/*             SECTION: ข้อมูลภาพรวมโดย AI (Show only when searched) */}
+        {/* SECTION: AI SUMMARY + RESULTS (Show only when searched) */}
         {/* -------------------------------------------------------------- */}
         {hasSearched && (
           <div className="mt-12 md:mt-16 animate-fadeIn">
-
             {/* Title row */}
             <div className="flex items-center gap-3 sm:gap-4 mb-4">
               <Image
@@ -119,9 +130,7 @@ export default function OkmdSearchSection() {
                 className="object-contain drop-shadow-sm"
               />
               <div>
-                <h2 className="text-2xl sm:text-3xl font-semibold text-[#1B1D20]">
-                  ข้อมูลภาพรวมโดย AI
-                </h2>
+                <h2 className="text-2xl sm:text-3xl font-semibold text-[#1B1D20]">ข้อมูลภาพรวมโดย AI</h2>
                 <p className="text-sm text-gray-500 mt-0.5">
                   ผลการค้นหาสำหรับ: &quot;{searchQuery}&quot;
                 </p>
@@ -132,24 +141,27 @@ export default function OkmdSearchSection() {
             <hr className="border-t border-[#E4E4E4] mb-6 sm:mb-8" />
 
             {/* Summary Box */}
-            <div className="
-              border border-[#E6E6E6]
-              bg-white
-              p-6 sm:p-8 lg:p-10
-              rounded-xl sm:rounded-2xl
-              shadow-[0_4px_20px_rgba(0,0,0,0.05)]
-              text-base sm:text-lg leading-relaxed text-[#444]
-            ">
-              <p className="whitespace-pre-line">
-                {aiSummary}
-              </p>
+            <div
+              className="
+                border border-[#E6E6E6]
+                bg-white
+                p-6 sm:p-8 lg:p-10
+                rounded-xl sm:rounded-2xl
+                shadow-[0_4px_20px_rgba(0,0,0,0.05)]
+                text-base sm:text-lg leading-relaxed text-[#444]
+              "
+            >
+              <p className="whitespace-pre-line">{aiSummary}</p>
 
-              <button className="
-                mt-5 sm:mt-6 inline-flex items-center gap-2
-                text-[#1B9DBC] text-base font-medium
-                hover:text-[#168AAF] hover:underline
-                transition-all
-              ">
+              <button
+                type="button"
+                className="
+                  mt-5 sm:mt-6 inline-flex items-center gap-2
+                  text-[#1B9DBC] text-base font-medium
+                  hover:text-[#168AAF] hover:underline
+                  transition-all
+                "
+              >
                 อ่านเพิ่มเติม
                 <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 3l6 5-6 5" />
@@ -157,41 +169,29 @@ export default function OkmdSearchSection() {
               </button>
             </div>
 
-            {/* -------------------------------------------------------------- */}
-            {/*                     SEARCH RESULTS LIST                         */}
-            {/* -------------------------------------------------------------- */}
+            {/* RESULTS LIST */}
             <div className="mt-10 md:mt-12">
-
               <h3 className="text-xl sm:text-2xl font-semibold text-[#1B1D20] mb-6 sm:mb-8">
                 ผลการค้นหา {searchResults.length} รายการ
               </h3>
 
               <div className="flex flex-col gap-6 sm:gap-8">
-
-                {searchResults.map((item, index) => (
-                  <div key={index} className="group cursor-pointer">
-
+                {searchResults.map((item, idx) => (
+                  <div key={`${item.title}-${idx}`} className="group cursor-pointer">
                     <h4 className="text-lg sm:text-xl lg:text-2xl font-semibold text-[#1B1D20] mb-2 group-hover:text-[#168AAF] transition-colors">
                       {item.title}
                     </h4>
-
-                    <p className="text-sm sm:text-base text-[#898989] leading-relaxed">
-                      {item.text}
-                    </p>
-
-                    {/* Divider */}
-                    {index < searchResults.length - 1 && (
+                    <p className="text-sm sm:text-base text-[#898989] leading-relaxed">{item.text}</p>
+                    {idx < searchResults.length - 1 && (
                       <hr className="mt-6 sm:mt-8 border-t border-[#E5E5E5]" />
                     )}
                   </div>
                 ))}
-
               </div>
             </div>
           </div>
         )}
-
-        </div>
+      </div>
     </section>
   );
 }
