@@ -87,14 +87,15 @@ export default function Hero() {
                   AI-Driven intelligence:
                 </h1>
 
-                <p className="text-[#1B1D20] text-lg lg:text-xl xl:text-2xl mt-3 lg:mt-4 opacity-90 max-w-xl">
-                  Search, summarize, and Recommend in an instant.
-                </p>
+              <p className="text-[#1B1D20] text-lg lg:text-xl xl:text-2xl mt-3 lg:mt-4 opacity-90 max-w-xl">
+                Search, summarize, and Recommend in an instant.
+              </p>
 
                 <button
                   type="button"
                   className="mt-5 lg:mt-6 bg-[#74CEE2] px-5 lg:px-6 py-2.5 lg:py-3 rounded-xl text-white text-base lg:text-lg font-medium
-                    hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md pointer-events-auto"
+                    hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md pointer-events-auto focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2"
+                  aria-label="ดูรายละเอียด AI-Driven Intelligence"
                 >
                   ดูรายละเอียด
                 </button>

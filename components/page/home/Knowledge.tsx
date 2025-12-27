@@ -84,7 +84,7 @@ function Pagination({ total, current }: PaginationProps) {
     if (end < total) p.push('...', total);
     return p;
   }, [total, current]);
-  const buttonClass = "w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold transition cursor-pointer";
+  const buttonClass = "w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2";
   const activeClass = "bg-[#74CEE2] text-white shadow-md";
   const normalClass = "bg-gray-100 text-gray-700 hover:bg-gray-200";
   const disabledClass = "bg-gray-50 text-gray-400 cursor-not-allowed";
@@ -186,15 +186,15 @@ export default function KnowledgeShelfSection() {
   }, [selectedMenu]);
 
   return (
-    <section className="w-full bg-white py-16 md:py-20">
+    <section className="w-full bg-white py-12 md:py-16 lg:py-20">
       <div className="container mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-8 md:mb-10 lg:mb-12">
           ตู้ <span className="text-[#74CEE2]">ความรู้</span>
         </h2>
 
-        <div className="mt-8 md:mt-12 grid grid-cols-12 gap-x-6 lg:gap-x-10 gap-y-8">
+        <div className="mt-8 md:mt-10 lg:mt-12 grid grid-cols-12 gap-x-6 md:gap-x-8 lg:gap-x-10 gap-y-6 md:gap-y-8">
           {/* LEFT SIDEBAR */}
-          <aside className="col-span-12 md:col-span-3 pb-2 md:pb-0">
+          <aside className="col-span-12 md:col-span-3 pb-4 md:pb-0">
             <LeftMenu
               items={MENU}
               active={selectedMenu}
@@ -203,13 +203,13 @@ export default function KnowledgeShelfSection() {
           </aside>
 
           {/* RIGHT CONTENT */}
-          <section className="col-span-12 md:col-span-9 space-y-8 md:space-y-10">
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-snug text-gray-800">
+          <section className="col-span-12 md:col-span-9 space-y-6 md:space-y-8 lg:space-y-10">
+            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-snug text-gray-800 mb-6 md:mb-7 lg:mb-8">
               {PAGE_TITLE}
             </h3>
 
             {/* CARD GRID */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
               {paginatedData.map((item) => (
                 <div key={item.title} className="col-span-1 h-full">
                   <MagazineCard title={item.title} img={item.img} fileSize={item.fileSize} />
@@ -218,10 +218,10 @@ export default function KnowledgeShelfSection() {
             </div>
 
             {/* DIVIDER */}
-            <div className="w-full border-t border-gray-200"></div>
+            <div className="w-full border-t border-gray-200 my-6 md:my-8"></div>
 
             {/* PAGINATION */}
-            <div className="flex justify-center md:justify-end pt-4 pb-2">
+            <div className="flex justify-center md:justify-end pt-2 md:pt-4 pb-2">
               <Pagination total={totalPages} current={currentPage} />
             </div>
 

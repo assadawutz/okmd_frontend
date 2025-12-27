@@ -57,7 +57,7 @@ export default function OkmdSearchSection() {
     }
   };
 
-  return (
+  return ( 
     <section className="bg-white py-12 md:py-16">
       <div className="container mx-auto">
 
@@ -65,7 +65,7 @@ export default function OkmdSearchSection() {
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
 
           {/* Small Title */}
-          <div className="text-xs sm:text-sm font-light uppercase tracking-[8px] sm:tracking-[12px] text-okmd-cyan">
+          <div className="text-xs sm:text-sm font-light uppercase tracking-[8px] sm:tracking-[12px] text-okmd-cyan mb-8">
             KNOWLEDGE IS OPPORTUNITY
           </div>
 

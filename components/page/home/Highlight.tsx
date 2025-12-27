@@ -32,7 +32,7 @@ export default function HighlightSection() {
   }, [index, highlights.length]);
 
   return (
-    <section className="bg-[#DFF1F9] w-full py-16 md:py-20">
+    <section className="bg-[#DFF1F9] w-full py-12 md:py-16 lg:py-20">
       {/* HEADER */}
       <div className="container mx-auto text-center mb-10 md:mb-14">
         <h2 className="font-semibold text-okmd-dark leading-tight text-2xl sm:text-3xl lg:text-4xl">
@@ -49,7 +49,7 @@ export default function HighlightSection() {
 
           {/* ROW 1 */}
           {highlights.length >= 3 && (
-            <div className="grid grid-cols-12 gap-6 lg:gap-8">
+            <div className="grid grid-cols-12 gap-5 md:gap-6 lg:gap-8">
 
               {/* BOX 1 */}
               <div className="col-span-4 rounded-2xl h-[320px] lg:h-[340px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer">
@@ -60,7 +60,7 @@ export default function HighlightSection() {
                   className="object-cover transition-all duration-700 group-hover:scale-[1.05]"
                 />
                 <div className="bg-gradient-to-b from-black/20 via-black/40 to-black/70 inset-0 absolute" />
-                <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg">
+                <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg z-10">
                   <h3 className="font-semibold text-lg lg:text-xl leading-snug line-clamp-2">
                     {highlights[0].title}
                   </h3>
@@ -169,9 +169,11 @@ export default function HighlightSection() {
                 {/* MOBILE TYPE MATCHING */}
                 {i === 0 && (
                   <div className="h-full relative">
-                    <Image src={h.img} fill alt={h.title} className="object-cover" />
+                    <div className="relative w-full h-full">
+                      <Image src={h.img} fill alt={h.title} sizes="85vw" className="object-cover" />
+                    </div>
                     <div className="bg-gradient-to-t from-black/70 via-black/30 to-transparent inset-0 absolute" />
-                    <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg">
+                    <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg z-10">
                       <h3 className="font-semibold text-lg leading-snug line-clamp-2">
                         {h.title}
                       </h3>
@@ -215,16 +217,20 @@ export default function HighlightSection() {
 
                 {i === 3 && (
                   <div className="h-full relative overflow-hidden">
-                    <Image src={h.img} fill alt={h.title || "highlight"} className="object-cover" />
+                    <div className="relative w-full h-full">
+                      <Image src={h.img} fill alt={h.title || "highlight"} sizes="85vw" className="object-cover" />
+                    </div>
                     <div className="bg-gradient-to-t from-black/50 via-transparent to-transparent inset-0 absolute" />
                   </div>
                 )}
 
                 {i === 4 && (
                   <div className="h-full relative overflow-hidden">
-                    <Image src={h.img} fill alt={h.title} className="object-cover" />
+                    <div className="relative w-full h-full">
+                      <Image src={h.img} fill alt={h.title} sizes="85vw" className="object-cover" />
+                    </div>
                     <div className="bg-gradient-to-t from-black/70 via-black/20 to-transparent inset-0 absolute" />
-                    <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg">
+                    <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg z-10">
                       <h3 className="font-semibold text-lg leading-snug line-clamp-2">
                         {h.title}
                       </h3>
@@ -235,25 +241,26 @@ export default function HighlightSection() {
                   </div>
                 )}
               </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          {/* PAGINATION */}
-          <div className="flex mt-5 gap-1.5 justify-center">
-            {highlights.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  if (!ref.current) return;
-                  setIndex(i);
-                  ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
-                }}
-                className={`rounded-full transition-all ${
-                  index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF] hover:bg-[#A8D8E8]"
-                }`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
+            {/* PAGINATION */}
+            <div className="flex mt-5 gap-1.5 justify-center">
+              {highlights.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    if (!ref.current) return;
+                    setIndex(i);
+                    ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
+                  }}
+                  className={`rounded-full transition-all ${
+                    index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF] hover:bg-[#A8D8E8]"
+                  }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}

@@ -50,7 +50,7 @@ export default function Header() {
         ref={headerRef}
         className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#ECECED] shadow-sm"
       >
-        <div className="container mx-auto px-4 lg:px-0 py-4 flex items-center justify-between">
+        <div className="container mx-auto flex items-center justify-between py-4">
 
           {/* ---------------- LOGO ---------------- */}
           <Link href="/" aria-label="OKMD Home" className="flex">
@@ -109,7 +109,7 @@ function MegaMenu({ active }: { active: string | null }) {
       data-mega-panel
       className="fixed left-0 top-[var(--header-h)] w-full bg-white shadow-lg border-t border-gray-200 z-10"
     >
-      <div className="container mx-auto px-6 lg:px-10 py-8">
+      <div className="container mx-auto py-8">
         <h3 className="text-2xl font-semibold text-[#1B1D20] mb-6">
           {active}
         </h3>
@@ -370,7 +370,7 @@ function RightTools({ onOpenMenu }: { onOpenMenu: () => void }) {
         <Link href="/donation">
         <button
           aria-label="Donate"
-          className="bg-[#74CEE2] text-white rounded-xl w-[118px] h-11 text-[17px] cursor-pointer font-semibold hover:bg-[#5FC4D8] active:scale-95 transition shadow-sm"
+          className="bg-[#74CEE2] text-white rounded-xl w-[118px] h-11 text-[17px] cursor-pointer font-semibold hover:bg-[#5FC4D8] active:scale-95 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2"
         >
           บริจาค
         </button>
