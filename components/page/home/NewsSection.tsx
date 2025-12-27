@@ -18,10 +18,10 @@ export default function NewsSection() {
   const newsList = Object.values(NEWS_DATA).slice(0, 3) as NewsItem[];
 
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-12 md:py-16 lg:py-20">
       <div className="container mx-auto">
         
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 md:mb-12 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 md:mb-10 lg:mb-12 gap-4">
           <div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1B1D20] mb-2">
               ข่าวสารและกิจกรรม
@@ -38,18 +38,20 @@ export default function NewsSection() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7 lg:gap-8">
           {newsList.map((news) => (
             <Link 
               key={news.id} 
               href={`/news/${news.id}`}
-              className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 border border-gray-100"
+              aria-label={`อ่าน ${news.title}`}
+              className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 border border-gray-100 focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2"
             >
               <div className="relative h-[200px] lg:h-[220px] w-full overflow-hidden">
                 <Image
                   src={news.img}
                   alt={news.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-3 left-3 bg-[#74CEE2] text-[#1B1D20] text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
@@ -57,7 +59,7 @@ export default function NewsSection() {
                 </div>
               </div>
               
-              <div className="flex flex-col flex-grow p-5 lg:p-6">
+              <div className="flex flex-col flex-grow p-5 md:p-5 lg:p-6">
                 <div className="flex items-center text-gray-500 text-sm mb-2">
                   <Calendar className="h-4 w-4 mr-2 flex-shrink-0" />
                   {news.date}

@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`bg-white text-[#1B1D20] antialiased ${kanit.className}`}>
         <Header />
         {/* MAIN LANDMARK — WCAG 2.1 Compliant */}
-        <main id="main-content" role="main" tabIndex={-1} className="w-full">
+        <main id="main-content" role="main" tabIndex={-1} className="w-full pt-0">
           {children}
         </main>
 
