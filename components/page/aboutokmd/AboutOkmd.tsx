@@ -2,6 +2,22 @@
 
 import { useEffect, useState } from 'react';
 
+// --- Import Blueprint Components ---
+import Reports from './Reports';
+import Structure from './Structure';
+import Structureokmd from './Structureokmd';
+import BoardInformation from './BoardInformation';
+import Executives from './Executives';
+import AnnualReport from './AnnualReport';
+import AnalysisReport from './AnalysisReport';
+import OutcomeReport from './OutcomeReport';
+import ValueForMoneyReport from './ValueForMoneyReport';
+import Plan from './Plan';
+import ActionPlan from './ActionPlan';
+// If these exist, import them. If not, I'll check first or assume they exist based on previous `ls`.
+// Executives.tsx exists in my ls list.
+// ActionPlan.tsx exists in my ls list.
+
 interface AboutUsData {
   title?: string;
   content?: string;
@@ -16,6 +32,30 @@ const AboutOkmd = ({ page }: AboutUsProps) => {
   const [data, setData] = useState<AboutUsData | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // --- Component Mapping based on Blueprint Slugs ---
+  // Note: These keys must match the slug used in the Sidebar/Menu or URL.
+  const BLUEPRINT_COMPONENTS: Record<string, React.ComponentType<any>> = {
+    'structure': Structure,
+    'structureokmd': Structureokmd,
+    'board-information': BoardInformation,
+    'executives': Executives,
+    'reports': Reports,
+    'annual-report': AnnualReport,
+    'analysis-report': AnalysisReport,
+    'outcome-report': OutcomeReport,
+    'value-for-money-report': ValueForMoneyReport,
+    'strategic-plan': Plan,
+    'action-plan': ActionPlan,
+  };
+
+  const SpecificComponent = BLUEPRINT_COMPONENTS[page];
+
+  // If a specific component exists for this page, render it directly.
+  if (SpecificComponent) {
+    return <SpecificComponent />;
+  }
+
+  // --- Fallback: Fetch from API ---
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,7 +77,7 @@ const AboutOkmd = ({ page }: AboutUsProps) => {
     fetchData();
   }, [page]);
 
-  if (loading) return null;
+  if (loading) return null; // Or a skeleton loader
 
   if (!data) {
     return (
