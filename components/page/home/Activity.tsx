@@ -69,7 +69,7 @@ function formatDate(day: number) {
 export default function ActivityBlock() {
   return (
     <section aria-label="Activity Block" className="w-full bg-[#F8FBFD] py-16 md:py-20">
-      <div className="container mx-auto text-center flex flex-col gap-10 md:gap-12">
+      <div className="container text-center flex flex-col gap-10 md:gap-12">
 
         <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-4">
           <div>
@@ -190,12 +190,12 @@ export default function ActivityBlock() {
         {/* ================= MOBILE ================= */}
         <div className="md:hidden flex flex-col gap-6">
 
-          <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
+          <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar px-4 -mx-4">
             {ACTIVITIES.map((item) => (
               <article
                 key={item.id}
                 aria-label={item.title}
-                className="relative w-[80vw] max-w-[320px] h-[200px] flex-shrink-0 rounded-2xl overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.12)]"
+                className="relative w-[85vw] max-w-[320px] h-[200px] flex-shrink-0 rounded-2xl overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.12)] ml-4 first:ml-0"
               >
                 <Image
                   src={item.img}

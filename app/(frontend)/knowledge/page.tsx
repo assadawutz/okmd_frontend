@@ -220,7 +220,7 @@ export default function KnowledgePage() {
     <main className="w-full bg-white pb-8 sm:pb-12 md:pb-16">
       {/* BREADCRUMB BAR */}
       <div className="w-full bg-white">
-        <div className="container mx-auto h-16 sm:h-20 md:h-[84px] flex items-center">
+        <div className="container h-16 sm:h-20 md:h-[84px] flex items-center">
           <div className="grid grid-cols-12 w-full">
             <div className="col-span-12">
               <Breadcrumb
@@ -235,7 +235,7 @@ export default function KnowledgePage() {
       </div>
 
       {/* MAIN PAGE CONTAINER */}
-      <div className="container mx-auto">
+      <div className="container">
         <div className="grid grid-cols-12 gap-4 sm:gap-6">
           <div className="col-span-12">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-4 sm:mb-5 md:mb-6">

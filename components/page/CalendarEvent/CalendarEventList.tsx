@@ -73,7 +73,7 @@ export default function CalendarEventListPage() {
     <main className="min-h-screen bg-white text-gray-800">
       {/* Hero Banner */}
       <SubHeroBanner image="/calendar-hero.jpg" height="h-[300px]">
-        <div className="container mx-auto px-6 md:px-12">
+        <div className="container">
           <h1 className="text-4xl md:text-5xl font-bold">
             ปฏิทิน <span className="text-[#74CEE2]">กิจกรรม</span>
           </h1>

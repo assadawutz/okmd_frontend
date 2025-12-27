@@ -126,7 +126,7 @@ export default function ProcureMent() {
       <AboutBanner />
 
       {/* Breadcrumb */}
-      <div className="container mx-auto pt-4 sm:pt-6 md:pt-8 mb-4 sm:mb-6 md:mb-8">
+      <div className="container pt-4 sm:pt-6 md:pt-8 mb-4 sm:mb-6 md:mb-8">
         <div className="grid grid-cols-12">
           <div className="col-span-12">
             <div className="text-sm sm:text-base md:text-lg text-gray-500 font-medium">
@@ -140,7 +140,7 @@ export default function ProcureMent() {
         </div>
       </div>
 
-      <div className="container mx-auto pb-8 sm:pb-12 md:pb-16">
+      <div className="container pb-8 sm:pb-12 md:pb-16">
         <div className="grid grid-cols-12 gap-4 sm:gap-6">
           <div className="col-span-12">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-5 md:mb-6">

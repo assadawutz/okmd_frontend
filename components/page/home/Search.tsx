@@ -12,15 +12,40 @@ const MOCK_AI_SUMMARIES: Record<string, string> = {
 นวัตกรรมและการออกแบบ: การเรียนรู้ด้านการออกแบบผลิตภัณฑ์และบริการที่ตอบโจทย์ผู้ใช้จะมีความสำคัญ
 การพัฒนาทักษะทางสังคมและอารมณ์: ทักษะการสื่อสารและการทำงานร่วมกับผู้อื่นจะยังคงมีความสำคัญในทุกอาชีพ
 การเลือกเรียนในด้านที่มีความสนใจและสามารถปรับตัวได้ตามแนวโน้มในอนาคตจะช่วยให้คุณประสบความสำเร็จในอาชีพได้
-`;
+`,
+};
 export default function OkmdSearchSection() {
-  return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="container mx-auto flex flex-col">
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [aiSummary, setAiSummary] = useState("");
+  const [searchResults, setSearchResults] = useState<Array<{ title: string; text: string }>>([]);
+
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) return;
+    setIsSearching(true);
+    setHasSearched(true);
+    
+    // Mock search delay
+    setTimeout(() => {
+      setAiSummary(MOCK_AI_SUMMARIES.default);
+      setSearchResults([
+        { title: "ผลการค้นหา 1", text: "เนื้อหาที่เกี่ยวข้องกับคำค้นหา..." },
+        { title: "ผลการค้นหา 2", text: "ข้อมูลเพิ่มเติมเกี่ยวกับ..." },
+      ]);
+      setIsSearching(false);
+    }, 1000);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <section className="bg-white py-12 md:py-16">
-      <div className="container mx-auto px-6 lg:px-10">
+      <div className="container">
 
         {/* -------------------------------------------------------------- */}
         {/* HEADER SEARCH ZONE */}
@@ -31,31 +56,6 @@ export default function OkmdSearchSection() {
           <div className="text-xs sm:text-sm font-light uppercase tracking-[8px] sm:tracking-[12px] text-okmd-cyan">
             KNOWLEDGE IS OPPORTUNITY
           </div>
-
-            {/* SEARCH BLOCK */}
-            <div className="relative mt-8 w-full px-0 sm:px-0">
-
-              {/* Gradient BG */}
-              <div className="h-[210px] sm:h-[177px] w-full p-3 rounded-3xl bg-gradient-to-r bg-[#1B1D20]" />
-
-              {/* White card */}
-              <div className="absolute left-[3%] top-[38%] lg:top-[32%] sm:left-[14px] sm:top-[51px] h-[105px] sm:h-[121px] w-[94%] sm:w-[calc(100%-28px)] rounded-2xl bg-white shadow-md" />
-
-              {/* Intro text */}
-              <div
-                className="
-    absolute 
-    left-[40px] right-[40px] top-[26px] 
-    sm:left-[0px] sm:top-[19px]
-    pl-2
-    text-sm sm:text-sm 
-    font-medium leading-5 text-white
-    max-w-[85%] sm:max-w-none
-  "
-              >
-                เรามอบประสบการณ์การค้นหาอย่างแม่นยำ
-                ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
-              </div>
 
         {/* SEARCH BLOCK */}
         <div className="mt-10 max-w-4xl mx-auto">
@@ -78,6 +78,7 @@ export default function OkmdSearchSection() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="พิมพ์เป้าหมายของคุณที่นี่ เช่น AI, OKMD, การเรียนรู้"
+                  aria-label="ค้นหาความรู้"
                   className="
                     flex-1 border-b-2 border-okmd-cyan bg-transparent
                     py-2 text-base sm:text-lg
@@ -90,6 +91,7 @@ export default function OkmdSearchSection() {
                   type="button"
                   onClick={handleSearch}
                   disabled={isSearching || !searchQuery.trim()}
+                  aria-label="ค้นหา"
                   className="flex-shrink-0 flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#74CEE2] hover:bg-[#5FC4D8] hover:scale-105 active:scale-95 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   {isSearching ? (
@@ -101,6 +103,7 @@ export default function OkmdSearchSection() {
               </div>
             </div>
           </div>
+        </div>
         </div>
 
         {/* -------------------------------------------------------------- */}

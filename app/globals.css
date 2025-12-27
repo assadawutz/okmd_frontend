@@ -75,9 +75,7 @@ body {
 .btn-primary {
   @apply bg-blue-500 text-white font-black py-4 px-8 rounded-xl shadow-lg shadow-blue-200 hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all text-sm uppercase tracking-widest;
 }
-.okmd-container {
-  @apply container mx-auto px-6 py-12;
-}
+/* .okmd-container removed - use Tailwind v4 container utility instead */
 
 /* ------------------------------------------------------------ */
 /*  ROOT — FONT SCALE + COLOR MODE                               */
@@ -107,50 +105,7 @@ body {
   color: var(--text);
 }
 
-.container {
-    max-width: 1440px !important;
-    width: 100% !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-}
-
-@media (min-width: 640px) {
-    .container {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
-    }
-}
-
-@media (min-width: 768px) {
-    .container {
-        padding-left: 2rem !important;
-        padding-right: 2rem !important;
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        padding-left: 3rem !important;
-        padding-right: 3rem !important;
-    }
-}
-
-@media (min-width: 1280px) {
-    .container {
-        padding-left: 4rem !important;
-        padding-right: 4rem !important;
-    }
-}
-
-@media (min-width: 1440px) {
-    .container {
-        max-width: 1440px !important;
-        padding-left: 5rem !important;
-        padding-right: 5rem !important;
-    }
-}
+/* Container utility is handled by Tailwind CSS v4 */
 
 /* ------------------------------------------------------------ */
 /* CONTRAST MODE                                                 */

@@ -187,7 +187,7 @@ export default function KnowledgeShelfSection() {
 
   return (
     <section className="w-full bg-white py-16 md:py-20">
-      <div className="container mx-auto">
+      <div className="container">
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
           ตู้ <span className="text-[#74CEE2]">ความรู้</span>
         </h2>

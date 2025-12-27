@@ -33,7 +33,7 @@ const ExecutivesPage = () => {
   const isExecutives = pathname === "/about-okmd/executives";
 
   return (
-    <div className="container mx-auto">
+    <div className="container">
       <div>
         {/* Title */}
         <h1 className="text-3xl font-bold mb-6 pb-2">

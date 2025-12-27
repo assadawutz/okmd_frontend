@@ -49,13 +49,13 @@ export default function JobAnnouncementDetailPage({
     <div className="w-full min-h-screen bg-white">
       {/* Hero Banner */}
       <SubHeroBanner image="/job-announcement-hero.jpg" height="h-[300px]">
-        <div className="container mx-auto px-6 md:px-12">
+        <div className="container px-6 md:px-12">
           <h1 className="text-4xl md:text-5xl font-bold">{announcement.title}</h1>
         </div>
       </SubHeroBanner>
 
       {/* Breadcrumb */}
-      <div className="container mx-auto px-6 md:px-12 pt-8 mb-8">
+      <div className="container px-6 md:px-12 pt-8 mb-8">
         <div className="text-lg text-gray-500 font-medium">
           <Link href="/" className="hover:underline">
             หน้าหลัก
@@ -70,7 +70,7 @@ export default function JobAnnouncementDetailPage({
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 md:px-12 pb-16">
+      <div className="container px-6 md:px-12 pb-16">
         <div className="grid grid-cols-12 gap-8">
           {/* Main Content */}
           <div className="col-span-12 lg:col-span-8">
