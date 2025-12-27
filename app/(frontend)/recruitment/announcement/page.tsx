@@ -1,11 +1,11 @@
 "use client";
 import { useState } from 'react';
 import { Search, CheckCircle2, XCircle } from 'lucide-react';
-import { checkStatus } from '@/lib/services/okmd.service';
+import { checkStatus, type StatusResult } from '@/lib/services/okmd.service';
 
 export default function Page() {
   const [cid, setCid] = useState('');
-  const [res, setRes] = useState<any>(null);
+  const [res, setRes] = useState<{ status: string; name?: string } | null>(null);
   const handleCheck = async () => setRes(await checkStatus(cid));
   return (
     <main className="okmd-container py-20 flex flex-col items-center">

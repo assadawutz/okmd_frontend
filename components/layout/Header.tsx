@@ -226,12 +226,10 @@ function MenuItem({
 /* ====================================================== */
 function MobileMenu({
   onClose,
-  active,
-  setActive,
 }: {
   onClose: () => void;
-  active: string | null;
-  setActive: (a: string | null) => void;
+  active?: string | null;
+  setActive?: (a: string | null) => void;
 }) {
   return (
     <div
@@ -252,7 +250,7 @@ function MobileMenu({
         </div>
 
         <ul className="flex flex-col text-[22px] font-medium text-[#1B1D20] gap-7">
-          <MobileItem label="รู้จัก OKMD"href="/about-okmd/about-us" />
+          <MobileItem label="รู้จัก OKMD" href="/about-okmd/about-us" />
           <MobileItem label="ตู้ความรู้" href="/knowledge" />
           <MobileItem label="ข่าวและกิจกรรม" />
           <MobileItem label="ปฏิทินกิจกรรม" />
