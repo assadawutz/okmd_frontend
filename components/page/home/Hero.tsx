@@ -99,6 +99,7 @@ export default function Hero() {
                   ดูรายละเอียด
                 </button>
             </div>
+            </div>
           </figcaption>
         </figure>
 
@@ -150,7 +151,7 @@ export default function Hero() {
           })}
 
           {/* MOBILE TEXT */}
-          <figcaption className="absolute container mx-auto px-4 bottom-[40px] left-0 right-0 z-20">
+          <figcaption className="absolute container mx-auto bottom-[40px] left-0 right-0 z-20">
             <div className="max-w-[300px]">
               <h2 className="text-[#1B1D20] font-bold text-3xl leading-[24px]">
                 AI-Driven intelligence:

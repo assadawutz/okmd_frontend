@@ -50,7 +50,7 @@ export default function Header() {
         ref={headerRef}
         className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#ECECED] shadow-sm"
       >
-        <div className="container mx-auto px-4 lg:px-0 py-4 flex items-center justify-between">
+        <div className="container mx-auto py-4 flex items-center justify-between">
 
           {/* ---------------- LOGO ---------------- */}
           <Link href="/" aria-label="OKMD Home" className="flex">
