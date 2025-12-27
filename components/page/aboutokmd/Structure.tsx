@@ -3,7 +3,7 @@ import React from 'react'
 const title = {
   name:"โครงสร้าง OKMD"
 }
-export default function structure() {
+export default function Structure() {
   return (
     <div className='container'>
       <h1 className="text-3xl font-bold mb-10">{title.name}</h1>

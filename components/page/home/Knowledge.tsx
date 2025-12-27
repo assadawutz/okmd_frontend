@@ -44,8 +44,7 @@ type MagazineCardProps = {
 function MagazineCard({ title, img, fileSize }: MagazineCardProps) {
   return (
     <div
-      className="group bg-white rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.06)] overflow-hidden transition-all duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-1 h-full cursor-pointer flex flex-col border border-gray-100"
-      onClick={() => alert(`Mock Click: ${title}`)}
+      className="bg-white rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.06)] overflow-hidden transition-all duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-1 h-full cursor-pointer flex flex-col border border-gray-100"
     >
       <div className="w-full h-[300px] sm:h-[340px] lg:h-[360px] overflow-hidden">
         <img
@@ -93,7 +92,7 @@ function Pagination({ total, current }: PaginationProps) {
       <button
         disabled={current === 1}
         className={`${buttonClass} ${current === 1 ? disabledClass : normalClass}`}
-        onClick={() => alert("Mock: Go to previous page")}
+        onClick={() => {}}
       >
         {"<"}
       </button>
@@ -104,7 +103,7 @@ function Pagination({ total, current }: PaginationProps) {
           ) : (
             <button
               className={`${buttonClass} ${p === current ? activeClass : normalClass}`}
-              onClick={() => alert(`Mock: Go to page ${p}`)}
+              onClick={() => {}}
             >
               {p}
             </button>
@@ -114,7 +113,7 @@ function Pagination({ total, current }: PaginationProps) {
       <button
         disabled={current === total}
         className={`${buttonClass} ${current === total ? disabledClass : normalClass}`}
-        onClick={() => alert("Mock: Go to next page")}
+        onClick={() => {}}
       >
         {">"}
       </button>

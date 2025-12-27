@@ -401,7 +401,7 @@ function FormSection() {
             type="button"
             // Replaced bg-[#0170B2] text-white font-bold py-5 px-10 rounded-xl shadow-lg hover:bg-[#005e99] transition text-center text-xl flex items-center justify-center shrink-0 min-w-36
             className="bg-[#0170B2] text-white font-bold py-5 px-10 rounded-xl shadow-lg hover:bg-[#005e99] transition text-center text-xl flex items-center justify-center shrink-0 min-w-36 cursor-pointer"
-            onClick={() => alert("Mock Action: เชื่อมต่อ ThaiID เพื่อกรอกข้อมูลอัตโนมัติ")}
+            onClick={() => alert("เชื่อมต่อ ThaiID เพื่อกรอกข้อมูลอัตโนมัติ")}
           >
             {/* Replaced text-xl font-bold */}
             <span className="text-xl font-bold">ThaiID</span>
@@ -547,22 +547,20 @@ function FormSection() {
         {/* Replaced mb-10 border-t pt-8 border-gray-100 col-span-12 */}
         <div className="mb-10 border-t pt-8 border-gray-100 col-span-12">
           {/* Replaced font-bold text-gray-700 text-xl block mb-4 */}
-          <label className="font-bold text-gray-700 text-xl block mb-4">เอกสารประกอบ (ขนาดไฟล์ไม่เกิน 5 MB เป็นไฟล์ที่ท่านสามารถอัปโหลด gif, jpg, png, pdf, doc, xls) *</label>
+            <label className="font-bold text-gray-700 text-xl block mb-4">เอกสารประกอบ (ขนาดไฟล์ไม่เกิน 5 MB เป็นไฟล์ที่ท่านสามารถอัปโหลด gif, jpg, png, pdf, doc, xls) *</label>
           <input
             id="file-upload"
             type="file"
             multiple
             className="hidden"
-            // Mock file change event
-            onChange={(e: ChangeEvent<HTMLInputElement>) => console.log('Mock File Selected:', e.target.files)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => console.log('File Selected:', e.target.files)}
           />
           <label
             htmlFor="file-upload"
-            // Replaced inline-block bg-[#929292] text-white font-semibold py-4 px-8 rounded-xl text-lg cursor-pointer hover:bg-gray-700 transition shadow-md
             className="inline-block bg-[#929292] text-white font-semibold py-4 px-8 rounded-xl text-lg cursor-pointer hover:bg-gray-700 transition shadow-md"
-            onClick={() => console.log('Mock File Upload Click')} // For users without file input access
+            onClick={() => console.log('File Upload Click')} // For users without file input access
           >
-            เพิ่มไฟล์เอกสารที่เกี่ยวข้อง (Mock)
+            เพิ่มไฟล์เอกสารที่เกี่ยวข้อง
           </label>
         </div>
 
@@ -622,7 +620,7 @@ function TrackSection() {
         <button
           // Replaced bg-[#74CEE2] text-white font-bold py-5 px-10 rounded-xl shadow-lg hover:bg-[#5ab6cc] transition whitespace-nowrap text-xl
           className="bg-[#74CEE2] text-white font-bold py-5 px-10 rounded-xl shadow-lg hover:bg-[#5ab6cc] transition whitespace-nowrap text-xl cursor-pointer"
-          onClick={() => alert(`Mock ค้นหาเลขที่บัตร: ${searchId}`)}
+          onClick={() => alert(`ค้นหาเลขที่บัตร: ${searchId}`)}
         >
           ค้นหา
         </button>
@@ -704,13 +702,13 @@ function ReportSection() {
 
       {/* Replaced flex justify-end items-center gap-4 mb-6 */}
       <div className="flex justify-end items-center gap-4 mb-6">
-        <input type="text" placeholder="เลือกปีที่ค้นหา (Mock)"
+        <input type="text" placeholder="เลือกปีที่ค้นหา"
           // Replaced border border-gray-300 p-4 rounded-lg text-lg w-56 focus:ring-4 focus:ring-[#74CEE2]/50 focus:border-[#74CEE2]
           className="border border-gray-300 p-4 rounded-lg text-lg w-56 focus:ring-4 focus:ring-[#74CEE2]/50 focus:border-[#74CEE2]" />
         <button
           // Replaced bg-[#929292] text-white p-5 rounded-xl h-full flex items-center hover:bg-gray-700 transition
           className="bg-[#929292] text-white p-5 rounded-xl h-full flex items-center hover:bg-gray-700 transition cursor-pointer"
-          onClick={() => alert("Mock Action: ค้นหาตามปี")}
+          onClick={() => alert("ค้นหาตามปี")}
         >
           {/* Replaced w-8 h-8 */}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
