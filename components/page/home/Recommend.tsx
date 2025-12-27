@@ -72,8 +72,7 @@ export default function RecommendSection() {
                   {item.title}
                 </h3>
               </div>
-
-            </Link>
+            </article>
           ))}
         </div>
 

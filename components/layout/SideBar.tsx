@@ -76,73 +76,26 @@ const Sidebar = () => {
         เกี่ยวกับ <span className="text-[#16A7CB]">OKMD</span>
       </h1>
 
-      <ul className="mt-4 space-y-0">
-        {MENU_DATA.map((item, idx) => {
-          const hasChildren = item.children && item.children.length > 0;
-          const isExpanded = expandedMenus.includes(item.title);
-          const isActive = item.slug && isActiveSlug(item.slug);
+      <ul className="space-y-2 mt-4 p-0 m-0">
+        {menu 
+        .filter((item) => ALLOWED_IDS.includes(item.id))
+        .map((item) => {
+          const href = `/about-okmd/${item.slug}`;
+          const isActive = pathname === href;
 
           return (
-            <li key={idx} className="border-b border-gray-200">
-              {hasChildren ? (
-                <>
-                  <button
-                    onClick={() => toggleMenu(item.title)}
-                    className={`w-full flex items-center justify-between py-3 text-sm lg:text-base transition-colors hover:text-[#16A7CB] ${
-                      isExpanded ? 'text-[#16A7CB]' : 'text-[#40444D]'
-                    }`}
-                  >
-                    <span>{item.title}</span>
-                    <svg
-                      className={`w-4 h-4 transition-transform ${
-                        isExpanded ? 'rotate-180' : ''
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </button>
-                  {isExpanded && (
-                    <ul className="pb-2 pl-4 space-y-1">
-                      {item.children!.map((child, childIdx) => {
-                        const isChildActive = isActiveSlug(child.slug);
-                        return (
-                          <li key={childIdx}>
-                            <Link
-                              href={`/about-okmd/${child.slug}`}
-                              className={`block py-2 text-sm transition-colors ${
-                                isChildActive
-                                  ? 'text-[#16A7CB] font-medium'
-                                  : 'text-[#40444D] hover:text-[#16A7CB]'
-                              }`}
-                            >
-                              {child.title}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={`/about-okmd/${item.slug}`}
-                  className={`block py-3 text-sm lg:text-base transition-colors ${
-                    isActive
-                      ? 'text-[#16A7CB] font-medium'
-                      : 'text-[#40444D] hover:text-[#16A7CB]'
-                  }`}
-                >
-                  {item.title}
-                </Link>
-              )}
+            <li key={item.id} className="border-b border-gray-300 list-none">
+              <Link
+                href={href}
+                className={`
+                  block py-3 text-lg transition-colors
+                  ${isActive
+                    ? 'text-[#16A7CB] font-medium border-b'
+                    : 'hover:text-[#16A7CB]'}
+                `}
+              >
+                {item.title}
+              </Link>
             </li>
           );
         })}

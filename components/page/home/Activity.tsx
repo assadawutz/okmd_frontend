@@ -202,23 +202,10 @@ export default function ActivityBlock() {
 
         </div>
 
-        {/* VIEW MORE */}
-        <div className="hidden md:flex justify-end mt-6">
-          <Link 
-            href="/calendar-of-event" 
-            className="flex items-center text-[#1B1D20] text-sm font-medium hover:text-[#16A7CB] transition-colors"
-          >
-            <span className="border-t border-[#1B1D20] w-12 mr-3"></span>
-            ดูทั้งหมด
-            <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
-            </svg>
-          </Link>
-        </div>
+        {/* ================= MOBILE ================= */}
+        <div className="md:hidden flex flex-col gap-6 px-4">
 
-        {/* MOBILE LAYOUT */}
-        <div className="md:hidden">
-          <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
+          <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar -mx-4 px-4">
             {ACTIVITIES.map((item) => (
               <Link
                 key={item.id}

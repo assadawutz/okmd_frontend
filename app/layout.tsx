@@ -14,7 +14,7 @@ const kanit = Kanit({
 
 export const metadata: Metadata = {
   title: "OKMD Portal",
-  description: "Knowledge Portal by OKMD",
+  description: "Knowledge Portal by obad",
 };
 
 export const viewport: Viewport = {

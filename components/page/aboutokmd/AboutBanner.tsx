@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export default function AboutBanner() {
   const pathname = usePathname();
@@ -38,38 +36,15 @@ export default function AboutBanner() {
   };
 
   return (
-    <div className="w-full">
-      {/* Breadcrumb */}
-      <div className="container mx-auto px-4 py-4">
-        <nav className="text-sm text-gray-500">
-          <Link href="/" className="hover:text-[#16A7CB] transition-colors">
-            หน้าหลัก
-          </Link>
-          <span className="mx-2">&gt;</span>
-          <Link href="/about-okmd/about" className="hover:text-[#16A7CB] transition-colors">
-            รู้จัก OKMD
-          </Link>
-          <span className="mx-2">&gt;</span>
-          <span className="text-[#16A7CB]">{getPageName()}</span>
-        </nav>
-      </div>
-
-      {/* Hero Banner */}
-      <div className="relative w-full h-[200px] md:h-[280px] lg:h-[320px] overflow-hidden">
-        <Image
-          src="/images/banner/about-banner.jpg"
-          alt="About OKMD Banner"
-          fill
-          className="object-cover"
-          priority
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = "/bannerabout.png";
-          }}
-        />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#16A7CB]/30 to-transparent" />
-      </div>
+    <div className="relative w-full h-[280px] sm:h-[340px] md:h-[400px] lg:h-[420px] overflow-hidden">
+      <Image
+        src="/bannerabout.png"
+        alt="About OKMD Banner"
+        fill
+        priority
+        className="object-cover"
+        sizes="100vw"
+      />
     </div>
   );
 }

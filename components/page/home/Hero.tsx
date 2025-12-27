@@ -44,8 +44,36 @@ export default function Hero() {
 
       {/* ========== DESKTOP ========== */}
       <div className="hidden md:block">
-        <div className="container mx-auto px-6 lg:px-10">
-          <div className="relative min-h-[480px] lg:min-h-[520px] xl:min-h-[560px] flex items-center">
+        <figure className="relative w-full h-[520px] lg:h-[560px] overflow-hidden mb-0">
+
+          {SLIDES.map((slide, i) => {
+            const active = i === index;
+            return (
+              <div
+                key={i}
+                aria-hidden={!active}
+                className={`
+                  absolute inset-0 transition-all duration-[1200ms]
+                  ease-[cubic-bezier(.16,.84,.44,1)]
+                  ${active ? "opacity-100 scale-100 translate-x-0" : "opacity-0 scale-105 translate-x-6"}
+                `}
+              >
+                <Image
+                  src={slide.src}
+                  alt={slide.alt}
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="object-cover transition-transform duration-[1200ms]"
+                />
+              </div>
+            );
+          })}
+
+          {/* TEXT LAYER */}
+          <figcaption className="absolute inset-0 flex items-start z-20 mt-8 pointer-events-none">
+            <div className="w-full flex justify-center">
+              <div className="container w-full">
 
             {/* LEFT CONTENT */}
             <div className="relative z-20 max-w-[600px] py-12">
@@ -68,32 +96,13 @@ export default function Hero() {
                 Search, summarize, and Recommend in an instant.
               </p>
 
-              <button
-                type="button"
-                className="bg-[#74CEE2] px-6 py-3 rounded-xl text-white text-base lg:text-lg font-medium
-                  hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md"
-              >
-                ดูรายละเอียด
-              </button>
-            </div>
-
-            {/* RIGHT AI ROBOT IMAGE */}
-            <div className="absolute right-0 top-0 bottom-0 w-[55%] lg:w-[50%] flex items-center justify-end">
-              <div className="relative w-full h-full">
-                {/* AI Chip Icon */}
-                <div className="absolute right-[20%] top-[30%] z-10">
-                  <div className="w-32 h-32 lg:w-40 lg:h-40 border-2 border-[#74CEE2]/50 rounded-lg flex items-center justify-center">
-                    <span className="text-[#74CEE2] text-4xl lg:text-5xl font-light">AI</span>
-                  </div>
-                </div>
-                {/* Robot Hand Image - using existing image */}
-                <Image
-                  src="/rectangle-689.png"
-                  alt="AI Robot Hand"
-                  fill
-                  className="object-contain object-right"
-                  priority
-                />
+                <button
+                  type="button"
+                  className="mt-5 lg:mt-6 bg-[#74CEE2] px-5 lg:px-6 py-2.5 lg:py-3 rounded-xl text-white text-base lg:text-lg font-medium
+                    hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md pointer-events-auto"
+                >
+                  ดูรายละเอียด
+                </button>
               </div>
             </div>
 
@@ -123,35 +132,42 @@ export default function Hero() {
 
       {/* ========== MOBILE ========== */}
       <div className="md:hidden">
-        <div className="container mx-auto px-4 py-10">
-          
-          {/* OKMD AI Logo */}
-          <div className="flex items-center gap-2 mb-5">
-            <Image
-              src="/okmd_ai_logo.png"
-              width={48}
-              height={48}
-              alt="OKMD AI Logo"
-            />
-          </div>
+        <figure className="relative w-full h-[280px] sm:h-[320px] overflow-hidden m-0">
 
-          <h2 className="text-[#1B1D20] font-bold text-3xl leading-tight mb-3">
-            AI-Driven intelligence:
-          </h2>
+          {SLIDES.map((slide, i) => {
+            const active = i === index;
+            return (
+              <div
+                key={i}
+                aria-hidden={!active}
+                className={`
+                  absolute inset-0 transition-all duration-[1000ms]
+                  ${active ? "opacity-100 scale-100 translate-x-0" : "opacity-0 scale-105 translate-x-4"}
+                `}
+              >
+                <Image
+                  src={slide.src}
+                  alt={slide.alt}
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+              </div>
+            );
+          })}
 
-          <p className="text-[#1B1D20] text-base mb-5 opacity-85">
-            Search, summarize, and Recommend in an instant.
-          </p>
-
-          <button
-            type="button"
-            className="bg-[#74CEE2] px-5 py-2.5 rounded-xl text-white text-base font-medium
-              hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md"
-          >
-            ดูรายละเอียด
-          </button>
-
-        </div>
+          {/* MOBILE TEXT */}
+          <figcaption className="absolute container mx-auto px-4 bottom-[40px] left-0 right-0 z-20">
+            <div className="max-w-[300px]">
+              <h2 className="text-[#1B1D20] font-bold text-3xl leading-tight">
+                AI-Driven intelligence:
+              </h2>
+              <p className="text-[#1B1D20] text-lg mt-2 leading-relaxed opacity-90">
+                Search, summarize, and Recommend in an instant.
+              </p>
+            </div>
+          </figcaption>
+        </figure>
 
         {/* PAGINATION MOBILE */}
         <nav className="container mx-auto flex gap-2 justify-center pb-8" aria-label="Mobile slide navigation">
