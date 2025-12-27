@@ -40,7 +40,7 @@ export default function Input({
       )}
 
       {/* Input Wrapper */}
-      <div className="relative w-78">
+      <div className="relative w-full">
         {/* Icon */}
         {icon && (
           <div
@@ -62,7 +62,7 @@ export default function Input({
           className={clsx(
             "p-4 rounded-lg w-full text-black placeholder-[#666971] border h-[50px]",
             "transition-all duration-200",
-            "focus:outline-none focus-visible:outline-none focus:ring-0 focus:border-gray-500",
+            "focus:outline-none focus:ring-2 focus:ring-[#74CEE2]/50 focus:border-[#74CEE2]",
             error ? "border-red-500 animate-shake" : "border-gray-500",
 
             // เว้นที่ให้ icon

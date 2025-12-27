@@ -34,10 +34,10 @@ export default function HighlightSection() {
   return (
     <section className="bg-[#DFF1F9] w-full py-16 md:py-20">
       {/* HEADER */}
-      <div className="container mx-auto px-6 lg:px-10 text-center mb-10 md:mb-14">
+      <div className="container mx-auto text-center mb-10 md:mb-14">
         <h2 className="font-semibold text-okmd-dark leading-tight text-2xl sm:text-3xl lg:text-4xl">
           Highlight
-        </h2> 
+        </h2>
         <p className="mt-2 text-lg sm:text-xl text-[#16A7CB]">
           ทุกจุดเด่น ถูกยกมาไว้ตรงนี้
         </p>
@@ -45,7 +45,7 @@ export default function HighlightSection() {
 
       {/* DESKTOP */}
       <div className="hidden md:block">
-        <div className="container mx-auto px-6 lg:px-10">
+        <div className="container mx-auto">
 
           {/* ROW 1 */}
           {highlights.length >= 3 && (
@@ -53,7 +53,7 @@ export default function HighlightSection() {
 
               {/* BOX 1 */}
               <div className="col-span-4 rounded-2xl h-[320px] lg:h-[340px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer">
-                <Image  
+                <Image
                   src={highlights[0].img}
                   fill
                   alt={highlights[0].title}
@@ -104,42 +104,63 @@ export default function HighlightSection() {
                   {highlights[2].title}
                 </h3>
 
-              <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
-                อ่านต่อ <span>↗</span>
-              </a>
-            </div>
-          </div>
-        )}
-
-          {/* ROW 2 */}
-          {highlights.length >= 5 && (
-            <div className="flex mt-10 gap-10">
-
-            {/* BOX 4 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
-              <Image
-                src={highlights[3].img}
-                fill
-                alt={highlights[3].title || "highlight-4"}
-                className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
-              />
-            </div>
-
-                <a href={highlights[2].link} className="inline-flex mt-5 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
+                <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
                   อ่านต่อ <span>↗</span>
                 </a>
               </div>
             </div>
           )}
 
+          {/* ROW 2 */}
+          {highlights.length >= 5 && (
+            <div className="grid grid-cols-12 mt-6 lg:mt-8 gap-6 lg:gap-8">
+
+              {/* BOX 4 */}
+              <div className="col-span-8 rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer">
+                <Image
+                  src={highlights[3].img}
+                  fill
+                  alt={highlights[3].title || "highlight-4"}
+                  className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
+                />
+                <div className="bg-gradient-to-b from-black/10 via-black/30 to-black/60 inset-0 absolute" />
+                <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg">
+                  <h3 className="font-semibold text-lg lg:text-xl leading-snug line-clamp-2">
+                    {highlights[3].title}
+                  </h3>
+                  <a href={highlights[3].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
+                    อ่านต่อ <span>↗</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* BOX 5 */}
+              <div className="col-span-4 rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer">
+                <Image
+                  src={highlights[4].img}
+                  fill
+                  alt={highlights[4].title}
+                  className="object-cover transition-all duration-700 group-hover:scale-[1.05]"
+                />
+                <div className="bg-gradient-to-b from-black/20 via-black/40 to-black/70 inset-0 absolute" />
+                <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg">
+                  <h3 className="font-semibold text-lg lg:text-xl leading-snug line-clamp-2">
+                    {highlights[4].title}
+                  </h3>
+                  <a href={highlights[4].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
+                    อ่านต่อ <span>↗</span>
+                  </a>
+                </div>
+              </div>
             </div>
           )}
         </div>
+      </div>
 
-        {/* ================= MOBILE ================= */}
-        {highlights.length > 0 && (
-          <div className="w-full md:hidden">
-          <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
+      {/* ================= MOBILE ================= */}
+      {highlights.length > 0 && (
+        <div className="w-full md:hidden">
+          <div ref={ref} className="flex w-full gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar px-4">
             {highlights.map((h, i) => (
               <div
                 key={h.id}
@@ -236,7 +257,6 @@ export default function HighlightSection() {
           </div>
         </div>
       )}
-      </div>
     </section>
   );
 }
