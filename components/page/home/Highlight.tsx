@@ -155,12 +155,10 @@ export default function HighlightSection() {
 
             </div>
           )}
-
-            </div>
-          )}
         </div>
+      </div>
 
-        {/* ================= MOBILE ================= */}
+      {/* ================= MOBILE ================= */}
         {highlights.length > 0 && (
           <div className="w-full md:hidden">
           <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">

@@ -24,8 +24,7 @@ const members = [
   },
 ];
 
-const Structure = () => {
-    // ลบการประกาศ State ออก เนื่องจากไม่จำเป็นต้องสลับ Tab แล้ว
+const AnnualReport = () => {
 
   return (
     <div className=" container">
@@ -65,4 +64,4 @@ const Structure = () => {
   );
 };
 
-export default Structure;
+export default AnnualReport;

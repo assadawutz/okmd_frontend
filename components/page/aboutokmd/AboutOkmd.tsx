@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 // --- Import Blueprint Components ---
 import Reports from './Reports';
 import Structure from './Structure';
-import Structureokmd from './Structureokmd';
+import StructureOkmd from './Structureokmd';
 import BoardInformation from './BoardInformation';
 import Executives from './Executives';
 import AnnualReport from './AnnualReport';
@@ -36,7 +36,7 @@ const AboutOkmd = ({ page }: AboutUsProps) => {
   // Note: These keys must match the slug used in the Sidebar/Menu or URL.
   const BLUEPRINT_COMPONENTS: Record<string, React.ComponentType<any>> = {
     'structure': Structure,
-    'structureokmd': Structureokmd,
+    'structureokmd': StructureOkmd,
     'board-information': BoardInformation,
     'executives': Executives,
     'reports': Reports,
