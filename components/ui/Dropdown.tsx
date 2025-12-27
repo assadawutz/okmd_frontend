@@ -48,7 +48,7 @@ const Dropdown = ({
           "leading-[1.7]",
           "text-[16px]",
           "rounded-lg border",
-          "focus:outline-none focus:ring-0",
+          "focus:outline-none focus:ring-2 focus:ring-[#74CEE2]/50 focus:border-[#74CEE2]",
           error ? "border-red-500" : "border-gray-500",
           className
         )}

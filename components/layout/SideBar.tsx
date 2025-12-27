@@ -33,7 +33,7 @@ const Sidebar = () => {
         เกี่ยวกับ <span className="text-[#16A7CB]">OKMD</span>
       </h1>
 
-      <ul className="space-y-2 mt-4 p-0">
+      <ul className="space-y-2 mt-4 p-0 m-0">
         {menu 
         .filter((item) => ALLOWED_IDS.includes(item.id))
         .map((item) => {
@@ -41,7 +41,7 @@ const Sidebar = () => {
           const isActive = pathname === href;
 
           return (
-            <li key={item.id} className="border-b border-gray-300 list-none ml-[-25px]">
+            <li key={item.id} className="border-b border-gray-300 list-none">
               <Link
                 href={href}
                 className={`
