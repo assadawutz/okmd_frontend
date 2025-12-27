@@ -11,12 +11,33 @@ const MOCK_AI_SUMMARIES: Record<string, string> = {
 การศึกษาและการพัฒนาทักษะ: การเรียนรู้วิธีการเรียนรู้ (Meta Learning) จะเป็นสิ่งสำคัญในการปรับตัวในโลกที่เปลี่ยนแปลง
 นวัตกรรมและการออกแบบ: การเรียนรู้ด้านการออกแบบผลิตภัณฑ์และบริการที่ตอบโจทย์ผู้ใช้จะมีความสำคัญ
 การพัฒนาทักษะทางสังคมและอารมณ์: ทักษะการสื่อสารและการทำงานร่วมกับผู้อื่นจะยังคงมีความสำคัญในทุกอาชีพ
-การเลือกเรียนในด้านที่มีความสนใจและสามารถปรับตัวได้ตามแนวโน้มในอนาคตจะช่วยให้คุณประสบความสำเร็จในอาชีพได้
-`;
+การเลือกเรียนในด้านที่มีความสนใจและสามารถปรับตัวได้ตามแนวโน้มในอนาคตจะช่วยให้คุณประสบความสำเร็จในอาชีพได้`,
+};
+
 export default function OkmdSearchSection() {
-  return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="container mx-auto flex flex-col">
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [aiSummary, setAiSummary] = useState("");
+  const [searchResults, setSearchResults] = useState<Array<{title: string, text: string}>>([]);
+
+  const handleSearch = () => {
+    if (!searchQuery.trim()) return;
+    setIsSearching(true);
+    setTimeout(() => {
+      setAiSummary(MOCK_AI_SUMMARIES.default);
+      setSearchResults([
+        {title: "ผลการค้นหาที่ 1", text: "รายละเอียดเกี่ยวกับ " + searchQuery},
+        {title: "ผลการค้นหาที่ 2", text: "ข้อมูลเพิ่มเติมเกี่ยวกับ " + searchQuery},
+      ]);
+      setHasSearched(true);
+      setIsSearching(false);
+    }, 1000);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') handleSearch();
+  };
 
   return (
     <section className="bg-white py-12 md:py-16">
@@ -31,31 +52,7 @@ export default function OkmdSearchSection() {
           <div className="text-xs sm:text-sm font-light uppercase tracking-[8px] sm:tracking-[12px] text-okmd-cyan">
             KNOWLEDGE IS OPPORTUNITY
           </div>
-
-            {/* SEARCH BLOCK */}
-            <div className="relative mt-8 w-full px-0 sm:px-0">
-
-              {/* Gradient BG */}
-              <div className="h-[210px] sm:h-[177px] w-full p-3 rounded-3xl bg-gradient-to-r bg-[#1B1D20]" />
-
-              {/* White card */}
-              <div className="absolute left-[3%] top-[38%] lg:top-[32%] sm:left-[14px] sm:top-[51px] h-[105px] sm:h-[121px] w-[94%] sm:w-[calc(100%-28px)] rounded-2xl bg-white shadow-md" />
-
-              {/* Intro text */}
-              <div
-                className="
-    absolute 
-    left-[40px] right-[40px] top-[26px] 
-    sm:left-[0px] sm:top-[19px]
-    pl-2
-    text-sm sm:text-sm 
-    font-medium leading-5 text-white
-    max-w-[85%] sm:max-w-none
-  "
-              >
-                เรามอบประสบการณ์การค้นหาอย่างแม่นยำ
-                ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
-              </div>
+        </div>
 
         {/* SEARCH BLOCK */}
         <div className="mt-10 max-w-4xl mx-auto">
@@ -190,8 +187,7 @@ export default function OkmdSearchSection() {
             </div>
           </div>
         )}
-
-        </div>
+      </div>
     </section>
   );
 }

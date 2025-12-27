@@ -24,8 +24,6 @@ export default function RecommendSection() {
   return (
     <section className="bg-[#0F0F0F] py-20">
       <div className="container mx-auto">
-        <div className="space-y-12">
-
         <header className="text-center mb-10 md:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
             Smart Picks
@@ -79,10 +77,9 @@ export default function RecommendSection() {
                   </span>
                 </div>
               </div>
-
-              </article>
-            ))}
-          </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
