@@ -196,6 +196,34 @@ export default function NewsPage() {
             ))}
           </div>
 
+          {/* PAGINATION */}
+          <div className="mt-12 flex justify-center">
+            <div className="flex items-center gap-2">
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#74CEE2] text-white font-semibold hover:bg-[#5FC4D8] transition">
+                1
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                2
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                3
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                4
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                5
+              </button>
+              <span className="px-2 text-gray-500">...</span>
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                20
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                &gt;
+              </button>
+            </div>
+          </div>
+
         </section>
       </div>
     </main>
