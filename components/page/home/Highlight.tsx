@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { getHighlights, type HighlightItem } from "@/lib/services/highlight.service";
 
@@ -10,13 +11,11 @@ export default function HighlightSection() {
   const [highlights, setHighlights] = useState<HighlightItem[]>([]);
 
   useEffect(() => {
-    // Fetch highlights from service layer
     getHighlights().then((data) => {
       setHighlights(data);
     });
   }, []);
 
-  /* AUTO SLIDE */
   useEffect(() => {
     if (highlights.length === 0) return;
     const timer = setInterval(() => {
@@ -30,6 +29,10 @@ export default function HighlightSection() {
     }, 3800);
     return () => clearInterval(timer);
   }, [index, highlights.length]);
+
+  if (highlights.length === 0) {
+    return null;
+  }
 
   return (
     <section className="bg-[#DFF1F9] w-full py-16 md:py-20">
@@ -48,10 +51,9 @@ export default function HighlightSection() {
         <div className="container mx-auto">
 
           {/* ROW 1 */}
-          {highlights.length >= 3 && (
-            <div className="grid grid-cols-12 gap-6 lg:gap-8">
-
-              {/* BOX 1 */}
+          <div className="grid grid-cols-12 gap-6 lg:gap-8">
+            {/* BOX 1 - Image Card */}
+            {highlights[0] && (
               <div className="col-span-4 rounded-2xl h-[320px] lg:h-[340px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer">
                 <Image
                   src={highlights[0].img}
@@ -67,17 +69,21 @@ export default function HighlightSection() {
                   {highlights[0].desc && (
                     <p className="opacity-90 text-sm line-clamp-2">{highlights[0].desc}</p>
                   )}
-                  <a href={highlights[0].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
+                  <Link href={highlights[0].link || "#"} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
                     อ่านต่อ <span>↗</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
+            )}
 
-              {/* BOX 2 */}
+            {/* BOX 2 - Knowledge Magazine */}
+            {highlights[1] && (
               <div className="col-span-4 bg-white flex rounded-2xl h-[320px] lg:h-[340px] p-5 lg:p-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] justify-between hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)] cursor-pointer">
                 <div className="flex flex-col justify-center">
                   <p className="text-sm mb-1 text-gray-500">The Knowledge</p>
-                  <h3 className="font-bold leading-snug text-3xl lg:text-4xl">{highlights[1].title.replace("The Knowledge\n", "")}</h3>
+                  <h3 className="font-bold leading-snug text-3xl lg:text-4xl">
+                    {highlights[1].title.replace("The Knowledge\n", "")}
+                  </h3>
                 </div>
                 <Image
                   src={highlights[1].img}
@@ -87,19 +93,19 @@ export default function HighlightSection() {
                   className="rounded-none shadow-md object-contain"
                 />
               </div>
+            )}
 
-              {/* BOX 3 */}
+            {/* BOX 3 - OKMD Card */}
+            {highlights[2] && (
               <div className="col-span-4 bg-white rounded-2xl h-[320px] lg:h-[340px] p-5 lg:p-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] relative overflow-hidden hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)] cursor-pointer">
                 <Image
                   src={highlights[2].img}
                   width={120}
                   height={120}
-                  alt="highlight-3-icon"
+                  alt="highlight-icon"
                   className="opacity-20 right-4 bottom-4 absolute"
                 />
-
                 <p className="font-bold text-lg mb-2 tracking-tight">OKMD</p>
-
                 <h3 className="font-medium mb-3 text-base text-[#1B1D20] leading-snug line-clamp-2">
                   {highlights[2].title}
                 </h3>
@@ -235,26 +241,26 @@ export default function HighlightSection() {
                   </div>
                 )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
-          {/* PAGINATION */}
-          <div className="flex mt-5 gap-1.5 justify-center">
-            {highlights.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  if (!ref.current) return;
-                  setIndex(i);
-                  ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
-                }}
-                className={`rounded-full transition-all ${
-                  index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF] hover:bg-[#A8D8E8]"
-                }`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
-          </div>
+        {/* PAGINATION */}
+        <div className="flex mt-5 gap-1.5 justify-center">
+          {highlights.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                if (!ref.current) return;
+                setIndex(i);
+                ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
+              }}
+              className={`rounded-full transition-all ${
+                index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF] hover:bg-[#A8D8E8]"
+              }`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
         </div>
       )}
     </section>

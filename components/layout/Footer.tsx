@@ -3,34 +3,35 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const ABOUT = [
-  "รู้จัก OKMD",
-  "ข่าวองค์กร",
-  "รายงานผลการดำเนินการรายสัปดาห์",
-  "ศูนย์ข้อมูลข่าวสารอิเล็กทรอมิกส์ของ สนธ.",
-  "ประกาศจัดซื้อจัดจ้าง",
-  "สมัครงาน",
-  "นโยบายคุ้มครองข้อมูลส่วนบุคคล",
+const COLUMN_1 = [
+  { label: "คำรับรองการปฏิบัติงาน", href: "/about-okmd/acceptance" },
+  { label: "การกำกับดูแลกิจการ", href: "/about-okmd/governance" },
+  { label: "รายงาน", href: "/about-okmd/reports" },
+  { label: "ศูนย์ข้อมูลข่าวสารอิเล็กทรอนิกส์ของ สบร.", href: "/about-okmd/e-info-center" },
+  { label: "คู่มือ / แนวทางการปฏิบัติงาน", href: "/about-okmd/manuals-guidelines" },
+  { label: "การเปิดเผยข้อมูลสาธารณะ", href: "/about-okmd/public-disclosure" },
 ];
 
-const SHELF = [
-  "OKMD Knowledge Festival",
-  "OKMD Forum",
-  "Brain-Based Learning",
-  "Modern Thai Silk",
-  "ศูนย์ความรู้กินได้",
-  "ส่อง.โอกาส.สร้าง.อาชีพ",
-  "นิตยสาร OKMD กระตุกต่อมคิด",
+const COLUMN_2 = [
+  { label: "ประกาศจัดซื้อจัดจ้าง", href: "/procurement" },
+  { label: "สมัครงาน", href: "/career" },
+  { label: "นโยบายคุ้มครองข้อมูลส่วนบุคคล", href: "/pdpa" },
+  { label: "ประกาศจัดซื้อจัดจ้าง", href: "/contract" },
 ];
 
-const OTHERS = [
-  "Infographic",
-  "OKMD TV",
-  "OKMD แนะนำหนังสือดี",
-  "ศูนย์ช่วยเหลือ",
-  "ศูนย์ดาวน์โหลด",
-  "เรื่องร้องเรียน",
-  "ติดต่อเรา",
+const COLUMN_3 = [
+  { label: "จัดซื้อจัดจ้าง", href: "/procurement" },
+  { label: "สมัครงาน", href: "/career" },
+  { label: "ฝึกงาน", href: "/career" },
+];
+
+const SOCIAL_ICONS = [
+  { id: 1, src: "/ic-1.png", alt: "Facebook", href: "#" },
+  { id: 2, src: "/ic-2.png", alt: "Line", href: "#" },
+  { id: 3, src: "/ic-3.png", alt: "YouTube", href: "#" },
+  { id: 4, src: "/ic-4.png", alt: "TikTok", href: "#" },
+  { id: 5, src: "/ic-5.png", alt: "Instagram", href: "#" },
+  { id: 6, src: "/ic-6.png", alt: "Twitter/X", href: "#" },
 ];
 
 export default function Footer() {
@@ -47,91 +48,85 @@ export default function Footer() {
           alt=""
           fill
           role="presentation"
-          className="object-cover opacity-70 pointer-events-none"
+          className="object-cover opacity-60 pointer-events-none"
           priority
         />
       </div>
 
       {/* GLOBAL CONTAINER */}
       <div className="relative z-10 w-full flex justify-center">
-        <div className="w-full container mx-auto px-6 lg:px-10 pt-16 pb-14">
+        <div className="w-full container mx-auto px-6 lg:px-10 pt-14 pb-10">
 
           {/* ===================================================== */}
           {/* TOP BLOCK */}
           {/* ===================================================== */}
-          <div className="flex flex-col md:flex-row justify-between gap-16 mb-16">
+          <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-16 mb-12">
 
             {/* LEFT BLOCK */}
-            <div className="flex flex-col md:max-w-[480px] flex-1">
+            <div className="flex flex-col lg:max-w-[500px]">
 
               <Link href="/" aria-label="OKMD Home">
                 <Image
                   src="/okmd_white.png"
                   alt="OKMD Logo"
-                  width={200}
-                  height={120}
-                  className="
-                    object-contain mb-6 
-                    transition-all duration-300 
-                    hover:scale-[1.04] 
-                    hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.6)]
-                  "
+                  width={160}
+                  height={80}
+                  className="object-contain mb-5 transition-all duration-300 hover:scale-[1.02]"
                   priority
                 />
               </Link>
 
-              <h2 className="font-bold text-[34px] sm:text-[44px] md:text-[56px] leading-[1.1] mb-6 whitespace-pre-line">
-                Office of Knowledge{"\n"}
-                Management and{"\n"}
+              <h2 className="font-bold text-[28px] sm:text-[36px] md:text-[44px] leading-[1.15] mb-5">
+                Office of Knowledge<br />
+                Management and<br />
                 Development
               </h2>
 
-              <address className="not-italic text-[17px] leading-relaxed">
-                โทรศัพท์ : 0 2105 6500
-                <br />
-                อีเมล : <a href="mailto:saraban@okmd.or.th" className="underline">saraban@okmd.or.th</a>
+              <address className="not-italic text-[15px] leading-relaxed text-white/90">
+                โทรศัพท์ : 0 2105 6500<br />
+                อีเมล : <a href="mailto:saraban@okmd.or.th" className="hover:underline">saraban@okmd.or.th</a>
               </address>
             </div>
 
             {/* RIGHT BLOCK */}
-            <div className="flex flex-col flex-1 max-w-[420px]">
+            <div className="flex flex-col">
 
-              <h3 className="font-bold text-[20px] mb-4">ช่องทางติดตาม</h3>
+              <h3 className="font-bold text-[18px] mb-4">ช่องทางติดตาม</h3>
 
               {/* SOCIAL ICONS */}
-              <ul className="flex gap-6 mb-8 items-center list-none m-0 p-0">
-                {[1,2,3,4,5,6].map((i) => (
-                  <li key={i}>
-                    <button
-                      type="button"
-                      aria-label={`social icon ${i}`}
-                      className="transition-all duration-300 hover:scale-125"
+              <ul className="flex gap-4 mb-6 items-center list-none m-0 p-0">
+                {SOCIAL_ICONS.map((icon) => (
+                  <li key={icon.id}>
+                    <a
+                      href={icon.href}
+                      aria-label={icon.alt}
+                      className="block transition-all duration-300 hover:scale-110"
                     >
                       <Image
-                        src={`/ic-${i}.png`}
-                        alt=""
+                        src={icon.src}
+                        alt={icon.alt}
                         width={28}
                         height={28}
                         className="w-7 h-7"
                       />
-                    </button>
+                    </a>
                   </li>
                 ))}
               </ul>
 
-              <Link href="/complaint" >
-              <button
-                type="button"
-                className="
-                  px-6 py-3 bg-white/20 hover:bg-white/30
-                  rounded-[12px] border border-white
-                  text-white text-[16px] w-fit
-                  transition-all duration-300
-                  hover:scale-[1.03]
-                "
-              >
-                รับเรื่องร้องเรียน
-              </button>
+              <Link href="/complaint">
+                <button
+                  type="button"
+                  className="
+                    px-5 py-2.5 bg-white/20 hover:bg-white/30
+                    rounded-lg border border-white
+                    text-white text-[14px] font-medium w-fit
+                    transition-all duration-300
+                    hover:scale-[1.02]
+                  "
+                >
+                  รับเรื่องร้องเรียน
+                </button>
               </Link>
             </div>
 
@@ -144,74 +139,76 @@ export default function Footer() {
             className="
               grid 
               grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
-              gap-12 
-              border-t border-white/40 
-              pt-12 pb-10
+              gap-8 md:gap-10 
+              border-t border-white/30 
+              pt-10 pb-8
             "
           >
 
             {/* Column 1 */}
-            <nav aria-label="เกี่ยวกับ OKMD">
-              <h3 className="font-bold mb-3 text-[20px]">เกี่ยวกับ OKMD</h3>
-              <ul className="space-y-2 text-[16px] leading-[1.65]">
-                {ABOUT.map((i) => (
-                  <li key={i}>
-                    <a
-                      href="#"
+            <nav aria-label="ลิงก์ด่วน 1">
+              <ul className="space-y-2.5 text-[14px] leading-[1.7]">
+                {COLUMN_1.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
                       className="
-                        transition-all duration-300
+                        transition-all duration-200
                         hover:translate-x-1
                         hover:text-white
+                        text-white/90
                         hover:underline underline-offset-4
-                        cursor-pointer
+                        inline-block
                       "
                     >
-                      {i}
-                    </a>
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </nav>
 
             {/* Column 2 */}
-            <nav aria-label="OKMD Shelf">
-              <h3 className="font-bold mb-3 text-[20px]">OKMD Shelf</h3>
-              <ul className="space-y-2 text-[16px] leading-[1.65]">
-                {SHELF.map((i) => (
-                  <li key={i}>
-                    <a
-                      href="#"
+            <nav aria-label="ลิงก์ด่วน 2">
+              <ul className="space-y-2.5 text-[14px] leading-[1.7]">
+                {COLUMN_2.map((item, idx) => (
+                  <li key={`${item.label}-${idx}`}>
+                    <Link
+                      href={item.href}
                       className="
-                        transition-all duration-300
+                        transition-all duration-200
                         hover:translate-x-1
                         hover:text-white
+                        text-white/90
                         hover:underline underline-offset-4
+                        inline-block
                       "
                     >
-                      {i}
-                    </a>
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </nav>
 
             {/* Column 3 */}
-            <nav aria-label="อื่นๆ">
-              <h3 className="font-bold mb-3 text-[20px]">อื่นๆ</h3>
-              <ul className="space-y-2 text-[16px] leading-[1.65]">
-                {OTHERS.map((i) => (
-                  <li key={i}>
-                    <a
-                      href="#"
+            <nav aria-label="ลิงก์ด่วน 3">
+              <ul className="space-y-2.5 text-[14px] leading-[1.7]">
+                {COLUMN_3.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
                       className="
-                        transition-all duration-300
+                        transition-all duration-200
                         hover:translate-x-1
                         hover:text-white
+                        text-white/90
                         hover:underline underline-offset-4
+                        inline-block
                       "
                     >
-                      {i}
-                    </a>
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -226,36 +223,33 @@ export default function Footer() {
             className="
               flex flex-col md:flex-row 
               justify-between items-center 
-              gap-4 
-              border-t border-white/40 
-              pt-6 
-              text-[15px]
+              gap-3 
+              border-t border-white/30 
+              pt-5 
+              text-[13px]
             "
           >
-            <p className="text-center md:text-left leading-relaxed">
-              ลิขสิทธิ์ © 2547 - 2568 OKMD สำนักงานบริหารและพัฒนาองค์ความรู้ (องค์การมหาชน) สงวนสิทธิ์
+            <p className="text-center md:text-left leading-relaxed text-white/80">
+              ลิขสิทธิ์ © 2547 - 2568 OKMD สำนักงานบริหารและพัฒนาองค์ความรู้ (องค์การมหาชน) สงวนลิขสิทธิ์
             </p>
 
-            <div className="flex flex-wrap gap-4 text-white/95">
+            <div className="flex flex-wrap gap-4 text-white/80">
               {[
-                "จัดซื้อจัดจ้าง",
-                "สำนักนายกรัฐมนตรี",
-                "แผนผังเว็บ",
-                "นโยบายการใช้คุกกี้"
-              ].map((i) => (
-                <a
-                  key={i}
-                  href="#"
+                { label: "จัดซื้อจัดจ้าง", href: "/procurement" },
+                { label: "แผนผังเว็บ", href: "#" },
+                { label: "นโยบายการใช้คุกกี้", href: "/pdpa" },
+              ].map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
                   className="
-                    underline underline-offset-4
                     hover:text-white
-                    hover:opacity-100
-                    opacity-90
-                    transition-all duration-300
+                    hover:underline underline-offset-4
+                    transition-all duration-200
                   "
                 >
-                  {i}
-                </a>
+                  {item.label}
+                </Link>
               ))}
             </div>
           </div>

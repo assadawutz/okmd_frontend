@@ -20,7 +20,7 @@ export default function Hero() {
     stopAuto();
     timer.current = setTimeout(() => {
       setIndex((prev) => (prev + 1) % SLIDES.length);
-    }, 4000);
+    }, 5000);
   }, [stopAuto]);
 
   /* AUTOPLAY */
@@ -37,7 +37,7 @@ export default function Hero() {
 
   return (
     <section
-      className="w-full cursor-pointer bg-white overflow-hidden"
+      className="w-full bg-[#C5DBE3] overflow-hidden"
       aria-label="AI-Driven Hero Section"
       aria-live="off"
     >
@@ -75,21 +75,26 @@ export default function Hero() {
             <div className="w-full flex justify-center">
               <div className="container w-full">
 
+            {/* LEFT CONTENT */}
+            <div className="relative z-20 max-w-[600px] py-12">
+              {/* OKMD AI Logo */}
+              <div className="flex items-center gap-2 mb-6">
                 <Image
                   src="/okmd_ai_logo.png"
-                  width={72}
-                  height={72}
+                  width={56}
+                  height={56}
                   alt="OKMD AI Logo"
-                  className="mb-5 transition-all hover:scale-[1.05] pointer-events-auto"
+                  className="transition-all hover:scale-[1.05]"
                 />
+              </div>
 
-                <h1 className="text-[#1B1D20] font-bold text-4xl lg:text-5xl xl:text-[56px] leading-tight lg:leading-[1.15]">
-                  AI-Driven intelligence:
-                </h1>
+              <h1 className="text-[#1B1D20] font-bold text-4xl lg:text-5xl xl:text-[52px] leading-[1.1] mb-4">
+                AI-Driven intelligence:
+              </h1>
 
-                <p className="text-[#1B1D20] text-lg lg:text-xl xl:text-2xl mt-3 lg:mt-4 opacity-90 max-w-xl">
-                  Search, summarize, and Recommend in an instant.
-                </p>
+              <p className="text-[#1B1D20] text-lg lg:text-xl xl:text-2xl mb-6 opacity-85">
+                Search, summarize, and Recommend in an instant.
+              </p>
 
                 <button
                   type="button"
@@ -100,11 +105,12 @@ export default function Hero() {
                 </button>
               </div>
             </div>
-          </figcaption>
-        </figure>
+
+          </div>
+        </div>
 
         {/* PAGINATION DESKTOP */}
-        <nav className="container mx-auto flex justify-center mt-8 pb-8" aria-label="Slide navigation">
+        <nav className="container mx-auto flex justify-center pb-8" aria-label="Slide navigation">
           <ul className="flex items-center gap-3 list-none m-0 p-0">
             {SLIDES.map((_, i) => (
               <li key={i}>
@@ -115,7 +121,7 @@ export default function Hero() {
                   aria-pressed={i === index}
                   className={`
                     block transition-all rounded-full cursor-pointer
-                    ${i === index ? "w-10 h-2 bg-[#74CEE2]" : "w-2 h-2 bg-[#ECECED] hover:bg-[#D1D5DB]"}
+                    ${i === index ? "w-10 h-2 bg-[#74CEE2]" : "w-2 h-2 bg-[#9AACB1] hover:bg-[#7A9AA1]"}
                   `}
                 />
               </li>
@@ -164,7 +170,7 @@ export default function Hero() {
         </figure>
 
         {/* PAGINATION MOBILE */}
-        <nav className="container mx-auto flex gap-2 mt-6 justify-center pb-8" aria-label="Mobile slide navigation">
+        <nav className="container mx-auto flex gap-2 justify-center pb-8" aria-label="Mobile slide navigation">
           <ul className="flex gap-2 m-0 p-0 list-none">
             {SLIDES.map((_, i) => (
               <li key={i}>
@@ -175,7 +181,7 @@ export default function Hero() {
                   onClick={() => goTo(i)}
                   className={`
                     cursor-pointer block rounded-full transition-all
-                    ${i === index ? "w-6 h-1.5 bg-[#74CEE2]" : "w-1.5 h-1.5 bg-[#C4C5C8]"}
+                    ${i === index ? "w-6 h-1.5 bg-[#74CEE2]" : "w-1.5 h-1.5 bg-[#9AACB1]"}
                   `}
                 />
               </li>

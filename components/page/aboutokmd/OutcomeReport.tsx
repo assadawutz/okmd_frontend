@@ -1,61 +1,131 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+
 const title = {
   name: "รายงานผลการดำเนินงาน",
-  title: "การกำกับติดตาม การใช้จ่ายงบประมาณ",
-  startdate:"สรุปผลการดำเนินงาน | ประจำปีงบประมาณ 2562"
-}
-const data = [
+  subtitle: "สรุปผลการดำเนินงาน | ประจำปีงบประมาณ 2562",
+};
+
+type TabType = "evaluation" | "budget";
+
+const evaluationData = [
   {
     id: 1,
-    title: "ประกาศเรื่องนโยบายบริหารทรัพยากรบุคคล ประจำปีงบประมาณ พ.ศ. 2566",
-    size: "392 KB",
-    href: ""
+    title: "รายงานการประเมินผลสัมฤทธิ์ของการดำเนินงาน ปี 2561",
+    size: "75.53 KB",
+    href: "#",
   },
   {
     id: 2,
-    title: "ประกาศเรื่องนโยบายบริหารทรัพยากรบุคคล ประจำปีงบประมาณ พ.ศ. 2566",
-    size: "392 KB",
-    href: ""
+    title: "รายงานการประเมินผลสัมฤทธิ์ของการดำเนินงาน ปี 2560",
+    size: "75.53 KB",
+    href: "#",
+  },
+];
+
+const budgetData = [
+  {
+    id: 1,
+    title: "รายงานการประเมินผลสัมฤทธิ์ของการดำเนินงาน ปี 2561",
+    size: "75.53 KB",
+    href: "#",
+  },
+  {
+    id: 2,
+    title: "รายงานการประเมินผลสัมฤทธิ์ของการดำเนินงาน ปี 2560",
+    size: "75.53 KB",
+    href: "#",
   },
   {
     id: 3,
-    title: "ประกาศเรื่องนโยบายบริหารทรัพยากรบุคคล ประจำปีงบประมาณ พ.ศ. 2566",
-    size: "392 KB",
-    href: ""
+    title: "รายงานการประเมินผลสัมฤทธิ์ของการดำเนินงาน ปี 2561",
+    size: "75.53 KB",
+    href: "#",
   },
-
-]
-
+  {
+    id: 4,
+    title: "รายงานการประเมินผลสัมฤทธิ์ของการดำเนินงาน ปี 2560",
+    size: "75.53 KB",
+    href: "#",
+  },
+];
 
 export default function OutcomeReport() {
+  const [activeTab, setActiveTab] = useState<TabType>("evaluation");
+
+  const currentData = activeTab === "evaluation" ? evaluationData : budgetData;
+  const tabTitle =
+    activeTab === "evaluation"
+      ? "รายงานการประเมินผลการปฏิบัติงาน"
+      : "รายงานการกำกับติดตาม การใช้จ่ายงบประมาณ";
+
   return (
-    <div className=" container">
-      <h1 className="text-3xl font-bold">{title.name}</h1>
-      <div>{title.startdate}</div>
-      <div className="">
-        <a href="">ลิ้งurlวิดีโอ</a>   
+    <div className="w-full text-[#40444D]">
+      <h1 className="text-2xl lg:text-3xl font-bold mb-2">{title.name}</h1>
+      <p className="text-sm text-gray-600 mb-4">{title.subtitle}</p>
+
+      {/* Links */}
+      <div className="mb-6 space-y-1">
+        <a
+          href="#"
+          className="block text-sm text-[#40444D] hover:text-[#16A7CB] transition-colors"
+        >
+          ลิ้งค์วิดีโอ
+        </a>
+        <a
+          href="#"
+          className="block text-sm text-[#40444D] hover:text-[#16A7CB] transition-colors"
+        >
+          ลิ้งค์เว็บ
+        </a>
       </div>
-      <div className="mb-5">
-        <a href="">ลิ้งurlวิดีโอ</a>   
+
+      {/* Tab Buttons */}
+      <div className="flex gap-4 mb-6">
+        <button
+          onClick={() => setActiveTab("evaluation")}
+          className={`px-4 py-2 text-sm rounded transition-colors ${
+            activeTab === "evaluation"
+              ? "bg-[#16A7CB] text-white"
+              : "bg-gray-100 text-[#40444D] hover:bg-gray-200"
+          }`}
+        >
+          การประเมินผลการปฏิบัติงาน
+        </button>
+        <button
+          onClick={() => setActiveTab("budget")}
+          className={`px-4 py-2 text-sm rounded transition-colors ${
+            activeTab === "budget"
+              ? "bg-[#16A7CB] text-white"
+              : "bg-gray-100 text-[#40444D] hover:bg-gray-200"
+          }`}
+        >
+          การกำกับติดตาม การใช้จ่ายงบประมาณ
+        </button>
       </div>
-      <div className="w-full rounded-lg overflow-auto-hidden">
-        <div className="bg-[#6BCFE3] text-white py-4 px-6 text-lg">
-          รางงาน{title.title}
+
+      {/* Report List */}
+      <div className="w-full rounded-lg overflow-hidden">
+        <div className="bg-[#6BCFE3] text-white py-4 px-6 text-base lg:text-lg font-medium">
+          {tabTitle}
         </div>
+
         <div className="flex flex-col">
-          {data.map((data, idx) => (
+          {currentData.map((item, idx) => (
             <Link
-              key={data.id}
-              href={data.href}
-              className={`block py-6 px-6 border-b border-gray-100 last:border-0 hover:opacity-80 transition-opacity
-            ${idx % 2 !== 0 ? 'bg-[#F2FBFC] ' : 'bg-white'}
-            `}
+              key={item.id}
+              href={item.href}
+              className={`flex items-start justify-between py-5 px-6 border-b border-gray-100 last:border-0 hover:bg-[#F8FCFD] transition-colors ${
+                idx % 2 !== 0 ? "bg-[#F2FBFC]" : "bg-white"
+              }`}
             >
-              <span className="text-sm">
-                {data.title}
-                <p className="text-[#16A7CB]">
-                  (ดาวน์โหลด pdf ขนาด {data.size})
-                </p>
+              <span className="text-sm lg:text-base pr-4 flex-1">
+                {item.title}
+              </span>
+              <span className="text-[#16A7CB] text-sm whitespace-nowrap">
+                (ดาวน์โหลดเอกสาร pdf ขนาด {item.size})
               </span>
             </Link>
           ))}
