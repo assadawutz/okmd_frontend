@@ -19,16 +19,18 @@ export default function AboutOkmdLayout({
       <AboutBanner />
 
       {/* ===== Content Area (Sidebar + Page Content) ===== */}
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-12">
+      <div className="container mx-auto py-8 md:py-12">
+        <div className="grid grid-cols-12 gap-6 lg:gap-10">
 
-        <aside className="md:col-span-3 mt-5 mb-5">
-          <Sidebar />  
-        </aside>
+          <aside className="col-span-12 md:col-span-3">
+            <Sidebar />  
+          </aside>
 
-        <main className="container md:col-span-9 mb-5">
-          {children}
-        </main>
+          <main className="col-span-12 md:col-span-9">
+            {children}
+          </main>
 
+        </div>
       </div>
 
     </section>

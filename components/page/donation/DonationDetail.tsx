@@ -64,12 +64,12 @@ export default function DonationAmountSelector({ id }: { id: string }) {
     ? parseInt(customAmount, 10)
     : selectedAmount || 0;
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid grid-cols-12 min-h-screen">
       {/* LEFT BANNER */}
       <DonationLeftBanner />
 
       {/* RIGHT PANEL */}
-      <div className="col-span-3 md:col-span-2 w-full md:w-2xl mx-auto px-6 py-12 my-auto">
+      <div className="col-span-12 lg:col-span-8 w-full max-w-2xl mx-auto px-4 sm:px-6 py-8 md:py-12">
         {/* STEP INDICATOR */}
         <StepIndicator currentStep={currentStep} />
 

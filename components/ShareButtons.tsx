@@ -3,10 +3,10 @@ import { FaXTwitter } from "react-icons/fa6";
 
 function ShareButtons() {
   return (
-    <div className="flex items-center gap-20">
+    <div className="flex flex-col gap-3">
       <span className="text-sm font-bold text-gray-800">Share</span>
 
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-2">
         <button
           aria-label="Facebook" 
           className="w-6 h-6 rounded-full bg-gray-700 text-white flex items-center justify-center hover:bg-gray-600 transition">

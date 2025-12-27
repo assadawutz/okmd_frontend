@@ -71,19 +71,21 @@ export default function Hero() {
           })}
 
           {/* TEXT LAYER */}
-          <figcaption className="absolute inset-0 flex items-top z-20 mt-8 pointer-events-none">
-            <div className="container mx-auto">
-              <Image
-                src="/okmd_ai_logo.png"
-                width={72}
-                height={72}
-                alt="OKMD AI Logo"
-                className="mb-5 transition-all hover:scale-[1.05] pointer-events-auto"
-              />
+          <figcaption className="absolute inset-0 flex items-start z-20 mt-8 pointer-events-none">
+            <div className="w-full flex justify-center">
+              <div className="container w-full">
 
-              <h1 className="text-[#1B1D20] font-bold text-4xl lg:text-5xl xl:text-[56px] leading-tight lg:leading-[1.15]">
-                AI-Driven intelligence:
-              </h1>
+                <Image
+                  src="/okmd_ai_logo.png"
+                  width={72}
+                  height={72}
+                  alt="OKMD AI Logo"
+                  className="mb-5 transition-all hover:scale-[1.05] pointer-events-auto"
+                />
+
+                <h1 className="text-[#1B1D20] font-bold text-4xl lg:text-5xl xl:text-[56px] leading-tight lg:leading-[1.15]">
+                  AI-Driven intelligence:
+                </h1>
 
               <p className="text-[#1B1D20] text-lg lg:text-xl xl:text-2xl mt-3 lg:mt-4 opacity-90 max-w-xl">
                 Search, summarize, and Recommend in an instant.
@@ -97,6 +99,7 @@ export default function Hero() {
                 >
                   ดูรายละเอียด
                 </button>
+              </div>
             </div>
           </figcaption>
         </figure>
@@ -149,12 +152,12 @@ export default function Hero() {
           })}
 
           {/* MOBILE TEXT */}
-          <figcaption className="absolute container mx-auto px-4 bottom-[32px] left-0 right-0 z-20">
-            <div className="max-w-[320px]">
-              <h2 className="text-[#1B1D20] font-bold text-2xl sm:text-3xl leading-tight mb-2">
+          <figcaption className="absolute container mx-auto px-4 bottom-[40px] left-0 right-0 z-20">
+            <div className="max-w-[300px]">
+              <h2 className="text-[#1B1D20] font-bold text-3xl leading-tight">
                 AI-Driven intelligence:
               </h2>
-              <p className="text-[#1B1D20] text-base sm:text-lg mt-2 leading-relaxed opacity-90">
+              <p className="text-[#1B1D20] text-lg mt-2 leading-relaxed opacity-90">
                 Search, summarize, and Recommend in an instant.
               </p>
             </div>

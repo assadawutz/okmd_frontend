@@ -191,9 +191,9 @@ export default function ActivityBlock() {
         </div>
 
         {/* ================= MOBILE ================= */}
-        <div className="md:hidden flex flex-col gap-6">
+        <div className="md:hidden flex flex-col gap-6 px-4">
 
-          <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
+          <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar -mx-4 px-4">
             {ACTIVITIES.map((item) => (
               <article
                 key={item.id}
