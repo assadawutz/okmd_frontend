@@ -138,7 +138,7 @@ export default function NewsPage() {
             {filtered.map((n) => (
               <Link
                 key={n.id}
-                href={`/news/detail/${n.id}`}
+                href={`/news/${n.id}`}
                 // Applied  prefix, w-full added for responsiveness, cursor-pointer added
                 className="
                   w-full

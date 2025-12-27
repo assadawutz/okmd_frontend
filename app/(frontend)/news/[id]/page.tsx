@@ -135,7 +135,7 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
 
             {n.related?.map((r: RelatedNewsItem, i: number) => (
-              <Link key={i} href={`/news/detail/${r.id}`} className="group flex flex-col">
+              <Link key={i} href={`/news/${r.id}`} className="group flex flex-col">
 
                 <div className="w-full h-[170px] rounded-xl overflow-hidden">
                   <Image
