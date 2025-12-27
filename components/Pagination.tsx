@@ -50,14 +50,14 @@ export default function Pagination({ total, current }: PaginationProps) {
       {pages.map((page, idx) => (
         typeof page === "number" ? (
           <button
-            key={idx}
+            key={page}
             className={`${buttonBase} ${pageButton} ${page === current ? activeClass : inactiveClass}`}
             aria-current={page === current ? "page" : undefined}
           >
             {page}
           </button>
         ) : (
-          <span key={idx} className="w-10 h-10 flex items-center justify-center text-gray-400">
+          <span key={`ellipsis-${idx}`} className="w-10 h-10 flex items-center justify-center text-gray-400">
             …
           </span>
         )
