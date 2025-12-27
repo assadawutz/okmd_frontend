@@ -116,7 +116,7 @@ export default function HighlightSection() {
             <div className="flex mt-10 gap-10">
 
             {/* BOX 4 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group">
+            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group cursor-pointer">
               <Image
                 src={highlights[3].img}
                 fill
@@ -125,16 +125,27 @@ export default function HighlightSection() {
               />
             </div>
 
-                <a href={highlights[2].link} className="inline-flex mt-5 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
+            {/* BOX 5 */}
+            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer flex-1">
+              <Image
+                src={highlights[4].img}
+                fill
+                alt={highlights[4].title}
+                className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
+              />
+              <div className="bg-gradient-to-t from-black/70 via-black/30 to-transparent inset-0 absolute" />
+              <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg">
+                <h3 className="font-semibold text-lg lg:text-xl leading-snug line-clamp-2">
+                  {highlights[4].title}
+                </h3>
+                <a href={highlights[4].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
                   อ่านต่อ <span>↗</span>
                 </a>
               </div>
             </div>
-          )}
-
-            </div>
-          )}
-        </div>
+          </div>
+        )}
+      </div>
 
         {/* ================= MOBILE ================= */}
         {highlights.length > 0 && (

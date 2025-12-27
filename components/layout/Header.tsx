@@ -311,69 +311,87 @@ function RightTools({ onOpenMenu }: { onOpenMenu: () => void }) {
   };
 
   return (
-    <div className="flex items-center  lg:items-end gap-4 ml-4">
+    <div className="flex items-center lg:items-end gap-3 ml-4">
 
       {/* DESKTOP TOOLBAR */}
-      <div className="hidden lg:flex flex-col items-end">
+      <div className="hidden lg:flex flex-col items-end gap-2">
 
-        {/* ROW 1 */}
-        <div className="flex items-center gap-7 mb-2">
+        {/* ROW 1: FLAG + FONT SIZE + CONTRAST */}
+        <div className="flex items-center gap-4">
+          
+          {/* THAILAND FLAG */}
+          <button className="flex items-center gap-1.5 hover:opacity-80 transition">
+            <div className="w-7 h-5 overflow-hidden rounded-sm flex flex-col shadow-sm">
+              <div className="h-1/3 bg-[#A51931]"></div>
+              <div className="h-1/3 bg-white"></div>
+              <div className="h-1/3 bg-[#2D2A4A]"></div>
+            </div>
+            <svg className="w-3 h-3 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </button>
 
-          {/* FONT SIZE */}
-          <div className="flex items-center gap-2">
+          {/* FONT SIZE - ก ก ก */}
+          <div className="flex items-center gap-1.5">
             <button
               onClick={() => applyFont("sm")}
-              className="w-8 h-8 rounded bg-[#F1FAFC] flex justify-center items-center text-[13px] cursor-pointer font-medium hover:bg-[#E2F6FA]"
+              className="w-7 h-7 rounded bg-[#F1F1F1] flex justify-center items-center text-[12px] cursor-pointer font-semibold hover:bg-[#E5E5E5] transition text-gray-700"
+              title="ก - เล็ก"
             >
               ก
             </button>
             <button
               onClick={() => applyFont("md")}
-              className="w-8 h-8 rounded bg-[#F1FAFC] flex justify-center items-center text-[17px] cursor-pointer font-semibold hover:bg-[#E2F6FA]"
+              className="w-7 h-7 rounded bg-[#F1F1F1] flex justify-center items-center text-[16px] cursor-pointer font-semibold hover:bg-[#E5E5E5] transition text-gray-700"
+              title="ก - กลาง"
             >
               ก
             </button>
             <button
               onClick={() => applyFont("lg")}
-              className="w-8 h-8 rounded bg-[#F1FAFC] flex justify-center items-center text-[21px] cursor-pointer font-semibold hover:bg-[#E2F6FA]"
+              className="w-7 h-7 rounded bg-[#F1F1F1] flex justify-center items-center text-[19px] cursor-pointer font-bold hover:bg-[#E5E5E5] transition text-gray-700"
+              title="ก - ใหญ่"
             >
               ก
             </button>
           </div>
 
-          {/* CONTRAST */}
-          <div className="flex items-center gap-2">
+          {/* CONTRAST - C สีต่างๆ */}
+          <div className="flex items-center gap-1.5">
             <button
               onClick={() => applyContrast("normal")}
-              className="w-8 h-8 rounded bg-[#F1FAFC] text-[#1E1E1E] font-bold flex justify-center items-center cursor-pointer hover:ring-2 hover:ring-[#1E1E1E]/30"
+              className="w-7 h-7 rounded-sm bg-white border border-gray-300 text-[#1E1E1E] font-bold text-[15px] flex justify-center items-center cursor-pointer hover:bg-gray-50 transition shadow-sm"
+              title="สีปกติ"
             >
               C
             </button>
 
             <button
               onClick={() => applyContrast("dark")}
-              className="w-8 h-8 rounded bg-[#1E1E1E] text-white font-bold flex justify-center items-center cursor-pointer hover:ring-2 hover:ring-black/50"
+              className="w-7 h-7 rounded-sm bg-[#1E1E1E] text-white font-bold text-[15px] flex justify-center items-center cursor-pointer hover:bg-black transition shadow-sm"
+              title="สีเข้ม"
             >
               C
             </button>
 
             <button
               onClick={() => applyContrast("high")}
-              className="w-8 h-8 rounded bg-[#1E1E1E] text-[#FFD13F] font-bold flex justify-center items-center cursor-pointer hover:ring-2 hover:ring-[#FFD13F]/50"
+              className="w-7 h-7 rounded-sm bg-[#1E1E1E] text-[#FFD93D] font-bold text-[15px] flex justify-center items-center cursor-pointer hover:bg-black transition shadow-sm"
+              title="ความตัดกันสูง"
             >
               C
             </button>
           </div>
         </div>
 
-        {/* ROW 2 — DONATE */}
+        {/* ROW 2 — DONATE BUTTON */}
         <Link href="/donation">
-        <button
-          aria-label="Donate"
-          className="bg-[#74CEE2] text-white rounded-xl w-[118px] h-11 text-[17px] cursor-pointer font-semibold hover:bg-[#5FC4D8] active:scale-95 transition shadow-sm"
-        >
-          บริจาค
-        </button>
+          <button
+            aria-label="Donate"
+            className="bg-[#74CEE2] text-white rounded-lg px-6 py-2 text-[16px] cursor-pointer font-semibold hover:bg-[#5FC4D8] active:scale-95 transition shadow-sm"
+          >
+            Donate
+          </button>
         </Link>
       </div>
 
