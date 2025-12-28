@@ -241,7 +241,8 @@ export default function HighlightSection() {
                   </div>
                 )}
               </div>
-              ))}
+            ))}
+          </div>
             </div>
 
             {/* PAGINATION */}
