@@ -65,23 +65,34 @@ export default function OkmdSearchSection() {
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
 
           {/* Small Title */}
-          <div className="text-xs sm:text-sm font-light uppercase tracking-[8px] sm:tracking-[12px] text-okmd-cyan mb-8">
+          <div className="text-xs sm:text-sm font-light uppercase tracking-[8px] sm:tracking-[12px] text-okmd-cyan mb-4">
             KNOWLEDGE IS OPPORTUNITY
           </div>
 
+          {/* Main Title */}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1B1D20] mb-2">
+            รวมไอเดียเด็ด แรงบันดาลใจเจ๋ง ๆ และความรู้มืออคํ่าจาก{" "}
+            <span className="text-[#74CEE2]">OKMD</span>
+          </h2>
+
+          {/* Subtitle */}
+          <p className="text-lg sm:text-xl text-[#74CEE2] mb-10">
+            โลกของคนชอบคิดต่าง
+          </p>
+
           {/* SEARCH BLOCK */}
-          <div className="mt-10 w-full">
+          <div className="w-full">
             {/* Dark container */}
-            <div className="bg-[#1B1D20] rounded-2xl sm:rounded-3xl p-4 sm:p-5">
+            <div className="bg-[#1B1D20] rounded-2xl sm:rounded-3xl p-5 sm:p-6">
               {/* Intro text */}
-              <p className="text-sm sm:text-base font-medium text-white mb-4">
-                เรามอบประสบการณ์การค้นหาอย่างแม่นยำ ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
+              <p className="text-sm sm:text-base font-normal text-white mb-4">
+                เรามอบประสบการณ์การค้นหาที่แม่นยำได้ในทันทีที่ต้องการคำตอบ ที่รอให้คุณใส่คีย์เวิร์ดในช่องนี้
               </p>
 
               {/* White card with search */}
-              <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
-                <p className="text-sm font-medium text-okmd-dark mb-2">
-                  การค้นหาที่ฉลาดและแม่นยำ
+              <div className="bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 shadow-sm">
+                <p className="text-sm font-medium text-[#1B1D20] mb-3">
+                  การค้นหาที่ฉลาดและแม่นยำของคุณที่นี่
                 </p>
                 <div className="flex items-center gap-3">
                   <input
@@ -89,20 +100,20 @@ export default function OkmdSearchSection() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder="พิมพ์เป้าหมายของคุณที่นี่ เช่น AI, OKMD, การเรียนรู้"
+                    placeholder="พิมพ์เป้าหมายของคุณที่นี่"
                     className="
-                      flex-1 border-b-2 border-okmd-cyan bg-transparent
+                      flex-1 border-b-2 border-[#74CEE2] bg-transparent
                       py-2 text-base sm:text-lg
-                      text-okmd-dark font-light
-                      outline-none placeholder:text-okmd-gray-light
-                      focus:border-okmd-cyan-dark transition-colors
+                      text-[#1B1D20] font-normal
+                      outline-none placeholder:text-gray-400
+                      focus:border-[#5FC4D8] transition-colors
                     "
                   />
                   <button
                     type="button"
                     onClick={handleSearch}
                     disabled={isSearching || !searchQuery.trim()}
-                    className="flex-shrink-0 flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#74CEE2] hover:bg-[#5FC4D8] hover:scale-105 active:scale-95 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="flex-shrink-0 flex items-center justify-center h-11 w-11 rounded-full bg-[#74CEE2] hover:bg-[#5FC4D8] hover:scale-105 active:scale-95 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
                     {isSearching ? (
                       <Loader2 className="h-5 w-5 text-white animate-spin" />
