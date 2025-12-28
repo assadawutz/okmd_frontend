@@ -4,33 +4,25 @@ import Image from "next/image";
 import Link from "next/link";
 
 const ABOUT = [
-  "รู้จัก OKMD",
-  "ข่าวองค์กร",
-  "รายงานผลการดำเนินการรายสัปดาห์",
-  "ศูนย์ข้อมูลข่าวสารอิเล็กทรอมิกส์ของ สนธ.",
-  "ประกาศจัดซื้อจัดจ้าง",
-  "สมัครงาน",
-  "นโยบายคุ้มครองข้อมูลส่วนบุคคล",
+  "ค้นรับองการปฏิบัติงาน",
+  "การกำกับดูแลกิจการ",
+  "แผนการดำเนินงาน",
+  "เอกสารและระงาน",
+  "ศูนย์ข้อมูลข่าวสารอิเล็กทรอนิกส์ของ สบธ.",
+  "คู่มือ / แนวทางการปฏิบัติงาน",
+  "ข้อมูลสาธารณะเพื่อยอยจองกิจการ",
 ];
 
 const SHELF = [
-  "OKMD Knowledge Festival",
-  "OKMD Forum",
-  "Brain-Based Learning",
-  "Modern Thai Silk",
-  "ศูนย์ความรู้กินได้",
-  "ส่อง.โอกาส.สร้าง.อาชีพ",
-  "นิตยสาร OKMD กระตุกต่อมคิด",
+  "OKMD AI",
+  "OKMD Knowledge Portal",
+  "OKMD Magazine",
 ];
 
 const OTHERS = [
-  "Infographic",
-  "OKMD TV",
-  "OKMD แนะนำหนังสือดี",
-  "ศูนย์ช่วยเหลือ",
-  "ศูนย์ดาวน์โหลด",
-  "เรื่องร้องเรียน",
-  "ติดต่อเรา",
+  "จัดซื้อจัดจ้าง",
+  "สมัครงาน",
+  "ฝึกงาน",
 ];
 
 export default function Footer() {
@@ -151,8 +143,8 @@ export default function Footer() {
           >
 
             {/* Column 1 */}
-            <nav aria-label="เกี่ยวกับ OKMD">
-              <h3 className="font-bold mb-3 text-[20px]">เกี่ยวกับ OKMD</h3>
+            <nav aria-label="การรองการปฏิบัติงาน">
+              <h3 className="font-bold mb-3 text-[20px]">ค้นรับองการปฏิบัติงาน</h3>
               <ul className="space-y-2 text-[16px] leading-[1.65]">
                 {ABOUT.map((i) => (
                   <li key={i}>
@@ -174,8 +166,7 @@ export default function Footer() {
             </nav>
 
             {/* Column 2 */}
-            <nav aria-label="OKMD Shelf">
-              <h3 className="font-bold mb-3 text-[20px]">OKMD Shelf</h3>
+            <nav aria-label="OKMD">
               <ul className="space-y-2 text-[16px] leading-[1.65]">
                 {SHELF.map((i) => (
                   <li key={i}>
@@ -196,8 +187,7 @@ export default function Footer() {
             </nav>
 
             {/* Column 3 */}
-            <nav aria-label="อื่นๆ">
-              <h3 className="font-bold mb-3 text-[20px]">อื่นๆ</h3>
+            <nav aria-label="บริการ">
               <ul className="space-y-2 text-[16px] leading-[1.65]">
                 {OTHERS.map((i) => (
                   <li key={i}>
@@ -238,10 +228,9 @@ export default function Footer() {
 
             <div className="flex flex-wrap gap-4 text-white/95">
               {[
-                "จัดซื้อจัดจ้าง",
-                "สำนักนายกรัฐมนตรี",
+                "นโยบายการใช้คุกกี้",
                 "แผนผังเว็บ",
-                "นโยบายการใช้คุกกี้"
+                "นโยบายคมบรม้งสอคานิส่วนกตัม"
               ].map((i) => (
                 <a
                   key={i}
