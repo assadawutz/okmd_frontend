@@ -69,7 +69,7 @@ export default function Header() {
             data-menubar
             className="hidden lg:flex absolute left-1/2 -translate-x-1/2"
           >
-            <ul className="flex gap-7 text-[18px] font-semibold text-[#1B1D20] whitespace-nowrap">
+            <ul className="flex gap-6 text-[16px] font-medium text-[#1B1D20] whitespace-nowrap">
               <MenuList active={active} setActive={setActive} />
             </ul>
           </nav>
@@ -101,8 +101,33 @@ export default function Header() {
 function MegaMenu({ active }: { active: string | null }) {
   if (!active) return null;
 
-  /* ถ้าเมนูนี้เป็นลิงก์ → ไม่ต้องแสดงเมกาเมนู */
-  if (active === "ตู้ความรู้") return null;
+  const MENU_CONTENT: Record<string, string[]> = {
+    "รู้จัก OKMD": [
+      "เกี่ยวกับองค์กร",
+      "นโยบายการดำเนินงาน",
+      "แผนการดำเนินงาน",
+      "โครงสร้าง OKMD",
+      "คณะกรรมการและคู่มือบริหาร",
+      "รายงาน",
+      "ศูนย์ช่วยเหลือ",
+      "คณุรองการจัดจ้าง สบธ.",
+      "คู่มือ / แนวทางการปฏิบัติงาน",
+      "การเปิดเผยข้อมูลสาธารณะ",
+      "คู้มริดีมนุศีสทธิอิเล็กทรอนิกส์"
+    ],
+    "ข่าวประชาสัมพันธ์": [
+      "ข่าว OKMD",
+      "OKMD Knowledge Portal",
+      "OKMD Magazine"
+    ],
+    "บริการความรู้": [
+      "จัดซื้อจัดจ้าง",
+      "สมัครงาน",
+      "ฝึกงาน"
+    ]
+  };
+
+  const items = MENU_CONTENT[active] || [];
 
   return (
     <div
@@ -110,18 +135,20 @@ function MegaMenu({ active }: { active: string | null }) {
       className="fixed left-0 top-[var(--header-h)] w-full bg-white shadow-lg border-t border-gray-200 z-10"
     >
       <div className="container mx-auto py-8">
-        <h3 className="text-2xl font-semibold text-[#1B1D20] mb-6">
+        <h3 className="text-xl font-semibold text-[#16A7CB] mb-6 border-b border-[#16A7CB] pb-2">
           {active}
         </h3>
 
-        <div className="grid grid-cols-3 gap-4">
-          {["เมนูย่อย A1", "เมนูย่อย A2", "เมนูย่อย A3"].map((t) => (
-             <button
-              key={t}
-              className="py-3 px-4 rounded-lg hover:bg-gray-50 text-left text-[17px] font-medium text-[#1B1D20] transition"
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          {items.map((item) => (
+            <Link
+              key={item}
+              href="#"
+              className="py-3 px-4 rounded-lg hover:bg-gray-50 text-left text-[15px] font-normal text-[#1B1D20] transition flex items-center gap-2"
             >
-              {t}
-            </button>
+              <span className="text-[#16A7CB]">›</span>
+              {item}
+            </Link>
           ))}
         </div>
       </div>
@@ -140,13 +167,11 @@ function MenuList({
   setActive: (a: string | null) => void;
 }) {
   const menus = [
-    { label: "รู้จัก OKMD", href: "/about-okmd/about-us" },
-    { label: "ตู้ความรู้", href: "/knowledge" },
-    { label: "ข่าวและกิจกรรม", href: "/news" },
-    { label: "ปฏิทินกิจกรรม", href: "/calendar-of-event" },
-    { label: "OKMD AI", href: "#" },
-    { label: "Knowledge Portal", href: "#" },
-    { label: "ติดต่อเรา", href: "/complaint" },
+    { label: "รู้จัก OKMD", hasDropdown: true },
+    { label: "ข่าวประชาสัมพันธ์", hasDropdown: true },
+    { label: "ปฏิทินและกิจกรรม", href: "/calendar-of-event" },
+    { label: "บริการความรู้", hasDropdown: true },
+    { label: "ติดต่อเรา", href: "/contract" },
   ];
 
   return (
@@ -158,6 +183,7 @@ function MenuList({
           active={active}
           setActive={setActive}
           href={m.href}
+          hasDropdown={m.hasDropdown}
         />
       ))}
     </>
@@ -169,11 +195,13 @@ function MenuItem({
   active,
   setActive,
   href,
+  hasDropdown,
 }: {
   label: string;
   active: string | null;
   setActive: (a: string | null) => void;
   href?: string;
+  hasDropdown?: boolean;
 }) {
   const isOpen = active === label;
 
@@ -183,7 +211,7 @@ function MenuItem({
       <li>
         <Link
           href={href}
-          className="flex items-center gap-1 cursor-pointer group text-[18px] font-medium transition"
+          className="flex items-center gap-1 cursor-pointer group text-[16px] font-medium transition"
         >
           <span className="relative">
             {label}
@@ -202,20 +230,22 @@ function MenuItem({
           e.stopPropagation();
           setActive(isOpen ? null : label);
         }}
-        className="flex items-center gap-1 cursor-pointer group text-[18px] font-medium transition"
+        className="flex items-center gap-1 cursor-pointer group text-[16px] font-medium transition"
       >
         <span className="relative">
           {label}
           <span className="absolute left-0 -bottom-[3px] h-[3px] w-0 bg-[#74CEE2] group-hover:w-full transition-all"></span>
         </span>
 
-        <Image
-          src="/dropdown.png"
-          width={16}
-          height={16}
-          alt=""
-          className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
-        />
+        {hasDropdown && (
+          <Image
+            src="/dropdown.png"
+            width={16}
+            height={16}
+            alt=""
+            className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
+          />
+        )}
       </button>
     </li>
   );
@@ -226,11 +256,69 @@ function MenuItem({
 /* ====================================================== */
 function MobileMenu({
   onClose,
+  active,
+  setActive,
 }: {
   onClose: () => void;
   active?: string | null;
   setActive?: (a: string | null) => void;
 }) {
+  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
+
+  const MOBILE_MENUS = [
+    {
+      label: "รู้จัก OKMD",
+      items: [
+        "เกี่ยวกับองค์กร",
+        "นโยบายการดำเนินงาน", 
+        "แผนการดำเนินงาน",
+        "โครงสร้าง OKMD"
+      ]
+    },
+    {
+      label: "นโยบายการดำเนินงาน",
+      hasDropdown: true
+    },
+    {
+      label: "แผนการดำเนินงาน",
+      hasDropdown: true
+    },
+    {
+      label: "โครงสร้าง OKMD"
+    },
+    {
+      label: "คณะกรรมการและคู่มือบริหาร",
+      hasDropdown: true
+    },
+    {
+      label: "การรองการจัดจ้าง",
+      hasDropdown: true
+    },
+    {
+      label: "การกำกับดูแลกิจการ",
+      hasDropdown: true
+    },
+    {
+      label: "รายงาน",
+      hasDropdown: true
+    },
+    {
+      label: "กฎ ระเบียบ ข้อบังคับ"
+    },
+    {
+      label: "ศูนย์ข้อมูลข่าวสารอิเล็กทรอนิกส์ของ สบธ."
+    },
+    {
+      label: "คู่มือ / แนวทางการปฏิบัติงาน"
+    },
+    {
+      label: "การเปิดเผยข้อมูลสาธารณะ"
+    },
+    {
+      label: "คู้มริดีมนุศีสทธิอิเล็กทรอนิกส์"
+    }
+  ];
+
   return (
     <div
       role="dialog"
@@ -239,32 +327,56 @@ function MobileMenu({
       onClick={onClose}
     >
       <div
-        className="absolute w-full top-0 bg-white shadow-xl p-7 animate-slideDown"
+        className="absolute w-full h-full top-0 bg-white shadow-xl overflow-y-auto animate-slideDown"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* close */}
-        <div className="flex justify-end mb-8">
-          <button onClick={onClose} className="p-2">
-            <Image src="/close.png" width={28} height={28} alt="close" />
-          </button>
+        {/* Header */}
+        <div className="sticky top-0 bg-white z-10 border-b border-gray-200 p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold text-[#1B1D20]">เกี่ยวกับ <span className="text-[#16A7CB]">OKMD</span></h2>
+            <button onClick={onClose} className="p-2">
+              <Image src="/close.png" width={24} height={24} alt="close" />
+            </button>
+          </div>
         </div>
 
-        <ul className="flex flex-col text-[22px] font-medium text-[#1B1D20] gap-7">
-          <MobileItem label="รู้จัก OKMD" href="/about-okmd/about-us" />
-          <MobileItem label="ตู้ความรู้" href="/knowledge" />
-          <MobileItem label="ข่าวและกิจกรรม" />
-          <MobileItem label="ปฏิทินกิจกรรม" />
-          <MobileItem label="OKMD AI" />
-          <MobileItem label="Knowledge Portal" />
-          <MobileItem label="ติดต่อเรา" />
-        </ul>
+        {/* Menu Items */}
+        <div className="p-6 pt-4">
+          <div className="mb-6">
+            <Link
+              href="/about-okmd/about-us"
+              className="block py-3 text-[16px] font-medium text-[#16A7CB] border-b border-[#16A7CB]"
+            >
+              รู้จัก OKMD
+            </Link>
+          </div>
 
-        {/* donate */}
-       <Link href="/donation">
-        <button className="mt-10 w-full bg-[#74CEE2] text-white text-[20px] font-bold py-3 rounded-xl active:scale-95 transition">
-          บริจาค 
-        </button>
-       </Link>
+          <ul className="flex flex-col text-[16px] font-normal text-[#1B1D20] divide-y divide-gray-200">
+            {MOBILE_MENUS.map((menu, idx) => (
+              <li key={idx}>
+                {menu.hasDropdown ? (
+                  <button
+                    onClick={() => setExpandedMenu(expandedMenu === menu.label ? null : menu.label)}
+                    className="flex justify-between items-center w-full py-4 text-left"
+                  >
+                    {menu.label}
+                    <Image
+                      src="/dropdown.png"
+                      width={16}
+                      height={16}
+                      alt=""
+                      className={`transition-transform ${expandedMenu === menu.label ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                ) : (
+                  <a href="#" className="flex justify-between items-center py-4">
+                    {menu.label}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
