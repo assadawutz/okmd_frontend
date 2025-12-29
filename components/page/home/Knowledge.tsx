@@ -65,15 +65,16 @@ function MagazineCard({ title, img, fileSize }: MagazineCardProps) {
           </span>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 
 type PaginationProps = {
   total: number;
   current: number;
+  onChange: (next: number) => void;
 };
-function Pagination({ total, current }: PaginationProps) {
+function Pagination({ total, current, onChange }: PaginationProps) {
   const pageRange = 3;
   const pages = useMemo(() => {
     const p: (number | string)[] = [];
@@ -93,7 +94,8 @@ function Pagination({ total, current }: PaginationProps) {
       <button
         disabled={current === 1}
         className={`${buttonClass} ${current === 1 ? disabledClass : normalClass}`}
-        onClick={() => alert("Mock: Go to previous page")}
+        onClick={() => onChange(Math.max(1, current - 1))}
+        aria-label="Previous page"
       >
         {"<"}
       </button>
@@ -104,7 +106,8 @@ function Pagination({ total, current }: PaginationProps) {
           ) : (
             <button
               className={`${buttonClass} ${p === current ? activeClass : normalClass}`}
-              onClick={() => alert(`Mock: Go to page ${p}`)}
+              onClick={() => onChange(p as number)}
+              aria-label={`Go to page ${p}`}
             >
               {p}
             </button>
@@ -114,7 +117,8 @@ function Pagination({ total, current }: PaginationProps) {
       <button
         disabled={current === total}
         className={`${buttonClass} ${current === total ? disabledClass : normalClass}`}
-        onClick={() => alert("Mock: Go to next page")}
+        onClick={() => onChange(Math.min(total, current + 1))}
+        aria-label="Next page"
       >
         {">"}
       </button>
