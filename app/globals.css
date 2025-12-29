@@ -1,160 +1,52 @@
-/* ------------------------------------------------------------ */
-/*  GOOGLE FONTS                                                 */
-/* ------------------------------------------------------------ */
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&family=Prompt:wght@400;600&display=swap");
-
-/* SF Pro Display สำหรับหัวข้อ (Black 900) */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
-
-/* ------------------------------------------------------------ */
-/*  TAILWIND CORE (ต้องอยู่บนสุด)                               */
-/* ------------------------------------------------------------ */
 @import "tailwindcss";
-@import "tailwindcss/utilities";
-/* ------------------------------------------------------------ */
-/*  GLOBAL STYLES                                              */
-/* ------------------------------------------------------------ */
 
-/* RESET */
-/* * {
-  all: unset;
-  display: revert;
-  box-sizing: border-box;
-} */
-
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-size: 16px;
-
-  line-height: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  scroll-behavior: smooth;
-}
-
-/* ------------------------------------------------------------ */
-/*  THEME TOKENS (Tailwind v4)                                   */
-/* ------------------------------------------------------------ */
 @theme {
   --color-okmd-cyan: #16a7cb;
   --color-okmd-bg-one: #57cde5;
   --color-okmd-bg-two: #035f74;
   --color-okmd-bg-three: #079496;
-
   --color-okmd-cyan-dark: #0e7893;
   --color-okmd-cyan-light: #def8fe;
-
   --color-okmd-dark: #1b1d20;
   --color-okmd-gray: #6b7280;
   --color-okmd-gray-border: #d1d5db;
   --color-okmd-gray-light: #9ca3af;
-
   --color-okmd-light-blue: #e0f7fa;
   --color-okmd-very-light-blue: #f1fafc;
   --color-okmd-yellow: #ffd13f;
   --color-okmd-yellow-dark: #ccaa33;
-
   --font-sans: "Kanit", "Prompt", system-ui, sans-serif;
   --font-heading: "Inter", "Kanit", system-ui, sans-serif;
-  
-}
-.input {
-  @apply border rounded-lg border-gray-300 w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-sky-400;
-}
-
-/* LUXURY STYLES (Recruitment) */
-.card-luxury {
-  @apply bg-white rounded-[2rem] shadow-xl p-10 md:p-16 border border-slate-100 relative overflow-hidden;
-}
-.input-luxury {
-  @apply w-full bg-slate-50 border-0 rounded-xl p-4 font-bold text-slate-700 placeholder:text-slate-300 focus:ring-4 focus:ring-blue-50 transition-all outline-none;
-}
-.btn-primary {
-  @apply bg-blue-500 text-white font-black py-4 px-8 rounded-xl shadow-lg shadow-blue-200 hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all text-sm uppercase tracking-widest;
-}
-.okmd-container {
-  @apply container mx-auto px-6 py-12;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
 }
 
-/* ------------------------------------------------------------ */
-/*  ROOT — FONT SCALE + COLOR MODE                               */
-/* ------------------------------------------------------------ */
 :root {
   --okmd-font-scale: 1;
   --okmd-text-normal: #1b1d20;
   --okmd-text-dark: #ffffff;
   --okmd-text-high: #ffd13f;
-
-  /* โหมดพื้นฐาน */
   --bg: #ffffff;
-
-  /* โหมด active ปัจจุบัน */
   --text: var(--okmd-text-normal);
 }
 
 html {
-  font-size: calc(16px * var(--okmd-font-scale));
+  font-size: calc(1rem * var(--okmd-font-scale));
 }
 
 body {
+  margin: 0;
+  padding: 0;
   font-family: var(--font-sans);
-
   background: var(--bg);
-
   color: var(--text);
+  line-height: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
-.container {
-    max-width: 1440px !important;
-    width: 100% !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-}
-
-@media (min-width: 640px) {
-    .container {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
-    }
-}
-
-@media (min-width: 768px) {
-    .container {
-        padding-left: 2rem !important;
-        padding-right: 2rem !important;
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        padding-left: 3rem !important;
-        padding-right: 3rem !important;
-    }
-}
-
-@media (min-width: 1280px) {
-    .container {
-        padding-left: 4rem !important;
-        padding-right: 4rem !important;
-    }
-}
-
-@media (min-width: 1440px) {
-    .container {
-        max-width: 1440px !important;
-        padding-left: 5rem !important;
-        padding-right: 5rem !important;
-    }
-}
-
-/* ------------------------------------------------------------ */
-/* CONTRAST MODE                                                 */
-/* ------------------------------------------------------------ */
 html.contrast-dark {
   --bg: #000000;
   --text: #ffffff;
@@ -165,43 +57,18 @@ html.contrast-high {
   --text: #ffd13f;
 }
 
-/* ------------------------------------------------------------ */
-/* KEYFRAMES                                                     */
-/* ------------------------------------------------------------ */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slide-up {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* FONT SIZE SYSTEM */
 html[data-font="sm"] {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 html[data-font="md"] {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 html[data-font="lg"] {
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
-/* CONTRAST SYSTEM */
 html[data-contrast="normal"] {
   filter: none;
 }
@@ -213,93 +80,71 @@ html[data-contrast="dark"] {
 html[data-contrast="high"] {
   filter: contrast(150%) brightness(110%);
 }
-/* ===== HEADINGS ===== */
-/* ตามข้อกำหนด: ต้องใช้ SF Pro Display Black (900) สำหรับหัวข้อ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.625rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
 h1 {
-  font-family: var(--font-heading) !important;
-  font-size: 2.25rem !important;
-  font-weight: 900 !important;
-  margin: 1.25rem 0 !important;
-  letter-spacing: -0.02em !important;
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
 }
 
 h2 {
-  font-family: var(--font-heading) !important;
-  font-size: 1.875rem !important;
-  font-weight: 900 !important;
-  margin: 1.1rem 0 !important;
-  letter-spacing: -0.01em !important;
+  font-family: var(--font-heading);
+  font-size: 1.875rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
 }
 
 h3 {
-  font-family: var(--font-heading) !important;
-  font-size: 1.5rem !important;
-  font-weight: 900 !important;
-  margin: 1rem 0 !important;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 900;
 }
 
 h4 {
-  font-family: var(--font-heading) !important;
-  font-size: 1.25rem !important;
-  font-weight: 800 !important;
-  margin: 0.9rem 0 !important;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
 }
 
 h5 {
-  font-family: var(--font-heading) !important;
-  font-size: 1.125rem !important;
-  font-weight: 700 !important;
-  margin: 0.8rem 0 !important;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
 }
 
 h6 {
-  font-family: var(--font-heading) !important;
-  font-size: 1rem !important;
-  font-weight: 700 !important;
-  margin: 0.7rem 0 !important;
-}
-
-/* ===== PARAGRAPH ===== */
-p {
-  margin-bottom: 0.9rem !important;
-  line-height: 1.8 !important;
-  font-size: 1rem !important;
-}
-
-/* ===== LIST ===== */
-ul,
-ol {
-  padding-left: 1.75rem !important;
-  margin: 0.75rem 0 1rem !important;
-}
-/* 
-  ul {
-    list-style-type: disc !important;
-  } */
-
-ol {
-  list-style-type: decimal !important;
-}
-
-li {
-  margin-bottom: 0.4rem !important;
-  line-height: 1.7 !important;
-}
-
-/* ===== SPAN (กัน editor ใส่ font เล็กเกิน) ===== */
-span {
-  font-size: inherit !important;
-  line-height: inherit !important;
-}
-
-/* ===== STRONG / B ===== */
-strong,
-b {
-  font-weight: 700 !important;
-}
-
-/* ===== EMPHASIS ===== */
-em,
-i {
-  font-style: italic !important;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
 }

@@ -15,11 +15,9 @@ export default function LogoBar() {
       aria-label="Organization Logos"
       className="w-full bg-[#1F1F1F] py-2 md:py-3"
     >
-      <div className="w-full flex justify-center">
-        <div className="w-full container mx-auto px-6 md:px-10">
-
-          {/* LOGO ROW */}
-          <ul className="flex flex-wrap justify-center items-center gap-6 md:gap-28 list-none m-0 p-0">
+      <div className="container mx-auto">
+        {/* LOGO ROW */}
+        <ul className="flex flex-wrap justify-center items-center gap-6 md:gap-28 list-none m-0 p-0">
 
             {LOGOS.map((item) => (
               <li key={item.id} className="select-none">
@@ -48,9 +46,7 @@ export default function LogoBar() {
               </li>
             ))}
 
-          </ul>
-
-        </div>
+        </ul>
       </div>
     </section>
   );
