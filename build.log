@@ -1,0 +1,68 @@
+
+> okmd-frontend@0.1.0 build
+> next build --turbopack
+
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+   ▲ Next.js 15.5.9 (Turbopack)
+
+   Creating an optimized production build ...
+ ✓ Finished writing to disk in 29ms
+
+> Build error occurred
+Error: Turbopack build failed with 4 errors:
+./components/page/home/Highlight.tsx:265:10
+Parsing ecmascript source code failed
+[0m [90m 263 |[39m             [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 264 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+[31m[1m>[22m[39m[90m 265 |[39m         [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m     |[39m          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 266 |[39m       )}
+ [90m 267 |[39m     [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 268 |[39m   )[33m;[39m[0m
+
+Unterminated regexp literal
+
+
+./components/page/home/Highlight.tsx:265:10
+Parsing ecmascript source code failed
+[0m [90m 263 |[39m             [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 264 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+[31m[1m>[22m[39m[90m 265 |[39m         [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m     |[39m          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 266 |[39m       )}
+ [90m 267 |[39m     [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 268 |[39m   )[33m;[39m[0m
+
+Unterminated regexp literal
+
+
+./components/page/home/Recommend.tsx:95:1
+Parsing ecmascript source code failed
+[0m [90m 93 |[39m     [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 94 |[39m   )[33m;[39m
+[31m[1m>[22m[39m[90m 95 |[39m }
+ [90m    |[39m [31m[1m^[22m[39m
+ [90m 96 |[39m[0m
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+
+./components/page/home/Recommend.tsx:95:1
+Parsing ecmascript source code failed
+[0m [90m 93 |[39m     [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 94 |[39m   )[33m;[39m
+[31m[1m>[22m[39m[90m 95 |[39m }
+ [90m    |[39m [31m[1m^[22m[39m
+ [90m 96 |[39m[0m
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+
+    at <unknown> (./components/page/home/Highlight.tsx:265:10)
+    at <unknown> (./components/page/home/Highlight.tsx:265:10)
+    at <unknown> (./components/page/home/Recommend.tsx:95:1)
+    at <unknown> (./components/page/home/Recommend.tsx:95:1)

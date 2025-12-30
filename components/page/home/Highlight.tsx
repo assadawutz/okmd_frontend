@@ -241,26 +241,25 @@ export default function HighlightSection() {
                   </div>
                 )}
               </div>
-              ))}
-            </div>
+            ))}
+          </div>
 
-            {/* PAGINATION */}
-            <div className="flex mt-5 gap-1.5 justify-center">
-              {highlights.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => {
-                    if (!ref.current) return;
-                    setIndex(i);
-                    ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
-                  }}
-                  className={`rounded-full transition-all ${
-                    index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF] hover:bg-[#A8D8E8]"
-                  }`}
-                  aria-label={`Go to slide ${i + 1}`}
-                />
-              ))}
-            </div>
+          {/* PAGINATION */}
+          <div className="flex mt-5 gap-1.5 justify-center">
+            {highlights.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  if (!ref.current) return;
+                  setIndex(i);
+                  ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
+                }}
+                className={`rounded-full transition-all ${
+                  index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF] hover:bg-[#A8D8E8]"
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
           </div>
         </div>
       )}
