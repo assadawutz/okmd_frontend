@@ -22,9 +22,11 @@ const ITEMS = [
 
 export default function RecommendSection() {
   return (
-    <section className="bg-[#0F0F0F] py-20">
+    <section className="bg-[#0F0F0F] py-12 md:py-16 lg:py-20">
       <div className="container mx-auto">
-        <div className="space-y-12">
+        <header className="text-center mb-8 md:mb-10 lg:mb-12">
+    <section className="bg-[#0F0F0F] py-16 md:py-20">
+      <div className="container mx-auto">
 
         <header className="text-center mb-10 md:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
@@ -39,6 +41,9 @@ export default function RecommendSection() {
           {ITEMS.map((item) => (
             <article
               key={item.id}
+              tabIndex={0}
+              role="button"
+              aria-label={item.title}
               className="
                 group relative isolate overflow-hidden 
                 rounded-2xl border border-white/10
@@ -47,6 +52,7 @@ export default function RecommendSection() {
                 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,0,0,0.6)]
                 h-[280px] sm:h-[320px] md:h-[380px] lg:h-[400px]
                 cursor-pointer
+                focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2 focus:ring-offset-[#0F0F0F]
               "
             >
               <Image
@@ -79,10 +85,10 @@ export default function RecommendSection() {
                   </span>
                 </div>
               </div>
+            </article>
+          ))}
+        </div>
 
-              </article>
-            ))}
-          </div>
       </div>
     </section>
   );

@@ -32,7 +32,7 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
     <main className="w-full bg-white pb-24">
       {/* ======================== BREADCRUMB ======================== */}
       <div className="w-full bg-white">
-        <div className="container mx-auto px-0 h-20 flex items-center">
+        <div className="container mx-auto h-20 flex items-center">
 
           <Breadcrumb
             items={[
@@ -44,7 +44,7 @@ export default function NewsDetail({ params }: { params: { id: string } }) {
 
         </div>
       </div>
-      <div className="container mx-auto px-4 pt-10 space-y-10">
+      <div className="container mx-auto pt-10 space-y-10">
 
         {/* ======================== TITLE BLOCK ======================== */}
         <div className="space-y-3">

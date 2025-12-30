@@ -15,20 +15,97 @@ interface NewsItem {
 }
 
 export default function NewsSection() {
-  const newsList = Object.values(NEWS_DATA).slice(0, 3) as NewsItem[];
+  const newsList = Object.values(NEWS_DATA).slice(0, 4) as NewsItem[]; // เปลี่ยนเป็น 4 items
 
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-12 md:py-16 lg:py-20">
       <div className="container mx-auto">
         
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 md:mb-12 gap-4">
-          <div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1B1D20] mb-2">
-              ข่าวสารและกิจกรรม
-            </h2>
-            <div className="h-1 w-20 bg-[#74CEE2] rounded-full"></div>
-          </div>
+        {/* HEADER */}
+        <div className="mb-8 md:mb-10 lg:mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1B1D20] mb-2">
+            News
+          </h2>
+          <p className="text-lg sm:text-xl text-[#74CEE2]">
+            อัปเดตข่าว
+          </p>
+        </div>
+
+        {/* NEWS LAYOUT: 1 large left + 3 small right */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-7 lg:gap-8">
           
+          {/* LEFT: Large Featured News */}
+          {newsList[0] && (
+            <Link 
+              href={`/news/${newsList[0].id}`}
+              className="md:col-span-5 group flex flex-col h-full"
+            >
+              <div className="relative h-[280px] md:h-full w-full overflow-hidden rounded-2xl">
+                <Image
+                  src={newsList[0].img}
+                  alt={newsList[0].title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 42vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                
+                {/* Content overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 text-white">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 line-clamp-2 group-hover:text-[#74CEE2] transition-colors">
+                    {newsList[0].title}
+                  </h3>
+                  <p className="text-sm md:text-base text-white/90 line-clamp-3 mb-3">
+                    {newsList[0].body}
+                  </p>
+                  <div className="flex items-center text-[#74CEE2] text-sm font-medium">
+                    อ่านต่อ
+                    <ArrowRight className="ml-2 h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          )}
+
+          {/* RIGHT: 3 News Cards Stack */}
+          <div className="md:col-span-7 flex flex-col gap-5 md:gap-6">
+            {newsList.slice(1, 4).map((news) => (
+              <Link 
+                key={news.id} 
+                href={`/news/${news.id}`}
+                className="group flex gap-4 md:gap-5 bg-white hover:bg-gray-50 rounded-xl transition-all"
+              >
+                {/* Image */}
+                <div className="relative w-32 h-32 md:w-40 md:h-40 flex-shrink-0 overflow-hidden rounded-xl">
+                  <Image
+                    src={news.img}
+                    alt={news.title}
+                    fill
+                    sizes="160px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                
+                {/* Content */}
+                <div className="flex-1 flex flex-col justify-center py-2">
+                  <h3 className="text-base md:text-lg font-bold text-[#1B1D20] mb-2 line-clamp-2 group-hover:text-[#16A7CB] transition-colors">
+                    {news.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+                    {news.body}
+                  </p>
+                  <div className="flex items-center text-[#16A7CB] text-sm font-medium">
+                    อ่านต่อ
+                    <ArrowRight className="ml-1 h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* "ดูทั้งหมด" Link */}
+        <div className="mt-8 md:mt-10 flex justify-end">
           <Link 
             href="/news" 
             className="group flex items-center text-[#16A7CB] font-medium hover:text-[#1384A2] transition-colors"
@@ -38,47 +115,6 @@ export default function NewsSection() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {newsList.map((news) => (
-            <Link 
-              key={news.id} 
-              href={`/news/${news.id}`}
-              className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 border border-gray-100"
-            >
-              <div className="relative h-[200px] lg:h-[220px] w-full overflow-hidden">
-                <Image
-                  src={news.img}
-                  alt={news.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 left-3 bg-[#74CEE2] text-[#1B1D20] text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
-                  {news.tag}
-                </div>
-              </div>
-              
-              <div className="flex flex-col flex-grow p-5 lg:p-6">
-                <div className="flex items-center text-gray-500 text-sm mb-2">
-                  <Calendar className="h-4 w-4 mr-2 flex-shrink-0" />
-                  {news.date}
-                </div>
-                
-                <h3 className="text-lg lg:text-xl font-bold text-[#1B1D20] mb-2 line-clamp-2 group-hover:text-[#16A7CB] transition-colors">
-                  {news.title}
-                </h3>
-                
-                <p className="text-gray-600 line-clamp-3 mb-4 text-sm leading-relaxed flex-grow">
-                  {news.body}
-                </p>
-                
-                <div className="flex items-center text-[#16A7CB] text-sm font-semibold mt-auto">
-                  อ่านเพิ่มเติม
-                  <ArrowRight className="ml-2 h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
       </div>
     </section>
   );

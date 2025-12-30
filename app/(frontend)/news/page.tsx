@@ -71,124 +71,163 @@ export default function NewsPage() {
   const titleText = active === "announce" ? "ข่าวประชาสัมพันธ์" : "ข่าวองค์กร";
 
   return (
-    // Applied  prefix
     <main className="w-full bg-white pb-32">
-      {/* BREADCRUMB */}
-      {/* Applied  prefix */}
+      {/* BREADCRUMB - AI-LOCK COMPLIANT */}
       <div className="border-b border-zinc-200">
-        <div className="container mx-auto px-6 h-20 flex items-center text-base md:text-sm text-[#6A6A6A]">
-          {/* Added hover:text-sky-500 and cursor-pointer */}
-          <Link href="/" className="hover:text-sky-500 cursor-pointer">
+        <div className="container mx-auto px-4 md:px-8 h-20 flex items-center text-base text-gray-600">
+          <Link href="/" className="hover:text-[#74CEE2] cursor-pointer transition">
             หน้าหลัก
           </Link>
           <span className="mx-2">›</span>
-          {/* Applied  prefix */}
-          <span className="text-sky-600">ข่าวสาร</span>
+          <span className="text-[#74CEE2]">ข่าวสาร</span>
         </div>
       </div>
 
-      {/* MAIN */}
-      {/* Adjusted padding and gap for mobile */}
-      <div className="container mx-auto px-6 pt-8 md:pt-12 grid grid-cols-12 gap-8 md:gap-16">
+      {/* DESKTOP LAYOUT - grid-cols-12 */}
+      <div className="hidden md:block">
+        <div className="container mx-auto px-4 md:px-8 pt-12">
+          <div className="grid grid-cols-12 gap-16">
+            {/* LEFT MENU - 3 cols */}
+            <aside className="col-span-3">
+              <h1 className="text-4xl font-bold mb-10 text-[#1B1D20]">News</h1>
+              
+              <div className="flex flex-col gap-1">
+                {CATE.map((c) => {
+                  const isActive = active === c.value;
+                  return (
+                    <button
+                      key={c.value}
+                      onClick={() => setActive(c.value)}
+                      className={`
+                        text-left px-4 py-3 rounded-lg text-lg font-semibold cursor-pointer transition
+                        ${isActive
+                          ? "bg-[#E8F6FB] text-[#16A7CB]"
+                          : "text-gray-700 hover:text-[#16A7CB]"
+                        }
+                      `}
+                    >
+                      {c.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </aside>
 
-        {/* LEFT MENU */}
-        {/* Adjusted column span and added mb-8 for mobile spacing */}
-        <aside className="col-span-12 md:col-span-3 mb-8 md:mb-0">
-          {/* Applied  prefix and adjusted margin for mobile */}
-          <h1 className="text-4xl font-bold mb-6 md:mb-10 text-[#1B1D20]">News</h1>
+            {/* RIGHT CONTENT - 9 cols */}
+            <section className="col-span-9">
+              <h2 className="text-3xl font-bold text-[#1B1D20] mb-10">{titleText}</h2>
 
-          {/* Applied  prefix */}
-          <div className="flex flex-col gap-1">
-            {CATE.map((c) => {
-              const isActive = active === c.value;
-              return (
-                <button
-                  key={c.value}
-                  onClick={() => setActive(c.value)}
-                  // Applied  prefix and added cursor-pointer
-                  className={`
-                    text-left px-4 py-3 rounded-lg text-[18px] font-semibold cursor-pointer
-                    ${isActive
-                      ? "bg-[#E8F6FB] text-[#16A7CB]"
-                      : "text-[#6A6A6A] hover:text-[#16A7CB]"
-                    }
-                  `}
-                // Removed inline style to allow full width via Tailwind utilities
-                >
-                  {c.label}
-                </button>
-              );
-            })}
+              {/* NEWS GRID - 2 columns (6+6) */}
+              <div className="grid grid-cols-12 gap-x-8 gap-y-10">
+                {filtered.map((n) => (
+                  <Link
+                    key={n.id}
+                    href={`/news/${n.id}`}
+                    className="col-span-6 bg-white rounded-2xl border border-gray-200 shadow-md hover:shadow-xl transition-all overflow-hidden cursor-pointer"
+                  >
+                    <div className="w-full h-[220px] overflow-hidden">
+                      <img
+                        src={n.img}
+                        alt={n.title}
+                        className="w-full h-full object-cover transition-all duration-300 hover:scale-105"
+                      />
+                    </div>
+
+                    <div className="px-6 py-5">
+                      <p className="text-sm text-gray-500 mb-1">{n.date}</p>
+                      <h3 className="text-lg font-semibold text-[#1B1D20] leading-snug line-clamp-2 mb-2">
+                        {n.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 leading-6 line-clamp-3">
+                        {n.desc}
+                      </p>
+                      <span className="inline-flex items-center gap-1 pt-3 text-sm text-[#16A7CB] font-semibold">
+                        อ่านเพิ่มเติม ↗
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* PAGINATION */}
+              <div className="mt-12 flex justify-center">
+                <div className="flex items-center gap-2">
+                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#74CEE2] text-white font-semibold hover:bg-[#5FC4D8] transition">
+                    1
+                  </button>
+                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                    2
+                  </button>
+                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                    3
+                  </button>
+                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                    4
+                  </button>
+                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                    5
+                  </button>
+                  <span className="px-2 text-gray-500">...</span>
+                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                    20
+                  </button>
+                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                    &gt;
+                  </button>
+                </div>
+              </div>
+            </section>
           </div>
-        </aside>
+        </div>
+      </div>
 
-        {/* RIGHT CONTENT */}
-        {/* Adjusted column span */}
-        <section className="col-span-12 md:col-span-9 lg:col-span-8">
-          {/* Applied  prefix */}
-          <h2 className="text-3xl font-bold text-[#1B1D20] mb-8 md:mb-10">{titleText}</h2>
+      {/* MOBILE LAYOUT - NO SIDEBAR, NO grid-cols-12 */}
+      <div className="md:hidden">
+        <div className="container mx-auto px-4 pt-8">
+          <h1 className="text-3xl font-bold mb-6 text-[#1B1D20]">News</h1>
 
-          {/* GRID items Responsive Adjustment */}
-          <div className="
-            grid grid-cols-1 
-            sm:grid-cols-2 md:grid-cols-2 
-            gap-x-8 gap-y-10 
-            place-items-center sm:place-items-start
-          ">
+          {/* Mobile Category Selector */}
+          <div className="mb-6">
+            <select
+              value={active}
+              onChange={(e) => setActive(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base font-semibold bg-white"
+            >
+              {CATE.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <h2 className="text-2xl font-bold text-[#1B1D20] mb-6">{titleText}</h2>
+
+          {/* Mobile News Cards - Stacked */}
+          <div className="flex flex-col gap-6">
             {filtered.map((n) => (
               <Link
                 key={n.id}
-                href={`/news/detail/${n.id}`}
-                // Applied  prefix, w-full added for responsiveness, cursor-pointer added
-                className="
-                  w-full
-                  bg-white 
-                  rounded-2xl 
-                  border border-[#E5E5E5]
-                  shadow-[0_4px_12px_rgba(0,0,0,0.06)]
-                  hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)]
-                  transition-all 
-                  overflow-hidden
-                  cursor-pointer
-                "
-              // REMOVED: style={{ width: 364 }}
+                href={`/news/${n.id}`}
+                className="bg-white rounded-2xl border border-gray-200 shadow-md overflow-hidden"
               >
-                {/* IMAGE */}
-                {/* Applied  prefix, object-cover added to ensure image fills area */}
-                <div className="w-full h-[200px] sm:h-[220px] overflow-hidden">
+                <div className="w-full h-[200px] overflow-hidden">
                   <img
                     src={n.img}
                     alt={n.title}
-                    className="
-                      w-full h-full object-cover 
-                      transition-all duration-300 
-                      hover:scale-[1.03]
-                    "
+                    className="w-full h-full object-cover"
                   />
                 </div>
 
-                {/* CONTENT */}
-                <div className="px-6 py-5">
-                  {/* Applied  prefix */}
-                  <p className="text-[13px] text-zinc-500 mb-1">
-                    {n.date}
-                  </p>
-
-                  {/* Applied  prefix */}
-                  <h3 className="
-                    text-[18px] font-semibold text-[#1B1D20] 
-                    leading-snug line-clamp-2 mb-2
-                  ">
+                <div className="px-5 py-4">
+                  <p className="text-sm text-gray-500 mb-1">{n.date}</p>
+                  <h3 className="text-base font-semibold text-[#1B1D20] leading-snug line-clamp-2 mb-2">
                     {n.title}
                   </h3>
-
-                  {/* Applied  prefix */}
-                  <p className="text-[14px] text-zinc-600 leading-6 line-clamp-3">
+                  <p className="text-sm text-gray-600 leading-6 line-clamp-2">
                     {n.desc}
                   </p>
-
-                  {/* Applied  prefix */}
-                  <span className="inline-flex items-center gap-1 pt-3 text-[15px] text-[#16A7CB] font-semibold">
+                  <span className="inline-flex items-center gap-1 pt-2 text-sm text-[#16A7CB] font-semibold">
                     อ่านเพิ่มเติม ↗
                   </span>
                 </div>
@@ -196,7 +235,25 @@ export default function NewsPage() {
             ))}
           </div>
 
-        </section>
+          {/* Mobile Pagination */}
+          <div className="mt-8 flex justify-center pb-8">
+            <div className="flex items-center gap-2">
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#74CEE2] text-white font-semibold">
+                1
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold">
+                2
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold">
+                3
+              </button>
+              <span className="px-2 text-gray-500">...</span>
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold">
+                &gt;
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );

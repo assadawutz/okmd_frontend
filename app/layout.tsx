@@ -30,7 +30,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <NavBar />
         {/* <div className="container mx-auto "><Breadcrumb/></div> */}
         {/* MAIN LANDMARK — WCAG 2.1 Compliant */}
+<<<<<<< HEAD
         <main id="main-content" role="main" tabIndex={-1} className="container mx-auto grid px-4 grid-cols-12">
+=======
+        <main id="main-content" role="main" tabIndex={-1} className="w-full pt-0">
+>>>>>>> ee32eab149ccab6503beca1a3e6544424290e66f
           {children}
         </main>
 

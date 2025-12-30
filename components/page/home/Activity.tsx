@@ -68,30 +68,31 @@ function formatDate(day: number) {
 
 export default function ActivityBlock() {
   return (
-    <section aria-label="Activity Block" className="w-full bg-[#F8FBFD] py-16 md:py-20">
-      <div className="container mx-auto text-center flex flex-col gap-10 md:gap-12">
+    <section aria-label="Activity Block" className="w-full bg-[#F8FBFD] py-12 md:py-16 lg:py-20">
+      <div className="container mx-auto flex flex-col gap-8 md:gap-10 lg:gap-12">
 
-        <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-4">
+        <div className="flex flex-col text-center md:flex-row md:items-center md:justify-center gap-3 md:gap-4">
           <div>
-            <p className="text-4xl  text-[#000000] font-semibold">Activity Calendar</p>
-            <h2 className="text-sm mt-6 md:text-normal font-normal text-[#6ABBCE] leading-tight">
-ทุกกิจกรรมคือแรงบันดาลใจ สู่ความคิดที่แตกต่าง            </h2>
-           
+            <p className="text-3xl md:text-4xl text-[#000000] font-semibold">Activity Calendar</p>
+            <h2 className="text-sm md:text-base mt-4 md:mt-6 font-normal text-[#6ABBCE] leading-tight">
+              ทุกกิจกรรมคือแรงบันดาลใจ สู่ความคิดที่แตกต่าง
+            </h2>
           </div>
-      
         </div>
 
         {/* ================= DESKTOP ================= */}
-        <div className="hidden md:flex flex-col gap-6 lg:gap-8">
+        <div className="hidden md:flex flex-col gap-5 md:gap-6 lg:gap-8">
 
           {/* ---------------- ROW 1 ---------------- */}
-          <div className="grid grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-3 gap-5 md:gap-6 lg:gap-8">
 
             {ACTIVITIES.slice(0, 3).map((item) => (
               <article
                 key={item.id}
                 aria-label={`Activity ${item.title}`}
-                className="relative h-[220px] lg:h-[240px] rounded-2xl overflow-hidden group cursor-pointer shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.15)] transition-shadow duration-300"
+                tabIndex={0}
+                role="button"
+                className="relative h-[220px] lg:h-[240px] rounded-2xl overflow-hidden group cursor-pointer shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.15)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2"
               >
                 <Image
                   src={item.img}
@@ -118,13 +119,15 @@ export default function ActivityBlock() {
           </div>
 
           {/* ---------------- ROW 2 ---------------- */}
-          <div className="grid grid-cols-12 gap-6 lg:gap-8">
+          <div className="grid grid-cols-12 gap-5 md:gap-6 lg:gap-8">
 
             {ACTIVITIES.slice(3, 5).map((item, idx) => (
               <article
                 key={item.id}
                 aria-label={item.title}
-                className="relative overflow-hidden group cursor-pointer col-span-3 h-[280px] lg:h-[300px] rounded-2xl shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.15)] transition-shadow duration-300"
+                tabIndex={0}
+                role="button"
+                className="relative overflow-hidden group cursor-pointer col-span-3 h-[280px] lg:h-[300px] rounded-2xl shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.15)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2"
               >
                 <Image
                   src={item.img}
@@ -188,9 +191,9 @@ export default function ActivityBlock() {
         </div>
 
         {/* ================= MOBILE ================= */}
-        <div className="md:hidden flex flex-col gap-6">
+        <div className="md:hidden flex flex-col gap-6 px-4">
 
-          <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
+          <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar -mx-4 px-4">
             {ACTIVITIES.map((item) => (
               <article
                 key={item.id}

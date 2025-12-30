@@ -71,7 +71,7 @@ export default function Hero() {
           })}
 
           {/* TEXT LAYER */}
-          <figcaption className="absolute inset-0 flex items-top z-20 mt-8 pointer-events-none">
+          <figcaption className="absolute inset-0 flex items-start z-20 mt-8 pointer-events-none">
             <div className="w-full flex justify-center">
               <div className="container w-full">
 
@@ -87,14 +87,15 @@ export default function Hero() {
                   AI-Driven intelligence:
                 </h1>
 
-                <p className="text-[#1B1D20] text-lg lg:text-xl xl:text-2xl mt-3 lg:mt-4 opacity-90 max-w-xl">
-                  Search, summarize, and Recommend in an instant.
-                </p>
+              <p className="text-[#1B1D20] text-lg lg:text-xl xl:text-2xl mt-3 lg:mt-4 opacity-90 max-w-xl">
+                Search, summarize, and Recommend in an instant.
+              </p>
 
                 <button
                   type="button"
                   className="mt-5 lg:mt-6 bg-[#74CEE2] px-5 lg:px-6 py-2.5 lg:py-3 rounded-xl text-white text-base lg:text-lg font-medium
-                    hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md pointer-events-auto"
+                    hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md pointer-events-auto focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2"
+                  aria-label="ดูรายละเอียด AI-Driven Intelligence"
                 >
                   ดูรายละเอียด
                 </button>
@@ -152,10 +153,10 @@ export default function Hero() {
           {/* MOBILE TEXT */}
           <figcaption className="absolute container mx-auto px-4 bottom-[40px] left-0 right-0 z-20">
             <div className="max-w-[300px]">
-              <h2 className="text-[#1B1D20] font-bold text-3xl leading-[24px]">
+              <h2 className="text-[#1B1D20] font-bold text-3xl leading-tight">
                 AI-Driven intelligence:
               </h2>
-              <p className="text-[#1B1D20] text-lg mt-2 leading-[14px] opacity-90">
+              <p className="text-[#1B1D20] text-lg mt-2 leading-relaxed opacity-90">
                 Search, summarize, and Recommend in an instant.
               </p>
             </div>
