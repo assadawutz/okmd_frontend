@@ -4,7 +4,7 @@ import Link from "next/link";
 import CalendarEvent from "@/components/CalendarEvent";
 import EventCard from "@/components/page/CalendarEvent/EventCard";
 import { useState } from "react";
-import FilterDropdown from "../../FilterDropdown";
+import FilterDropdown from "@/components/FilterDropdown";
 import SubHeroBanner from "@/components/ui/SubHeroBanner";
 
 const MONTHS = [
@@ -72,7 +72,7 @@ export default function CalendarEventListPage() {
   return (
     <main className="min-h-screen bg-white text-gray-800">
       {/* Hero Banner */}
-      <SubHeroBanner image="/calendar-hero.jpg" height="h-[300px]">
+      <SubHeroBanner image="/bannerabout.png" height="h-[300px]">
         <div className="container mx-auto px-6 md:px-12">
           <h1 className="text-4xl md:text-5xl font-bold">
             ปฏิทิน <span className="text-[#74CEE2]">กิจกรรม</span>

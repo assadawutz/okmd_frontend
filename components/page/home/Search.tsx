@@ -210,7 +210,6 @@ export default function OkmdSearchSection() {
             </div>
           )}
 
-        </div>
       </div>
     </section>
   );

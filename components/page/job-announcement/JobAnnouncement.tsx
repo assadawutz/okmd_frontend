@@ -153,7 +153,7 @@ export default function JobAnnouncement() {
   return (
     <div className="w-full min-h-screen bg-white">
       {/* Hero Banner */}
-      <SubHeroBanner image="/job-announcement-hero.jpg" height="h-[300px]">
+      <SubHeroBanner image="/bannerabout.png" height="h-[300px]">
         <div className="container mx-auto px-6 md:px-12">
           <h1 className="text-4xl md:text-5xl font-bold">
             ประกาศ <span className="text-[#74CEE2]">รับสมัครงาน</span>

@@ -56,7 +56,7 @@ export default function Footer() {
             {/* LEFT BLOCK */}
             <div className="flex flex-col md:max-w-[480px] flex-1">
 
-              <Link href="/" aria-label="OKMD Home">
+              <a href="/" aria-label="OKMD Home">
                 <Image
                   src="/okmd_white.png"
                   alt="OKMD Logo"
@@ -70,7 +70,7 @@ export default function Footer() {
                   "
                   priority
                 />
-              </Link>
+              </a>
 
               <h2 className="font-bold text-[34px] sm:text-[44px] md:text-[56px] leading-[1.1] mb-6 whitespace-pre-line">
                 Office of Knowledge{"\n"}
