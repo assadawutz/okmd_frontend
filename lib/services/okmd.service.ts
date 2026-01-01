@@ -1,6 +1,39 @@
+// Mock data for job listings
+const mockJobs = [
+  {
+    id: '1',
+    title: 'นักวิชาการคอมพิวเตอร์',
+    dept: 'ฝ่ายเทคโนโลยีสารสนเทศ',
+    loc: 'กรุงเทพมหานคร',
+    type: 'พนักงานประจำ',
+    quota: 2,
+  },
+  {
+    id: '2',
+    title: 'นักวิเคราะห์นโยบายและแผน',
+    dept: 'ฝ่ายแผนงานและพัฒนา',
+    loc: 'กรุงเทพมหานคร',
+    type: 'พนักงานประจำ',
+    quota: 1,
+  },
+  {
+    id: '3',
+    title: 'นักจัดการงานทั่วไป',
+    dept: 'ฝ่ายบริหารงานทั่วไป',
+    loc: 'กรุงเทพมหานคร',
+    type: 'พนักงานสัญญาจ้าง',
+    quota: 3,
+  },
+];
 
-export interface JobPosition {
-  id: string | number;
+// Mock passed candidates
+const passedCandidates: Record<string, string> = {
+  '1234567890123': 'นายสมชาย ใจดี',
+  '9876543210987': 'นางสาวสมหญิง รักเรียน',
+};
+
+export interface Job {
+  id: string;
   title: string;
   dept: string;
   loc: string;
@@ -8,50 +41,24 @@ export interface JobPosition {
   quota: number;
 }
 
-export const fetchJobs = async (): Promise<JobPosition[]> => {
+export interface StatusResult {
+  status: 'passed' | 'failed';
+  name?: string;
+}
+
+export async function fetchJobs(): Promise<Job[]> {
   // Simulate API delay
   await new Promise((resolve) => setTimeout(resolve, 100));
+  return mockJobs;
+}
 
-  return [
-    {
-      id: 1,
-      title: "นักวิชาการคอมพิวเตอร์",
-      dept: "สำนักเทคโนโลยีสารสนเทศ",
-      loc: "กรุงเทพมหานคร",
-      type: "พนักงานราชการ",
-      quota: 2,
-    },
-    {
-      id: 2,
-      title: "เจ้าหน้าที่บริหารงานทั่วไป",
-      dept: "สำนักอำนวยการ",
-      loc: "กรุงเทพมหานคร",
-      type: "ลูกจ้างชั่วคราว",
-      quota: 1,
-    },
-    {
-      id: 3,
-      title: "นักวิเคราะห์นโยบายและแผน",
-      dept: "สำนักนโยบายและแผน",
-      loc: "กรุงเทพมหานคร",
-      type: "พนักงานราชการ",
-      quota: 3,
-    },
-    {
-      id: 4,
-      title: "นักทรัพยากรบุคคล",
-      dept: "สำนักบริหารทรัพยากรบุคคล",
-      loc: "กรุงเทพมหานคร",
-      type: "ข้าราชการ",
-      quota: 1,
-    },
-    {
-      id: 5,
-      title: "นิติกร",
-      dept: "กลุ่มงานกฎหมาย",
-      loc: "กรุงเทพมหานคร",
-      type: "พนักงานราชการ",
-      quota: 1,
-    },
-  ];
-};
+export async function checkStatus(cid: string): Promise<StatusResult> {
+  // Simulate API delay
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  
+  const name = passedCandidates[cid];
+  if (name) {
+    return { status: 'passed', name };
+  }
+  return { status: 'failed' };
+}

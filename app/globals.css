@@ -1,150 +1,168 @@
+/* ------------------------------------------------------------ */
+/*  GOOGLE FONTS                                                */
+/* ------------------------------------------------------------ */
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&family=Prompt:wght@400;600&display=swap");
+
+/* ------------------------------------------------------------ */
+/*  TAILWIND CORE (ต้องอยู่บนสุด)                              */
+/* ------------------------------------------------------------ */
 @import "tailwindcss";
+@import "tailwindcss/utilities";
 
-@theme {
-  --color-okmd-cyan: #16a7cb;
-  --color-okmd-bg-one: #57cde5;
-  --color-okmd-bg-two: #035f74;
-  --color-okmd-bg-three: #079496;
-  --color-okmd-cyan-dark: #0e7893;
-  --color-okmd-cyan-light: #def8fe;
-  --color-okmd-dark: #1b1d20;
-  --color-okmd-gray: #6b7280;
-  --color-okmd-gray-border: #d1d5db;
-  --color-okmd-gray-light: #9ca3af;
-  --color-okmd-light-blue: #e0f7fa;
-  --color-okmd-very-light-blue: #f1fafc;
-  --color-okmd-yellow: #ffd13f;
-  --color-okmd-yellow-dark: #ccaa33;
-  --font-sans: "Kanit", "Prompt", system-ui, sans-serif;
-  --font-heading: "Inter", "Kanit", system-ui, sans-serif;
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-}
-
-:root {
-  --okmd-font-scale: 1;
-  --okmd-text-normal: #1b1d20;
-  --okmd-text-dark: #ffffff;
-  --okmd-text-high: #ffd13f;
-  --bg: #ffffff;
-  --text: var(--okmd-text-normal);
+/* ------------------------------------------------------------ */
+/*  RESET + BASE                                                */
+/* ------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
-  font-size: calc(1rem * var(--okmd-font-scale));
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--font-sans);
-  background: var(--bg);
-  color: var(--text);
-  line-height: normal;
+  font-family: "Kanit", "Prompt", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
 }
 
-html.contrast-dark {
-  --bg: #000000;
-  --text: #ffffff;
+/* ------------------------------------------------------------ */
+/*  THEME TOKENS (Tailwind v4)                                  */
+/* ------------------------------------------------------------ */
+@theme {
+  --color-okmd-cyan: #16a7cb;
+  --color-okmd-cyan-dark: #0e7893;
+  --color-okmd-cyan-light: #def8fe;
+
+  --color-okmd-dark: #1b1d20;
+  --color-okmd-gray: #6b7280;
+  --color-okmd-gray-light: #9ca3af;
+  --color-okmd-border: #e5e7eb;
+
+  --color-okmd-yellow: #ffd13f;
+
+  --font-sans: "Kanit", "Prompt", system-ui, sans-serif;
 }
 
-html.contrast-high {
-  --bg: #000000;
-  --text: #ffd13f;
-}
-
+/* ------------------------------------------------------------ */
+/*  FONT SCALE SYSTEM                                           */
+/* ------------------------------------------------------------ */
 html[data-font="sm"] {
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 html[data-font="md"] {
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 html[data-font="lg"] {
-  font-size: 1.125rem;
+  font-size: 18px;
 }
 
-html[data-contrast="normal"] {
-  filter: none;
+/* ------------------------------------------------------------ */
+/*  COLOR / CONTRAST SYSTEM                                     */
+/* ------------------------------------------------------------ */
+:root {
+  --bg: #ffffff;
+  --bg-muted: #f9fafb;
+
+  --text: #1b1d20;
+  --muted: #6b7280;
+
+  --border: #e5e7eb;
+
+  --primary: #74cee2;
+  --primary-hover: #5fc4d8;
 }
 
 html[data-contrast="dark"] {
-  filter: contrast(120%) brightness(80%);
+  --bg: #0b1220;
+  --bg-muted: #111827;
+
+  --text: #f8fafc;
+  --muted: #cbd5f5;
+
+  --border: #334155;
+
+  --primary: #38bdf8;
+  --primary-hover: #0ea5e9;
 }
 
 html[data-contrast="high"] {
-  filter: contrast(150%) brightness(110%);
+  --bg: #000000;
+  --bg-muted: #000000;
+
+  --text: #ffff00;
+  --muted: #fff1a8;
+
+  --border: #ffff00;
+
+  --primary: #ffff00;
+  --primary-hover: #ffea70;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(0.625rem);
+/* ------------------------------------------------------------ */
+/*  BASE LAYER                                                  */
+/* ------------------------------------------------------------ */
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--text);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  p, span, li, label {
+    color: var(--text);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  input,
+  textarea,
+  select {
+    background-color: var(--bg);
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--bg);
   }
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-1.25rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ------------------------------------------------------------ */
+/*  UTILITIES                                                   */
+/* ------------------------------------------------------------ */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.text-shadow {
+  text-shadow: 0px 4px 12px rgba(0,0,0,0.25);
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-out forwards;
+.text-shadow-soft {
+  text-shadow: 0px 2px 8px rgba(0,0,0,0.15);
 }
 
-.animate-slideDown {
-  animation: slideDown 0.3s ease-out forwards;
-}
-
-h1 {
-  font-family: var(--font-heading);
-  font-size: 2.25rem;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-}
-
-h2 {
-  font-family: var(--font-heading);
-  font-size: 1.875rem;
-  font-weight: 900;
-  letter-spacing: -0.01em;
-}
-
-h3 {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  font-weight: 900;
-}
-
-h4 {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 800;
-}
-
-h5 {
-  font-family: var(--font-heading);
-  font-size: 1.125rem;
-  font-weight: 700;
-}
-
-h6 {
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  font-weight: 700;
+.text-shadow-strong {
+  text-shadow: 0px 6px 18px rgba(0,0,0,0.35);
 }
