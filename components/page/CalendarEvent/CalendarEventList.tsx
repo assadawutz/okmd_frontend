@@ -5,7 +5,6 @@ import CalendarEvent from "@/components/CalendarEvent";
 import EventCard from "@/components/page/CalendarEvent/EventCard";
 import { useState } from "react";
 import FilterDropdown from "@/components/FilterDropdown";
-import SubHeroBanner from "@/components/ui/SubHeroBanner";
 
 const MONTHS = [
   "แสดงผลทุกเดือน",
@@ -21,6 +20,9 @@ const MONTHS = [
   "ตุลาคม",
   "พฤศจิกายน",
   "ธันวาคม",
+  "มกราคม",
+  "กุมภาพันธ์",
+  "มีนาคม",
 ];
 
 // Mock Data
@@ -70,102 +72,99 @@ export default function CalendarEventListPage() {
     org: "all",
   });
   return (
-    <main className="min-h-screen bg-white text-gray-800 pb-20 md:pb-32">
-      {/* Hero Banner */}
-      <SubHeroBanner image="/bannerabout.png" height="h-[300px]">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-5xl font-bold">
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/bannerabout.png')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
             ปฏิทิน <span className="text-[#74CEE2]">กิจกรรม</span>
           </h1>
-          <p className="text-lg md:text-xl mt-4 text-white/90 max-w-2xl">
+          <p className="text-lg md:text-xl opacity-90 max-w-2xl">
             พบกับกิจกรรมเสริมสร้างความรู้เพื่อกระตุกต่อมคิดตลอดทั้งปี
           </p>
         </div>
-      </SubHeroBanner>
+      </div>
 
-      {/* Breadcrumb - Standard */}
-      <div className="border-b border-zinc-200 bg-white">
-        <div className="container mx-auto px-4 h-16 md:h-20 flex items-center text-sm md:text-base text-gray-600">
-          <Link
-            href="/"
-            className="hover:text-[#74CEE2] cursor-pointer transition"
-          >
-            หน้าหลัก
-          </Link>
-          <span className="mx-2">›</span>
-          <span className="text-[#74CEE2]">ปฏิทินกิจกรรม</span>
+      {/* BREADCRUMB */}
+      <div className="flex items-center text-sm text-gray-500 px-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span className="mx-2">›</span>
+        <span className="text-[#16A7CB] font-medium">ปฏิทินกิจกรรม</span>
+      </div>
+
+      {/* FILTER BLOCK */}
+      <div className="bg-gray-50 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div>
+            <FilterDropdown
+              label="ปีกิจกรรม"
+              value={filters.year}
+              options={["ปีกิจกรรม 2568", "ปีกิจกรรม 2567", "ปีกิจกรรม 2566"]}
+              onChange={(v) => setFilters({ ...filters, year: v })}
+            />
+          </div>
+
+          <div>
+            <FilterDropdown
+              label="เดือน"
+              value={filters.month}
+              options={MONTHS}
+              onChange={(v) => setFilters({ ...filters, month: v })}
+            />
+          </div>
+
+          <div>
+            <FilterDropdown
+              label="องค์กร"
+              value={filters.org}
+              options={[
+                "เลือกแสดงผลเฉพาะองค์กร",
+                "สำนักงานบริหารและพัฒนาองค์ความรู้",
+                "มิวเซียมสยาม",
+                "สถาบันอุทยานการเรียนรู้",
+              ]}
+              onChange={(v) => setFilters({ ...filters, org: v })}
+            />
+          </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        {/* Filters */}
-        <div className="bg-gray-50 rounded-2xl p-6 md:p-8 mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
-            <div className="col-span-12 md:col-span-4">
-              <FilterDropdown
-                label="ปีกิจกรรม"
-                value={filters.year}
-                options={["ปีกิจกรรม 2568", "ปีกิจกรรม 2567", "ปีกิจกรรม 2566"]}
-                onChange={(v) => setFilters({ ...filters, year: v })}
-              />
-            </div>
+      {/* CONTENT GRID */}
+      <div className="bg-white rounded-3xl p-6 md:p-10 border border-gray-100 shadow-sm">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#1B1D20] mb-8 border-l-4 border-[#16A7CB] pl-4">
+          กิจกรรมที่น่าสนใจประจำเดือนนี้
+        </h2>
 
-            <div className="col-span-12 md:col-span-4">
-              <FilterDropdown
-                label="เดือน"
-                value={filters.month}
-                options={MONTHS}
-                onChange={(v) => setFilters({ ...filters, month: v })}
-              />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* LEFT: EVENTS */}
+          <div className="lg:col-span-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {events.map((event) => (
+                <div key={event.id} className="w-full">
+                  <EventCard
+                    event={event}
+                    path={`/calendar-of-event/${event.id}?title=${event.title}`}
+                  />
+                </div>
+              ))}
             </div>
+          </div>
 
-            <div className="col-span-12 md:col-span-4">
-              <FilterDropdown
-                label="องค์กร"
-                value={filters.org}
-                options={[
-                  "เลือกแสดงผลเฉพาะองค์กร",
-                  "สำนักงานบริหารและพัฒนาองค์ความรู้",
-                  "มิวเซียมสยาม",
-                  "สถาบันอุทยานการเรียนรู้",
-                ]}
-                onChange={(v) => setFilters({ ...filters, org: v })}
-              />
+          {/* RIGHT: CALENDAR WIDGET */}
+          <div className="lg:col-span-4 w-full">
+            <div className="sticky top-24 bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+              <CalendarEvent />
             </div>
           </div>
         </div>
-
-        {/* Content Section */}
-        <section>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 md:mb-10">
-            กิจกรรมที่น่าสนใจประจำเดือนนี้
-          </h2>
-
-          {/* Grid Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 items-start">
-            {/* ซ้าย: event cards (8 cols) */}
-            <div className="col-span-1 lg:col-span-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {events.map((event) => (
-                  <div key={event.id} className="w-full">
-                    <EventCard
-                      event={event}
-                      path={`/calendar-of-event/${event.id}?title=${event.title}`}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* ขวา: Calendar (4 cols) */}
-            <div className="col-span-1 lg:col-span-4 w-full">
-              <div className="sticky top-24">
-                <CalendarEvent />
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
-    </main>
+    </div>
   );
 }

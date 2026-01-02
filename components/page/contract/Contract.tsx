@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import SubHeroBanner from "@/components/ui/SubHeroBanner";
+import { CiSearch } from "react-icons/ci";
 import Input from "@/components/ui/Input";
 import Dropdown from "@/components/ui/Dropdown";
 import Button from "@/components/ui/Button";
-import { CiSearch } from "react-icons/ci";
 
 type ContractCardProps = {
   id: string;
@@ -30,52 +29,56 @@ function ContractCard({
   return (
     <Link
       href={`/contract/${id}`}
-      className="bg-white rounded-xl shadow-sm p-6 transition-all duration-300 hover:shadow-lg active:scale-95 cursor-pointer border border-gray-100 hover:border-gray-200 group h-full flex flex-col"
+      className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100 hover:border-[#16A7CB] hover:shadow-md transition-all duration-300 group h-full flex flex-col relative overflow-hidden"
     >
-      <div className="flex flex-col gap-4 flex-grow">
+      <div className="absolute top-0 right-0 p-4">
+        <span
+          className={`px-3 py-1 rounded-full text-xs font-semibold ${
+            status === "active"
+              ? "bg-green-50 text-green-600 border border-green-100"
+              : status === "completed"
+              ? "bg-blue-50 text-blue-600 border border-blue-100"
+              : "bg-gray-50 text-gray-500 border border-gray-100"
+          }`}
+        >
+          {status === "active"
+            ? "กำลังดำเนินการ"
+            : status === "completed"
+            ? "เสร็จสิ้น"
+            : "ยกเลิก"}
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-4 flex-grow mt-2">
         <div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-[#16A7CB] transition-colors">
+          <div className="text-xs text-gray-400 mb-1 font-medium">
+            เลขที่สัญญา: {contractNumber}
+          </div>
+          <h3 className="text-xl font-bold text-[#1B1D20] mb-2 group-hover:text-[#16A7CB] transition-colors leading-snug">
             {title}
           </h3>
-          <p className="text-gray-600 text-sm">เลขที่สัญญา: {contractNumber}</p>
         </div>
 
-        <div className="border-t border-gray-100 pt-4 space-y-2 mt-auto">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span className="font-semibold">ผู้รับจ้าง:</span>
-            <span>{contractor}</span>
+        <div className="border-t border-gray-100 pt-4 space-y-3 mt-auto">
+          <div className="flex items-center justify-between text-sm text-gray-600">
+            <span className="text-gray-400">ผู้รับจ้าง</span>
+            <span className="font-medium text-right max-w-[60%] truncate">
+              {contractor}
+            </span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span className="font-semibold">วันที่ลงนาม:</span>
-            <span>{contractDate}</span>
+          <div className="flex items-center justify-between text-sm text-gray-600">
+            <span className="text-gray-400">วันที่ลงนาม</span>
+            <span className="font-medium">{contractDate}</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span className="font-semibold">มูลค่าสัญญา:</span>
-            <span className="text-[#16A7CB] font-bold">{amount}</span>
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-gray-400">มูลค่าสัญญา</span>
+            <span className="text-[#16A7CB] font-bold text-lg">{amount}</span>
           </div>
         </div>
 
-        <div className="pt-2">
-          <span
-            className={`px-3 py-1 rounded-lg text-sm font-semibold inline-block ${
-              status === "active"
-                ? "bg-green-100 text-green-800"
-                : status === "completed"
-                ? "bg-blue-100 text-blue-800"
-                : "bg-gray-100 text-gray-600"
-            }`}
-          >
-            {status === "active"
-              ? "กำลังดำเนินการ"
-              : status === "completed"
-              ? "เสร็จสิ้น"
-              : "ยกเลิก"}
-          </span>
-        </div>
-
-        <div className="pt-2">
-          <span className="text-[#16A7CB] font-semibold text-sm group-hover:underline inline-flex items-center gap-1">
-            ดูรายละเอียดเพิ่มเติม <span>→</span>
+        <div className="pt-2 mt-2">
+          <span className="w-full text-center block bg-gray-50 text-gray-600 py-2 rounded-xl text-sm font-semibold group-hover:bg-[#16A7CB] group-hover:text-white transition-all">
+            ดูรายละเอียด
           </span>
         </div>
       </div>
@@ -134,91 +137,87 @@ export default function Contract() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-white pb-20 md:pb-32">
-      {/* Hero Banner */}
-      <SubHeroBanner image="/contract-hero.jpg" height="h-[300px]">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-5xl font-bold">
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/contract-hero.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
             สัญญา <span className="text-[#74CEE2]">และข้อตกลง</span>
           </h1>
-          <p className="text-lg md:text-xl mt-4 text-white/90">
+          <p className="text-lg md:text-xl opacity-90">
             ข้อมูลสัญญาและข้อตกลงของ OKMD
           </p>
         </div>
-      </SubHeroBanner>
+      </div>
 
-      {/* Breadcrumb - Standard */}
-      <div className="border-b border-zinc-200 bg-white">
-        <div className="container mx-auto px-4 h-16 md:h-20 flex items-center text-sm md:text-base text-gray-600">
-          <Link
-            href="/"
-            className="hover:text-[#74CEE2] cursor-pointer transition"
-          >
-            หน้าหลัก
-          </Link>
-          <span className="mx-2">›</span>
-          <span className="text-[#74CEE2]">สัญญาและข้อตกลง</span>
+      {/* Breadcrumb */}
+      <div className="flex items-center text-sm text-gray-500 px-2 gap-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span>›</span>
+        <span className="text-[#16A7CB] font-medium">สัญญาและข้อตกลง</span>
+      </div>
+
+      {/* Filter Section */}
+      <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-end">
+          <div className="col-span-1 md:col-span-4">
+            <Input
+              label="ค้นหาสัญญา"
+              placeholder="ค้นหาสัญญา..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              icon={<CiSearch className="text-gray-400" size={20} />}
+            />
+          </div>
+
+          <div className="col-span-1 md:col-span-3">
+            <Dropdown
+              label="สถานะ"
+              value={status}
+              onChange={setStatus}
+              placeholder="เลือกสถานะ"
+              options={statusOptions}
+            />
+          </div>
+
+          <div className="col-span-1 md:col-span-3">
+            <Dropdown
+              label="ปีงบประมาณ"
+              value={year}
+              onChange={setYear}
+              placeholder="เลือกปี"
+              options={yearOptions}
+            />
+          </div>
+
+          <div className="col-span-1 md:col-span-2">
+            <Button className="w-full rounded-xl shadow-lg shadow-[#16A7CB]/20 h-[48px] md:h-auto">
+              ค้นหา
+            </Button>
+          </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 lg:gap-12">
-          {/* Filters */}
-          <div className="col-span-1 md:col-span-12">
-            <div className="bg-gray-50 rounded-2xl p-6 md:p-8 mb-8 md:mb-12">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
-                <div className="col-span-1 md:col-span-4">
-                  <Input
-                    label="ค้นหาสัญญา"
-                    placeholder="ค้นหาสัญญา..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    icon={<CiSearch size={22} />}
-                  />
-                </div>
+      {/* Listing Section */}
+      <div className="space-y-6">
+        <h2 className="text-xl md:text-2xl font-bold text-[#1B1D20] px-2 flex items-center gap-2">
+          <span className="w-2 h-6 bg-[#16A7CB] rounded-full block"></span>
+          รายการสัญญา ({contracts.length})
+        </h2>
 
-                <div className="col-span-1 md:col-span-4">
-                  <Dropdown
-                    label="สถานะ"
-                    value={status}
-                    onChange={setStatus}
-                    placeholder="เลือกสถานะ"
-                    options={statusOptions}
-                  />
-                </div>
-
-                <div className="col-span-1 md:col-span-4">
-                  <Dropdown
-                    label="ปี"
-                    value={year}
-                    onChange={setYear}
-                    placeholder="เลือกปี"
-                    options={yearOptions}
-                  />
-                </div>
-              </div>
-
-              <div className="mt-6 flex justify-end">
-                <Button className="w-full md:w-auto px-8">ค้นหา</Button>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {contracts.map((contract) => (
+            <div key={contract.id} className="w-full">
+              <ContractCard {...contract} />
             </div>
-          </div>
-
-          {/* Contract Listings */}
-          <div className="col-span-1 md:col-span-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">
-              สัญญาและข้อตกลง ({contracts.length})
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
-              {contracts.map((contract) => (
-                <div key={contract.id} className="w-full">
-                  <ContractCard {...contract} />
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

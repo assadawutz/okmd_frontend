@@ -114,12 +114,20 @@ html[data-contrast="high"] {
     color: var(--text);
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: var(--text);
     font-weight: 600;
   }
 
-  p, span, li, label {
+  p,
+  span,
+  li,
+  label {
     color: var(--text);
   }
 
@@ -156,13 +164,17 @@ html[data-contrast="high"] {
   display: none;
 }
 .text-shadow {
-  text-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+  text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .text-shadow-soft {
-  text-shadow: 0px 2px 8px rgba(0,0,0,0.15);
+  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .text-shadow-strong {
-  text-shadow: 0px 6px 18px rgba(0,0,0,0.35);
+  text-shadow: 0px 6px 18px rgba(0, 0, 0, 0.35);
 }
+
+/* ------------------------------------------------------------ */
+/*  CONTAINER OVERRIDES REMOVED FOR v4 STANDARD                 */
+/* ------------------------------------------------------------ */

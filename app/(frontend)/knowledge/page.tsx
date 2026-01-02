@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
-import LeftMenu from "@/components/LeftMenu";
+import Link from "next/link";
+import { ContainerPage } from "@/components/shared/ContainerPage";
 import MagazineCard from "@/components/MagazineCard";
 import Pagination from "@/components/Pagination";
 
@@ -31,15 +31,39 @@ export default function KnowledgePage() {
   const [selectedMenu, setSelectedMenu] = useState("magazine");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // DATA_SOURCE matches the 6 magazines shown in the image 
+  // DATA_SOURCE matches the 6 magazines shown in the image
   const DATA_SOURCE: Record<string, MagazineData[]> = {
     magazine: [
-      { title: "The Knowledge vol.39 (AI DEEPFAKE)", img: "/kn-1.png", fileSize: "54 MB" },
-      { title: "The Knowledge vol.38 (INFORMATION OVERLOAD)", img: "/kn-2.png", fileSize: "54 MB" },
-      { title: "The Knowledge vol.37 (GLOBAL BOILING)", img: "/kn-3.png", fileSize: "54 MB" },
-      { title: "The Knowledge vol.36 (AI)", img: "/kn-4.png", fileSize: "54 MB" },
-      { title: "The Knowledge vol.35 (FUTURE VEHICLES)", img: "/kn-5.png", fileSize: "54 MB" },
-      { title: "The Knowledge vol.34 (COST OF READING)", img: "/kn-6.png", fileSize: "54 MB" },
+      {
+        title: "The Knowledge vol.39 (AI DEEPFAKE)",
+        img: "/kn-1.png",
+        fileSize: "54 MB",
+      },
+      {
+        title: "The Knowledge vol.38 (INFORMATION OVERLOAD)",
+        img: "/kn-2.png",
+        fileSize: "54 MB",
+      },
+      {
+        title: "The Knowledge vol.37 (GLOBAL BOILING)",
+        img: "/kn-3.png",
+        fileSize: "54 MB",
+      },
+      {
+        title: "The Knowledge vol.36 (AI)",
+        img: "/kn-4.png",
+        fileSize: "54 MB",
+      },
+      {
+        title: "The Knowledge vol.35 (FUTURE VEHICLES)",
+        img: "/kn-5.png",
+        fileSize: "54 MB",
+      },
+      {
+        title: "The Knowledge vol.34 (COST OF READING)",
+        img: "/kn-6.png",
+        fileSize: "54 MB",
+      },
       { title: "The Knowledge vol.33", img: "/kn-1.png", fileSize: "54 MB" },
       { title: "The Knowledge vol.32", img: "/kn-2.png", fileSize: "54 MB" },
       { title: "The Knowledge vol.31", img: "/kn-3.png", fileSize: "54 MB" },
@@ -85,91 +109,79 @@ export default function KnowledgePage() {
   }, [selectedMenu]);
 
   return (
-    <main className="w-full bg-white pb-20 md:pb-32">
-      {/* BREADCRUMB BAR */}
-      <div className="w-full bg-white border-b border-zinc-200">
-        <div className="container mx-auto px-4 h-16 md:h-20 flex items-center">
-          <Breadcrumb
-            items={[
-              { label: "หน้าหลัก", href: "/" },
-              { label: "ตู้ความรู้" },
-            ]}
-          />
-        </div>
-      </div>
-
-      {/* MAIN CONTENT */}
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        {/* TITLE */}
-        <h1 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-8 md:mb-12">
-          ตู้ <span className="text-[#74CEE2]">ความรู้</span>
-        </h1>
-
-        {/* DESKTOP LAYOUT */}
-        <div className="hidden md:grid md:grid-cols-12 gap-8 lg:gap-12">
-          {/* LEFT SIDEBAR */}
-          <aside className="md:col-span-3">
-            <LeftMenu
-              items={MENU}
-              active={selectedMenu}
-              onSelect={(value) => setSelectedMenu(value)}
-            />
-          </aside>
-
-          {/* RIGHT CONTENT */}
-          <section className="md:col-span-9 space-y-8">
-            <h2 className="text-3xl font-bold leading-snug text-gray-800">
-              {PAGE_TITLE}
-            </h2>
-
-            {/* CARD GRID */}
-            <div className="grid grid-cols-12 gap-6 lg:gap-8">
-              {paginatedData.map((item, index) => (
-                <div key={index} className="col-span-6 lg:col-span-4 h-full">
-                  <MagazineCard title={item.title} img={item.img} fileSize={item.fileSize} />
-                </div>
-              ))}
-            </div>
-
-            {/* PAGINATION */}
-            <div className="flex justify-end pt-8">
-              <Pagination total={totalPages} current={currentPage} onChange={setCurrentPage} />
-            </div>
-          </section>
+    <ContainerPage>
+      <div className="w-full space-y-8">
+        {/* HEADER */}
+        <div className="text-center">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4 text-[#1B1D20]">
+            ตู้ <span className="text-[#16A7CB]">ความรู้</span>
+          </h1>
+          <p className="text-gray-500">
+            คลังความรู้ดิจิทัล สื่อสิ่งพิมพ์ และงานวิจัยจาก OKMD
+          </p>
         </div>
 
-        {/* MOBILE LAYOUT */}
-        <div className="md:hidden">
-          {/* Mobile Category Selector */}
-          <div className="mb-8">
-            <select
-              value={selectedMenu}
-              onChange={(e) => setSelectedMenu(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-[#74CEE2]"
+        {/* BREADCRUMB */}
+        <div className="flex items-center justify-center text-sm text-gray-500">
+          <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+            หน้าหลัก
+          </Link>
+          <span className="mx-2">›</span>
+          <span className="text-[#16A7CB] font-medium">ตู้ความรู้</span>
+        </div>
+
+        {/* HORIZONTAL MENU */}
+        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar justify-start md:justify-center">
+          {MENU.map((item) => (
+            <button
+              key={item.value}
+              onClick={() => setSelectedMenu(item.value)}
+              className={`
+                            whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-bold transition-all
+                            ${
+                              selectedMenu === item.value
+                                ? "bg-[#16A7CB] text-white shadow-md relative z-10"
+                                : "bg-white text-gray-600 border border-gray-200 hover:border-[#16A7CB] hover:text-[#16A7CB]"
+                            }
+                        `}
             >
-              {MENU.map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.label}
-                </option>
-              ))}
-            </select>
-          </div>
+              {item.label}
+            </button>
+          ))}
+        </div>
 
-          <h2 className="text-2xl font-bold leading-snug text-gray-800 mb-6">
+        {/* CONTENT AREA */}
+        <div className="w-full">
+          <h2 className="text-2xl font-bold text-[#1B1D20] mb-6 flex items-center gap-3">
+            <span className="w-1.5 h-8 bg-[#16A7CB] rounded-full"></span>
             {PAGE_TITLE}
           </h2>
 
-          <div className="flex flex-col gap-6">
+          {/* CARD GRID */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {paginatedData.map((item, index) => (
-              <MagazineCard key={index} title={item.title} img={item.img} fileSize={item.fileSize} />
+              <div key={index} className="h-full">
+                <MagazineCard
+                  title={item.title}
+                  img={item.img}
+                  fileSize={item.fileSize}
+                />
+              </div>
             ))}
           </div>
 
-          <div className="flex justify-center pt-8">
-            <Pagination total={totalPages} current={currentPage} onChange={setCurrentPage} />
-          </div>
+          {/* PAGINATION */}
+          {totalPages > 1 && (
+            <div className="flex justify-center pt-8">
+              <Pagination
+                total={totalPages}
+                current={currentPage}
+                onChange={setCurrentPage}
+              />
+            </div>
+          )}
         </div>
       </div>
-    </main>
+    </ContainerPage>
   );
 }

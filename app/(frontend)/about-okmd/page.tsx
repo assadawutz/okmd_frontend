@@ -1,4 +1,5 @@
 import About from "@/components/page/about/About";
+import { ContainerPage } from "@/components/shared/ContainerPage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,4 +1,5 @@
 import Contact from "@/components/page/contact/Contact";
+import { ContainerPage } from "@/components/shared/ContainerPage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <Contact />;
+  return (
+    <ContainerPage>
+      <Contact />
+    </ContainerPage>
+  );
 }

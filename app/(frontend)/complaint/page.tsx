@@ -1,4 +1,5 @@
 import Complaint from "@/components/page/complaint/Complaint";
+import { ContainerPage } from "@/components/shared/ContainerPage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function ComplaintPage() {
-  return <Complaint />;
+  return (
+    <ContainerPage>
+      <Complaint />
+    </ContainerPage>
+  );
 }

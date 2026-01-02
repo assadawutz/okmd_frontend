@@ -28,23 +28,26 @@ function ProcurementCard({
   return (
     <Link
       href={`/procurement/${id}`}
-      className="bg-white rounded-xl shadow-sm p-6 transition-all duration-300 hover:shadow-lg active:scale-95 cursor-pointer border border-gray-100 hover:border-gray-200 group h-full flex flex-col"
+      className="bg-white rounded-xl shadow-sm p-6 transition-all duration-300 hover:shadow-lg active:scale-95 cursor-pointer border border-gray-100 hover:border-[#16A7CB] group h-full flex flex-col"
     >
       <div className="flex flex-col gap-4 flex-grow">
         <div>
           <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-[#16A7CB] transition-colors line-clamp-2">
             {title}
           </h3>
-          <p className="text-gray-600 text-sm">เลขที่โครงการ: {number}</p>
+          <p className="text-gray-500 text-sm flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-[#16A7CB] rounded-full"></span>
+            เลขที่โครงการ: {number}
+          </p>
         </div>
 
         <div className="border-t border-gray-100 pt-4 space-y-2 mt-auto">
           <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span className="font-semibold">วันที่ประกาศ:</span>
+            <span className="font-semibold w-24">วันที่ประกาศ:</span>
             <span>{date}</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span className="font-semibold">วิธีจัดซื้อ:</span>
+            <span className="font-semibold w-24">วิธีจัดซื้อ:</span>
             <span>{method}</span>
           </div>
         </div>
@@ -53,8 +56,8 @@ function ProcurementCard({
           <span
             className={`px-3 py-1 rounded-lg text-sm font-semibold inline-block ${
               status === "open"
-                ? "bg-green-100 text-green-800"
-                : "bg-gray-100 text-gray-600"
+                ? "bg-green-50 text-green-700 border border-green-100"
+                : "bg-gray-50 text-gray-500 border border-gray-100"
             }`}
           >
             {status === "open" ? "กำลังเปิดรับ" : "ปิดรับสมัคร"}
@@ -115,85 +118,87 @@ export default function Procurement() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-white pb-20 md:pb-32">
-      <SubHeroBanner image="/procurement-hero.jpg" height="h-[300px]">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-5xl font-bold">
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/procurement-hero.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
             จัดซื้อ <span className="text-[#74CEE2]">จัดจ้าง</span>
           </h1>
-          <p className="text-lg md:text-xl mt-4 text-white/90">
-            ประกาศจัดซื้อจัดจ้างและราคากลาง
+          <p className="text-lg md:text-xl opacity-90">
+            ประกาศจัดซื้อจัดจ้างและราคากลาง เพื่อความโปร่งใสและตรวจสอบได้
           </p>
-        </div>
-      </SubHeroBanner>
-
-      <div className="border-b border-zinc-200 bg-white">
-        <div className="container mx-auto px-4 h-16 md:h-20 flex items-center text-sm md:text-base text-gray-600">
-          <Link
-            href="/"
-            className="hover:text-[#74CEE2] cursor-pointer transition"
-          >
-            หน้าหลัก
-          </Link>
-          <span className="mx-2">›</span>
-          <span className="text-[#74CEE2]">จัดซื้อจัดจ้าง</span>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 lg:gap-12">
-          {/* Sidebar / Filters */}
-          <div className="col-span-1 md:col-span-12 lg:col-span-3">
-            <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm sticky top-24">
-              <h3 className="font-bold text-lg mb-4 text-gray-800">
-                ค้นหาประกาศ
-              </h3>
-              <div className="space-y-4">
-                <Input
-                  placeholder="พิมพ์คำค้นหา..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  icon={<CiSearch size={20} />}
-                />
-                <Dropdown
-                  label="ปีงบประมาณ"
-                  value={year}
-                  onChange={setYear}
-                  placeholder="เลือกปี"
-                  options={yearOptions}
-                />
-                <Button className="w-full mt-2">ค้นหา</Button>
-              </div>
+      {/* BREADCRUMB */}
+      <div className="flex items-center text-sm text-gray-500 px-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span className="mx-2">›</span>
+        <span className="text-[#16A7CB] font-medium">จัดซื้อจัดจ้าง</span>
+      </div>
 
-              <div className="mt-8 border-t border-gray-100 pt-6">
-                <h3 className="font-bold text-lg mb-4 text-gray-800">
-                  หมวดหมู่
-                </h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="cursor-pointer hover:text-[#16A7CB] transition-colors font-medium text-[#16A7CB]">
-                    ประกาศเชิญชวน
+      {/* CONTENT GRID */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* SIDEBAR BLOCK */}
+        <div className="lg:col-span-1">
+          <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 sticky top-24 space-y-6">
+            <div className="space-y-4">
+              <h3 className="font-bold text-lg text-[#1B1D20]">ค้นหาประกาศ</h3>
+              <Input
+                placeholder="พิมพ์คำค้นหา..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                icon={<CiSearch size={20} />}
+              />
+              <Dropdown
+                label="ปีงบประมาณ"
+                value={year}
+                onChange={setYear}
+                placeholder="เลือกปี"
+                options={yearOptions}
+              />
+              <Button className="w-full rounded-xl">ค้นหา</Button>
+            </div>
+
+            <div className="h-px bg-gray-100 w-full" />
+
+            <div>
+              <h3 className="font-bold text-lg mb-3 text-[#1B1D20]">
+                หมวดหมู่
+              </h3>
+              <ul className="space-y-2">
+                {[
+                  "ประกาศเชิญชวน",
+                  "ประกาศผลผู้ชนะ",
+                  "สรุปผลการจัดซื้อจัดจ้าง",
+                  "ราคากลาง",
+                ].map((item, index) => (
+                  <li key={index}>
+                    <button className="w-full text-left px-4 py-2 rounded-lg text-gray-600 hover:bg-[#E8F6FB] hover:text-[#16A7CB] transition-all text-sm font-medium">
+                      {item}
+                    </button>
                   </li>
-                  <li className="cursor-pointer hover:text-[#16A7CB] transition-colors">
-                    ประกาศผลผู้ชนะ
-                  </li>
-                  <li className="cursor-pointer hover:text-[#16A7CB] transition-colors">
-                    สรุปผลการจัดซื้อจัดจ้าง
-                  </li>
-                  <li className="cursor-pointer hover:text-[#16A7CB] transition-colors">
-                    ราคากลาง
-                  </li>
-                </ul>
-              </div>
+                ))}
+              </ul>
             </div>
           </div>
+        </div>
 
-          {/* Listing */}
-          <div className="col-span-1 md:col-span-12 lg:col-span-9">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">
-                รายการประกาศ ({procurements.length})
-              </h2>
-            </div>
+        {/* LIST BLOCK */}
+        <div className="lg:col-span-3">
+          <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100 min-h-[500px]">
+            <h2 className="text-2xl font-bold text-[#1B1D20] mb-6 flex items-center gap-3">
+              <span className="w-1.5 h-8 bg-[#16A7CB] rounded-full"></span>
+              รายการประกาศ ({procurements.length})
+            </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {procurements.map((item) => (

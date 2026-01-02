@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import React from "react";
-import SubHeroBanner from "@/components/ui/SubHeroBanner";
 import Input from "@/components/ui/Input";
 import Dropdown from "@/components/ui/Dropdown";
 import Button from "@/components/ui/Button";
@@ -174,101 +173,91 @@ export default function Career() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-white pb-20 md:pb-32">
-      {/* Hero Banner */}
-      <SubHeroBanner image="/career-hero.jpg" height="h-[300px]">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-5xl font-bold">
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/career-hero.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
             อาชีพ <span className="text-[#74CEE2]">และโอกาส</span>
           </h1>
-          <p className="text-lg md:text-xl mt-4 text-white/90">
+          <p className="text-lg md:text-xl opacity-90">
             ร่วมเป็นส่วนหนึ่งของทีม OKMD เพื่อสร้างสรรค์สังคมแห่งการเรียนรู้
           </p>
         </div>
-      </SubHeroBanner>
+      </div>
 
-      {/* Breadcrumb */}
-      <div className="border-b border-zinc-200 bg-white">
-        <div className="container mx-auto px-4 h-16 md:h-20 flex items-center text-sm md:text-base text-gray-600">
-          <Link
-            href="/"
-            className="hover:text-[#74CEE2] cursor-pointer transition"
-          >
-            หน้าหลัก
-          </Link>
-          <span className="mx-2">›</span>
-          <span className="text-[#74CEE2]">อาชีพและโอกาส</span>
+      {/* BREADCRUMB */}
+      <div className="flex items-center text-sm text-gray-500 px-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span className="mx-2">›</span>
+        <span className="text-[#16A7CB] font-medium">อาชีพและโอกาส</span>
+      </div>
+
+      {/* FILTERS & SEARCH */}
+      <div className="bg-gray-50 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div>
+            <Input
+              label="ค้นหาตำแหน่งงาน"
+              placeholder="ค้นหา..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              icon={<CiSearch size={22} />}
+            />
+          </div>
+          <div>
+            <Dropdown
+              label="หน่วยงาน"
+              value={department}
+              onChange={setDepartment}
+              placeholder="เลือกหน่วยงาน"
+              options={departmentOptions}
+            />
+          </div>
+          <div>
+            <Dropdown
+              label="สถานที่"
+              value={location}
+              onChange={setLocation}
+              placeholder="เลือกสถานที่"
+              options={locationOptions}
+            />
+          </div>
+          <div>
+            <Dropdown
+              label="ประเภทงาน"
+              value={jobType}
+              onChange={setJobType}
+              placeholder="เลือกประเภทงาน"
+              options={jobTypeOptions}
+            />
+          </div>
+        </div>
+        <div className="mt-4 flex justify-end">
+          <Button className="w-full md:w-auto px-8 py-3 rounded-xl shadow-md">
+            ค้นหาตำแหน่งงาน
+          </Button>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 lg:gap-12">
-          {/* Filters */}
-          <div className="col-span-1 md:col-span-12">
-            <div className="bg-gray-50 rounded-2xl p-6 md:p-8 mb-8 md:mb-12">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
-                <div className="col-span-1 md:col-span-3">
-                  <Input
-                    label="ค้นหาตำแหน่งงาน"
-                    placeholder="ค้นหาตำแหน่งงาน..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    icon={<CiSearch size={22} />}
-                  />
-                </div>
-
-                <div className="col-span-1 md:col-span-3">
-                  <Dropdown
-                    label="หน่วยงาน"
-                    value={department}
-                    onChange={setDepartment}
-                    placeholder="เลือกหน่วยงาน"
-                    options={departmentOptions}
-                  />
-                </div>
-
-                <div className="col-span-1 md:col-span-3">
-                  <Dropdown
-                    label="สถานที่"
-                    value={location}
-                    onChange={setLocation}
-                    placeholder="เลือกสถานที่"
-                    options={locationOptions}
-                  />
-                </div>
-
-                <div className="col-span-1 md:col-span-3">
-                  <Dropdown
-                    label="ประเภทงาน"
-                    value={jobType}
-                    onChange={setJobType}
-                    placeholder="เลือกประเภทงาน"
-                    options={jobTypeOptions}
-                  />
-                </div>
-              </div>
-
-              <div className="mt-6 flex justify-end">
-                <Button className="w-full md:w-auto px-8">ค้นหา</Button>
-              </div>
+      {/* JOB LISTINGS */}
+      <div className="bg-white rounded-3xl p-6 md:p-10 border border-gray-100 shadow-sm">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#1B1D20] mb-6 border-l-4 border-[#16A7CB] pl-4">
+          ตำแหน่งงานที่เปิดรับสมัคร ({jobs.length})
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {jobs.map((job) => (
+            <div key={job.id} className="w-full">
+              <JobCard {...job} />
             </div>
-          </div>
-
-          {/* Job Listings */}
-          <div className="col-span-1 md:col-span-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">
-              ตำแหน่งงานที่เปิดรับสมัคร ({jobs.length})
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
-              {jobs.map((job) => (
-                <div key={job.id} className="w-full">
-                  <JobCard {...job} />
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

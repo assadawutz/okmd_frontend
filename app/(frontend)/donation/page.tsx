@@ -1,4 +1,5 @@
 import Donation from "@/components/page/donation/Donation";
+import { ContainerPage } from "@/components/shared/ContainerPage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function DonationPage() {
-  return <Donation />;
+  return (
+    <ContainerPage>
+      <Donation />
+    </ContainerPage>
+  );
 }

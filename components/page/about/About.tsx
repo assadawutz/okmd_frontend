@@ -1,134 +1,129 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import SubHeroBanner from "@/components/ui/SubHeroBanner";
 
 export default function About() {
   const menuItems = [
-    { label: "ความเป็นมา", active: true },
-    { label: "วิสัยทัศน์ / พันธกิจ", active: false },
-    { label: "โครงสร้างองค์กร", active: false },
-    { label: "คณะกรรมการ", active: false },
-    { label: "ผู้บริหาร", active: false },
-    { label: "รายงานประจำปี", active: false },
+    { label: "ความเป็นมา", value: "history" },
+    { label: "วิสัยทัศน์ / พันธกิจ", value: "vision" },
+    { label: "โครงสร้างองค์กร", value: "structure" },
+    { label: "คณะกรรมการ", value: "board" },
+    { label: "ผู้บริหาร", value: "executives" },
+    { label: "รายงานประจำปี", value: "report" },
   ];
+  const [activeTab, setActiveTab] = useState("history");
 
   return (
-    <div className="w-full min-h-screen bg-white pb-20 md:pb-32">
-      <SubHeroBanner image="/about-hero.jpg" height="h-[300px]">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-5xl font-bold">
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/about-hero.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
             เกี่ยวกับ <span className="text-[#74CEE2]">OKMD</span>
           </h1>
-          <p className="text-lg md:text-xl mt-4 text-white/90">
+          <p className="text-lg md:text-xl opacity-90">
             สำนักงานบริหารและพัฒนาองค์ความรู้ (องค์การมหาชน)
           </p>
         </div>
-      </SubHeroBanner>
-
-      <div className="border-b border-zinc-200 bg-white">
-        <div className="container mx-auto px-4 h-16 md:h-20 flex items-center text-sm md:text-base text-gray-600">
-          <Link
-            href="/"
-            className="hover:text-[#74CEE2] cursor-pointer transition"
-          >
-            หน้าหลัก
-          </Link>
-          <span className="mx-2">›</span>
-          <span className="text-[#74CEE2]">เกี่ยวกับเรา</span>
-        </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          {/* Sidebar Menu */}
-          <div className="col-span-1 md:col-span-12 lg:col-span-3">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden sticky top-24">
-              <div className="bg-[#16A7CB] px-6 py-4">
-                <h3 className="text-white font-bold text-lg">เกี่ยวกับ OKMD</h3>
-              </div>
-              <ul className="divide-y divide-gray-100">
-                {menuItems.map((item, index) => (
-                  <li key={index}>
-                    <a
-                      href="#"
-                      className={`block px-6 py-4 transition-all hover:bg-gray-50 active:scale-[0.98] flex justify-between items-center ${
-                        item.active
-                          ? "text-[#16A7CB] font-bold bg-[#E8F6FB] border-l-4 border-[#16A7CB]"
-                          : "text-gray-600 border-l-4 border-transparent"
-                      }`}
-                    >
-                      {item.label}
-                      {item.active && <span>›</span>}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+      {/* BREADCRUMB */}
+      <div className="flex items-center text-sm text-gray-500 px-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span className="mx-2">›</span>
+        <span className="text-[#16A7CB] font-medium">เกี่ยวกับเรา</span>
+      </div>
+
+      {/* TABS MENU */}
+      <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+        {menuItems.map((item) => (
+          <button
+            key={item.value}
+            onClick={() => setActiveTab(item.value)}
+            className={`
+                 whitespace-nowrap px-6 py-3 rounded-full font-bold transition-all
+                 ${
+                   activeTab === item.value
+                     ? "bg-[#16A7CB] text-white shadow-md"
+                     : "bg-white text-gray-600 border border-gray-100 hover:bg-gray-50"
+                 }
+               `}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+
+      {/* CONTENT BLOCK */}
+      <div className="bg-white rounded-3xl p-6 md:p-10 border border-gray-100 shadow-sm">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#1B1D20] mb-6 border-l-4 border-[#16A7CB] pl-4">
+          ความเป็นมา
+        </h2>
+
+        <div className="prose prose-lg max-w-none text-gray-600">
+          <p className="mb-6 leading-relaxed">
+            รัฐบาลได้จัดตั้ง{" "}
+            <strong className="text-[#1B1D20]">
+              สำนักงานบริหารและพัฒนาองค์ความรู้ (องค์การมหาชน)
+            </strong>{" "}
+            หรือ <strong className="text-[#1B1D20]">สบร. (OKMD)</strong> ขึ้น
+            ตามพระราชกฤษฎีกาจัดตั้งสำนักงานบริหารและพัฒนาองค์ความรู้
+            (องค์การมหาชน) พ.ศ. 2547
+            เพื่อทำหน้าที่ขับเคลื่อนภารกิจในการพัฒนาความคิดสร้างสรรค์
+            และกระตุกต่อมความรู้คนไทย
+          </p>
+
+          <div className="my-8">
+            <div className="w-full aspect-video bg-gray-100 rounded-2xl overflow-hidden relative flex items-center justify-center border border-gray-200">
+              <span className="text-gray-400 font-medium">
+                Video / Image Placeholder
+              </span>
             </div>
           </div>
 
-          {/* Main Content */}
-          <div className="col-span-1 md:col-span-12 lg:col-span-9">
-            <div className="prose prose-lg max-w-none text-gray-600">
-              <h2 className="text-3xl font-bold text-gray-800 mb-6 border-l-4 border-[#16A7CB] pl-4">
-                ความเป็นมา
-              </h2>
-              <p className="mb-6 leading-relaxed">
-                รัฐบาลได้จัดตั้ง{" "}
-                <strong>
-                  สำนักงานบริหารและพัฒนาองค์ความรู้ (องค์การมหาชน)
-                </strong>{" "}
-                หรือ <strong>สบร. (OKMD)</strong> ขึ้น
-                ตามพระราชกฤษฎีกาจัดตั้งสำนักงานบริหารและพัฒนาองค์ความรู้
-                (องค์การมหาชน) พ.ศ. 2547
-                เพื่อทำหน้าที่ขับเคลื่อนภารกิจในการพัฒนาความคิดสร้างสรรค์
-                และกระตุกต่อมความรู้คนไทย
-              </p>
+          <h3 className="text-xl md:text-2xl font-bold text-[#1B1D20] mt-10 mb-4">
+            วัตถุประสงค์
+          </h3>
+          <ul className="space-y-3 list-none pl-0">
+            {[
+              "เพื่อส่งเสริมให้ประชาชนมีโอกาสแสวงหาความรู้ พัฒนาความคิดสร้างสรรค์ และเรียนรู้ตลอดชีวิต",
+              "เพื่อส่งเสริมและสนับสนุนการพัฒนาแหล่งเรียนรู้ในรูปแบบต่างๆ",
+              "เพื่อเป็นศูนย์กลางในการรวบรวมและพัฒนาองค์ความรู้",
+            ].map((text, i) => (
+              <li key={i} className="flex gap-3 items-start">
+                <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[#16A7CB] mt-2.5" />
+                <span>{text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
 
-              <div className="my-8">
-                <div className="w-full h-[400px] bg-gray-200 rounded-2xl overflow-hidden relative">
-                  {/* Placeholder for Video/Image */}
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                    <span className="text-lg font-semibold">
-                      ภาพบรรยากาศองค์กร / VDO แนะนำ
-                    </span>
-                  </div>
-                </div>
-                <p className="text-center text-sm text-gray-500 mt-2">
-                  บรรยากาศสำนักงาน OKMD
-                </p>
-              </div>
-
-              <h3 className="text-2xl font-bold text-gray-800 mt-10 mb-4">
-                วัตถุประสงค์
-              </h3>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>
-                  เพื่อส่งเสริมให้ประชาชนมีโอกาสแสวงหาความรู้
-                  พัฒนาความคิดสร้างสรรค์ และเรียนรู้ตลอดชีวิต
-                </li>
-                <li>
-                  เพื่อส่งเสริมและสนับสนุนการพัฒนาแหล่งเรียนรู้ในรูปแบบต่างๆ
-                </li>
-                <li>เพื่อเป็นศูนย์กลางในการรวบรวมและพัฒนาองค์ความรู้</li>
-              </ul>
-
-              <div className="mt-12 bg-[#F8FAFC] p-8 rounded-2xl border border-gray-100">
-                <h3 className="text-xl font-bold text-[#16A7CB] mb-4">
-                  หน่วยงานภายใน
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-red-500 rounded-full flex-shrink-0"></div>
-                    <span className="font-bold text-gray-700">TK Park</span>
-                  </div>
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-yellow-400 rounded-full flex-shrink-0"></div>
-                    <span className="font-bold text-gray-700">Museum Siam</span>
-                  </div>
-                </div>
-              </div>
+      {/* OKMD FAMILY */}
+      <div className="bg-[#F8FBFD] rounded-3xl p-6 md:p-10 border border-transparent">
+        <h3 className="text-xl font-bold text-[#16A7CB] mb-6 text-center">
+          หน่วยงานภายใน OKMD FAMILY
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="bg-white p-6 rounded-2xl border border-gray-100 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow cursor-default">
+            <div className="w-12 h-12 bg-[#FF4B4B] rounded-full flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">
+              TK
             </div>
+            <span className="font-bold text-gray-700">TK Park</span>
+          </div>
+          <div className="bg-white p-6 rounded-2xl border border-gray-100 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow cursor-default">
+            <div className="w-12 h-12 bg-[#FFD700] rounded-full flex-shrink-0 flex items-center justify-center text-black font-bold text-xs">
+              MS
+            </div>
+            <span className="font-bold text-gray-700">Museum Siam</span>
           </div>
         </div>
       </div>

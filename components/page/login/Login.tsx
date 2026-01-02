@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import SubHeroBanner from "@/components/ui/SubHeroBanner";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 
@@ -18,109 +17,112 @@ export default function Login() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-white">
-      {/* Hero Banner */}
-      <SubHeroBanner image="/bannerabout.png" height="h-[250px]">
-        <div className="container mx-auto px-6 md:px-12">
-          <h1 className="text-4xl md:text-5xl font-bold">
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/bannerabout.png')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
             เข้าสู่ <span className="text-[#74CEE2]">ระบบ</span>
           </h1>
-        </div>
-      </SubHeroBanner>
-
-      {/* Breadcrumb */}
-      <div className="container mx-auto pt-4 sm:pt-6 md:pt-8 mb-4 sm:mb-6 md:mb-8">
-        <div className="grid grid-cols-12">
-          <div className="col-span-12">
-            <div className="text-sm sm:text-base md:text-lg text-gray-500 font-medium">
-              <Link href="/" className="hover:underline">
-                หน้าหลัก
-              </Link>
-              {" > "}
-              <span className="text-[#74CEE2]">เข้าสู่ระบบ</span>
-            </div>
-          </div>
+          <p className="text-lg md:text-xl opacity-90">
+            เข้าสู่ระบบเพื่อใช้งานบริการต่างๆ ของ OKMD
+          </p>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto pb-8 sm:pb-12 md:pb-16">
-        <div className="grid grid-cols-12">
-          <div className="col-span-12 sm:col-span-10 sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4">
-            <div className="bg-white rounded-xl shadow-md p-6 sm:p-7 md:p-8">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-5 md:mb-6">
-                เข้าสู่ระบบ
-              </h2>
+      {/* BREADCRUMB */}
+      <div className="flex items-center text-sm text-gray-500 px-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span className="mx-2">›</span>
+        <span className="text-[#16A7CB] font-medium">เข้าสู่ระบบ</span>
+      </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <Input
-                label="อีเมล"
-                type="email"
-                placeholder="กรอกอีเมลของคุณ"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+      {/* LOGIN CARD */}
+      <div className="flex justify-center">
+        <div className="w-full max-w-lg bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-gray-100">
+          <h2 className="text-2xl font-bold text-[#1B1D20] mb-8 text-center">
+            เข้าสู่ระบบ
+          </h2>
 
-              <Input
-                label="รหัสผ่าน"
-                type="password"
-                placeholder="กรอกรหัสผ่านของคุณ"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <Input
+              label="อีเมล"
+              type="email"
+              placeholder="กรอกอีเมลของคุณ"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-              <div className="flex items-center justify-between">
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-5 h-5 text-[#74CEE2] border-gray-300 rounded focus:ring-[#74CEE2]"
-                  />
-                  <span className="ml-2 text-gray-700">จดจำการเข้าสู่ระบบ</span>
-                </label>
-                <Link
-                  href="/forgot-password"
-                  className="text-[#16A7CB] hover:underline text-sm"
-                >
-                  ลืมรหัสผ่าน?
-                </Link>
-              </div>
+            <Input
+              label="รหัสผ่าน"
+              type="password"
+              placeholder="กรอกรหัสผ่านของคุณ"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
 
-              <Button type="submit" className="w-full">
-                เข้าสู่ระบบ
-              </Button>
-            </form>
-
-            <div className="mt-6 pt-6 border-t border-gray-200">
-              <p className="text-center text-gray-600 mb-4">
-                หรือเข้าสู่ระบบด้วย
-              </p>
-              <Button variant="outline" className="w-full mb-3">
-                เข้าสู่ระบบด้วย ThaiID
-              </Button>
+            <div className="flex items-center justify-between">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-5 h-5 text-[#16A7CB] border-gray-300 rounded focus:ring-[#16A7CB]"
+                />
+                <span className="ml-2 text-gray-700 text-sm">
+                  จดจำการเข้าสู่ระบบ
+                </span>
+              </label>
+              <Link
+                href="/forgot-password"
+                className="text-[#16A7CB] hover:underline text-sm font-medium"
+              >
+                ลืมรหัสผ่าน?
+              </Link>
             </div>
 
-            <div className="mt-6 text-center">
-              <p className="text-gray-600">
-                ยังไม่มีบัญชี?{" "}
-                <Link
-                  href="/register"
-                  className="text-[#16A7CB] hover:underline font-semibold"
-                >
-                  สมัครสมาชิก
-                </Link>
-              </p>
-            </div>
-            </div>
+            <Button
+              type="submit"
+              className="w-full py-3 rounded-xl shadow-lg shadow-[#16A7CB]/20"
+            >
+              เข้าสู่ระบบ
+            </Button>
+          </form>
+
+          <div className="mt-8 pt-6 border-t border-gray-100">
+            <p className="text-center text-gray-500 mb-4 text-sm">
+              หรือเข้าสู่ระบบด้วย
+            </p>
+            <Button variant="outline" className="w-full mb-3 rounded-xl">
+              เข้าสู่ระบบด้วย ThaiID
+            </Button>
           </div>
 
-          <div className="col-span-12 sm:col-span-10 sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4 mt-4 sm:mt-6 text-center">
+          <div className="mt-6 text-center">
+            <p className="text-gray-600 text-sm">
+              ยังไม่มีบัญชี?{" "}
+              <Link
+                href="/register"
+                className="text-[#16A7CB] hover:underline font-bold"
+              >
+                สมัครสมาชิก
+              </Link>
+            </p>
+          </div>
+
+          <div className="mt-6 text-center">
             <Link
               href="/pdpa"
-              className="text-sm text-gray-500 hover:text-[#16A7CB]"
+              className="text-xs text-gray-400 hover:text-[#16A7CB] transition-colors"
             >
               นโยบายความเป็นส่วนตัว
             </Link>
@@ -130,4 +132,3 @@ export default function Login() {
     </div>
   );
 }
-

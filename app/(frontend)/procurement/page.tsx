@@ -1,4 +1,5 @@
 import Procurement from "@/components/page/procurement/Procurement";
+import { ContainerPage } from "@/components/shared/ContainerPage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function ProcurementPage() {
-  return <Procurement />;
+  return (
+    <ContainerPage>
+      <Procurement />
+    </ContainerPage>
+  );
 }

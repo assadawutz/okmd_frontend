@@ -1,9 +1,9 @@
-// app/NewsPage.tsx
 "use client";
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ContainerPage } from "@/components/shared/ContainerPage";
 
 const CATE = [
   { label: "ข่าวประชาสัมพันธ์", value: "announce" },
@@ -69,132 +69,97 @@ export default function NewsPage() {
     [active]
   );
 
-  const titleText = active === "announce" ? "ข่าวประชาสัมพันธ์" : "ข่าวองค์กร";
-
   return (
-    <main className="w-full bg-white pb-20 md:pb-32">
-      {/* BREADCRUMB - AI-LOCK COMPLIANT */}
-      <div className="border-b border-zinc-200">
-        <div className="container mx-auto px-4 h-16 md:h-20 flex items-center text-sm md:text-base text-gray-600">
-          <Link
-            href="/"
-            className="hover:text-[#74CEE2] cursor-pointer transition"
-          >
+    <ContainerPage>
+      <div className="w-full space-y-8">
+        {/* HEADER */}
+        <div className="text-center">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4 text-[#1B1D20]">
+            News & <span className="text-[#16A7CB]">Update</span>
+          </h1>
+          <p className="text-gray-500">
+            ติดตามข่าวสารและการจ้างงานล่าสุดจาก OKMD
+          </p>
+        </div>
+
+        {/* BREADCRUMB */}
+        <div className="flex items-center justify-center text-sm text-gray-500">
+          <Link href="/" className="hover:text-[#16A7CB] transition-colors">
             หน้าหลัก
           </Link>
           <span className="mx-2">›</span>
-          <span className="text-[#74CEE2]">ข่าวสาร</span>
+          <span className="text-[#16A7CB] font-medium">ข่าวสาร</span>
         </div>
-      </div>
 
-      {/* BODY CONTENT */}
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
-          {/* LEFT SIDEBAR - 3 Columns on Desktop */}
-          <aside className="col-span-1 md:col-span-3">
-            <h1 className="text-3xl md:text-4xl font-bold mb-6 md:mb-10 text-[#1B1D20]">
-              News
-            </h1>
+        {/* CATEGORY TABS */}
+        <div className="flex justify-center gap-3 flex-wrap">
+          {CATE.map((c) => (
+            <button
+              key={c.value}
+              onClick={() => setActive(c.value)}
+              className={`
+                            px-6 py-2.5 rounded-full text-sm font-bold transition-all
+                            ${
+                              active === c.value
+                                ? "bg-[#16A7CB] text-white shadow-md"
+                                : "bg-white text-gray-600 border border-gray-200 hover:border-[#16A7CB] hover:text-[#16A7CB]"
+                            }
+                        `}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
 
-            {/* Desktop Menu */}
-            <div className="hidden md:flex flex-col gap-1">
-              {CATE.map((c) => {
-                const isActive = active === c.value;
-                return (
-                  <button
-                    key={c.value}
-                    onClick={() => setActive(c.value)}
-                    className={`
-                      text-left px-4 py-3 rounded-lg text-lg font-semibold cursor-pointer transition
-                      ${
-                        isActive
-                          ? "bg-[#E8F6FB] text-[#16A7CB]"
-                          : "text-gray-700 hover:text-[#16A7CB]"
-                      }
-                    `}
-                  >
-                    {c.label}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Mobile Dropdown */}
-            <div className="md:hidden mb-6">
-              <select
-                value={active}
-                onChange={(e) => setActive(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-[#74CEE2]"
-              >
-                {CATE.map((c) => (
-                  <option key={c.value} value={c.value}>
-                    {c.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </aside>
-
-          {/* RIGHT CONTENT - 9 Columns on Desktop */}
-          <section className="col-span-1 md:col-span-9">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#1B1D20] mb-8 md:mb-10">
-              {titleText}
-            </h2>
-
-            {/* NEWS GRID - grid-cols-12 nested */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-              {filtered.map((n) => (
-                <Link
-                  key={n.id}
-                  href={`/news/${n.id}`}
-                  className="col-span-1 md:col-span-6 group bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer"
-                >
-                  <div className="w-full h-[220px] overflow-hidden relative">
-                    <Image
-                      src={n.img}
-                      alt={n.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="px-6 py-5">
-                    <p className="text-sm text-gray-500 mb-2">{n.date}</p>
-                    <h3 className="text-lg font-bold text-[#1B1D20] leading-snug line-clamp-2 mb-3 group-hover:text-[#16A7CB] transition-colors">
-                      {n.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 mb-4">
-                      {n.desc}
-                    </p>
-                    <span className="inline-flex items-center gap-1 text-sm text-[#16A7CB] font-semibold group-hover:underline">
-                      อ่านเพิ่มเติม ↗
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            {/* PAGINATION */}
-            <div className="mt-12 md:mt-16 flex justify-center">
-              <div className="flex items-center gap-2">
-                <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#74CEE2] text-white font-semibold hover:bg-[#5FC4D8] transition shadow-md">
-                  1
-                </button>
-                <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
-                  2
-                </button>
-                <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
-                  3
-                </button>
-                <span className="px-2 text-gray-400">...</span>
-                <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
-                  &gt;
-                </button>
+        {/* NEWS GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {filtered.map((n) => (
+            <Link
+              key={n.id}
+              href={`/news/${n.id}`}
+              className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col md:flex-row h-full md:h-[200px]"
+            >
+              <div className="w-full md:w-[200px] h-[200px] md:h-full relative flex-shrink-0">
+                <Image
+                  src={n.img}
+                  alt={n.title}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
               </div>
-            </div>
-          </section>
+              <div className="p-5 flex flex-col justify-center flex-1">
+                <span className="text-xs text-[#16A7CB] font-bold mb-2 uppercase">
+                  {n.category}
+                </span>
+                <h3 className="text-lg font-bold text-[#1B1D20] leading-snug line-clamp-2 mb-2 group-hover:text-[#16A7CB] transition-colors">
+                  {n.title}
+                </h3>
+                <p className="text-sm text-gray-500 line-clamp-2 mb-3">
+                  {n.desc}
+                </p>
+                <div className="mt-auto flex items-center justify-between">
+                  <span className="text-xs text-gray-400">{n.date}</span>
+                  <span className="text-xs font-bold text-[#16A7CB] group-hover:underline">
+                    อ่านต่อ ↗
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* PAGINATION */}
+        <div className="flex justify-center gap-2 mt-8">
+          {[1, 2, 3].map((page) => (
+            <button
+              key={page}
+              className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-[#16A7CB] hover:text-[#16A7CB] text-gray-500 transition-all font-bold text-sm"
+            >
+              {page}
+            </button>
+          ))}
         </div>
       </div>
-    </main>
+    </ContainerPage>
   );
 }
