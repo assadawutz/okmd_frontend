@@ -20,7 +20,7 @@ export default function Header() {
       const c = localStorage.getItem("contrast") || "normal";
       document.documentElement.setAttribute("data-font", f);
       document.documentElement.setAttribute("data-contrast", c);
-    } catch { }
+    } catch {}
   }, []);
 
   /* Set header height variable */
@@ -50,8 +50,7 @@ export default function Header() {
         ref={headerRef}
         className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#ECECED] shadow-sm"
       >
-        <div className="container mx-auto flex items-center justify-between py-4">
-
+        <div className="container mx-auto px-4 flex items-center justify-between py-4">
           {/* ---------------- LOGO ---------------- */}
           <Link href="/" aria-label="OKMD Home" className="flex">
             <Image
@@ -113,18 +112,10 @@ function MegaMenu({ active }: { active: string | null }) {
       "คณุรองการจัดจ้าง สบธ.",
       "คู่มือ / แนวทางการปฏิบัติงาน",
       "การเปิดเผยข้อมูลสาธารณะ",
-      "คู้มริดีมนุศีสทธิอิเล็กทรอนิกส์"
+      "คู้มริดีมนุศีสทธิอิเล็กทรอนิกส์",
     ],
-    "ข่าวประชาสัมพันธ์": [
-      "ข่าว OKMD",
-      "OKMD Knowledge Portal",
-      "OKMD Magazine"
-    ],
-    "บริการความรู้": [
-      "จัดซื้อจัดจ้าง",
-      "สมัครงาน",
-      "ฝึกงาน"
-    ]
+    ข่าวประชาสัมพันธ์: ["ข่าว OKMD", "OKMD Knowledge Portal", "OKMD Magazine"],
+    บริการความรู้: ["จัดซื้อจัดจ้าง", "สมัครงาน", "ฝึกงาน"],
   };
 
   const items = MENU_CONTENT[active] || [];
@@ -270,53 +261,53 @@ function MobileMenu({
       label: "รู้จัก OKMD",
       items: [
         "เกี่ยวกับองค์กร",
-        "นโยบายการดำเนินงาน", 
+        "นโยบายการดำเนินงาน",
         "แผนการดำเนินงาน",
-        "โครงสร้าง OKMD"
-      ]
+        "โครงสร้าง OKMD",
+      ],
     },
     {
       label: "นโยบายการดำเนินงาน",
-      hasDropdown: true
+      hasDropdown: true,
     },
     {
       label: "แผนการดำเนินงาน",
-      hasDropdown: true
+      hasDropdown: true,
     },
     {
-      label: "โครงสร้าง OKMD"
+      label: "โครงสร้าง OKMD",
     },
     {
       label: "คณะกรรมการและคู่มือบริหาร",
-      hasDropdown: true
+      hasDropdown: true,
     },
     {
       label: "การรองการจัดจ้าง",
-      hasDropdown: true
+      hasDropdown: true,
     },
     {
       label: "การกำกับดูแลกิจการ",
-      hasDropdown: true
+      hasDropdown: true,
     },
     {
       label: "รายงาน",
-      hasDropdown: true
+      hasDropdown: true,
     },
     {
-      label: "กฎ ระเบียบ ข้อบังคับ"
+      label: "กฎ ระเบียบ ข้อบังคับ",
     },
     {
-      label: "ศูนย์ข้อมูลข่าวสารอิเล็กทรอนิกส์ของ สบธ."
+      label: "ศูนย์ข้อมูลข่าวสารอิเล็กทรอนิกส์ของ สบธ.",
     },
     {
-      label: "คู่มือ / แนวทางการปฏิบัติงาน"
+      label: "คู่มือ / แนวทางการปฏิบัติงาน",
     },
     {
-      label: "การเปิดเผยข้อมูลสาธารณะ"
+      label: "การเปิดเผยข้อมูลสาธารณะ",
     },
     {
-      label: "คู้มริดีมนุศีสทธิอิเล็กทรอนิกส์"
-    }
+      label: "คู้มริดีมนุศีสทธิอิเล็กทรอนิกส์",
+    },
   ];
 
   return (
@@ -333,7 +324,9 @@ function MobileMenu({
         {/* Header */}
         <div className="sticky top-0 bg-white z-10 border-b border-gray-200 p-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-[#1B1D20]">เกี่ยวกับ <span className="text-[#16A7CB]">OKMD</span></h2>
+            <h2 className="text-xl font-bold text-[#1B1D20]">
+              เกี่ยวกับ <span className="text-[#16A7CB]">OKMD</span>
+            </h2>
             <button onClick={onClose} className="p-2">
               <Image src="/close.png" width={24} height={24} alt="close" />
             </button>
@@ -356,7 +349,11 @@ function MobileMenu({
               <li key={idx}>
                 {menu.hasDropdown ? (
                   <button
-                    onClick={() => setExpandedMenu(expandedMenu === menu.label ? null : menu.label)}
+                    onClick={() =>
+                      setExpandedMenu(
+                        expandedMenu === menu.label ? null : menu.label
+                      )
+                    }
                     className="flex justify-between items-center w-full py-4 text-left"
                   >
                     {menu.label}
@@ -365,11 +362,16 @@ function MobileMenu({
                       width={16}
                       height={16}
                       alt=""
-                      className={`transition-transform ${expandedMenu === menu.label ? "rotate-180" : ""}`}
+                      className={`transition-transform ${
+                        expandedMenu === menu.label ? "rotate-180" : ""
+                      }`}
                     />
                   </button>
                 ) : (
-                  <a href="#" className="flex justify-between items-center py-4">
+                  <a
+                    href="#"
+                    className="flex justify-between items-center py-4"
+                  >
                     {menu.label}
                   </a>
                 )}
@@ -382,13 +384,7 @@ function MobileMenu({
   );
 }
 
-function MobileItem({
-  label,
-  href,
-}: {
-  label: string;
-  href?: string;
-}) {
+function MobileItem({ label, href }: { label: string; href?: string }) {
   if (href)
     return (
       <Link
@@ -424,13 +420,10 @@ function RightTools({ onOpenMenu }: { onOpenMenu: () => void }) {
 
   return (
     <div className="flex items-center  lg:items-end gap-4 ml-4">
-
       {/* DESKTOP TOOLBAR */}
       <div className="hidden lg:flex flex-col items-end">
-
         {/* ROW 1 */}
         <div className="flex items-center gap-7 mb-2">
-
           {/* FONT SIZE */}
           <div className="flex items-center gap-2">
             <button
@@ -480,12 +473,12 @@ function RightTools({ onOpenMenu }: { onOpenMenu: () => void }) {
 
         {/* ROW 2 — DONATE */}
         <Link href="/donation">
-        <button
-          aria-label="Donate"
-          className="bg-[#74CEE2] text-white rounded-xl w-[118px] h-11 text-[17px] cursor-pointer font-semibold hover:bg-[#5FC4D8] active:scale-95 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2"
-        >
-          บริจาค
-        </button>
+          <button
+            aria-label="Donate"
+            className="bg-[#74CEE2] text-white rounded-xl w-[118px] h-11 text-[17px] cursor-pointer font-semibold hover:bg-[#5FC4D8] active:scale-95 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2"
+          >
+            บริจาค
+          </button>
         </Link>
       </div>
 

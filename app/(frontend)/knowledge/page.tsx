@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumb";
 import LeftMenu from "@/components/LeftMenu";
 import MagazineCard from "@/components/MagazineCard";
@@ -86,10 +85,10 @@ export default function KnowledgePage() {
   }, [selectedMenu]);
 
   return (
-    <main className="w-full bg-white pb-8 sm:pb-12 md:pb-16">
+    <main className="w-full bg-white pb-20 md:pb-32">
       {/* BREADCRUMB BAR */}
-      <div className="w-full bg-white">
-        <div className="container mx-auto px-4 md:px-8 h-16 sm:h-20 md:h-[84px] flex items-center">
+      <div className="w-full bg-white border-b border-zinc-200">
+        <div className="container mx-auto px-4 h-16 md:h-20 flex items-center">
           <Breadcrumb
             items={[
               { label: "หน้าหลัก", href: "/" },
@@ -99,16 +98,16 @@ export default function KnowledgePage() {
         </div>
       </div>
 
-      {/* MAIN PAGE CONTAINER - AI-LOCK COMPLIANT */}
-      <div className="container mx-auto px-4 md:px-8">
+      {/* MAIN CONTENT */}
+      <div className="container mx-auto px-4 py-12 md:py-16">
         {/* TITLE */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-4 sm:mb-5 md:mb-6">
+        <h1 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-8 md:mb-12">
           ตู้ <span className="text-[#74CEE2]">ความรู้</span>
         </h1>
 
-        {/* DESKTOP: 12-col grid with sidebar (3) + content (9) */}
+        {/* DESKTOP LAYOUT */}
         <div className="hidden md:grid md:grid-cols-12 gap-8 lg:gap-12">
-          {/* LEFT SIDEBAR - Desktop only */}
+          {/* LEFT SIDEBAR */}
           <aside className="md:col-span-3">
             <LeftMenu
               items={MENU}
@@ -118,38 +117,35 @@ export default function KnowledgePage() {
           </aside>
 
           {/* RIGHT CONTENT */}
-          <section className="md:col-span-9 space-y-6 md:space-y-8 lg:space-y-10">
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-snug text-gray-800">
+          <section className="md:col-span-9 space-y-8">
+            <h2 className="text-3xl font-bold leading-snug text-gray-800">
               {PAGE_TITLE}
             </h2>
 
-            {/* CARD GRID: 2 columns (6+6) */}
+            {/* CARD GRID */}
             <div className="grid grid-cols-12 gap-6 lg:gap-8">
-              {paginatedData.map((item) => (
-                <div key={item.title} className="col-span-6 h-full">
+              {paginatedData.map((item, index) => (
+                <div key={index} className="col-span-6 lg:col-span-4 h-full">
                   <MagazineCard title={item.title} img={item.img} fileSize={item.fileSize} />
                 </div>
               ))}
             </div>
 
-            {/* DIVIDER */}
-            <div className="w-full border-t border-gray-200 mt-8"></div>
-
             {/* PAGINATION */}
-            <div className="flex justify-end pt-6 pb-8">
-              <Pagination total={totalPages} current={currentPage} />
+            <div className="flex justify-end pt-8">
+              <Pagination total={totalPages} current={currentPage} onChange={setCurrentPage} />
             </div>
           </section>
         </div>
 
-        {/* MOBILE: Stacked layout - NO SIDEBAR */}
+        {/* MOBILE LAYOUT */}
         <div className="md:hidden">
           {/* Mobile Category Selector */}
-          <div className="mb-6">
+          <div className="mb-8">
             <select
               value={selectedMenu}
               onChange={(e) => setSelectedMenu(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base font-semibold bg-white"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-[#74CEE2]"
             >
               {MENU.map((item) => (
                 <option key={item.value} value={item.value}>
@@ -159,46 +155,18 @@ export default function KnowledgePage() {
             </select>
           </div>
 
-          <h2 className="text-xl font-bold leading-snug text-gray-800 mb-6">
+          <h2 className="text-2xl font-bold leading-snug text-gray-800 mb-6">
             {PAGE_TITLE}
           </h2>
 
-          {/* MOBILE: Single column cards */}
           <div className="flex flex-col gap-6">
-            {paginatedData.map((item) => (
-              <MagazineCard key={item.title} title={item.title} img={item.img} fileSize={item.fileSize} />
+            {paginatedData.map((item, index) => (
+              <MagazineCard key={index} title={item.title} img={item.img} fileSize={item.fileSize} />
             ))}
           </div>
 
-<<<<<<< HEAD
-                {/* CARD GRID */}
-                <div className="grid grid-cols-12 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-                  {paginatedData.map((item, index) => (
-                    <div key={index} className="col-span-12 sm:col-span-6 lg:col-span-4 h-full">
-                      <MagazineCard 
-                        title={item.title} 
-                        img={item.img} 
-                        fileSize={item.fileSize} 
-                      />
-                    </div>
-                  ))}
-                </div>
-
-                {/* DIVIDER */}
-                <div className="w-full border-t border-black/10 mt-6 sm:mt-8 md:mt-10"></div>
-
-                {/* PAGINATION */}
-                <div className="flex justify-center md:justify-end pt-4 sm:pt-5 md:pt-6 pb-4 sm:pb-6 md:pb-8">
-                  <Pagination total={totalPages} current={currentPage} />
-                </div>
-
-              </section>
-            </div>
-=======
-          {/* PAGINATION */}
-          <div className="flex justify-center pt-8 pb-6">
-            <Pagination total={totalPages} current={currentPage} />
->>>>>>> ee32eab149ccab6503beca1a3e6544424290e66f
+          <div className="flex justify-center pt-8">
+            <Pagination total={totalPages} current={currentPage} onChange={setCurrentPage} />
           </div>
         </div>
       </div>

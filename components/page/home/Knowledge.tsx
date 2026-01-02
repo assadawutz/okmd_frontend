@@ -23,9 +23,10 @@ function LeftMenu({ items, active, onSelect }: LeftMenuProps) {
           onClick={() => onSelect(item.value)}
           className={`
             text-left px-4 py-3 lg:px-5 lg:py-3.5 rounded-xl text-base lg:text-lg font-semibold transition-all w-full cursor-pointer
-            ${active === item.value
-              ? "bg-[#E8F6FB] text-[#16A7CB] shadow-sm"
-              : "text-gray-700 hover:bg-gray-50 hover:text-[#16A7CB]"
+            ${
+              active === item.value
+                ? "bg-[#E8F6FB] text-[#16A7CB] shadow-sm"
+                : "text-gray-700 hover:bg-gray-50 hover:text-[#16A7CB]"
             }
           `}
         >
@@ -59,13 +60,15 @@ function MagazineCard({ title, img, fileSize }: MagazineCardProps) {
           {title}
         </h3>
         <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-100 gap-2">
-          <span className="text-xs lg:text-sm text-gray-500 line-clamp-1 flex-1">{fileSize}</span>
+          <span className="text-xs lg:text-sm text-gray-500 line-clamp-1 flex-1">
+            {fileSize}
+          </span>
           <span className="text-xs lg:text-sm text-[#16A7CB] font-semibold group-hover:underline whitespace-nowrap">
             อ่านเพิ่มเติม ↗
           </span>
         </div>
       </div>
-    </button>
+    </div>
   );
 }
 
@@ -80,12 +83,13 @@ function Pagination({ total, current, onChange }: PaginationProps) {
     const p: (number | string)[] = [];
     const start = Math.max(1, current - pageRange);
     const end = Math.min(total, current + pageRange);
-    if (start > 1) p.push(1, '...');
+    if (start > 1) p.push(1, "...");
     for (let i = start; i <= end; i++) p.push(i);
-    if (end < total) p.push('...', total);
+    if (end < total) p.push("...", total);
     return p;
   }, [total, current]);
-  const buttonClass = "w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2";
+  const buttonClass =
+    "w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2";
   const activeClass = "bg-[#74CEE2] text-white shadow-md";
   const normalClass = "bg-gray-100 text-gray-700 hover:bg-gray-200";
   const disabledClass = "bg-gray-50 text-gray-400 cursor-not-allowed";
@@ -93,7 +97,9 @@ function Pagination({ total, current, onChange }: PaginationProps) {
     <div className="flex space-x-2 items-center">
       <button
         disabled={current === 1}
-        className={`${buttonClass} ${current === 1 ? disabledClass : normalClass}`}
+        className={`${buttonClass} ${
+          current === 1 ? disabledClass : normalClass
+        }`}
         onClick={() => onChange(Math.max(1, current - 1))}
         aria-label="Previous page"
       >
@@ -101,11 +107,15 @@ function Pagination({ total, current, onChange }: PaginationProps) {
       </button>
       {pages.map((p, index) => (
         <React.Fragment key={index}>
-          {p === '...' ? (
-            <span className="w-10 h-10 flex items-center justify-center text-gray-500">...</span>
+          {p === "..." ? (
+            <span className="w-10 h-10 flex items-center justify-center text-gray-500">
+              ...
+            </span>
           ) : (
             <button
-              className={`${buttonClass} ${p === current ? activeClass : normalClass}`}
+              className={`${buttonClass} ${
+                p === current ? activeClass : normalClass
+              }`}
               onClick={() => onChange(p as number)}
               aria-label={`Go to page ${p}`}
             >
@@ -116,7 +126,9 @@ function Pagination({ total, current, onChange }: PaginationProps) {
       ))}
       <button
         disabled={current === total}
-        className={`${buttonClass} ${current === total ? disabledClass : normalClass}`}
+        className={`${buttonClass} ${
+          current === total ? disabledClass : normalClass
+        }`}
         onClick={() => onChange(Math.min(total, current + 1))}
         aria-label="Next page"
       >
@@ -141,18 +153,66 @@ export default function KnowledgeShelfSection() {
 
   const DATA_SOURCE: Record<string, MagazineCardProps[]> = {
     magazine: [
-      { title: "The Knowledge vol.39 (AI DEEPFAKE)", img: "/kn-1.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.38 (INFORMATION OVERLOAD)", img: "/kn-2.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.37 (GLOBAL BOILING)", img: "/kn-3.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.36 (AI)", img: "/kn-4.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.35 (FUTURE VEHICLES)", img: "/kn-5.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.34 (COST OF READING)", img: "/kn-6.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.33", img: "/kn-1.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.32", img: "/kn-2.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.31", img: "/kn-3.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.30", img: "/kn-4.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.29", img: "/kn-5.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.28", img: "/kn-6.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
+      {
+        title: "The Knowledge vol.39 (AI DEEPFAKE)",
+        img: "/kn-1.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
+      {
+        title: "The Knowledge vol.38 (INFORMATION OVERLOAD)",
+        img: "/kn-2.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
+      {
+        title: "The Knowledge vol.37 (GLOBAL BOILING)",
+        img: "/kn-3.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
+      {
+        title: "The Knowledge vol.36 (AI)",
+        img: "/kn-4.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
+      {
+        title: "The Knowledge vol.35 (FUTURE VEHICLES)",
+        img: "/kn-5.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
+      {
+        title: "The Knowledge vol.34 (COST OF READING)",
+        img: "/kn-6.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
+      {
+        title: "The Knowledge vol.33",
+        img: "/kn-1.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
+      {
+        title: "The Knowledge vol.32",
+        img: "/kn-2.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
+      {
+        title: "The Knowledge vol.31",
+        img: "/kn-3.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
+      {
+        title: "The Knowledge vol.30",
+        img: "/kn-4.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
+      {
+        title: "The Knowledge vol.29",
+        img: "/kn-5.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
+      {
+        title: "The Knowledge vol.28",
+        img: "/kn-6.png",
+        fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB",
+      },
     ],
     recommend: [
       { title: "แนะนำหนังสือดี 1", img: "/kn-1.png", fileSize: "1,024 KB" },
@@ -190,7 +250,7 @@ export default function KnowledgeShelfSection() {
   }, [selectedMenu]);
 
   return (
-    <section className="w-full bg-white py-12 md:py-16 lg:py-20">
+    <section className="w-full bg-white py-16 md:py-20">
       <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-8 md:mb-10 lg:mb-12">
           ตู้ <span className="text-[#74CEE2]">ความรู้</span>
@@ -216,7 +276,11 @@ export default function KnowledgeShelfSection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
               {paginatedData.map((item) => (
                 <div key={item.title} className="col-span-1 h-full">
-                  <MagazineCard title={item.title} img={item.img} fileSize={item.fileSize} />
+                  <MagazineCard
+                    title={item.title}
+                    img={item.img}
+                    fileSize={item.fileSize}
+                  />
                 </div>
               ))}
             </div>
@@ -226,9 +290,12 @@ export default function KnowledgeShelfSection() {
 
             {/* PAGINATION */}
             <div className="flex justify-center md:justify-end pt-2 md:pt-4 pb-2">
-              <Pagination total={totalPages} current={currentPage} />
+              <Pagination
+                total={totalPages}
+                current={currentPage}
+                onChange={setCurrentPage}
+              />
             </div>
-
           </section>
         </div>
       </div>

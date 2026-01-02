@@ -1,12 +1,11 @@
-import Donation from "@/components/page/donation/donation";
+import Donation from "@/components/page/donation/Donation";
+import { Metadata } from "next";
 
-
-const page = () => {
-  return (
-    <div>
-      <Donation/>
-    </div>
-  );
+export const metadata: Metadata = {
+  title: "ร่วมบริจาค | OKMD",
+  description: "ร่วมสนับสนุนการเรียนรู้กับ OKMD ใบเสร็จลดหย่อนภาษีได้ 2 เท่า",
 };
 
-export default page;
+export default function DonationPage() {
+  return <Donation />;
+}

@@ -2,23 +2,46 @@
 
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
-import { getHighlights, type HighlightItem } from "@/lib/services/highlight.service";
+import {
+  getHighlights,
+  type HighlightItem,
+} from "@/lib/services/highlight.service";
 
 export default function HighlightSection() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [index, setIndex] = useState(0);
   const [highlights, setHighlights] = useState<HighlightItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch highlights from service layer
-    getHighlights().then((data) => {
-      setHighlights(data);
-    });
+    // Fetch highlights from service layer with error handling
+    const fetchHighlights = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const data = await getHighlights();
+
+        if (!data || data.length === 0) {
+          setError("ไม่พบข้อมูล Highlight");
+        } else {
+          setHighlights(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch highlights:", err);
+        setError("เกิดข้อผิดพลาดในการโหลดข้อมูล");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchHighlights();
   }, []);
 
   /* AUTO SLIDE */
   useEffect(() => {
-    if (highlights.length === 0) return;
+    if (highlights.length === 0 || isLoading) return;
+
     const timer = setInterval(() => {
       if (!ref.current) return;
       const next = (index + 1) % highlights.length;
@@ -28,11 +51,12 @@ export default function HighlightSection() {
         behavior: "smooth",
       });
     }, 3800);
+
     return () => clearInterval(timer);
-  }, [index, highlights.length]);
+  }, [index, highlights.length, isLoading]);
 
   return (
-    <section className="bg-[#DFF1F9] w-full py-12 md:py-16 lg:py-20">
+    <section className="bg-[#DFF1F9] w-full py-16 md:py-20">
       {/* HEADER */}
       <div className="container mx-auto text-center mb-10 md:mb-14">
         <h2 className="font-semibold text-okmd-dark leading-tight text-2xl sm:text-3xl lg:text-4xl">
@@ -43,14 +67,45 @@ export default function HighlightSection() {
         </p>
       </div>
 
+      {/* LOADING STATE */}
+      {isLoading && (
+        <div className="container mx-auto">
+          <div className="flex items-center justify-center py-20">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-12 h-12 border-4 border-[#74CEE2] border-t-transparent rounded-full animate-spin"></div>
+              <p className="text-[#16A7CB] text-lg">กำลังโหลดข้อมูล...</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ERROR STATE */}
+      {error && !isLoading && (
+        <div className="container mx-auto">
+          <div className="flex items-center justify-center py-20">
+            <div className="bg-white rounded-2xl p-8 shadow-lg max-w-md text-center">
+              <div className="text-red-500 text-5xl mb-4">⚠️</div>
+              <h3 className="text-xl font-semibold text-[#1B1D20] mb-2">
+                เกิดข้อผิดพลาด
+              </h3>
+              <p className="text-gray-600">{error}</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="mt-6 px-6 py-2.5 bg-[#74CEE2] text-white rounded-xl hover:bg-[#5FC4D8] transition-colors"
+              >
+                โหลดใหม่อีกครั้ง
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* DESKTOP */}
       <div className="hidden md:block">
         <div className="container mx-auto">
-
           {/* ROW 1 */}
           {highlights.length >= 3 && (
             <div className="grid grid-cols-12 gap-5 md:gap-6 lg:gap-8">
-
               {/* BOX 1 */}
               <div className="col-span-4 rounded-2xl h-[320px] lg:h-[340px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer">
                 <Image
@@ -65,9 +120,14 @@ export default function HighlightSection() {
                     {highlights[0].title}
                   </h3>
                   {highlights[0].desc && (
-                    <p className="opacity-90 text-sm line-clamp-2">{highlights[0].desc}</p>
+                    <p className="opacity-90 text-sm line-clamp-2">
+                      {highlights[0].desc}
+                    </p>
                   )}
-                  <a href={highlights[0].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
+                  <a
+                    href={highlights[0].link}
+                    className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70"
+                  >
                     อ่านต่อ <span>↗</span>
                   </a>
                 </div>
@@ -77,7 +137,9 @@ export default function HighlightSection() {
               <div className="col-span-4 bg-white flex rounded-2xl h-[320px] lg:h-[340px] p-5 lg:p-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] justify-between hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)] cursor-pointer">
                 <div className="flex flex-col justify-center">
                   <p className="text-sm mb-1 text-gray-500">The Knowledge</p>
-                  <h3 className="font-bold leading-snug text-3xl lg:text-4xl">{highlights[1].title.replace("The Knowledge\n", "")}</h3>
+                  <h3 className="font-bold leading-snug text-3xl lg:text-4xl">
+                    {highlights[1].title.replace("The Knowledge\n", "")}
+                  </h3>
                 </div>
                 <Image
                   src={highlights[1].img}
@@ -104,7 +166,10 @@ export default function HighlightSection() {
                   {highlights[2].title}
                 </h3>
 
-                <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
+                <a
+                  href={highlights[2].link}
+                  className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70"
+                >
                   อ่านต่อ <span>↗</span>
                 </a>
               </div>
@@ -114,7 +179,6 @@ export default function HighlightSection() {
           {/* ROW 2 */}
           {highlights.length >= 5 && (
             <div className="grid grid-cols-12 mt-6 lg:mt-8 gap-6 lg:gap-8">
-
               {/* BOX 4 */}
               <div className="col-span-8 rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer">
                 <Image
@@ -128,7 +192,10 @@ export default function HighlightSection() {
                   <h3 className="font-semibold text-lg lg:text-xl leading-snug line-clamp-2">
                     {highlights[3].title}
                   </h3>
-                  <a href={highlights[3].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
+                  <a
+                    href={highlights[3].link}
+                    className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70"
+                  >
                     อ่านต่อ <span>↗</span>
                   </a>
                 </div>
@@ -147,7 +214,10 @@ export default function HighlightSection() {
                   <h3 className="font-semibold text-lg lg:text-xl leading-snug line-clamp-2">
                     {highlights[4].title}
                   </h3>
-                  <a href={highlights[4].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
+                  <a
+                    href={highlights[4].link}
+                    className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70"
+                  >
                     อ่านต่อ <span>↗</span>
                   </a>
                 </div>
@@ -160,7 +230,10 @@ export default function HighlightSection() {
       {/* ================= MOBILE ================= */}
       {highlights.length > 0 && (
         <div className="w-full md:hidden">
-          <div ref={ref} className="flex w-full gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar px-4">
+          <div
+            ref={ref}
+            className="flex w-full gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar px-4"
+          >
             {highlights.map((h, i) => (
               <div
                 key={h.id}
@@ -170,7 +243,13 @@ export default function HighlightSection() {
                 {i === 0 && (
                   <div className="h-full relative">
                     <div className="relative w-full h-full">
-                      <Image src={h.img} fill alt={h.title} sizes="85vw" className="object-cover" />
+                      <Image
+                        src={h.img}
+                        fill
+                        alt={h.title}
+                        sizes="85vw"
+                        className="object-cover"
+                      />
                     </div>
                     <div className="bg-gradient-to-t from-black/70 via-black/30 to-transparent inset-0 absolute" />
                     <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg z-10">
@@ -178,9 +257,14 @@ export default function HighlightSection() {
                         {h.title}
                       </h3>
                       {h.desc && (
-                        <p className="opacity-90 text-sm line-clamp-1">{h.desc}</p>
+                        <p className="opacity-90 text-sm line-clamp-1">
+                          {h.desc}
+                        </p>
                       )}
-                      <a className="inline-flex text-sm text-[#74CEE2] gap-1 items-center" href={h.link}>
+                      <a
+                        className="inline-flex text-sm text-[#74CEE2] gap-1 items-center"
+                        href={h.link}
+                      >
                         อ่านต่อ ↗
                       </a>
                     </div>
@@ -190,16 +274,32 @@ export default function HighlightSection() {
                 {i === 1 && (
                   <div className="bg-white flex h-full px-5 items-center justify-between">
                     <div>
-                      <p className="text-sm mb-1 text-gray-500">The Knowledge</p>
-                      <h3 className="font-bold leading-snug text-3xl">{h.title.replace("The Knowledge\n", "")}</h3>
+                      <p className="text-sm mb-1 text-gray-500">
+                        The Knowledge
+                      </p>
+                      <h3 className="font-bold leading-snug text-3xl">
+                        {h.title.replace("The Knowledge\n", "")}
+                      </h3>
                     </div>
-                    <Image src={h.img} width={120} height={180} alt={h.title} className="rounded-lg shadow object-contain" />
+                    <Image
+                      src={h.img}
+                      width={120}
+                      height={180}
+                      alt={h.title}
+                      className="rounded-lg shadow object-contain"
+                    />
                   </div>
                 )}
 
                 {i === 2 && (
                   <div className="bg-white h-full p-5 relative overflow-hidden">
-                    <Image src={h.img} width={100} height={100} alt="" className="opacity-20 right-3 bottom-3 absolute" />
+                    <Image
+                      src={h.img}
+                      width={100}
+                      height={100}
+                      alt=""
+                      className="opacity-20 right-3 bottom-3 absolute"
+                    />
                     <p className="font-bold text-lg mb-2">OKMD</p>
                     <h3 className="font-medium mb-2 text-base text-[#1B1D20] leading-snug line-clamp-2">
                       {h.title}
@@ -209,7 +309,10 @@ export default function HighlightSection() {
                         {h.desc}
                       </p>
                     )}
-                    <a className="inline-flex mt-4 text-sm text-[#16A7CB] gap-1 items-center" href={h.link}>
+                    <a
+                      className="inline-flex mt-4 text-sm text-[#16A7CB] gap-1 items-center"
+                      href={h.link}
+                    >
                       อ่านต่อ ↗
                     </a>
                   </div>
@@ -218,7 +321,13 @@ export default function HighlightSection() {
                 {i === 3 && (
                   <div className="h-full relative overflow-hidden">
                     <div className="relative w-full h-full">
-                      <Image src={h.img} fill alt={h.title || "highlight"} sizes="85vw" className="object-cover" />
+                      <Image
+                        src={h.img}
+                        fill
+                        alt={h.title || "highlight"}
+                        sizes="85vw"
+                        className="object-cover"
+                      />
                     </div>
                     <div className="bg-gradient-to-t from-black/50 via-transparent to-transparent inset-0 absolute" />
                   </div>
@@ -227,14 +336,23 @@ export default function HighlightSection() {
                 {i === 4 && (
                   <div className="h-full relative overflow-hidden">
                     <div className="relative w-full h-full">
-                      <Image src={h.img} fill alt={h.title} sizes="85vw" className="object-cover" />
+                      <Image
+                        src={h.img}
+                        fill
+                        alt={h.title}
+                        sizes="85vw"
+                        className="object-cover"
+                      />
                     </div>
                     <div className="bg-gradient-to-t from-black/70 via-black/20 to-transparent inset-0 absolute" />
                     <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg z-10">
                       <h3 className="font-semibold text-lg leading-snug line-clamp-2">
                         {h.title}
                       </h3>
-                      <a className="inline-flex text-sm text-[#74CEE2] gap-1 items-center" href={h.link}>
+                      <a
+                        className="inline-flex text-sm text-[#74CEE2] gap-1 items-center"
+                        href={h.link}
+                      >
                         อ่านต่อ ↗
                       </a>
                     </div>
@@ -252,10 +370,15 @@ export default function HighlightSection() {
                 onClick={() => {
                   if (!ref.current) return;
                   setIndex(i);
-                  ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
+                  ref.current.scrollTo({
+                    left: i * ref.current.clientWidth,
+                    behavior: "smooth",
+                  });
                 }}
                 className={`rounded-full transition-all ${
-                  index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF] hover:bg-[#A8D8E8]"
+                  index === i
+                    ? "w-6 h-2 bg-[#16A7CB]"
+                    : "w-2 h-2 bg-[#C8E8EF] hover:bg-[#A8D8E8]"
                 }`}
                 aria-label={`Go to slide ${i + 1}`}
               />

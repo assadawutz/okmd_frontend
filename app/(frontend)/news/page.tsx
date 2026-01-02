@@ -3,6 +3,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const CATE = [
   { label: "ข่าวประชาสัมพันธ์", value: "announce" },
@@ -71,11 +72,14 @@ export default function NewsPage() {
   const titleText = active === "announce" ? "ข่าวประชาสัมพันธ์" : "ข่าวองค์กร";
 
   return (
-    <main className="w-full bg-white pb-32">
+    <main className="w-full bg-white pb-20 md:pb-32">
       {/* BREADCRUMB - AI-LOCK COMPLIANT */}
       <div className="border-b border-zinc-200">
-        <div className="container mx-auto px-4 md:px-8 h-20 flex items-center text-base text-gray-600">
-          <Link href="/" className="hover:text-[#74CEE2] cursor-pointer transition">
+        <div className="container mx-auto px-4 h-16 md:h-20 flex items-center text-sm md:text-base text-gray-600">
+          <Link
+            href="/"
+            className="hover:text-[#74CEE2] cursor-pointer transition"
+          >
             หน้าหลัก
           </Link>
           <span className="mx-2">›</span>
@@ -83,176 +87,112 @@ export default function NewsPage() {
         </div>
       </div>
 
-      {/* DESKTOP LAYOUT - grid-cols-12 */}
-      <div className="hidden md:block">
-        <div className="container mx-auto px-4 md:px-8 pt-12">
-          <div className="grid grid-cols-12 gap-16">
-            {/* LEFT MENU - 3 cols */}
-            <aside className="col-span-3">
-              <h1 className="text-4xl font-bold mb-10 text-[#1B1D20]">News</h1>
-              
-              <div className="flex flex-col gap-1">
-                {CATE.map((c) => {
-                  const isActive = active === c.value;
-                  return (
-                    <button
-                      key={c.value}
-                      onClick={() => setActive(c.value)}
-                      className={`
-                        text-left px-4 py-3 rounded-lg text-lg font-semibold cursor-pointer transition
-                        ${isActive
+      {/* BODY CONTENT */}
+      <div className="container mx-auto px-4 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+          {/* LEFT SIDEBAR - 3 Columns on Desktop */}
+          <aside className="col-span-1 md:col-span-3">
+            <h1 className="text-3xl md:text-4xl font-bold mb-6 md:mb-10 text-[#1B1D20]">
+              News
+            </h1>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex flex-col gap-1">
+              {CATE.map((c) => {
+                const isActive = active === c.value;
+                return (
+                  <button
+                    key={c.value}
+                    onClick={() => setActive(c.value)}
+                    className={`
+                      text-left px-4 py-3 rounded-lg text-lg font-semibold cursor-pointer transition
+                      ${
+                        isActive
                           ? "bg-[#E8F6FB] text-[#16A7CB]"
                           : "text-gray-700 hover:text-[#16A7CB]"
-                        }
-                      `}
-                    >
-                      {c.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </aside>
-
-            {/* RIGHT CONTENT - 9 cols */}
-            <section className="col-span-9">
-              <h2 className="text-3xl font-bold text-[#1B1D20] mb-10">{titleText}</h2>
-
-              {/* NEWS GRID - 2 columns (6+6) */}
-              <div className="grid grid-cols-12 gap-x-8 gap-y-10">
-                {filtered.map((n) => (
-                  <Link
-                    key={n.id}
-                    href={`/news/${n.id}`}
-                    className="col-span-6 bg-white rounded-2xl border border-gray-200 shadow-md hover:shadow-xl transition-all overflow-hidden cursor-pointer"
+                      }
+                    `}
                   >
-                    <div className="w-full h-[220px] overflow-hidden">
-                      <img
-                        src={n.img}
-                        alt={n.title}
-                        className="w-full h-full object-cover transition-all duration-300 hover:scale-105"
-                      />
-                    </div>
-
-                    <div className="px-6 py-5">
-                      <p className="text-sm text-gray-500 mb-1">{n.date}</p>
-                      <h3 className="text-lg font-semibold text-[#1B1D20] leading-snug line-clamp-2 mb-2">
-                        {n.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 leading-6 line-clamp-3">
-                        {n.desc}
-                      </p>
-                      <span className="inline-flex items-center gap-1 pt-3 text-sm text-[#16A7CB] font-semibold">
-                        อ่านเพิ่มเติม ↗
-                      </span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-
-              {/* PAGINATION */}
-              <div className="mt-12 flex justify-center">
-                <div className="flex items-center gap-2">
-                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#74CEE2] text-white font-semibold hover:bg-[#5FC4D8] transition">
-                    1
+                    {c.label}
                   </button>
-                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
-                    2
-                  </button>
-                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
-                    3
-                  </button>
-                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
-                    4
-                  </button>
-                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
-                    5
-                  </button>
-                  <span className="px-2 text-gray-500">...</span>
-                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
-                    20
-                  </button>
-                  <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
-                    &gt;
-                  </button>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-
-      {/* MOBILE LAYOUT - NO SIDEBAR, NO grid-cols-12 */}
-      <div className="md:hidden">
-        <div className="container mx-auto px-4 pt-8">
-          <h1 className="text-3xl font-bold mb-6 text-[#1B1D20]">News</h1>
-
-          {/* Mobile Category Selector */}
-          <div className="mb-6">
-            <select
-              value={active}
-              onChange={(e) => setActive(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base font-semibold bg-white"
-            >
-              {CATE.map((c) => (
-                <option key={c.value} value={c.value}>
-                  {c.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <h2 className="text-2xl font-bold text-[#1B1D20] mb-6">{titleText}</h2>
-
-          {/* Mobile News Cards - Stacked */}
-          <div className="flex flex-col gap-6">
-            {filtered.map((n) => (
-              <Link
-                key={n.id}
-                href={`/news/${n.id}`}
-                className="bg-white rounded-2xl border border-gray-200 shadow-md overflow-hidden"
-              >
-                <div className="w-full h-[200px] overflow-hidden">
-                  <img
-                    src={n.img}
-                    alt={n.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="px-5 py-4">
-                  <p className="text-sm text-gray-500 mb-1">{n.date}</p>
-                  <h3 className="text-base font-semibold text-[#1B1D20] leading-snug line-clamp-2 mb-2">
-                    {n.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 leading-6 line-clamp-2">
-                    {n.desc}
-                  </p>
-                  <span className="inline-flex items-center gap-1 pt-2 text-sm text-[#16A7CB] font-semibold">
-                    อ่านเพิ่มเติม ↗
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile Pagination */}
-          <div className="mt-8 flex justify-center pb-8">
-            <div className="flex items-center gap-2">
-              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#74CEE2] text-white font-semibold">
-                1
-              </button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold">
-                2
-              </button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold">
-                3
-              </button>
-              <span className="px-2 text-gray-500">...</span>
-              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold">
-                &gt;
-              </button>
+                );
+              })}
             </div>
-          </div>
+
+            {/* Mobile Dropdown */}
+            <div className="md:hidden mb-6">
+              <select
+                value={active}
+                onChange={(e) => setActive(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-[#74CEE2]"
+              >
+                {CATE.map((c) => (
+                  <option key={c.value} value={c.value}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </aside>
+
+          {/* RIGHT CONTENT - 9 Columns on Desktop */}
+          <section className="col-span-1 md:col-span-9">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#1B1D20] mb-8 md:mb-10">
+              {titleText}
+            </h2>
+
+            {/* NEWS GRID - grid-cols-12 nested */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+              {filtered.map((n) => (
+                <Link
+                  key={n.id}
+                  href={`/news/${n.id}`}
+                  className="col-span-1 md:col-span-6 group bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer"
+                >
+                  <div className="w-full h-[220px] overflow-hidden relative">
+                    <Image
+                      src={n.img}
+                      alt={n.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+
+                  <div className="px-6 py-5">
+                    <p className="text-sm text-gray-500 mb-2">{n.date}</p>
+                    <h3 className="text-lg font-bold text-[#1B1D20] leading-snug line-clamp-2 mb-3 group-hover:text-[#16A7CB] transition-colors">
+                      {n.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 mb-4">
+                      {n.desc}
+                    </p>
+                    <span className="inline-flex items-center gap-1 text-sm text-[#16A7CB] font-semibold group-hover:underline">
+                      อ่านเพิ่มเติม ↗
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* PAGINATION */}
+            <div className="mt-12 md:mt-16 flex justify-center">
+              <div className="flex items-center gap-2">
+                <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#74CEE2] text-white font-semibold hover:bg-[#5FC4D8] transition shadow-md">
+                  1
+                </button>
+                <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                  2
+                </button>
+                <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                  3
+                </button>
+                <span className="px-2 text-gray-400">...</span>
+                <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition">
+                  &gt;
+                </button>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </main>

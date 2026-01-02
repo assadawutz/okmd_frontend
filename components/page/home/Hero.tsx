@@ -13,7 +13,10 @@ export default function Hero() {
   const timer = useRef<NodeJS.Timeout | null>(null);
 
   const stopAuto = useCallback(() => {
-    if (timer.current) clearTimeout(timer.current);
+    if (timer.current) {
+      clearTimeout(timer.current);
+      timer.current = null;
+    }
   }, []);
 
   const startAuto = useCallback(() => {
@@ -26,10 +29,13 @@ export default function Hero() {
   /* AUTOPLAY */
   useEffect(() => {
     startAuto();
-    return stopAuto;
+    return () => {
+      stopAuto();
+    };
   }, [index, startAuto, stopAuto]);
 
   const goTo = (i: number) => {
+    if (i < 0 || i >= SLIDES.length) return; // Validate index
     stopAuto();
     setIndex(i);
     startAuto();
@@ -73,7 +79,7 @@ export default function Hero() {
           {/* TEXT LAYER */}
           <figcaption className="absolute inset-0 flex items-start z-20 mt-8 pointer-events-none">
             <div className="w-full flex justify-center">
-              <div className="container w-full">
+              <div className="container mx-auto px-4 w-full">
 
                 <Image
                   src="/okmd_ai_logo.png"
@@ -99,6 +105,7 @@ export default function Hero() {
                 >
                   ดูรายละเอียด
                 </button>
+              </div>
             </div>
           </figcaption>
         </figure>

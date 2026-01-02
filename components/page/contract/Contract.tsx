@@ -30,15 +30,17 @@ function ContractCard({
   return (
     <Link
       href={`/contract/${id}`}
-      className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 transition-all duration-300 hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] cursor-pointer border border-gray-100"
+      className="bg-white rounded-xl shadow-sm p-6 transition-all duration-300 hover:shadow-lg active:scale-95 cursor-pointer border border-gray-100 hover:border-gray-200 group h-full flex flex-col"
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 flex-grow">
         <div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
+          <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-[#16A7CB] transition-colors">
+            {title}
+          </h3>
           <p className="text-gray-600 text-sm">เลขที่สัญญา: {contractNumber}</p>
         </div>
 
-        <div className="border-t border-gray-100 pt-4 space-y-2">
+        <div className="border-t border-gray-100 pt-4 space-y-2 mt-auto">
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <span className="font-semibold">ผู้รับจ้าง:</span>
             <span>{contractor}</span>
@@ -55,7 +57,7 @@ function ContractCard({
 
         <div className="pt-2">
           <span
-            className={`px-4 py-2 rounded-lg text-sm font-semibold inline-block ${
+            className={`px-3 py-1 rounded-lg text-sm font-semibold inline-block ${
               status === "active"
                 ? "bg-green-100 text-green-800"
                 : status === "completed"
@@ -72,8 +74,8 @@ function ContractCard({
         </div>
 
         <div className="pt-2">
-          <span className="text-[#16A7CB] font-semibold text-sm hover:underline">
-            ดูรายละเอียดเพิ่มเติม →
+          <span className="text-[#16A7CB] font-semibold text-sm group-hover:underline inline-flex items-center gap-1">
+            ดูรายละเอียดเพิ่มเติม <span>→</span>
           </span>
         </div>
       </div>
@@ -132,42 +134,41 @@ export default function Contract() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-white">
+    <div className="w-full min-h-screen bg-white pb-20 md:pb-32">
       {/* Hero Banner */}
       <SubHeroBanner image="/contract-hero.jpg" height="h-[300px]">
-        <div className="container mx-auto px-6 md:px-12">
-          <h1 className="text-4xl md:text-5xl font-bold">
+        <div className="container mx-auto px-4">
+          <h1 className="text-3xl md:text-5xl font-bold">
             สัญญา <span className="text-[#74CEE2]">และข้อตกลง</span>
           </h1>
-          <p className="text-xl mt-4 text-white/90">
+          <p className="text-lg md:text-xl mt-4 text-white/90">
             ข้อมูลสัญญาและข้อตกลงของ OKMD
           </p>
         </div>
       </SubHeroBanner>
 
-      {/* Breadcrumb */}
-      <div className="container mx-auto pt-4 sm:pt-6 md:pt-8 mb-4 sm:mb-6 md:mb-8">
-        <div className="grid grid-cols-12">
-          <div className="col-span-12">
-            <div className="text-sm sm:text-base md:text-lg text-gray-500 font-medium">
-              <Link href="/" className="hover:underline">
-                หน้าหลัก
-              </Link>
-              {" > "}
-              <span className="text-[#74CEE2]">สัญญาและข้อตกลง</span>
-            </div>
-          </div>
+      {/* Breadcrumb - Standard */}
+      <div className="border-b border-zinc-200 bg-white">
+        <div className="container mx-auto px-4 h-16 md:h-20 flex items-center text-sm md:text-base text-gray-600">
+          <Link
+            href="/"
+            className="hover:text-[#74CEE2] cursor-pointer transition"
+          >
+            หน้าหลัก
+          </Link>
+          <span className="mx-2">›</span>
+          <span className="text-[#74CEE2]">สัญญาและข้อตกลง</span>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto pb-8 sm:pb-12 md:pb-16">
-        <div className="grid grid-cols-12 gap-4 sm:gap-6">
+      <div className="container mx-auto px-4 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 lg:gap-12">
           {/* Filters */}
-          <div className="col-span-12">
-            <div className="bg-gray-50 rounded-xl p-4 sm:p-5 md:p-6 mb-6 sm:mb-7 md:mb-8">
-              <div className="grid grid-cols-12 gap-3 sm:gap-4">
-                <div className="col-span-12 sm:col-span-6 md:col-span-4">
+          <div className="col-span-1 md:col-span-12">
+            <div className="bg-gray-50 rounded-2xl p-6 md:p-8 mb-8 md:mb-12">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+                <div className="col-span-1 md:col-span-4">
                   <Input
                     label="ค้นหาสัญญา"
                     placeholder="ค้นหาสัญญา..."
@@ -177,7 +178,7 @@ export default function Contract() {
                   />
                 </div>
 
-                <div className="col-span-12 sm:col-span-6 md:col-span-4">
+                <div className="col-span-1 md:col-span-4">
                   <Dropdown
                     label="สถานะ"
                     value={status}
@@ -187,7 +188,7 @@ export default function Contract() {
                   />
                 </div>
 
-                <div className="col-span-12 sm:col-span-6 md:col-span-4">
+                <div className="col-span-1 md:col-span-4">
                   <Dropdown
                     label="ปี"
                     value={year}
@@ -198,21 +199,21 @@ export default function Contract() {
                 </div>
               </div>
 
-              <div className="mt-4 flex justify-end">
-                <Button className="w-full sm:w-auto">ค้นหา</Button>
+              <div className="mt-6 flex justify-end">
+                <Button className="w-full md:w-auto px-8">ค้นหา</Button>
               </div>
             </div>
           </div>
 
           {/* Contract Listings */}
-          <div className="col-span-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 sm:mb-5 md:mb-6">
+          <div className="col-span-1 md:col-span-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">
               สัญญาและข้อตกลง ({contracts.length})
             </h2>
 
-            <div className="grid grid-cols-12 gap-4 sm:gap-5 md:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
               {contracts.map((contract) => (
-                <div key={contract.id} className="col-span-12 sm:col-span-6 lg:col-span-6">
+                <div key={contract.id} className="w-full">
                   <ContractCard {...contract} />
                 </div>
               ))}
@@ -223,4 +224,3 @@ export default function Contract() {
     </div>
   );
 }
-

@@ -36,18 +36,30 @@ export default function OkmdSearchSection() {
   const [hasSearched, setHasSearched] = useState(false);
   const [aiSummary, setAiSummary] = useState("");
   const [searchResults, setSearchResults] = useState<typeof MOCK_SEARCH_RESULTS>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSearch = () => {
-    if (!searchQuery.trim()) return;
+    if (!searchQuery.trim()) {
+      setError('กรุณาใส่คำค้นหา');
+      return;
+    }
     
     setIsSearching(true);
+    setError(null);
     
     // Simulate API call with mock data
     setTimeout(() => {
-      setAiSummary(MOCK_AI_SUMMARIES.default);
-      setSearchResults(MOCK_SEARCH_RESULTS);
-      setHasSearched(true);
-      setIsSearching(false);
+      try {
+        setAiSummary(MOCK_AI_SUMMARIES.default);
+        setSearchResults(MOCK_SEARCH_RESULTS);
+        setHasSearched(true);
+        setError(null);
+      } catch (err) {
+        console.error('Search error:', err);
+        setError('เกิดข้อผิดพลาดในการค้นหา กรุณาลองใหม่อีกครั้ง');
+      } finally {
+        setIsSearching(false);
+      }
     }, 1500);
   };
 
@@ -58,7 +70,7 @@ export default function OkmdSearchSection() {
   };
 
   return ( 
-    <section className="bg-white py-12 md:py-16">
+    <section className="bg-white py-16 md:py-20">
       <div className="container mx-auto">
 
         {/* HEADER SEARCH ZONE */}
@@ -211,6 +223,7 @@ export default function OkmdSearchSection() {
           )}
 
       </div>
+    </div>
     </section>
   );
 }

@@ -18,25 +18,21 @@ export default function NewsSection() {
   const newsList = Object.values(NEWS_DATA).slice(0, 4) as NewsItem[]; // เปลี่ยนเป็น 4 items
 
   return (
-    <section className="bg-white py-12 md:py-16 lg:py-20">
+    <section className="bg-white py-16 md:py-20">
       <div className="container mx-auto">
-        
         {/* HEADER */}
         <div className="mb-8 md:mb-10 lg:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1B1D20] mb-2">
             News
           </h2>
-          <p className="text-lg sm:text-xl text-[#74CEE2]">
-            อัปเดตข่าว
-          </p>
+          <p className="text-lg sm:text-xl text-[#74CEE2]">อัปเดตข่าว</p>
         </div>
 
         {/* NEWS LAYOUT: 1 large left + 3 small right */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-7 lg:gap-8">
-          
           {/* LEFT: Large Featured News */}
           {newsList[0] && (
-            <Link 
+            <Link
               href={`/news/${newsList[0].id}`}
               className="md:col-span-5 group flex flex-col h-full"
             >
@@ -49,7 +45,7 @@ export default function NewsSection() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                
+
                 {/* Content overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 text-white">
                   <h3 className="text-xl md:text-2xl font-bold mb-3 line-clamp-2 group-hover:text-[#74CEE2] transition-colors">
@@ -70,8 +66,8 @@ export default function NewsSection() {
           {/* RIGHT: 3 News Cards Stack */}
           <div className="md:col-span-7 flex flex-col gap-5 md:gap-6">
             {newsList.slice(1, 4).map((news) => (
-              <Link 
-                key={news.id} 
+              <Link
+                key={news.id}
                 href={`/news/${news.id}`}
                 className="group flex gap-4 md:gap-5 bg-white hover:bg-gray-50 rounded-xl transition-all"
               >
@@ -85,7 +81,7 @@ export default function NewsSection() {
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                
+
                 {/* Content */}
                 <div className="flex-1 flex flex-col justify-center py-2">
                   <h3 className="text-base md:text-lg font-bold text-[#1B1D20] mb-2 line-clamp-2 group-hover:text-[#16A7CB] transition-colors">
@@ -106,15 +102,14 @@ export default function NewsSection() {
 
         {/* "ดูทั้งหมด" Link */}
         <div className="mt-8 md:mt-10 flex justify-end">
-          <Link 
-            href="/news" 
+          <Link
+            href="/news"
             className="group flex items-center text-[#16A7CB] font-medium hover:text-[#1384A2] transition-colors"
           >
             ดูทั้งหมด
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
-
       </div>
     </section>
   );
