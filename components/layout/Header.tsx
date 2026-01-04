@@ -6,7 +6,7 @@ import Link from "next/link";
 import { createPortal } from "react-dom";
 
 /* ====================================================== */
-/*                        HEADER (FINAL)                  */
+/*                        HEADER                           */
 /* ====================================================== */
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -50,23 +50,24 @@ export default function Header() {
         ref={headerRef}
         className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#ECECED] shadow-sm"
       >
-        <div className="container mx-auto px-4 flex items-center justify-between py-4">
+        <div className="container mx-auto px-4 lg:px-8 py-3 lg:py-4 flex items-center justify-between">
+
           {/* ---------------- LOGO ---------------- */}
-          <Link href="/" aria-label="OKMD Home" className="flex">
+          <Link href="/" aria-label="OKMD Home" className="flex flex-shrink-0">
             <Image
               src="/okmd-2025.png"
-              width={150}
-              height={50}
+              width={120}
+              height={40}
               alt="OKMD Logo"
               priority
-              className="object-contain hover:scale-[1.04] transition"
+              className="object-contain hover:scale-[1.02] transition w-[100px] lg:w-[130px]"
             />
           </Link>
 
           {/* ---------------- DESKTOP MENU ---------------- */}
           <nav
             data-menubar
-            className="hidden lg:flex absolute left-1/2 -translate-x-1/2"
+            className="hidden lg:flex items-center"
           >
             <ul className="flex gap-6 text-[16px] font-medium text-[#1B1D20] whitespace-nowrap">
               <MenuList active={active} setActive={setActive} />
@@ -123,7 +124,7 @@ function MegaMenu({ active }: { active: string | null }) {
   return (
     <div
       data-mega-panel
-      className="fixed left-0 top-[var(--header-h)] w-full bg-white shadow-lg border-t border-gray-200 z-10"
+      className="fixed left-0 top-[var(--header-h)] w-full bg-white shadow-lg border-t border-gray-200 z-40"
     >
       <div className="container mx-auto py-8">
         <h3 className="text-xl font-semibold text-[#16A7CB] mb-6 border-b border-[#16A7CB] pb-2">
@@ -196,8 +197,8 @@ function MenuItem({
 }) {
   const isOpen = active === label;
 
-  /* ======================= LINK MODE ======================= */
-  if (href) {
+  /* LINK MODE */
+  if (href && !hasDropdown) {
     return (
       <li>
         <Link
@@ -206,14 +207,14 @@ function MenuItem({
         >
           <span className="relative">
             {label}
-            <span className="absolute left-0 -bottom-[3px] h-[3px] w-0 bg-[#74CEE2] group-hover:w-full transition-all"></span>
+            <span className="absolute left-0 -bottom-[2px] h-[2px] w-0 bg-[#74CEE2] group-hover:w-full transition-all"></span>
           </span>
         </Link>
       </li>
     );
   }
 
-  /* ==================== DROPDOWN MODE ==================== */
+  /* DROPDOWN MODE */
   return (
     <li>
       <button
@@ -225,7 +226,7 @@ function MenuItem({
       >
         <span className="relative">
           {label}
-          <span className="absolute left-0 -bottom-[3px] h-[3px] w-0 bg-[#74CEE2] group-hover:w-full transition-all"></span>
+          <span className={`absolute left-0 -bottom-[2px] h-[2px] transition-all ${isOpen ? 'w-full bg-[#74CEE2]' : 'w-0 bg-[#74CEE2] group-hover:w-full'}`}></span>
         </span>
 
         {hasDropdown && (
@@ -405,7 +406,7 @@ function MobileItem({ label, href }: { label: string; href?: string }) {
 }
 
 /* ====================================================== */
-/*                  RIGHT TOOLBAR (FINAL FIX)             */
+/*                  RIGHT TOOLBAR                          */
 /* ====================================================== */
 function RightTools({ onOpenMenu }: { onOpenMenu: () => void }) {
   const applyFont = (size: "sm" | "md" | "lg") => {
@@ -482,13 +483,25 @@ function RightTools({ onOpenMenu }: { onOpenMenu: () => void }) {
         </Link>
       </div>
 
+      {/* DONATE BUTTON */}
+      <Link href="/donation" className="hidden lg:block">
+        <button
+          aria-label="Donate"
+          className="bg-[#74CEE2] text-white rounded-full px-6 py-2.5 text-[15px] cursor-pointer font-semibold hover:bg-[#5FC4D8] active:scale-95 transition shadow-sm"
+        >
+          Donate
+        </button>
+      </Link>
+
       {/* MOBILE MENU BUTTON */}
       <button
         aria-label="Open menu"
         className="lg:hidden p-2 active:scale-90"
         onClick={onOpenMenu}
       >
-        <Image src="/menu.png" width={38} height={38} alt="menu" />
+        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
       </button>
     </div>
   );

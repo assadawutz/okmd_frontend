@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import CalendarEvent from "@/components/CalendarEvent";
-import EventCard from "@/components/page/CalendarEvent/EventCard";
 import { useState } from "react";
 import FilterDropdown from "@/components/FilterDropdown";
 
@@ -31,37 +31,25 @@ const events = [
     id: 1,
     title: "กิจกรรม Freedom Learn x Conet LANNA: Yi Peng...",
     date: "25 ตุลาคม 2568 เวลา: 11.00 - 15.30 น.",
-    location:
-      "สถานที่: ห้องเวิร์คช็อป 1 และ 2 อุทยานการเรียนรู้ TK Park ชั้น 8 centralWorld",
+    location: "สถานที่: ห้องเวิร์คช็อป 1 และ 2 อุทยาน",
+    venue: "การเรียนรู้ TK Park ชั้น 8 centralWorld",
     image: "/event1.png",
-    alt: "Yi Peng Lantern",
   },
   {
     id: 2,
     title: "กิจกรรม Freedom Learn x Conet LANNA: Yi Peng...",
     date: "25 ตุลาคม 2568 เวลา: 11.00 - 15.30 น.",
-    location:
-      "สถานที่: ห้องเวิร์คช็อป 1 และ 2 อุทยานการเรียนรู้ TK Park ชั้น 8 centralWorld",
+    location: "สถานที่: ห้องเวิร์คช็อป 1 และ 2 อุทยาน",
+    venue: "การเรียนรู้ TK Park ชั้น 8 centralWorld",
     image: "/event2.png",
-    alt: "Family Activity",
   },
   {
     id: 3,
     title: "กิจกรรม Freedom Learn x Conet LANNA: Yi Peng...",
     date: "25 ตุลาคม 2568 เวลา: 11.00 - 15.30 น.",
-    location:
-      "สถานที่: ห้องเวิร์คช็อป 1 และ 2 อุทยานการเรียนรู้ TK Park ชั้น 8 centralWorld",
+    location: "สถานที่: ห้องเวิร์คช็อป 1 และ 2 อุทยาน",
+    venue: "การเรียนรู้ TK Park ชั้น 8 centralWorld",
     image: "/event3.png",
-    alt: "Book Cover",
-  },
-  {
-    id: 4,
-    title: "กิจกรรม Freedom Learn x Conet LANNA: Yi Peng...",
-    date: "25 ตุลาคม 2568 เวลา: 11.00 - 15.30 น.",
-    location:
-      "สถานที่: ห้องเวิร์คช็อป 1 และ 2 อุทยานการเรียนรู้ TK Park ชั้น 8 centralWorld",
-    image: "/event1.png",
-    alt: "Yi Peng Lantern",
   },
 ];
 
@@ -71,6 +59,7 @@ export default function CalendarEventListPage() {
     month: "all",
     org: "all",
   });
+
   return (
     <div className="w-full space-y-8">
       {/* HEADER BLOCK */}
@@ -163,7 +152,8 @@ export default function CalendarEventListPage() {
               <CalendarEvent />
             </div>
           </div>
-        </div>
+        </section>
+
       </div>
     </div>
   );

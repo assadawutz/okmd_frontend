@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import React from "react";
-
-// --- Subcomponents ---
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 type MenuItem = {
   label: string;
@@ -39,9 +38,13 @@ function TabMenu({ items, active, onSelect }: TabMenuProps) {
   );
 }
 
-type MagazineCardProps = {
+type MagazineItem = {
+  id: string;
   title: string;
   img: string;
+  volume: string;
+  date: string;
+  description: string;
   fileSize: string;
 };
 function MagazineCard({ title, img, fileSize }: MagazineCardProps) {

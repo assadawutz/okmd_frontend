@@ -2,18 +2,18 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Input from "@/components/ui/Input";
+kimport Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Login attempt:", { email, password, rememberMe });
+    console.log("dLogin attempt:", { email, password, rememberMe });
   };
 
   return (

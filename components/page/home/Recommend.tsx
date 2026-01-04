@@ -15,17 +15,17 @@ interface RecommendItem {
 const DEFAULT_ITEMS: RecommendItem[] = [
   {
     id: 1,
-    title: "Unleash Your Potential",
-    desc: "เราไม่ได้แค่แนะนำ แต่เราคัดหมวดนิยมใหม่ให้เป็นทางเลือก พร้อมคัดความรู้ที่ใช้ได้จริงในชีวิตประจำวัน",
-    img: "/rec1.png",
     tag: "Smart picks",
+    title: "Unleash\nYour Potential",
+    img: "/rec1.png",
+    color: "from-[#0E7893]/90 to-[#16A7CB]/80",
   },
   {
     id: 2,
-    title: "Unlock knowledge anywhere you are",
-    desc: "OKMD Knowledge Portal ศูนย์รวมองค์ความรู้ดิจิทัลที่หยิบได้ทุกอุปกรณ์",
+    tag: "OKMD",
+    title: "Unlock knowledge\nanywhere you are",
     img: "/rec2.png",
-    tag: "Knowledge hub",
+    color: "from-[#1B1D20]/90 to-[#3A3D41]/80",
   },
 ];
 

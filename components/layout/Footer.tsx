@@ -30,7 +30,7 @@ export default function Footer() {
           alt=""
           fill
           role="presentation"
-          className="object-cover opacity-70 pointer-events-none"
+          className="object-cover opacity-60 pointer-events-none"
           priority
         />
       </div>
@@ -48,21 +48,16 @@ export default function Footer() {
                 <Image
                   src="/okmd_white.png"
                   alt="OKMD Logo"
-                  width={200}
-                  height={120}
-                  className="
-                    object-contain mb-6 
-                    transition-all duration-300 
-                    hover:scale-[1.04] 
-                    hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.6)]
-                  "
+                  width={160}
+                  height={80}
+                  className="object-contain mb-5 transition-all duration-300 hover:scale-[1.02]"
                   priority
                 />
               </a>
 
-              <h2 className="font-bold text-[34px] sm:text-[44px] md:text-[56px] leading-[1.1] mb-6 whitespace-pre-line">
-                Office of Knowledge{"\n"}
-                Management and{"\n"}
+              <h2 className="font-bold text-[28px] sm:text-[36px] md:text-[44px] leading-[1.15] mb-5">
+                Office of Knowledge<br />
+                Management and<br />
                 Development
               </h2>
 
@@ -90,13 +85,13 @@ export default function Footer() {
                       className="transition-all duration-300 hover:scale-125"
                     >
                       <Image
-                        src={`/ic-${i}.png`}
-                        alt=""
+                        src={icon.src}
+                        alt={icon.alt}
                         width={28}
                         height={28}
                         className="w-7 h-7"
                       />
-                    </button>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -125,9 +120,9 @@ export default function Footer() {
             className="
               grid 
               grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
-              gap-12 
-              border-t border-white/40 
-              pt-12 pb-10
+              gap-8 md:gap-10 
+              border-t border-white/30 
+              pt-10 pb-8
             "
           >
             {/* Column 1 */}
@@ -141,15 +136,16 @@ export default function Footer() {
                     <a
                       href="#"
                       className="
-                        transition-all duration-300
+                        transition-all duration-200
                         hover:translate-x-1
                         hover:text-white
+                        text-white/90
                         hover:underline underline-offset-4
-                        cursor-pointer
+                        inline-block
                       "
                     >
-                      {i}
-                    </a>
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -163,14 +159,16 @@ export default function Footer() {
                     <a
                       href="#"
                       className="
-                        transition-all duration-300
+                        transition-all duration-200
                         hover:translate-x-1
                         hover:text-white
+                        text-white/90
                         hover:underline underline-offset-4
+                        inline-block
                       "
                     >
-                      {i}
-                    </a>
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -184,14 +182,16 @@ export default function Footer() {
                     <a
                       href="#"
                       className="
-                        transition-all duration-300
+                        transition-all duration-200
                         hover:translate-x-1
                         hover:text-white
+                        text-white/90
                         hover:underline underline-offset-4
+                        inline-block
                       "
                     >
-                      {i}
-                    </a>
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -205,10 +205,10 @@ export default function Footer() {
             className="
               flex flex-col md:flex-row 
               justify-between items-center 
-              gap-4 
-              border-t border-white/40 
-              pt-6 
-              text-[15px]
+              gap-3 
+              border-t border-white/30 
+              pt-5 
+              text-[13px]
             "
           >
             <p className="text-center md:text-left leading-relaxed">
@@ -216,7 +216,7 @@ export default function Footer() {
               (องค์การมหาชน) สงวนสิทธิ์
             </p>
 
-            <div className="flex flex-wrap gap-4 text-white/95">
+            <div className="flex flex-wrap gap-4 text-white/80">
               {[
                 "นโยบายการใช้คุกกี้",
                 "แผนผังเว็บ",
@@ -226,15 +226,13 @@ export default function Footer() {
                   key={i}
                   href="#"
                   className="
-                    underline underline-offset-4
                     hover:text-white
-                    hover:opacity-100
-                    opacity-90
-                    transition-all duration-300
+                    hover:underline underline-offset-4
+                    transition-all duration-200
                   "
                 >
-                  {i}
-                </a>
+                  {item.label}
+                </Link>
               ))}
             </div>
           </div>

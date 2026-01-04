@@ -11,12 +11,8 @@ import { CiSearch } from "react-icons/ci";
 type JobCardProps = {
   id: string;
   title: string;
-  department: string;
-  location: string;
   type: string;
-  postedDate: string;
-  closingDate: string;
-  description: string;
+  positions: number;
 };
 
 function JobCard({
@@ -94,9 +90,6 @@ function JobCard({
           </span>
         </div>
       </div>
-    </Link>
-  );
-}
 
 export default function Career() {
   const [search, setSearch] = useState("");
@@ -259,6 +252,7 @@ export default function Career() {
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );

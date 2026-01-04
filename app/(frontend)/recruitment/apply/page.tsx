@@ -241,6 +241,87 @@ export default function RecruitmentApplyPage() {
                 </>
               )}
             </div>
+            <div>
+              <label className="block text-sm text-[#40444D] mb-2">เพศ</label>
+              <select className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#16A7CB] transition-colors bg-white">
+                <option value="">เลือก</option>
+                <option value="male">ชาย</option>
+                <option value="female">หญิง</option>
+                <option value="other">อื่นๆ</option>
+              </select>
+            </div>
+
+            {/* Row 2 */}
+            <div>
+              <label className="block text-sm text-[#40444D] mb-2">
+                เบอร์ติดต่อ
+              </label>
+              <input
+                type="tel"
+                placeholder="เบอร์ติดต่อ"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#16A7CB] transition-colors"
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-[#40444D] mb-2">
+                วันเดือนปีเกิด
+              </label>
+              <input
+                type="date"
+                placeholder="วันเดือนปีเกิด"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#16A7CB] transition-colors"
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-[#40444D] mb-2">
+                อีเมล *
+              </label>
+              <input
+                type="email"
+                placeholder="yasumin.s@hap-thailand.com"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#16A7CB] transition-colors bg-gray-50"
+                disabled
+              />
+            </div>
+          </div>
+
+          {/* File Upload Section */}
+          <div className="mb-8">
+            <label className="block text-sm text-[#40444D] mb-3">
+              ไฟล์แนบ *
+            </label>
+            <label className="inline-flex items-center px-6 py-3 bg-[#16A7CB] text-white text-sm rounded-lg cursor-pointer hover:bg-[#1295B5] transition-colors">
+              <input
+                type="file"
+                className="hidden"
+                accept=".pdf,.doc,.docx"
+                onChange={handleFileChange}
+              />
+              เพิ่มไฟล์เอกสารที่เกี่ยวข้องกับการสมัครงาน
+            </label>
+
+            {/* Uploaded Files List */}
+            {files.length > 0 && (
+              <div className="mt-4 space-y-2">
+                {files.map((file) => (
+                  <div
+                    key={file.id}
+                    className="flex items-center justify-between bg-gray-50 px-4 py-3 rounded-lg"
+                  >
+                    <div className="flex items-center gap-3">
+                      <FileText size={20} className="text-gray-400" />
+                      <span className="text-sm text-[#40444D]">{file.name}</span>
+                    </div>
+                    <button
+                      onClick={() => removeFile(file.id)}
+                      className="p-2 text-[#16A7CB] hover:bg-[#16A7CB]/10 rounded-full transition-colors"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import SubHeroBanner from "@/components/ui/SubHeroBanner";
 
 export default function PDPA() {
   return (
@@ -188,6 +187,7 @@ export default function PDPA() {
               </Link>
             </div>
           </div>
+
         </div>
       </div>
     </div>

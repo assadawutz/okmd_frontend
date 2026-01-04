@@ -7,25 +7,25 @@ import Dropdown from "@/components/ui/Dropdown";
 import Button from "@/components/ui/Button";
 import { CiSearch } from "react-icons/ci";
 
-type AnnouncementCardProps = {
-  id: string;
-  title: string;
-  department: string;
-  announcementDate: string;
-  closingDate: string;
-  status: "open" | "closed";
-  description: string;
-};
+export default function JobAnnouncement() {
+  const [idNumber, setIdNumber] = useState("");
+  const [showResult, setShowResult] = useState(false);
+  const [result, setResult] = useState<"success" | "fail" | null>(null);
 
-function AnnouncementCard({
-  id,
-  title,
-  department,
-  announcementDate,
-  closingDate,
-  status,
-  description,
-}: AnnouncementCardProps) {
+  const handleCheck = () => {
+    // Mock check - simulate result
+    if (idNumber.length === 13) {
+      setResult(Math.random() > 0.5 ? "success" : "fail");
+      setShowResult(true);
+    }
+  };
+
+  const handleClose = () => {
+    setShowResult(false);
+    setResult(null);
+    setIdNumber("");
+  };
+
   return (
     <Link
       href={`/job-announcement/${id}`}
@@ -227,7 +227,8 @@ export default function JobAnnouncement() {
             </div>
           ))}
         </div>
-      </div>
+      )}
+
     </div>
   );
 }

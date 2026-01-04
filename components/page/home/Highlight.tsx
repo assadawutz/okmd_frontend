@@ -125,6 +125,10 @@ export default function HighlightSection() {
   if (error)
     return <div className="text-center py-10 text-red-500">{error}</div>;
 
+  if (highlights.length === 0) {
+    return null;
+  }
+
   return (
     <div className="w-full space-y-6">
       {/* Header */}

@@ -17,39 +17,8 @@ export default function CareerDetailPage({
   // Mock data
   const job = {
     id: id,
-    title: "นักพัฒนาระบบสารสนเทศ",
+    title: "เจ้าหน้าที่ช่วยปฏิบัติงานบริหารทรัพยากรกายภาพ ด้าน IT (สำนักภาคใต้ จ.สงขลา)",
     department: "สำนักงานบริหารและพัฒนาองค์ความรู้",
-    location: "กรุงเทพมหานคร",
-    type: "งานประจำ",
-    postedDate: "15 มกราคม 2568",
-    closingDate: "15 กุมภาพันธ์ 2568",
-    salary: "ตามวุฒิการศึกษาและประสบการณ์",
-    description: `
-      <h3 class="text-xl font-bold mb-4">รายละเอียดงาน</h3>
-      <ul class="list-disc list-inside space-y-2 mb-6">
-        <li>รับผิดชอบในการพัฒนาและดูแลระบบสารสนเทศขององค์กร</li>
-        <li>ออกแบบและพัฒนาระบบใหม่ตามความต้องการ</li>
-        <li>ดูแลและบำรุงรักษาระบบที่มีอยู่</li>
-        <li>ประสานงานกับหน่วยงานต่างๆ ภายในองค์กร</li>
-      </ul>
-
-      <h3 class="text-xl font-bold mb-4">คุณสมบัติผู้สมัคร</h3>
-      <ul class="list-disc list-inside space-y-2 mb-6">
-        <li>วุฒิการศึกษาปริญญาตรี สาขาวิทยาการคอมพิวเตอร์ หรือสาขาที่เกี่ยวข้อง</li>
-        <li>มีประสบการณ์ในการพัฒนาระบบอย่างน้อย 2 ปี</li>
-        <li>มีความรู้ในภาษาโปรแกรมมิ่ง เช่น JavaScript, Python, Java</li>
-        <li>มีความรู้ในฐานข้อมูลและระบบเครือข่าย</li>
-        <li>สามารถทำงานเป็นทีมและสื่อสารได้ดี</li>
-      </ul>
-
-      <h3 class="text-xl font-bold mb-4">สิทธิประโยชน์</h3>
-      <ul class="list-disc list-inside space-y-2">
-        <li>เงินเดือนตามวุฒิการศึกษาและประสบการณ์</li>
-        <li>ประกันสังคม</li>
-        <li>วันหยุดตามกฎหมาย</li>
-        <li>โอกาสในการพัฒนาตนเองและเรียนรู้สิ่งใหม่ๆ</li>
-      </ul>
-    `,
   };
 
   return (
@@ -177,6 +146,7 @@ export default function CareerDetailPage({
             </Link>
           </div>
         </div>
+
       </div>
     </ContainerPage>
   );

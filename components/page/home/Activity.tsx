@@ -156,6 +156,7 @@ export default function ActivityBlock() {
             <ActivityCard key={item.id} item={item} />
           ))}
         </div>
+
       </div>
 
       <div className="md:hidden text-center mt-4">

@@ -23,7 +23,7 @@ export default function Hero() {
     stopAuto();
     timer.current = setTimeout(() => {
       setIndex((prev) => (prev + 1) % SLIDES.length);
-    }, 4000);
+    }, 5000);
   }, [stopAuto]);
 
   useEffect(() => {
