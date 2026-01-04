@@ -1,9 +1,10 @@
 type PaginationProps = {
   total: number;
   current: number;
+  onChange: (page: number) => void;
 };
 
-export default function Pagination({ total, current }: PaginationProps) {
+export default function Pagination({ total, current, onChange }: PaginationProps) {
   const buttonBase = "flex items-center justify-center transition-colors cursor-pointer";
   const pageButton = "w-10 h-10 rounded-lg text-sm font-medium";
   const arrowButton = "w-10 h-10 rounded-lg text-lg font-medium";
@@ -40,6 +41,7 @@ export default function Pagination({ total, current }: PaginationProps) {
   return (
     <div className="flex items-center gap-2">
       <button
+        onClick={() => onChange(current - 1)}
         className={`${buttonBase} ${arrowButton} ${current === 1 ? disabledClass : inactiveClass}`}
         disabled={current === 1}
         aria-label="Previous page"
@@ -51,6 +53,7 @@ export default function Pagination({ total, current }: PaginationProps) {
         typeof page === "number" ? (
           <button
             key={page}
+            onClick={() => onChange(page)}
             className={`${buttonBase} ${pageButton} ${page === current ? activeClass : inactiveClass}`}
             aria-current={page === current ? "page" : undefined}
           >
@@ -64,6 +67,7 @@ export default function Pagination({ total, current }: PaginationProps) {
       ))}
 
       <button
+        onClick={() => onChange(current + 1)}
         className={`${buttonBase} ${arrowButton} ${current === total ? disabledClass : inactiveClass}`}
         disabled={current === total}
         aria-label="Next page"

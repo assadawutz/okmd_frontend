@@ -13,7 +13,10 @@ export default function Hero() {
   const timer = useRef<NodeJS.Timeout | null>(null);
 
   const stopAuto = useCallback(() => {
-    if (timer.current) clearTimeout(timer.current);
+    if (timer.current) {
+      clearTimeout(timer.current);
+      timer.current = null;
+    }
   }, []);
 
   const startAuto = useCallback(() => {
@@ -23,172 +26,100 @@ export default function Hero() {
     }, 5000);
   }, [stopAuto]);
 
-  /* AUTOPLAY */
   useEffect(() => {
     startAuto();
-    return stopAuto;
+    return () => stopAuto();
   }, [index, startAuto, stopAuto]);
 
   const goTo = (i: number) => {
+    if (i < 0 || i >= SLIDES.length) return;
     stopAuto();
     setIndex(i);
     startAuto();
   };
 
   return (
-    <section
-      className="w-full bg-[#C5DBE3] overflow-hidden"
+    <div
+      className="w-full relative overflow-hidden rounded-3xl shadow-sm hover:shadow-md transition-all duration-300"
       aria-label="AI-Driven Hero Section"
-      aria-live="off"
     >
+      {/* CARD CONTAINER */}
+      <div className="relative w-full aspect-[4/5] sm:aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-3xl group">
+        {/* SLIDES */}
+        {SLIDES.map((slide, i) => {
+          const active = i === index;
+          return (
+            <div
+              key={i}
+              className={`
+                absolute inset-0 transition-all duration-[1200ms]
+                ease-[cubic-bezier(.16,.84,.44,1)]
+                ${active ? "opacity-100 scale-100" : "opacity-0 scale-105"}
+              `}
+              aria-hidden={!active}
+            >
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                priority={i === 0}
+                className="object-cover"
+              />
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            </div>
+          );
+        })}
 
-      {/* ========== DESKTOP ========== */}
-      <div className="hidden md:block">
-        <figure className="relative w-full h-[520px] lg:h-[560px] overflow-hidden mb-0">
+        {/* CONTENT LAYER */}
+        <div className="absolute inset-0 flex flex-col justify-end p-8 text-white z-20 pointer-events-none">
+          <div className="pointer-events-auto space-y-4">
+            <Image
+              src="/okmd_ai_logo.png"
+              width={64}
+              height={64}
+              alt="OKMD AI Logo"
+              className="mb-2 drop-shadow-md"
+            />
 
-          {SLIDES.map((slide, i) => {
-            const active = i === index;
-            return (
-              <div
-                key={i}
-                aria-hidden={!active}
-                className={`
-                  absolute inset-0 transition-all duration-[1200ms]
-                  ease-[cubic-bezier(.16,.84,.44,1)]
-                  ${active ? "opacity-100 scale-100 translate-x-0" : "opacity-0 scale-105 translate-x-6"}
-                `}
-              >
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  priority
-                  sizes="100vw"
-                  className="object-cover transition-transform duration-[1200ms]"
-                />
-              </div>
-            );
-          })}
-
-          {/* TEXT LAYER */}
-          <figcaption className="absolute inset-0 flex items-start z-20 mt-8 pointer-events-none">
-            <div className="w-full flex justify-center">
-              <div className="container w-full">
-
-            {/* LEFT CONTENT */}
-            <div className="relative z-20 max-w-[600px] py-12">
-              {/* OKMD AI Logo */}
-              <div className="flex items-center gap-2 mb-6">
-                <Image
-                  src="/okmd_ai_logo.png"
-                  width={56}
-                  height={56}
-                  alt="OKMD AI Logo"
-                  className="transition-all hover:scale-[1.05]"
-                />
-              </div>
-
-              <h1 className="text-[#1B1D20] font-bold text-4xl lg:text-5xl xl:text-[52px] leading-[1.1] mb-4">
+            <div>
+              <h1 className="font-bold text-3xl sm:text-4xl leading-tight drop-shadow-lg">
                 AI-Driven intelligence:
               </h1>
-
-              <p className="text-[#1B1D20] text-lg lg:text-xl xl:text-2xl mb-6 opacity-85">
+              <p className="text-lg opacity-90 mt-2 max-w-md drop-shadow-md">
                 Search, summarize, and Recommend in an instant.
               </p>
-
-                <button
-                  type="button"
-                  className="mt-5 lg:mt-6 bg-[#74CEE2] px-5 lg:px-6 py-2.5 lg:py-3 rounded-xl text-white text-base lg:text-lg font-medium
-                    hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-md pointer-events-auto"
-                >
-                  ดูรายละเอียด
-                </button>
-              </div>
             </div>
 
+            <button
+              onClick={() => {}} // Add handler
+              className="inline-flex items-center px-6 py-3 bg-[#74CEE2] text-white font-semibold rounded-xl 
+                hover:bg-[#5FC4D8] active:scale-95 transition-all shadow-lg cursor-pointer"
+            >
+              ดูรายละเอียด
+            </button>
           </div>
         </div>
 
-        {/* PAGINATION DESKTOP */}
-        <nav className="container mx-auto flex justify-center pb-8" aria-label="Slide navigation">
-          <ul className="flex items-center gap-3 list-none m-0 p-0">
-            {SLIDES.map((_, i) => (
-              <li key={i}>
-                <button
-                  type="button"
-                  onClick={() => goTo(i)}
-                  aria-label={`Go to slide ${i + 1}`}
-                  aria-pressed={i === index}
-                  className={`
-                    block transition-all rounded-full cursor-pointer
-                    ${i === index ? "w-10 h-2 bg-[#74CEE2]" : "w-2 h-2 bg-[#9AACB1] hover:bg-[#7A9AA1]"}
-                  `}
-                />
-              </li>
-            ))}
-          </ul>
-        </nav>
+        {/* PAGINATION DOTS */}
+        <div className="absolute top-6 right-6 flex gap-2 z-30 pointer-events-auto">
+          {SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className={`
+                h-2 rounded-full transition-all duration-300
+                ${
+                  i === index
+                    ? "w-8 bg-[#74CEE2]"
+                    : "w-2 bg-white/50 hover:bg-white"
+                }
+              `}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
-
-      {/* ========== MOBILE ========== */}
-      <div className="md:hidden">
-        <figure className="relative w-full h-[280px] sm:h-[320px] overflow-hidden m-0">
-
-          {SLIDES.map((slide, i) => {
-            const active = i === index;
-            return (
-              <div
-                key={i}
-                aria-hidden={!active}
-                className={`
-                  absolute inset-0 transition-all duration-[1000ms]
-                  ${active ? "opacity-100 scale-100 translate-x-0" : "opacity-0 scale-105 translate-x-4"}
-                `}
-              >
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  sizes="100vw"
-                  className="object-cover"
-                />
-              </div>
-            );
-          })}
-
-          {/* MOBILE TEXT */}
-          <figcaption className="absolute container mx-auto px-4 bottom-[40px] left-0 right-0 z-20">
-            <div className="max-w-[300px]">
-              <h2 className="text-[#1B1D20] font-bold text-3xl leading-tight">
-                AI-Driven intelligence:
-              </h2>
-              <p className="text-[#1B1D20] text-lg mt-2 leading-relaxed opacity-90">
-                Search, summarize, and Recommend in an instant.
-              </p>
-            </div>
-          </figcaption>
-        </figure>
-
-        {/* PAGINATION MOBILE */}
-        <nav className="container mx-auto flex gap-2 justify-center pb-8" aria-label="Mobile slide navigation">
-          <ul className="flex gap-2 m-0 p-0 list-none">
-            {SLIDES.map((_, i) => (
-              <li key={i}>
-                <button
-                  type="button"
-                  aria-label={`Go to slide ${i + 1}`}
-                  aria-pressed={i === index}
-                  onClick={() => goTo(i)}
-                  className={`
-                    cursor-pointer block rounded-full transition-all
-                    ${i === index ? "w-6 h-1.5 bg-[#74CEE2]" : "w-1.5 h-1.5 bg-[#9AACB1]"}
-                  `}
-                />
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </section>
+    </div>
   );
 }

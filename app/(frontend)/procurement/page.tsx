@@ -1,12 +1,17 @@
-import ProcureMent from '@/components/page/procurement/ProcureMent';
-import React from 'react';
+import Procurement from "@/components/page/procurement/Procurement";
+import { ContainerPage } from "@/components/shared/ContainerPage";
+import { Metadata } from "next";
 
-const Page = () => {
-    return (
-        <div>
-            <ProcureMent/>
-        </div>
-    );
+export const metadata: Metadata = {
+  title: "จัดซื้อจัดจ้าง | OKMD",
+  description:
+    "ประกาศจัดซื้อจัดจ้างและราคากลาง สำนักงานบริหารและพัฒนาองค์ความรู้ (องค์การมหาชน)",
+};
+
+export default function ProcurementPage() {
+  return (
+    <ContainerPage>
+      <Procurement />
+    </ContainerPage>
+  );
 }
-
-export default Page;

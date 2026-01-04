@@ -2,9 +2,16 @@
 
 import { use } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Button from "@/components/ui/Button";
+import { ChevronLeft, Share2, MapPin, Briefcase } from "lucide-react";
+import { ContainerPage } from "@/components/shared/ContainerPage";
+import ShareButtons from "@/components/ShareButtons";
 
-export default function CareerDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default function CareerDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = use(params);
 
   // Mock data
@@ -15,122 +22,132 @@ export default function CareerDetailPage({ params }: { params: Promise<{ id: str
   };
 
   return (
-    <div className="w-full min-h-screen bg-white">
-      
-      {/* Breadcrumb */}
-      <div className="container mx-auto pt-6 md:pt-8 pb-4">
-        <div className="text-sm text-gray-500 font-medium">
-          <Link href="/" className="hover:text-[#16A7CB]">หน้าหลัก</Link>
-          {" > "}
-          <span className="text-[#16A7CB]">ค้นหางาน</span>
-        </div>
-      </div>
-
-      {/* Hero Image */}
-      <div className="container mx-auto mb-8">
-        <div className="relative h-[200px] md:h-[280px] rounded-xl overflow-hidden">
-          <Image
-            src="/images/banner/RC1(4).jpg"
-            alt="Working with Us"
-            fill
-            className="object-cover"
+    <ContainerPage>
+      <div className="w-full space-y-8">
+        {/* HEADER BLOCK */}
+        <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/career-hero.jpg')" }}
           />
-        </div>
-      </div>
-
-      <div className="container mx-auto pb-16">
-        
-        {/* Back Button */}
-        <Link 
-          href="/career"
-          className="inline-flex items-center gap-2 text-[#16A7CB] mb-6 hover:underline"
-        >
-          <div className="w-8 h-8 rounded-full bg-[#16A7CB] flex items-center justify-center">
-            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </div>
-          <span className="text-gray-600">ย้อนกลับ</span>
-        </Link>
-
-        {/* Job Title */}
-        <h1 className="text-2xl md:text-3xl font-bold text-[#1B1D20] mb-8">
-          {job.title}
-        </h1>
-
-        {/* Content */}
-        <div className="space-y-8">
-          
-          {/* Job Purpose */}
-          <section>
-            <h2 className="text-lg font-bold text-[#1B1D20] mb-4">
-              วัตถุประสงค์ตำแหน่งงาน (Job Purpose) :
-            </h2>
-            <p className="text-gray-600 leading-relaxed">
-              ประสานงานและดำเนินงานในส่วนงานบริหารจัดการด้านเทคโนโลยีสารสนเทศ การซ่อนแซม และการบำรุงรักษา วัสดุอุปกรณ์เทคโนโลยีสารสนเทศและโครงสร้างพื้นฐานของสำนักงาน
-              เพื่อให้มีความปลอดภัย เพียงพอต่อการใช้งาน มีสภาพสมบูรณ์ และประหยัดพลังงาน ตลอดจนส่งเสริมวินัยและความปลอดภัยในการปฏิบัติงาน
-              รวมถึงปฏิบัติงานตามระเบียบของสำนักงาน
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+            <h1 className="text-3xl md:text-5xl font-bold mb-2">
+              ร่วมงาน <span className="text-[#74CEE2]">กับเรา</span>
+            </h1>
+            <p className="text-lg md:text-xl opacity-90">
+              โอกาสเติบโตและพัฒนาศักยภาพไปพร้อมกับ OKMD
             </p>
-          </section>
+          </div>
+        </div>
 
-          {/* Main Accountabilities */}
-          <section>
-            <h2 className="text-lg font-bold text-[#1B1D20] mb-4">
-              หน้าที่ความรับผิดชอบหลัก (Main Accountabilities) :
-            </h2>
-            <ol className="list-decimal list-inside space-y-3 text-gray-600 leading-relaxed">
-              <li>
-                ปฏิบัติงานเกี่ยวกับเครื่องมือและอุปกรณ์ด้านเทคโนโลยีสารสนเทศและการสื่อสารภายใน สำนักภาคใต้ ให้อยู่ในสภาพที่มีประสิทธิภาพพร้อมใช้งาน เป็นไปตามระเบียบ
-                ข้อบังคับและกฎหมายที่เกี่ยวข้อง เพื่อสนับสนุนและอำนวยความสะดวกในการดำเนินงานของบุคลากรและการให้บริการแก่สมาชิก
-              </li>
-              <li>
-                ปฏิบัติงานเกี่ยวกับการตรวจสอบความเรียบร้อย พื้นที่ อุปกรณ์ ส่วนงานเรียกร้องและระบบต่างๆ สำนักภาคใต้ ให้อยู่ในสภาพที่มีประสิทธิภาพพร้อมใช้งาน เป็นไปตามระเบียบ
-                ข้อบังคับและกฎหมายที่เกี่ยวข้อง เพื่อสนับสนุนและอำนวยความสะดวกในการดำเนินงานของ บุคลากรและการให้บริการแก่สมาชิก เป็นต้น
-                เพื่อสนับสนุนและอำนวยความสะดวกในการดำเนินงานของบุคลากรและการให้บริการการเรียกร้อง และการรักษาสภาพความสะอาด
-              </li>
-              <li>
-                สนับสนุนทำงานทางด้านเทคโนโลยีสารสนเทศเพื่อช่วยในการปฏิบัติงานเจ้าหน้าที่องค์ความรู้
-              </li>
-              <li>
-                ติดต่อประสานงานกับหน่วยงานภาครัฐ เอกชน สมาคมและสถาบันศึกษา เพื่อความร่วมมือในพื้นที่จัดกิจกรรมต่าง ๆ ภายนอกหูสนใจร่วมมือกับสำนักงาน
-              </li>
-              <li>
-                ปฏิบัติงานสนับสนุนการจัดกิจกรรมและการให้บริการที่ขยายและภายนอกสำนักภาคใต้
-              </li>
-              <li>
-                ปฏิบัติงานอื่น ๆ ตามที่ได้รับมอบหมาย
-              </li>
-            </ol>
-          </section>
+        {/* BREADCRUMB */}
+        <div className="flex items-center text-sm text-gray-500 px-2 gap-2">
+          <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+            หน้าหลัก
+          </Link>
+          <span>›</span>
+          <Link
+            href="/career"
+            className="hover:text-[#16A7CB] transition-colors"
+          >
+            ร่วมงานกับเรา
+          </Link>
+          <span>›</span>
+          <span className="text-[#16A7CB] font-medium truncate max-w-[200px] md:max-w-xs">
+            {job.title}
+          </span>
+        </div>
 
-          {/* Required Qualifications */}
-          <section>
-            <h2 className="text-lg font-bold text-[#1B1D20] mb-4">
-              คุณสมบัติที่ต้องการ (Required Qualifications) :
-            </h2>
-            <ol className="list-decimal list-inside space-y-3 text-gray-600 leading-relaxed">
-              <li>เพศชาย/หญิง อายุ 24 - 35 ปี</li>
-              <li>วุฒิการศึกษาระดับปริญญาตรีขึ้นไป สาขาคอมพิวเตอร์เตอร์ธุรกิจ เทคโนโลยีสารสนเทศ ศึกษาศาสตร์ ศิลปศาสตร์ หรือสาขาอื่นๆ ที่เกี่ยวข้องกับการบริหารจัดการด้านเทคโนโลยีสารสนเทศ</li>
-              <li>มีความสามารถในการบริหารจัดการระบบเครือข่ายและความปลอดภัยทางเทคโนโลยีดิจิทัล ระบบโครงสร้างพื้นฐานเทคโนโลยีดิจิทัล และการบริหารทรัพยากรผู้รับจ้าง</li>
-              <li>มีทักษะในการสื่อสาร ประสานงานและไขจิตนทบริการ</li>
-              <li>มีใจรัก และสามารถแก้ปัญหาเฉพาะหน้าได้ดี</li>
-              <li>มีความคิดริเริ่มสร้างสรรค์ พร้อมกที่เรียนรู้คิดสร้างสิ่งใหม่ๆ และคิดเชิงวิเคราะห์</li>
-              <li>มีทักษะดีและมนุษยสัมพันธ์ที่ดี สามารถประสานงานกับผ่ายต่าง ๆ บริหารจัดการงานได้อย่างมีประสิทธิภาพ</li>
-              <li>มีความคล่องตัวในการเดินทาง สามารถเดินทางไปปฏิบัติงานนอกสถานที่ หรือต่างจังหวัดได้</li>
-              <li>มีความสามารถในการใช้ภาษาไทยและภาษาอังกฤษ ฟัง พูด อ่าน เขียน ในระดับดี</li>
-            </ol>
-          </section>
+        {/* MAIN CARD */}
+        <div className="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-gray-100">
+          <header className="mb-10 border-b border-gray-100 pb-8">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+              <div className="space-y-4">
+                <div className="inline-block px-3 py-1 bg-[#E8F6FB] text-[#16A7CB] rounded-full text-xs font-bold">
+                  {job.department}
+                </div>
+                <h1 className="text-2xl md:text-3xl font-bold leading-tight text-[#1B1D20]">
+                  {job.title}
+                </h1>
+                <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <MapPin size={16} className="text-[#16A7CB]" />
+                    {job.location}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Briefcase size={16} className="text-[#16A7CB]" />
+                    {job.type}
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-auto flex flex-col gap-3">
+                <div className="text-right hidden md:block">
+                  <p className="text-sm text-gray-500">ปิดรับสมัคร</p>
+                  <p className="font-bold text-[#16A7CB]">{job.closingDate}</p>
+                </div>
+              </div>
+            </div>
+          </header>
 
-          {/* Apply Button */}
-          <div className="pt-4">
-            <button className="px-8 py-3 bg-[#16A7CB] text-white rounded-lg text-base font-medium hover:bg-[#0e8aa8] transition-colors">
-              สมัครงานออนไลน์
-            </button>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            {/* Content */}
+            <div className="lg:col-span-8 space-y-8">
+              <div
+                className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: job.description }}
+              />
+            </div>
+
+            {/* Sidebar Actions */}
+            <div className="lg:col-span-4 space-y-6">
+              <div className="bg-[#F8FAFC] rounded-2xl p-6 border border-gray-100 sticky top-4">
+                <h3 className="font-bold text-lg mb-4 text-[#1B1D20]">
+                  การสมัครงาน
+                </h3>
+                <div className="space-y-3">
+                  <Button className="w-full rounded-xl">สมัครงานออนไลน์</Button>
+                  <Button variant="outline" className="w-full rounded-xl">
+                    ดาวน์โหลดใบสมัคร
+                  </Button>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <h4 className="font-semibold text-gray-800 mb-2 text-sm">
+                    ติดต่อสอบถาม
+                  </h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    สำนักงานบริหารและพัฒนาองค์ความรู้
+                    <br />
+                    โทร: 02-105-6552
+                    <br />
+                    อีเมล: hr@okmd.or.th
+                  </p>
+                </div>
+
+                <div className="mt-6">
+                  <span className="text-xs font-bold text-gray-400 block mb-2 uppercase tracking-wider">
+                    Share
+                  </span>
+                  <ShareButtons />
+                </div>
+              </div>
+            </div>
           </div>
 
+          <div className="mt-10 pt-6 border-t border-gray-100">
+            <Link href="/career">
+              <Button
+                variant="outline"
+                className="rounded-xl flex items-center gap-2"
+              >
+                <ChevronLeft size={18} /> ย้อนกลับ
+              </Button>
+            </Link>
+          </div>
         </div>
 
       </div>
-    </div>
+    </ContainerPage>
   );
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import CalendarEvent from "@/components/CalendarEvent";
 import { useState } from "react";
+import FilterDropdown from "@/components/FilterDropdown";
 
 const MONTHS = [
   "แสดงผลทุกเดือน",
@@ -19,6 +20,9 @@ const MONTHS = [
   "ตุลาคม",
   "พฤศจิกายน",
   "ธันวาคม",
+  "มกราคม",
+  "กุมภาพันธ์",
+  "มีนาคม",
 ];
 
 // Mock Data
@@ -57,120 +61,100 @@ export default function CalendarEventListPage() {
   });
 
   return (
-    <main className="min-h-screen bg-white text-gray-800">
-      
-      {/* Breadcrumb */}
-      <div className="container mx-auto pt-6 md:pt-8 pb-4">
-        <div className="text-sm text-gray-500 font-medium">
-          <Link href="/" className="hover:text-[#16A7CB]">หน้าหลัก</Link>
-          {" > "}
-          <span className="text-[#16A7CB]">ปฏิทินกิจกรรม</span>
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/bannerabout.png')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
+            ปฏิทิน <span className="text-[#74CEE2]">กิจกรรม</span>
+          </h1>
+          <p className="text-lg md:text-xl opacity-90 max-w-2xl">
+            พบกับกิจกรรมเสริมสร้างความรู้เพื่อกระตุกต่อมคิดตลอดทั้งปี
+          </p>
         </div>
       </div>
 
-      <div className="container mx-auto pb-16">
-        
-        {/* Title */}
-        <p className="text-gray-500 text-sm mb-6">
-          พบกับกิจกรรมเสริมสร้างความรู้เพื่อกระตุกต่อมคิดตลอดทั้งปี 2568
-        </p>
+      {/* BREADCRUMB */}
+      <div className="flex items-center text-sm text-gray-500 px-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span className="mx-2">›</span>
+        <span className="text-[#16A7CB] font-medium">ปฏิทินกิจกรรม</span>
+      </div>
 
-        {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <select
-            value={filters.year}
-            onChange={(e) => setFilters({ ...filters, year: e.target.value })}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#16A7CB]/30"
-          >
-            <option value="2568">ปีกิจกรรม 2568</option>
-            <option value="2567">ปีกิจกรรม 2567</option>
-            <option value="2566">ปีกิจกรรม 2566</option>
-          </select>
+      {/* FILTER BLOCK */}
+      <div className="bg-gray-50 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div>
+            <FilterDropdown
+              label="ปีกิจกรรม"
+              value={filters.year}
+              options={["ปีกิจกรรม 2568", "ปีกิจกรรม 2567", "ปีกิจกรรม 2566"]}
+              onChange={(v) => setFilters({ ...filters, year: v })}
+            />
+          </div>
 
-          <select
-            value={filters.month}
-            onChange={(e) => setFilters({ ...filters, month: e.target.value })}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#16A7CB]/30"
-          >
-            {MONTHS.map((month, idx) => (
-              <option key={idx} value={idx === 0 ? "all" : month}>{month}</option>
-            ))}
-          </select>
+          <div>
+            <FilterDropdown
+              label="เดือน"
+              value={filters.month}
+              options={MONTHS}
+              onChange={(v) => setFilters({ ...filters, month: v })}
+            />
+          </div>
 
-          <select
-            value={filters.org}
-            onChange={(e) => setFilters({ ...filters, org: e.target.value })}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#16A7CB]/30"
-          >
-            <option value="all">เลือกแสดงผลเฉพาะองค์กร</option>
-            <option value="okmd">สำนักงานบริหารและพัฒนาองค์ความรู้</option>
-            <option value="museum">มิวเซียมสยาม</option>
-            <option value="tkpark">สถาบันอุทยานการเรียนรู้</option>
-          </select>
+          <div>
+            <FilterDropdown
+              label="องค์กร"
+              value={filters.org}
+              options={[
+                "เลือกแสดงผลเฉพาะองค์กร",
+                "สำนักงานบริหารและพัฒนาองค์ความรู้",
+                "มิวเซียมสยาม",
+                "สถาบันอุทยานการเรียนรู้",
+              ]}
+              onChange={(v) => setFilters({ ...filters, org: v })}
+            />
+          </div>
         </div>
+      </div>
 
-        {/* Content */}
-        <section>
-          <h2 className="text-xl md:text-2xl font-bold text-[#1B1D20] mb-6">
-            กิจกรรมที่น่าสนใจประจำเดือนนี้
-          </h2>
+      {/* CONTENT GRID */}
+      <div className="bg-white rounded-3xl p-6 md:p-10 border border-gray-100 shadow-sm">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#1B1D20] mb-8 border-l-4 border-[#16A7CB] pl-4">
+          กิจกรรมที่น่าสนใจประจำเดือนนี้
+        </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-            
-            {/* Event Cards */}
-            <div className="lg:col-span-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {events.map((event) => (
-                  <Link
-                    key={event.id}
-                    href={`/calendar-of-event/${event.id}`}
-                    className="group block"
-                  >
-                    <div className="relative h-[200px] rounded-xl overflow-hidden mb-3">
-                      <Image
-                        src={event.image}
-                        alt={event.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      {/* Date Badge */}
-                      <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm">
-                        <p className="text-[11px] text-gray-500 leading-tight">วันเสาร์ที่ 25 ตุลาคม 2568</p>
-                        <p className="text-[11px] text-gray-500">เวลา 11:00-15:30 น.</p>
-                      </div>
-                    </div>
-                    
-                    <p className="text-xs text-gray-500 mb-1">{event.date}</p>
-                    
-                    <h3 className="text-base font-semibold text-[#1B1D20] mb-1 group-hover:text-[#16A7CB] transition-colors line-clamp-2">
-                      {event.title}
-                    </h3>
-                    
-                    <p className="text-xs text-gray-500 line-clamp-1">{event.location}</p>
-                    <p className="text-xs text-gray-500 line-clamp-1">{event.venue}</p>
-                    
-                    <div className="flex items-center text-[#16A7CB] text-sm font-medium mt-2">
-                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
-                      </svg>
-                      อ่านเพิ่มเติม
-                    </div>
-                  </Link>
-                ))}
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* LEFT: EVENTS */}
+          <div className="lg:col-span-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {events.map((event) => (
+                <div key={event.id} className="w-full">
+                  <EventCard
+                    event={event}
+                    path={`/calendar-of-event/${event.id}?title=${event.title}`}
+                  />
+                </div>
+              ))}
             </div>
+          </div>
 
-            {/* Calendar */}
-            <div className="lg:col-span-4">
-              <div className="sticky top-24">
-                <CalendarEvent />
-              </div>
+          {/* RIGHT: CALENDAR WIDGET */}
+          <div className="lg:col-span-4 w-full">
+            <div className="sticky top-24 bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+              <CalendarEvent />
             </div>
-
           </div>
         </section>
 
       </div>
-    </main>
+    </div>
   );
 }

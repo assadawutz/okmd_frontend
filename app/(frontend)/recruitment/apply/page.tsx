@@ -1,101 +1,245 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import React from "react";
+import {
+  ChevronLeft,
+  CheckCircle2,
+  AlertCircle,
+  Trash2,
+  UploadCloud,
+  FileText,
+  Send,
+} from "lucide-react";
 import Link from "next/link";
-import { ChevronLeft, Trash2, FileText } from "lucide-react";
+import { ContainerPage } from "@/components/shared/ContainerPage";
+import Input from "@/components/ui/Input";
+import Button from "@/components/ui/Button";
 
-interface UploadedFile {
-  id: string;
-  name: string;
-}
-
-export default function Page() {
-  const [files, setFiles] = useState<UploadedFile[]>([]);
-  const [agreed, setAgreed] = useState(false);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setFiles((prev) => [
-        ...prev,
-        { id: Date.now().toString(), name: file.name },
-      ]);
-    }
-  };
-
-  const removeFile = (id: string) => {
-    setFiles((prev) => prev.filter((f) => f.id !== id));
-  };
+export default function RecruitmentApplyPage() {
+  const [modal, setModal] = useState<"none" | "save" | "delete" | "success">(
+    "none"
+  );
+  const [file, setFile] = useState<string | null>(null);
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* Breadcrumb */}
-      <div className="container mx-auto px-4 py-4">
-        <nav className="text-sm text-gray-500">
-          <Link href="/" className="hover:text-[#16A7CB] transition-colors">
-            หน้าหลัก
+    <ContainerPage>
+      <div className="w-full space-y-8">
+        {/* HEADER BLOCK */}
+        <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/bannerabout.png')" }}
+          />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+            <h1 className="text-3xl md:text-5xl font-bold mb-2">
+              สมัครงาน <span className="text-[#74CEE2]">ออนไลน์</span>
+            </h1>
+            <p className="text-lg md:text-xl opacity-90">
+              กรอกข้อมูลเพื่อสมัครร่วมงานกับเรา
+            </p>
+          </div>
+        </div>
+
+        {/* BREADCRUMB */}
+        <div className="flex items-center text-sm text-gray-500 px-2">
+          <Link
+            href="/recruitment/list"
+            className="hover:text-[#16A7CB] transition-colors flex items-center gap-1"
+          >
+            <ChevronLeft size={16} /> กลับหน้ารายการ
           </Link>
-          <span className="mx-2">&gt;</span>
-          <span className="text-[#16A7CB]">ค้นหางาน</span>
-        </nav>
-      </div>
+          <span className="mx-2">›</span>
+          <span className="text-[#16A7CB] font-medium">แบบฟอร์มใบสมัคร</span>
+        </div>
 
-      {/* Hero Banner */}
-      <div className="relative w-full h-[200px] md:h-[280px] overflow-hidden">
-        <Image
-          src="/images/banner/RC1(4).jpg"
-          alt="Job Application Banner"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
-
-      <div className="container mx-auto px-4 py-8">
-        {/* Back Button */}
-        <Link
-          href="/career"
-          className="inline-flex items-center text-sm text-[#16A7CB] mb-8 hover:opacity-80 transition-opacity"
-        >
-          <ChevronLeft size={20} className="mr-1" />
-          ย้อนกลับ
-        </Link>
-
-        {/* Form Title */}
-        <h1 className="text-2xl lg:text-3xl font-bold text-[#333] mb-8">
-          ใบสมัครงาน
-        </h1>
-
-        {/* Form Section */}
-        <div className="bg-white rounded-lg">
-          {/* Section Header */}
-          <div className="bg-[#F97316] text-white py-3 px-6 rounded-t-lg text-sm font-medium mb-6">
-            ข้อมูลส่วนตัว *
+        {/* FORM CONTENT */}
+        <div className="w-full md:w-2xl mx-auto bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-3 mb-8 border-b border-gray-100 pb-4">
+            <div className="w-10 h-10 rounded-full bg-[#E8F6FB] flex items-center justify-center text-[#16A7CB]">
+              <FileText size={20} />
+            </div>
+            <h2 className="text-xl md:text-2xl font-bold text-[#1B1D20]">
+              ข้อมูลผู้สมัคร
+            </h2>
           </div>
 
-          {/* Form Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {/* Row 1 */}
-            <div>
-              <label className="block text-sm text-[#40444D] mb-2">
-                ชื่อ - นามสกุล
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">
+                ชื่อ - นามสกุล *
               </label>
-              <input
-                type="text"
-                placeholder="ชื่อ - นามสกุล"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#16A7CB] transition-colors"
+              <Input placeholder="กรอกชื่อ-นามสกุล ของท่าน" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">
+                เบอร์ติดต่อ *
+              </label>
+              <Input placeholder="08X-XXX-XXXX" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">
+                อีเมล *
+              </label>
+              <Input placeholder="name@example.com" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-700">
+                ตำแหน่งที่สมัคร *
+              </label>
+              <Input
+                placeholder="ระบุตำแหน่ง"
+                defaultValue="เจ้าหน้าที่ช่วยปฏิบัติงานบริหารทรัพยากรกายภาพ ด้าน IT"
+                disabled
+                className="bg-gray-50 text-gray-500 cursor-not-allowed"
               />
             </div>
-            <div>
-              <label className="block text-sm text-[#40444D] mb-2">
-                สัญชาติ
-              </label>
-              <input
-                type="text"
-                placeholder="สัญชาติ"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#16A7CB] transition-colors"
-              />
+          </div>
+
+          <div className="space-y-4 mb-10">
+            <label className="text-sm font-semibold text-gray-700">
+              เอกสารแนบ (Resume / CV / Portfolio) *{" "}
+              <span className="text-xs text-gray-400 font-normal">
+                (PDF, Max 5MB)
+              </span>
+            </label>
+            <div className="border-2 border-dashed border-gray-200 rounded-3xl p-8 flex flex-col items-center justify-center bg-gray-50/50 hover:bg-[#E8F6FB]/30 hover:border-[#16A7CB]/50 transition-all cursor-pointer group">
+              {file ? (
+                <div className="flex items-center justify-between w-full max-w-md bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
+                  <div className="flex items-center gap-3 overflow-hidden">
+                    <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 flex-shrink-0">
+                      <CheckCircle2 size={20} />
+                    </div>
+                    <span className="font-medium text-gray-700 truncate">
+                      {file}
+                    </span>
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setModal("delete");
+                    }}
+                    className="p-2 text-red-400 hover:bg-red-50 rounded-xl transition-colors"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                </div>
+              ) : (
+                <div
+                  className="text-center group-hover:scale-105 transition-transform duration-300"
+                  onClick={() => setFile("Resume_2025.pdf")}
+                >
+                  <div className="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mx-auto mb-4 text-[#16A7CB]">
+                    <UploadCloud size={32} />
+                  </div>
+                  <p className="text-gray-600 font-medium">
+                    คลิกเพื่ออัปโหลดไฟล์
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    หรือลากไฟล์มาวางที่นี่
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="flex justify-end pt-6 border-t border-gray-100">
+            <Button
+              onClick={() => setModal("save")}
+              className="w-full md:w-auto px-12 rounded-xl py-3 shadow-lg shadow-[#16A7CB]/20 text-lg flex items-center justify-center gap-2"
+            >
+              <Send size={20} /> ส่งใบสมัคร
+            </Button>
+          </div>
+        </div>
+
+        {/* Modal Overlay */}
+        {modal !== "none" && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            onClick={() => setModal("none")}
+          >
+            <div
+              className="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl animate-in fade-in zoom-in duration-200 border border-gray-100"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {modal === "save" && (
+                <>
+                  <div className="w-20 h-20 bg-[#E8F6FB] text-[#16A7CB] rounded-full flex items-center justify-center mx-auto mb-6">
+                    <AlertCircle size={40} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-[#1B1D20]">
+                    ยืนยันการสมัคร?
+                  </h3>
+                  <p className="text-gray-500 mb-8 text-sm">
+                    กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนส่ง
+                  </p>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => setModal("none")}
+                      className="flex-1 py-2.5 rounded-xl border border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition-colors"
+                    >
+                      แก้ไข
+                    </button>
+                    <Button
+                      onClick={() => setModal("success")}
+                      className="flex-1 rounded-xl shadow-none"
+                    >
+                      ยืนยัน
+                    </Button>
+                  </div>
+                </>
+              )}
+
+              {modal === "delete" && (
+                <>
+                  <div className="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Trash2 size={40} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-[#1B1D20]">
+                    ลบไฟล์นี้?
+                  </h3>
+                  <p className="text-gray-500 mb-8 text-sm">
+                    คุณต้องการลบไฟล์ที่เลือกไว้ออกใช่หรือไม่
+                  </p>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => setModal("none")}
+                      className="flex-1 py-2.5 rounded-xl border border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition-colors"
+                    >
+                      ยกเลิก
+                    </button>
+                    <button
+                      onClick={() => {
+                        setFile(null);
+                        setModal("none");
+                      }}
+                      className="flex-1 py-2.5 rounded-xl bg-red-500 text-white font-medium hover:bg-red-600 transition-colors shadow-lg shadow-red-500/20"
+                    >
+                      ลบเลย
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {modal === "success" && (
+                <>
+                  <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle2 size={40} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-[#1B1D20]">
+                    ส่งใบสมัครเรียบร้อย
+                  </h3>
+                  <p className="text-gray-500 mb-8 text-sm">
+                    เราได้รับข้อมูลของท่านแล้ว
+                    ทางเจ้าหน้าที่จะติดต่อกลับไปโดยเร็วที่สุด
+                  </p>
+                  <Link href="/recruitment/list">
+                    <Button className="w-full rounded-xl">กลับหน้าหลัก</Button>
+                  </Link>
+                </>
+              )}
             </div>
             <div>
               <label className="block text-sm text-[#40444D] mb-2">เพศ</label>
@@ -179,55 +323,8 @@ export default function Page() {
               </div>
             )}
           </div>
-
-          {/* Divider */}
-          <div className="border-t border-gray-200 my-8" />
-
-          {/* Agreement Checkbox */}
-          <div className="mb-6">
-            <label className="flex items-start gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={agreed}
-                onChange={(e) => setAgreed(e.target.checked)}
-                className="mt-1 w-5 h-5 rounded border-gray-300 text-[#16A7CB] focus:ring-[#16A7CB]"
-              />
-              <span className="text-sm text-[#40444D]">
-                กรุณาเลือกยอมรับเงื่อนไขข้อตกลงการใช้บริการ และ นโยบายความเป็นส่วนตัวของ OKMD
-              </span>
-            </label>
-          </div>
-
-          {/* reCAPTCHA */}
-          <div className="mb-8">
-            <div className="inline-flex items-center gap-3 border border-gray-200 rounded-lg p-4 bg-gray-50">
-              <input type="checkbox" className="w-5 h-5 rounded" />
-              <span className="text-sm text-gray-600">I&apos;m not a robot</span>
-              <div className="ml-4">
-                <Image
-                  src="/recaptcha.png"
-                  alt="reCAPTCHA"
-                  width={40}
-                  height={40}
-                  className="opacity-70"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = "none";
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Submit Button */}
-          <button
-            className="px-8 py-3 bg-[#16A7CB] text-white text-sm font-medium rounded-lg hover:bg-[#1295B5] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={!agreed}
-          >
-            สมัครงานออนไลน์
-          </button>
-        </div>
+        )}
       </div>
-    </main>
+    </ContainerPage>
   );
 }

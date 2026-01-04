@@ -20,7 +20,7 @@ export default function Header() {
       const c = localStorage.getItem("contrast") || "normal";
       document.documentElement.setAttribute("data-font", f);
       document.documentElement.setAttribute("data-contrast", c);
-    } catch { }
+    } catch {}
   }, []);
 
   /* Set header height variable */
@@ -69,7 +69,7 @@ export default function Header() {
             data-menubar
             className="hidden lg:flex items-center"
           >
-            <ul className="flex gap-6 xl:gap-8 text-[16px] font-medium text-[#1B1D20] whitespace-nowrap">
+            <ul className="flex gap-6 text-[16px] font-medium text-[#1B1D20] whitespace-nowrap">
               <MenuList active={active} setActive={setActive} />
             </ul>
           </nav>
@@ -101,95 +101,46 @@ export default function Header() {
 function MegaMenu({ active }: { active: string | null }) {
   if (!active) return null;
 
-  const menuData: Record<string, { title: string; items: { label: string; href: string }[] }[]> = {
+  const MENU_CONTENT: Record<string, string[]> = {
     "รู้จัก OKMD": [
-      {
-        title: "เกี่ยวกับองค์กร",
-        items: [
-          { label: "รู้จัก OKMD", href: "/about-okmd/about-us" },
-          { label: "โครงสร้าง OKMD", href: "/about-okmd/structure" },
-          { label: "คณะกรรมการและผู้บริหาร", href: "/about-okmd/executives" },
-          { label: "ผู้บริหารเทคโนโลยีสารสนเทศ", href: "/about-okmd/cio" },
-        ]
-      },
-      {
-        title: "นโยบายและแผน",
-        items: [
-          { label: "นโยบายการดำเนินงาน", href: "/about-okmd/policy" },
-          { label: "แผนการดำเนินงาน", href: "/about-okmd/plan" },
-          { label: "คำรับรองการปฏิบัติงาน", href: "/about-okmd/acceptance" },
-          { label: "การกำกับดูแลกิจการ", href: "/about-okmd/governance" },
-        ]
-      },
-      {
-        title: "รายงาน",
-        items: [
-          { label: "รายงานผลการปฏิบัติงาน", href: "/about-okmd/outcome-report" },
-          { label: "รายงานผลการดำเนินงาน", href: "/about-okmd/operational-plan" },
-          { label: "รายงานประจำปี", href: "/about-okmd/annual-report" },
-          { label: "งบการเงิน", href: "/about-okmd/financial-statements" },
-        ]
-      },
+      "เกี่ยวกับองค์กร",
+      "นโยบายการดำเนินงาน",
+      "แผนการดำเนินงาน",
+      "โครงสร้าง OKMD",
+      "คณะกรรมการและคู่มือบริหาร",
+      "รายงาน",
+      "ศูนย์ช่วยเหลือ",
+      "คณุรองการจัดจ้าง สบธ.",
+      "คู่มือ / แนวทางการปฏิบัติงาน",
+      "การเปิดเผยข้อมูลสาธารณะ",
+      "คู้มริดีมนุศีสทธิอิเล็กทรอนิกส์",
     ],
-    "ข่าวประชาสัมพันธ์": [
-      {
-        title: "ข่าวสาร",
-        items: [
-          { label: "ข่าวทั้งหมด", href: "/news" },
-          { label: "ข่าวองค์กร", href: "/news-corporate" },
-          { label: "ข่าวเผยแพร่", href: "/news-release" },
-        ]
-      },
-    ],
-    "บริการความรู้": [
-      {
-        title: "คลังความรู้",
-        items: [
-          { label: "ตู้ความรู้", href: "/knowledge" },
-          { label: "OKMD กระตุกต่อมคิด", href: "/knowledge" },
-          { label: "OKMD Infographic", href: "/knowledge" },
-          { label: "OKMD บทความวิจัย", href: "/knowledge" },
-        ]
-      },
-    ],
-    "ร่วมงานกับเรา": [
-      {
-        title: "สมัครงาน",
-        items: [
-          { label: "ตำแหน่งงานว่าง", href: "/career" },
-          { label: "ประกาศผู้ผ่านการคัดเลือก", href: "/job-announcement" },
-          { label: "ฝึกงาน", href: "/career" },
-        ]
-      },
-    ],
+    ข่าวประชาสัมพันธ์: ["ข่าว OKMD", "OKMD Knowledge Portal", "OKMD Magazine"],
+    บริการความรู้: ["จัดซื้อจัดจ้าง", "สมัครงาน", "ฝึกงาน"],
   };
 
-  const data = menuData[active];
-  if (!data) return null;
+  const items = MENU_CONTENT[active] || [];
 
   return (
     <div
       data-mega-panel
       className="fixed left-0 top-[var(--header-h)] w-full bg-white shadow-lg border-t border-gray-200 z-40"
     >
-      <div className="container mx-auto px-6 lg:px-10 py-8">
-        <div className="grid grid-cols-3 gap-8">
-          {data.map((section, idx) => (
-            <div key={idx}>
-              <h4 className="text-lg font-bold text-[#16A7CB] mb-4">{section.title}</h4>
-              <ul className="space-y-3">
-                {section.items.map((item, i) => (
-                  <li key={i}>
-                    <Link
-                      href={item.href}
-                      className="text-[15px] text-[#1B1D20] hover:text-[#16A7CB] transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+      <div className="container mx-auto py-8">
+        <h3 className="text-xl font-semibold text-[#16A7CB] mb-6 border-b border-[#16A7CB] pb-2">
+          {active}
+        </h3>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          {items.map((item) => (
+            <Link
+              key={item}
+              href="#"
+              className="py-3 px-4 rounded-lg hover:bg-gray-50 text-left text-[15px] font-normal text-[#1B1D20] transition flex items-center gap-2"
+            >
+              <span className="text-[#16A7CB]">›</span>
+              {item}
+            </Link>
           ))}
         </div>
       </div>
@@ -210,10 +161,9 @@ function MenuList({
   const menus = [
     { label: "รู้จัก OKMD", hasDropdown: true },
     { label: "ข่าวประชาสัมพันธ์", hasDropdown: true },
-    { label: "ปฏิทินกิจกรรม", href: "/calendar-of-event" },
+    { label: "ปฏิทินและกิจกรรม", href: "/calendar-of-event" },
     { label: "บริการความรู้", hasDropdown: true },
-    { label: "ร่วมงานกับเรา", hasDropdown: true },
-    { label: "ติดต่อเรา", href: "/complaint" },
+    { label: "ติดต่อเรา", href: "/contract" },
   ];
 
   return (
@@ -253,7 +203,7 @@ function MenuItem({
       <li>
         <Link
           href={href}
-          className="flex items-center gap-1 cursor-pointer group text-[16px] font-medium transition py-2"
+          className="flex items-center gap-1 cursor-pointer group text-[16px] font-medium transition"
         >
           <span className="relative">
             {label}
@@ -272,21 +222,22 @@ function MenuItem({
           e.stopPropagation();
           setActive(isOpen ? null : label);
         }}
-        className="flex items-center gap-1.5 cursor-pointer group text-[16px] font-medium transition py-2"
+        className="flex items-center gap-1 cursor-pointer group text-[16px] font-medium transition"
       >
         <span className="relative">
           {label}
           <span className={`absolute left-0 -bottom-[2px] h-[2px] transition-all ${isOpen ? 'w-full bg-[#74CEE2]' : 'w-0 bg-[#74CEE2] group-hover:w-full'}`}></span>
         </span>
 
-        <svg
-          className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        {hasDropdown && (
+          <Image
+            src="/dropdown.png"
+            width={16}
+            height={16}
+            alt=""
+            className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
+          />
+        )}
       </button>
     </li>
   );
@@ -297,6 +248,8 @@ function MenuItem({
 /* ====================================================== */
 function MobileMenu({
   onClose,
+  active,
+  setActive,
 }: {
   onClose: () => void;
   active?: string | null;
@@ -304,22 +257,58 @@ function MobileMenu({
 }) {
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
 
-  const menuItems = [
+  const MOBILE_MENUS = [
     {
       label: "รู้จัก OKMD",
-      subItems: [
-        { label: "รู้จัก OKMD", href: "/about-okmd/about-us" },
-        { label: "โครงสร้าง OKMD", href: "/about-okmd/structure" },
-        { label: "คณะกรรมการและผู้บริหาร", href: "/about-okmd/executives" },
-        { label: "นโยบายการดำเนินงาน", href: "/about-okmd/policy" },
-        { label: "รายงาน", href: "/about-okmd/reports" },
-      ]
+      items: [
+        "เกี่ยวกับองค์กร",
+        "นโยบายการดำเนินงาน",
+        "แผนการดำเนินงาน",
+        "โครงสร้าง OKMD",
+      ],
     },
-    { label: "ข่าวประชาสัมพันธ์", href: "/news" },
-    { label: "ปฏิทินกิจกรรม", href: "/calendar-of-event" },
-    { label: "บริการความรู้", href: "/knowledge" },
-    { label: "ร่วมงานกับเรา", href: "/career" },
-    { label: "ติดต่อเรา", href: "/complaint" },
+    {
+      label: "นโยบายการดำเนินงาน",
+      hasDropdown: true,
+    },
+    {
+      label: "แผนการดำเนินงาน",
+      hasDropdown: true,
+    },
+    {
+      label: "โครงสร้าง OKMD",
+    },
+    {
+      label: "คณะกรรมการและคู่มือบริหาร",
+      hasDropdown: true,
+    },
+    {
+      label: "การรองการจัดจ้าง",
+      hasDropdown: true,
+    },
+    {
+      label: "การกำกับดูแลกิจการ",
+      hasDropdown: true,
+    },
+    {
+      label: "รายงาน",
+      hasDropdown: true,
+    },
+    {
+      label: "กฎ ระเบียบ ข้อบังคับ",
+    },
+    {
+      label: "ศูนย์ข้อมูลข่าวสารอิเล็กทรอนิกส์ของ สบธ.",
+    },
+    {
+      label: "คู่มือ / แนวทางการปฏิบัติงาน",
+    },
+    {
+      label: "การเปิดเผยข้อมูลสาธารณะ",
+    },
+    {
+      label: "คู้มริดีมนุศีสทธิอิเล็กทรอนิกส์",
+    },
   ];
 
   return (
@@ -330,77 +319,89 @@ function MobileMenu({
       onClick={onClose}
     >
       <div
-        className="absolute w-full top-0 bg-white shadow-xl p-6 animate-slideDown max-h-[90vh] overflow-y-auto"
+        className="absolute w-full h-full top-0 bg-white shadow-xl overflow-y-auto animate-slideDown"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* close */}
-        <div className="flex justify-end mb-6">
-          <button onClick={onClose} className="p-2">
-            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+        {/* Header */}
+        <div className="sticky top-0 bg-white z-10 border-b border-gray-200 p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold text-[#1B1D20]">
+              เกี่ยวกับ <span className="text-[#16A7CB]">OKMD</span>
+            </h2>
+            <button onClick={onClose} className="p-2">
+              <Image src="/close.png" width={24} height={24} alt="close" />
+            </button>
+          </div>
         </div>
 
-        <ul className="flex flex-col text-[18px] font-medium text-[#1B1D20] gap-1">
-          {menuItems.map((item) => (
-            <li key={item.label} className="border-b border-gray-100 last:border-0">
-              {item.subItems ? (
-                <>
-                  <button
-                    onClick={() => setExpandedMenu(expandedMenu === item.label ? null : item.label)}
-                    className="flex justify-between items-center w-full py-4"
-                  >
-                    {item.label}
-                    <svg
-                      className={`w-5 h-5 transition-transform ${expandedMenu === item.label ? 'rotate-180' : ''}`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  {expandedMenu === item.label && (
-                    <ul className="pb-4 pl-4 space-y-3">
-                      {item.subItems.map((subItem) => (
-                        <li key={subItem.label}>
-                          <Link
-                            href={subItem.href}
-                            onClick={onClose}
-                            className="text-[16px] text-gray-600 hover:text-[#16A7CB]"
-                          >
-                            {subItem.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href || "#"}
-                  onClick={onClose}
-                  className="flex justify-between items-center py-4"
-                >
-                  {item.label}
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              )}
-            </li>
-          ))}
-        </ul>
+        {/* Menu Items */}
+        <div className="p-6 pt-4">
+          <div className="mb-6">
+            <Link
+              href="/about-okmd/about-us"
+              className="block py-3 text-[16px] font-medium text-[#16A7CB] border-b border-[#16A7CB]"
+            >
+              รู้จัก OKMD
+            </Link>
+          </div>
 
-        {/* donate */}
-        <Link href="/donation" onClick={onClose}>
-          <button className="mt-8 w-full bg-[#74CEE2] text-white text-[18px] font-bold py-3.5 rounded-xl active:scale-95 transition">
-            Donate
-          </button>
-        </Link>
+          <ul className="flex flex-col text-[16px] font-normal text-[#1B1D20] divide-y divide-gray-200">
+            {MOBILE_MENUS.map((menu, idx) => (
+              <li key={idx}>
+                {menu.hasDropdown ? (
+                  <button
+                    onClick={() =>
+                      setExpandedMenu(
+                        expandedMenu === menu.label ? null : menu.label
+                      )
+                    }
+                    className="flex justify-between items-center w-full py-4 text-left"
+                  >
+                    {menu.label}
+                    <Image
+                      src="/dropdown.png"
+                      width={16}
+                      height={16}
+                      alt=""
+                      className={`transition-transform ${
+                        expandedMenu === menu.label ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                ) : (
+                  <a
+                    href="#"
+                    className="flex justify-between items-center py-4"
+                  >
+                    {menu.label}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
+  );
+}
+
+function MobileItem({ label, href }: { label: string; href?: string }) {
+  if (href)
+    return (
+      <Link
+        href={href}
+        className="flex justify-between items-center text-[22px] font-medium"
+      >
+        {label}
+        <Image src="/dropdown.png" width={20} height={20} alt="" />
+      </Link>
+    );
+
+  return (
+    <li className="flex justify-between items-center">
+      {label}
+      <Image src="/dropdown.png" width={20} height={20} alt="" />
+    </li>
   );
 }
 
@@ -419,66 +420,67 @@ function RightTools({ onOpenMenu }: { onOpenMenu: () => void }) {
   };
 
   return (
-    <div className="flex items-center gap-3 lg:gap-4">
+    <div className="flex items-center  lg:items-end gap-4 ml-4">
+      {/* DESKTOP TOOLBAR */}
+      <div className="hidden lg:flex flex-col items-end">
+        {/* ROW 1 */}
+        <div className="flex items-center gap-7 mb-2">
+          {/* FONT SIZE */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => applyFont("sm")}
+              className="w-8 h-8 rounded bg-[#F1FAFC] flex justify-center items-center text-[13px] cursor-pointer font-medium hover:bg-[#E2F6FA]"
+            >
+              ก
+            </button>
+            <button
+              onClick={() => applyFont("md")}
+              className="w-8 h-8 rounded bg-[#F1FAFC] flex justify-center items-center text-[17px] cursor-pointer font-semibold hover:bg-[#E2F6FA]"
+            >
+              ก
+            </button>
+            <button
+              onClick={() => applyFont("lg")}
+              className="w-8 h-8 rounded bg-[#F1FAFC] flex justify-center items-center text-[21px] cursor-pointer font-semibold hover:bg-[#E2F6FA]"
+            >
+              ก
+            </button>
+          </div>
 
-      {/* LANGUAGE SELECTOR */}
-      <div className="hidden lg:flex items-center gap-2">
-        <Image src="/th-flag.svg" width={24} height={16} alt="Thai" className="object-contain" />
-        <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </div>
+          {/* CONTRAST */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => applyContrast("normal")}
+              className="w-8 h-8 rounded bg-[#F1FAFC] text-[#1E1E1E] font-bold flex justify-center items-center cursor-pointer hover:ring-2 hover:ring-[#1E1E1E]/30"
+            >
+              C
+            </button>
 
-      {/* FONT SIZE */}
-      <div className="hidden lg:flex items-center gap-1.5">
-        <button
-          onClick={() => applyFont("sm")}
-          className="w-7 h-7 rounded bg-[#F1FAFC] flex justify-center items-center text-[12px] cursor-pointer font-medium hover:bg-[#E2F6FA] transition"
-          aria-label="Small font"
-        >
-          ก
-        </button>
-        <button
-          onClick={() => applyFont("md")}
-          className="w-7 h-7 rounded bg-[#F1FAFC] flex justify-center items-center text-[15px] cursor-pointer font-semibold hover:bg-[#E2F6FA] transition"
-          aria-label="Medium font"
-        >
-          ก
-        </button>
-        <button
-          onClick={() => applyFont("lg")}
-          className="w-7 h-7 rounded bg-[#F1FAFC] flex justify-center items-center text-[18px] cursor-pointer font-semibold hover:bg-[#E2F6FA] transition"
-          aria-label="Large font"
-        >
-          ก
-        </button>
-      </div>
+            <button
+              onClick={() => applyContrast("dark")}
+              className="w-8 h-8 rounded bg-[#1E1E1E] text-white font-bold flex justify-center items-center cursor-pointer hover:ring-2 hover:ring-black/50"
+            >
+              C
+            </button>
 
-      {/* CONTRAST */}
-      <div className="hidden lg:flex items-center gap-1.5">
-        <button
-          onClick={() => applyContrast("normal")}
-          className="w-7 h-7 rounded bg-[#F1FAFC] text-[#1E1E1E] font-bold flex justify-center items-center cursor-pointer hover:ring-2 hover:ring-[#1E1E1E]/20 transition text-[13px]"
-          aria-label="Normal contrast"
-        >
-          C
-        </button>
+            <button
+              onClick={() => applyContrast("high")}
+              className="w-8 h-8 rounded bg-[#1E1E1E] text-[#FFD13F] font-bold flex justify-center items-center cursor-pointer hover:ring-2 hover:ring-[#FFD13F]/50"
+            >
+              C
+            </button>
+          </div>
+        </div>
 
-        <button
-          onClick={() => applyContrast("dark")}
-          className="w-7 h-7 rounded bg-[#1E1E1E] text-white font-bold flex justify-center items-center cursor-pointer hover:ring-2 hover:ring-black/30 transition text-[13px]"
-          aria-label="Dark contrast"
-        >
-          C
-        </button>
-
-        <button
-          onClick={() => applyContrast("high")}
-          className="w-7 h-7 rounded bg-[#1E1E1E] text-[#FFD13F] font-bold flex justify-center items-center cursor-pointer hover:ring-2 hover:ring-[#FFD13F]/30 transition text-[13px]"
-          aria-label="High contrast"
-        >
-          C
-        </button>
+        {/* ROW 2 — DONATE */}
+        <Link href="/donation">
+          <button
+            aria-label="Donate"
+            className="bg-[#74CEE2] text-white rounded-xl w-[118px] h-11 text-[17px] cursor-pointer font-semibold hover:bg-[#5FC4D8] active:scale-95 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-[#74CEE2] focus:ring-offset-2"
+          >
+            บริจาค
+          </button>
+        </Link>
       </div>
 
       {/* DONATE BUTTON */}

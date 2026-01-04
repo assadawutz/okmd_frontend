@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Input from "@/components/ui/Input";
+import Dropdown from "@/components/ui/Dropdown";
+import Button from "@/components/ui/Button";
+import { CiSearch } from "react-icons/ci";
 
 export default function JobAnnouncement() {
   const [idNumber, setIdNumber] = useState("");
@@ -24,113 +27,205 @@ export default function JobAnnouncement() {
   };
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden">
-      
-      {/* Background with shapes */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#E8F4F8] via-white to-[#FFF9E6]">
-        {/* Decorative shapes */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-yellow-300/50 rounded-full blur-xl"></div>
-        <div className="absolute top-40 right-20 w-40 h-40 bg-pink-300/40 rounded-full blur-xl"></div>
-        <div className="absolute bottom-20 left-20 w-48 h-48 bg-cyan-300/40 rounded-full blur-xl"></div>
-        <div className="absolute bottom-60 right-10 w-24 h-24 bg-green-300/40 rotate-45"></div>
-        <div className="absolute top-60 left-[20%] w-16 h-16 bg-blue-300/40 rounded-full"></div>
-        {/* Line patterns */}
-        <div className="absolute top-40 left-[15%] w-20 h-0.5 bg-pink-300/50 rotate-45"></div>
-        <div className="absolute bottom-40 right-[25%] w-16 h-0.5 bg-cyan-300/50 -rotate-12"></div>
-      </div>
-
-      <div className="relative z-10">
-        {/* Breadcrumb */}
-        <div className="container mx-auto pt-6 md:pt-8 pb-4">
-          <div className="text-sm text-gray-500 font-medium">
-            <Link href="/" className="hover:text-[#16A7CB]">หน้าหลัก</Link>
-            {" > "}
-            <span className="text-[#16A7CB]">Announcement of Successful Applicants</span>
+    <Link
+      href={`/job-announcement/${id}`}
+      className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 transition-all duration-300 hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] cursor-pointer border border-gray-100 hover:border-[#16A7CB] group h-full flex flex-col"
+    >
+      <div className="flex flex-col gap-4 h-full">
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-[#16A7CB] transition-colors">
+              {title}
+            </h3>
+            <p className="text-gray-600 text-base">{department}</p>
           </div>
+          <span
+            className={`px-4 py-2 rounded-lg text-sm font-semibold shrink-0 ml-4 ${
+              status === "open"
+                ? "bg-green-100 text-green-800"
+                : "bg-gray-100 text-gray-600"
+            }`}
+          >
+            {status === "open" ? "เปิดรับสมัคร" : "ปิดรับสมัคร"}
+          </span>
         </div>
 
-        <div className="container mx-auto pb-16">
-          
-          {/* Title */}
-          <div className="mb-8">
-            <h1 className="text-2xl md:text-3xl font-bold mb-1">
-              <span className="text-[#1B1D20]">Announcement of </span>
-              <span className="text-[#16A7CB]">Successful Applicants</span>
-            </h1>
-            <h2 className="text-xl md:text-2xl font-bold text-[#1B1D20]">
-              ประกาศผู้ผ่านการคัดเลือก
-            </h2>
-            <p className="text-gray-500 text-sm mt-2">16 ตุลาคม 2568</p>
-          </div>
-
-          {/* Search Form */}
-          <div className="max-w-2xl">
-            <label className="block text-sm font-medium text-[#1B1D20] mb-2">
-              กรอกหมายเลขบัตรประจำตัวประชาชน <span className="text-red-500">*</span>
-            </label>
-            <div className="flex gap-4">
-              <input
-                type="text"
-                placeholder="กรอกเลขบัตรประจำตัวประชาชน"
-                value={idNumber}
-                onChange={(e) => setIdNumber(e.target.value.replace(/\D/g, "").slice(0, 13))}
-                className="flex-1 px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#16A7CB]/30 focus:border-[#16A7CB]"
-              />
-              <button
-                onClick={handleCheck}
-                disabled={idNumber.length !== 13}
-                className="px-8 py-3 bg-[#16A7CB] text-white rounded-lg text-sm font-medium hover:bg-[#0e8aa8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                ตรวจสอบข้อมูล
-              </button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Result Modal */}
-      {showResult && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-8 max-w-md w-full mx-4 text-center shadow-xl">
-            
-            {result === "success" ? (
-              <>
-                {/* Success Icon */}
-                <div className="w-20 h-20 mx-auto mb-6 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                
-                <h3 className="text-xl font-bold text-[#1B1D20] mb-2">
-                  ยินดีด้วยคุณ<span className="text-[#16A7CB]">ผ่านการคัดเลือก</span>
-                </h3>
-                <p className="text-gray-600 mb-6">คุณ ปลายฟ้า อำนวยชัย</p>
-              </>
-            ) : (
-              <>
-                {/* Fail Icon */}
-                <div className="w-20 h-20 mx-auto mb-6 bg-red-100 rounded-full flex items-center justify-center">
-                  <svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </div>
-                
-                <h3 className="text-xl font-bold text-[#1B1D20] mb-2">
-                  รอบนี้ยังไม่ผ่าน <span className="text-[#E74C3C]">ไว้สมัครใหม่นะ</span>
-                </h3>
-                <p className="text-gray-600 mb-6">คุณ ปลายฟ้า อำนวยชัย</p>
-              </>
-            )}
-            
-            <button
-              onClick={handleClose}
-              className="px-8 py-3 bg-[#16A7CB] text-white rounded-lg text-sm font-medium hover:bg-[#0e8aa8] transition-colors"
+        <div className="border-t border-gray-100 pt-4 space-y-2 mt-auto">
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-5 h-5"
             >
-              กลับสู่หน้าหลัก
-            </button>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
+              />
+            </svg>
+            <span>ประกาศเมื่อ: {announcementDate}</span>
           </div>
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <span>ปิดรับสมัคร: {closingDate}</span>
+          </div>
+        </div>
+
+        <p className="text-gray-700 text-sm line-clamp-2 mt-2">{description}</p>
+
+        <div className="pt-2">
+          <span className="text-[#16A7CB] font-semibold text-sm group-hover:underline inline-flex items-center gap-1">
+            ดูรายละเอียดเพิ่มเติม <span>→</span>
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+export default function JobAnnouncement() {
+  const [search, setSearch] = useState("");
+  const [department, setDepartment] = useState("");
+  const [status, setStatus] = useState("");
+
+  // Mock data
+  const announcements: AnnouncementCardProps[] = [
+    {
+      id: "1",
+      title: "ประกาศรับสมัครงานตำแหน่งนักพัฒนาระบบสารสนเทศ",
+      department: "สำนักงานบริหารและพัฒนาองค์ความรู้",
+      announcementDate: "15 มกราคม 2568",
+      closingDate: "15 กุมภาพันธ์ 2568",
+      status: "open",
+      description:
+        "รับสมัครงานตำแหน่งนักพัฒนาระบบสารสนเทศ เพื่อพัฒนาระบบและแอปพลิเคชันขององค์กร",
+    },
+    {
+      id: "2",
+      title: "ประกาศรับสมัครงานตำแหน่งนักวิชาการองค์ความรู้",
+      department: "สำนักงานบริหารและพัฒนาองค์ความรู้",
+      announcementDate: "10 มกราคม 2568",
+      closingDate: "10 กุมภาพันธ์ 2568",
+      status: "open",
+      description:
+        "รับสมัครงานตำแหน่งนักวิชาการองค์ความรู้ เพื่อทำการวิจัยและพัฒนาองค์ความรู้",
+    },
+    {
+      id: "3",
+      title: "ประกาศรับสมัครงานตำแหน่งเจ้าหน้าที่บริหารงานทั่วไป",
+      department: "มิวเซียมสยาม",
+      announcementDate: "5 มกราคม 2568",
+      closingDate: "5 กุมภาพันธ์ 2568",
+      status: "closed",
+      description:
+        "รับสมัครงานตำแหน่งเจ้าหน้าที่บริหารงานทั่วไป เพื่อรับผิดชอบงานบริหารและประสานงาน",
+    },
+  ];
+
+  const departmentOptions = [
+    { label: "ทั้งหมด", value: "" },
+    { label: "สำนักงานบริหารและพัฒนาองค์ความรู้", value: "okmd" },
+    { label: "มิวเซียมสยาม", value: "museum" },
+    { label: "สถาบันอุทยานการเรียนรู้", value: "tkpark" },
+  ];
+
+  const statusOptions = [
+    { label: "ทั้งหมด", value: "" },
+    { label: "เปิดรับสมัคร", value: "open" },
+    { label: "ปิดรับสมัคร", value: "closed" },
+  ];
+
+  return (
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/bannerabout.png')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
+            ประกาศ <span className="text-[#74CEE2]">รับสมัครงาน</span>
+          </h1>
+          <p className="text-lg md:text-xl opacity-90">
+            ติดตามประกาศรับสมัครงานล่าสุดจาก OKMD
+          </p>
+        </div>
+      </div>
+
+      {/* BREADCRUMB */}
+      <div className="flex items-center text-sm text-gray-500 px-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span className="mx-2">›</span>
+        <span className="text-[#16A7CB] font-medium">ประกาศรับสมัครงาน</span>
+      </div>
+
+      {/* FILTERS */}
+      <div className="bg-gray-50 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <Input
+              label="ค้นหาประกาศ"
+              placeholder="ค้นหา..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              icon={<CiSearch size={22} />}
+            />
+          </div>
+          <div>
+            <Dropdown
+              label="หน่วยงาน"
+              value={department}
+              onChange={setDepartment}
+              placeholder="เลือกหน่วยงาน"
+              options={departmentOptions}
+            />
+          </div>
+          <div>
+            <Dropdown
+              label="สถานะ"
+              value={status}
+              onChange={setStatus}
+              placeholder="เลือกสถานะ"
+              options={statusOptions}
+            />
+          </div>
+        </div>
+        <div className="mt-4 flex justify-end">
+          <Button className="w-full md:w-auto px-8 rounded-xl">ค้นหา</Button>
+        </div>
+      </div>
+
+      {/* ANNOUNCEMENT LIST */}
+      <div className="bg-white rounded-3xl p-6 md:p-10 border border-gray-100 shadow-sm">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#1B1D20] mb-6 border-l-4 border-[#16A7CB] pl-4">
+          ประกาศรับสมัครงาน ({announcements.length})
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {announcements.map((announcement) => (
+            <div key={announcement.id} className="w-full">
+              <AnnouncementCard {...announcement} />
+            </div>
+          ))}
         </div>
       )}
 
