@@ -1,253 +1,155 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, useEffect } from "react";
-import { getHighlights, type HighlightItem } from "@/lib/services/highlight.service";
+import { useState, useEffect } from "react";
+import {
+  getHighlights,
+  type HighlightItem,
+} from "@/lib/services/highlight.service";
+
+interface UIBlockProps {
+  data: HighlightItem;
+  variant?: "large" | "knowledge" | "okmd" | "image-only";
+}
+
+const HighlightCard = ({ data, variant = "image-only" }: UIBlockProps) => {
+  return (
+    <div className="group relative w-full overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 ease-in-out cursor-pointer active:scale-[0.98]">
+      {/* Image Background for Large/Image-Only */}
+      {(variant === "large" || variant === "image-only") && (
+        <div className="relative h-[320px] w-full">
+          <Image
+            src={data.img}
+            fill
+            alt={data.title}
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+            <h3 className="text-xl font-bold leading-tight mb-2 drop-shadow-md">
+              {data.title}
+            </h3>
+            {data.desc && (
+              <p className="text-sm opacity-90 line-clamp-2 mb-3">
+                {data.desc}
+              </p>
+            )}
+            <span className="inline-flex items-center text-[#74CEE2] text-sm font-medium gap-1 hover:underline">
+              อ่านต่อ <span>↗</span>
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Variant: Knowledge */}
+      {variant === "knowledge" && (
+        <div className="flex h-[320px] w-full flex-col justify-between bg-white p-6 md:flex-row md:items-center">
+          <div className="flex-1 space-y-2">
+            <p className="text-sm text-gray-500 font-medium tracking-wide">
+              The Knowledge
+            </p>
+            <h3 className="text-2xl font-bold text-[#1B1D20] leading-tight group-hover:text-[#16A7CB] transition-colors">
+              {data.title.replace("The Knowledge\n", "")}
+            </h3>
+          </div>
+          <div className="relative h-[160px] w-full md:w-[140px] md:h-[200px] mt-4 md:mt-0 shadow-md transform group-hover:rotate-1 transition-transform">
+            <Image
+              src={data.img}
+              fill
+              alt={data.title}
+              className="object-cover rounded-lg"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Variant: OKMD */}
+      {variant === "okmd" && (
+        <div className="h-[320px] w-full bg-white p-6 flex flex-col justify-between relative overflow-hidden">
+          <Image
+            src={data.img}
+            width={100}
+            height={100}
+            alt=""
+            className="absolute bottom-[-10px] right-[-10px] opacity-10 rotate-12"
+          />
+          <div>
+            <p className="font-bold text-lg text-[#16A7CB] mb-2">OKMD</p>
+            <h3 className="text-xl font-bold text-[#1B1D20] leading-snug mb-2 group-hover:text-[#16A7CB] transition-colors">
+              {data.title}
+            </h3>
+            {data.desc && (
+              <p className="text-gray-500 text-sm line-clamp-3">{data.desc}</p>
+            )}
+          </div>
+          <span className="inline-flex items-center text-[#16A7CB] text-sm font-medium gap-1 mt-4">
+            อ่านต่อ <span>↗</span>
+          </span>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default function HighlightSection() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [index, setIndex] = useState(0);
   const [highlights, setHighlights] = useState<HighlightItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch highlights from service layer
-    getHighlights().then((data) => {
-      setHighlights(data);
-    });
+    const fetchHighlights = async () => {
+      try {
+        setIsLoading(true);
+        const data = await getHighlights();
+        if (!data?.length) setError("ไม่พบข้อมูล Highlight");
+        else setHighlights(data);
+      } catch (err) {
+        setError("เกิดข้อผิดพลาดในการโหลดข้อมูล");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchHighlights();
   }, []);
 
-  /* AUTO SLIDE */
-  useEffect(() => {
-    if (highlights.length === 0) return;
-    const timer = setInterval(() => {
-      if (!ref.current) return;
-      const next = (index + 1) % highlights.length;
-      setIndex(next);
-      ref.current.scrollTo({
-        left: next * ref.current.clientWidth,
-        behavior: "smooth",
-      });
-    }, 3800);
-    return () => clearInterval(timer);
-  }, [index, highlights.length]);
+  if (isLoading) {
+    return (
+      <div className="w-full space-y-4 animate-pulse">
+        <div className="h-8 w-1/3 bg-gray-200 rounded-md mx-auto" />
+        <div className="h-[320px] w-full bg-gray-100 rounded-2xl" />
+        <div className="h-[320px] w-full bg-gray-100 rounded-2xl" />
+      </div>
+    );
+  }
+
+  if (error)
+    return <div className="text-center py-10 text-red-500">{error}</div>;
+
+  if (highlights.length === 0) {
+    return null;
+  }
 
   return (
-    <section className="bg-[#DFF1F9] w-full py-16 md:py-20">
-      {/* HEADER */}
-      <div className="container mx-auto px-6 lg:px-10 text-center mb-10 md:mb-14">
-        <h2 className="font-semibold text-okmd-dark leading-tight text-2xl sm:text-3xl lg:text-4xl">
-          Highlight
-        </h2> 
-        <p className="mt-2 text-lg sm:text-xl text-[#16A7CB]">
+    <div className="w-full space-y-6">
+      {/* Header */}
+      <div className="text-center space-y-2 mb-8">
+        <h2 className="text-3xl font-bold text-[#1B1D20]">Highlight</h2>
+        <p className="text-[#16A7CB] font-medium">
           ทุกจุดเด่น ถูกยกมาไว้ตรงนี้
         </p>
       </div>
 
-      {/* DESKTOP */}
-      <div className="hidden md:block">
-        <div className="container mx-auto px-6 lg:px-10">
+      {/* Content Stack */}
+      <div className="flex flex-col gap-6">
+        {highlights.map((item, i) => {
+          // Determine variant based on index or content (simulating the bento logic but stacked)
+          let variant: "large" | "knowledge" | "okmd" | "image-only" = "large";
+          if (i === 1) variant = "knowledge";
+          else if (i === 2) variant = "okmd";
 
-          {/* ROW 1 */}
-          {highlights.length >= 3 && (
-            <div className="grid grid-cols-12 gap-6 lg:gap-8">
-
-              {/* BOX 1 */}
-              <div className="col-span-4 rounded-2xl h-[320px] lg:h-[340px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer">
-                <Image  
-                  src={highlights[0].img}
-                  fill
-                  alt={highlights[0].title}
-                  className="object-cover transition-all duration-700 group-hover:scale-[1.05]"
-                />
-                <div className="bg-gradient-to-b from-black/20 via-black/40 to-black/70 inset-0 absolute" />
-                <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg">
-                  <h3 className="font-semibold text-lg lg:text-xl leading-snug line-clamp-2">
-                    {highlights[0].title}
-                  </h3>
-                  {highlights[0].desc && (
-                    <p className="opacity-90 text-sm line-clamp-2">{highlights[0].desc}</p>
-                  )}
-                  <a href={highlights[0].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
-                    อ่านต่อ <span>↗</span>
-                  </a>
-                </div>
-              </div>
-
-              {/* BOX 2 */}
-              <div className="col-span-4 bg-white flex rounded-2xl h-[320px] lg:h-[340px] p-5 lg:p-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] justify-between hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)] cursor-pointer">
-                <div className="flex flex-col justify-center">
-                  <p className="text-sm mb-1 text-gray-500">The Knowledge</p>
-                  <h3 className="font-bold leading-snug text-3xl lg:text-4xl">{highlights[1].title.replace("The Knowledge\n", "")}</h3>
-                </div>
-                <Image
-                  src={highlights[1].img}
-                  width={160}
-                  height={240}
-                  alt={highlights[1].title}
-                  className="rounded-none shadow-md object-contain"
-                />
-              </div>
-
-              {/* BOX 3 */}
-              <div className="col-span-4 bg-white rounded-2xl h-[320px] lg:h-[340px] p-5 lg:p-6 transition shadow-[0_4px_22px_rgba(0,0,0,0.08)] relative overflow-hidden hover:shadow-[0_6px_26px_rgba(0,0,0,0.12)] cursor-pointer">
-                <Image
-                  src={highlights[2].img}
-                  width={120}
-                  height={120}
-                  alt="highlight-3-icon"
-                  className="opacity-20 right-4 bottom-4 absolute"
-                />
-
-                <p className="font-bold text-lg mb-2 tracking-tight">OKMD</p>
-
-                <h3 className="font-medium mb-3 text-base text-[#1B1D20] leading-snug line-clamp-2">
-                  {highlights[2].title}
-                </h3>
-
-              <a href={highlights[2].link} className="flex mt-6 text-sm transition text-[#16A7CB] gap-1 items-center hover:opacity-70">
-                อ่านต่อ <span>↗</span>
-              </a>
-            </div>
-          </div>
-        )}
-
-          {/* ROW 2 */}
-          {highlights.length >= 5 && (
-            <div className="flex mt-10 gap-10">
-
-            {/* BOX 4 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] w-[752px] relative overflow-hidden group cursor-pointer">
-              <Image
-                src={highlights[3].img}
-                fill
-                alt={highlights[3].title || "highlight-4"}
-                className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
-              />
-            </div>
-
-            {/* BOX 5 */}
-            <div className="rounded-2xl h-[330px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] relative overflow-hidden group cursor-pointer flex-1">
-              <Image
-                src={highlights[4].img}
-                fill
-                alt={highlights[4].title}
-                className="object-cover transition-all duration-700 group-hover:scale-[1.06]"
-              />
-              <div className="bg-gradient-to-t from-black/70 via-black/30 to-transparent inset-0 absolute" />
-              <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg">
-                <h3 className="font-semibold text-lg lg:text-xl leading-snug line-clamp-2">
-                  {highlights[4].title}
-                </h3>
-                <a href={highlights[4].link} className="inline-flex text-sm transition text-[#74CEE2] gap-1 items-center hover:opacity-70">
-                  อ่านต่อ <span>↗</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
+          return <HighlightCard key={i} data={item} variant={variant} />;
+        })}
       </div>
-
-        {/* ================= MOBILE ================= */}
-        {highlights.length > 0 && (
-          <div className="w-full md:hidden">
-          <div ref={ref} className="flex w-full overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar">
-            {highlights.map((h, i) => (
-              <div
-                key={h.id}
-                className="bg-white rounded-2xl flex-shrink-0 h-[300px] w-[85vw] max-w-[340px] shadow-[0_6px_18px_rgba(0,0,0,0.10)] snap-center overflow-hidden"
-              >
-                {/* MOBILE TYPE MATCHING */}
-                {i === 0 && (
-                  <div className="h-full relative">
-                    <Image src={h.img} fill alt={h.title} className="object-cover" />
-                    <div className="bg-gradient-to-t from-black/70 via-black/30 to-transparent inset-0 absolute" />
-                    <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg">
-                      <h3 className="font-semibold text-lg leading-snug line-clamp-2">
-                        {h.title}
-                      </h3>
-                      {h.desc && (
-                        <p className="opacity-90 text-sm line-clamp-1">{h.desc}</p>
-                      )}
-                      <a className="inline-flex text-sm text-[#74CEE2] gap-1 items-center" href={h.link}>
-                        อ่านต่อ ↗
-                      </a>
-                    </div>
-                  </div>
-                )}
-
-                {i === 1 && (
-                  <div className="bg-white flex h-full px-5 items-center justify-between">
-                    <div>
-                      <p className="text-sm mb-1 text-gray-500">The Knowledge</p>
-                      <h3 className="font-bold leading-snug text-3xl">{h.title.replace("The Knowledge\n", "")}</h3>
-                    </div>
-                    <Image src={h.img} width={120} height={180} alt={h.title} className="rounded-lg shadow object-contain" />
-                  </div>
-                )}
-
-                {i === 2 && (
-                  <div className="bg-white h-full p-5 relative overflow-hidden">
-                    <Image src={h.img} width={100} height={100} alt="" className="opacity-20 right-3 bottom-3 absolute" />
-                    <p className="font-bold text-lg mb-2">OKMD</p>
-                    <h3 className="font-medium mb-2 text-base text-[#1B1D20] leading-snug line-clamp-2">
-                      {h.title}
-                    </h3>
-                    {h.desc && (
-                      <p className="text-sm text-[#7F8288] leading-relaxed line-clamp-3">
-                        {h.desc}
-                      </p>
-                    )}
-                    <a className="inline-flex mt-4 text-sm text-[#16A7CB] gap-1 items-center" href={h.link}>
-                      อ่านต่อ ↗
-                    </a>
-                  </div>
-                )}
-
-                {i === 3 && (
-                  <div className="h-full relative overflow-hidden">
-                    <Image src={h.img} fill alt={h.title || "highlight"} className="object-cover" />
-                    <div className="bg-gradient-to-t from-black/50 via-transparent to-transparent inset-0 absolute" />
-                  </div>
-                )}
-
-                {i === 4 && (
-                  <div className="h-full relative overflow-hidden">
-                    <Image src={h.img} fill alt={h.title} className="object-cover" />
-                    <div className="bg-gradient-to-t from-black/70 via-black/20 to-transparent inset-0 absolute" />
-                    <div className="space-y-2 text-white bottom-5 left-5 right-5 absolute drop-shadow-lg">
-                      <h3 className="font-semibold text-lg leading-snug line-clamp-2">
-                        {h.title}
-                      </h3>
-                      <a className="inline-flex text-sm text-[#74CEE2] gap-1 items-center" href={h.link}>
-                        อ่านต่อ ↗
-                      </a>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* PAGINATION */}
-          <div className="flex mt-5 gap-1.5 justify-center">
-            {highlights.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  if (!ref.current) return;
-                  setIndex(i);
-                  ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" });
-                }}
-                className={`rounded-full transition-all ${
-                  index === i ? "w-6 h-2 bg-[#16A7CB]" : "w-2 h-2 bg-[#C8E8EF] hover:bg-[#A8D8E8]"
-                }`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-      </div>
-    </section>
+    </div>
   );
 }

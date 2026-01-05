@@ -7,14 +7,14 @@ interface PageProps {
   };
 }
 
-const Page = ({ params }: PageProps) => {
+export default function Page({ params }: PageProps) {
   const { id } = params;
 
   return (
-    <div>
+    <ContainerPage>
       <DonationAmountSelector id={id} />
-    </div>
+    </ContainerPage>
   );
-};
+}
 
 export default Page;

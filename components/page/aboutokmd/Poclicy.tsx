@@ -29,7 +29,7 @@ export default function Poclicy() {
             <h1 className='text-3xl font-bold mb-10'>{data.title}</h1>
             <div>
                 <div className="flex flex-col">
-                    <img src={data.urlimgs} alt="" className='w-full h-full' />
+                    <img src={data.urlimgs} alt={data.title} className='w-full h-full object-cover rounded-lg' />
                     <div className='flex justify-end mb-5'>
                         โดย: {data.author}
                     </div>
