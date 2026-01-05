@@ -1,6 +1,10 @@
 import JobAnnouncement from "@/components/page/job-announcement/JobAnnouncement";
+import { ContainerPage } from "@/components/shared/ContainerPage";
 
 export default function JobAnnouncementPage() {
-  return <JobAnnouncement />;
+  return (
+    <ContainerPage>
+      <JobAnnouncement />
+    </ContainerPage>
+  );
 }
-
