@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import type { KeyboardEvent } from "react";
 import Image from "next/image";
 import { Search, Loader2 } from "lucide-react";
+import { NEWS_DATA } from "@/data/news";
 
 // Mock data for AI summary based on search query
 const MOCK_AI_SUMMARIES: Record<string, string> = {
