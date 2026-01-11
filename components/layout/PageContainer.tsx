@@ -11,10 +11,10 @@ interface PageContainerProps {
   className?: string;
 }
 
-export default function PageContainer({ children, className = "" }: PageContainerProps) {
+export default function Container({ children, className = "" }: PageContainerProps) {
   return (
-    <div className={`min-h-screen bg-white text-[#333] ${className}`}>
-      <main className="container mx-auto py-8">
+    <div className={`w-full bg-white text-[#333] ${className}`}>
+      <main className="mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {children}
       </main>
     </div>

@@ -14,7 +14,7 @@ const kanit = Kanit({
 
 export const metadata: Metadata = {
   title: "OKMD Portal",
-  description: "Knowledge Portal by obad",
+  description: "Knowledge Portal by OKMD",
 };
 
 export const viewport: Viewport = {
@@ -22,13 +22,24 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="th" className={kanit.variable}>
-      <body className={`bg-white text-[#1B1D20] antialiased ${kanit.className}`}>
+      <body
+        className={`bg-white text-[#1B1D20] antialiased ${kanit.className}`}
+      >
         <Header />
         {/* MAIN LANDMARK — WCAG 2.1 Compliant */}
-        <main id="main-content" role="main" tabIndex={-1} className="w-full">
+        <main
+          id="main-content"
+          role="main"
+          tabIndex={-1}
+          className="w-full min-w-0 flex-1 pb-12 md:pb-16"
+        >
           {children}
         </main>
 

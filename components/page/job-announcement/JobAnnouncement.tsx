@@ -2,44 +2,45 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import SubHeroBanner from "@/components/ui/SubHeroBanner";
 import Input from "@/components/ui/Input";
 import Dropdown from "@/components/ui/Dropdown";
 import Button from "@/components/ui/Button";
 import { CiSearch } from "react-icons/ci";
 
-type AnnouncementCardProps = {
-  id: string;
-  title: string;
-  department: string;
-  announcementDate: string;
-  closingDate: string;
-  status: "open" | "closed";
-  description: string;
-};
+export default function JobAnnouncement() {
+  const [idNumber, setIdNumber] = useState("");
+  const [showResult, setShowResult] = useState(false);
+  const [result, setResult] = useState<"success" | "fail" | null>(null);
 
-function AnnouncementCard({
-  id,
-  title,
-  department,
-  announcementDate,
-  closingDate,
-  status,
-  description,
-}: AnnouncementCardProps) {
+  const handleCheck = () => {
+    // Mock check - simulate result
+    if (idNumber.length === 13) {
+      setResult(Math.random() > 0.5 ? "success" : "fail");
+      setShowResult(true);
+    }
+  };
+
+  const handleClose = () => {
+    setShowResult(false);
+    setResult(null);
+    setIdNumber("");
+  };
+
   return (
     <Link
       href={`/job-announcement/${id}`}
-      className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 transition-all duration-300 hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] cursor-pointer border border-gray-100"
+      className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 transition-all duration-300 hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] cursor-pointer border border-gray-100 hover:border-[#16A7CB] group h-full flex flex-col"
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 h-full">
         <div className="flex justify-between items-start">
           <div className="flex-1">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
+            <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-[#16A7CB] transition-colors">
+              {title}
+            </h3>
             <p className="text-gray-600 text-base">{department}</p>
           </div>
           <span
-            className={`px-4 py-2 rounded-lg text-sm font-semibold ${
+            className={`px-4 py-2 rounded-lg text-sm font-semibold shrink-0 ml-4 ${
               status === "open"
                 ? "bg-green-100 text-green-800"
                 : "bg-gray-100 text-gray-600"
@@ -49,7 +50,7 @@ function AnnouncementCard({
           </span>
         </div>
 
-        <div className="border-t border-gray-100 pt-4 space-y-2">
+        <div className="border-t border-gray-100 pt-4 space-y-2 mt-auto">
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -86,11 +87,11 @@ function AnnouncementCard({
           </div>
         </div>
 
-        <p className="text-gray-700 text-sm line-clamp-2">{description}</p>
+        <p className="text-gray-700 text-sm line-clamp-2 mt-2">{description}</p>
 
         <div className="pt-2">
-          <span className="text-[#16A7CB] font-semibold text-sm hover:underline">
-            ดูรายละเอียดเพิ่มเติม →
+          <span className="text-[#16A7CB] font-semibold text-sm group-hover:underline inline-flex items-center gap-1">
+            ดูรายละเอียดเพิ่มเติม <span>→</span>
           </span>
         </div>
       </div>
@@ -151,95 +152,83 @@ export default function JobAnnouncement() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-white">
-      {/* Hero Banner */}
-      <SubHeroBanner image="/job-announcement-hero.jpg" height="h-[300px]">
-        <div className="container mx-auto px-6 md:px-12">
-          <h1 className="text-4xl md:text-5xl font-bold">
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/bannerabout.png')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
             ประกาศ <span className="text-[#74CEE2]">รับสมัครงาน</span>
           </h1>
-          <p className="text-xl mt-4 text-white/90">
+          <p className="text-lg md:text-xl opacity-90">
             ติดตามประกาศรับสมัครงานล่าสุดจาก OKMD
           </p>
         </div>
-      </SubHeroBanner>
+      </div>
 
-      {/* Breadcrumb */}
-      <div className="container mx-auto pt-4 sm:pt-6 md:pt-8 mb-4 sm:mb-6 md:mb-8">
-        <div className="grid grid-cols-12">
-          <div className="col-span-12">
-            <div className="text-sm sm:text-base md:text-lg text-gray-500 font-medium">
-              <Link href="/" className="hover:underline">
-                หน้าหลัก
-              </Link>
-              {" > "}
-              <span className="text-[#74CEE2]">ประกาศรับสมัครงาน</span>
-            </div>
+      {/* BREADCRUMB */}
+      <div className="flex items-center text-sm text-gray-500 px-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span className="mx-2">›</span>
+        <span className="text-[#16A7CB] font-medium">ประกาศรับสมัครงาน</span>
+      </div>
+
+      {/* FILTERS */}
+      <div className="bg-gray-50 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <Input
+              label="ค้นหาประกาศ"
+              placeholder="ค้นหา..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              icon={<CiSearch size={22} />}
+            />
           </div>
+          <div>
+            <Dropdown
+              label="หน่วยงาน"
+              value={department}
+              onChange={setDepartment}
+              placeholder="เลือกหน่วยงาน"
+              options={departmentOptions}
+            />
+          </div>
+          <div>
+            <Dropdown
+              label="สถานะ"
+              value={status}
+              onChange={setStatus}
+              placeholder="เลือกสถานะ"
+              options={statusOptions}
+            />
+          </div>
+        </div>
+        <div className="mt-4 flex justify-end">
+          <Button className="w-full md:w-auto px-8 rounded-xl">ค้นหา</Button>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto pb-8 sm:pb-12 md:pb-16">
-        <div className="grid grid-cols-12 gap-4 sm:gap-6">
-          {/* Filters */}
-          <div className="col-span-12">
-            <div className="bg-gray-50 rounded-xl p-4 sm:p-5 md:p-6 mb-6 sm:mb-7 md:mb-8">
-              <div className="grid grid-cols-12 gap-3 sm:gap-4">
-                <div className="col-span-12 sm:col-span-6 md:col-span-4">
-                  <Input
-                    label="ค้นหาประกาศ"
-                    placeholder="ค้นหาประกาศ..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    icon={<CiSearch size={22} />}
-                  />
-                </div>
-
-                <div className="col-span-12 sm:col-span-6 md:col-span-4">
-                  <Dropdown
-                    label="หน่วยงาน"
-                    value={department}
-                    onChange={setDepartment}
-                    placeholder="เลือกหน่วยงาน"
-                    options={departmentOptions}
-                  />
-                </div>
-
-                <div className="col-span-12 sm:col-span-6 md:col-span-4">
-                  <Dropdown
-                    label="สถานะ"
-                    value={status}
-                    onChange={setStatus}
-                    placeholder="เลือกสถานะ"
-                    options={statusOptions}
-                  />
-                </div>
-              </div>
-
-              <div className="mt-4 flex justify-end">
-                <Button className="w-full sm:w-auto">ค้นหา</Button>
-              </div>
+      {/* ANNOUNCEMENT LIST */}
+      <div className="bg-white rounded-3xl p-6 md:p-10 border border-gray-100 shadow-sm">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#1B1D20] mb-6 border-l-4 border-[#16A7CB] pl-4">
+          ประกาศรับสมัครงาน ({announcements.length})
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {announcements.map((announcement) => (
+            <div key={announcement.id} className="w-full">
+              <AnnouncementCard {...announcement} />
             </div>
-          </div>
-
-          {/* Announcement Listings */}
-          <div className="col-span-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 sm:mb-5 md:mb-6">
-              ประกาศรับสมัครงาน ({announcements.length})
-            </h2>
-
-            <div className="grid grid-cols-12 gap-4 sm:gap-5 md:gap-6">
-              {announcements.map((announcement) => (
-                <div key={announcement.id} className="col-span-12 sm:col-span-6 lg:col-span-6">
-                  <AnnouncementCard {...announcement} />
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
-      </div>
+      )}
+
     </div>
   );
 }
-

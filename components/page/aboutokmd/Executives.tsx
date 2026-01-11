@@ -68,7 +68,7 @@ const ExecutivesPage = () => {
             <div key={m.name}>
               {/* Image Frame */}
               <div className="w-[210px] h-[200px]">
-                <img src={m.img} alt={m.name} className="w-full h-full" />
+                <img src={m.img} alt={m.name} className="w-full h-full object-cover" />
               </div>
 
               {/* Name + Position */}
