@@ -1,32 +1,33 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import React, { type ReactNode } from "react";
-
-// --- Subcomponents ---
 
 type MenuItem = {
   label: string;
   value: string;
 };
-type LeftMenuProps = {
+
+// Horizontal Tab Menu
+type TabMenuProps = {
   items: MenuItem[];
   active: string;
   onSelect: (value: string) => void;
 };
-function LeftMenu({ items, active, onSelect }: LeftMenuProps) {
+function TabMenu({ items, active, onSelect }: TabMenuProps) {
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex gap-2 overflow-x-auto pb-4 no-scrollbar items-center">
       {items.map((item) => (
         <button
           key={item.value}
           onClick={() => onSelect(item.value)}
           className={`
-            text-left px-5 py-4 rounded-xl text-lg font-semibold transition w-full cursor-pointer
-            ${active === item.value
-              ? "bg-[#E8F6FB] text-[#16A7CB] hover:bg-[#dcf4fa]"
-              : "text-gray-700 hover:bg-gray-50"
+            whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-medium transition-all cursor-pointer border
+            ${
+              active === item.value
+                ? "bg-[#16A7CB] text-white border-[#16A7CB] shadow-md"
+                : "bg-white text-gray-600 border-gray-200 hover:border-[#16A7CB] hover:text-[#16A7CB]"
             }
           `}
         >
@@ -37,33 +38,35 @@ function LeftMenu({ items, active, onSelect }: LeftMenuProps) {
   );
 }
 
-type MagazineCardProps = {
+type MagazineItem = {
+  id: string;
   title: string;
   img: string;
+  volume: string;
+  date: string;
+  description: string;
   fileSize: string;
 };
 function MagazineCard({ title, img, fileSize }: MagazineCardProps) {
   return (
     <div
-      className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] overflow-hidden transition-all duration-300 hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] h-full cursor-pointer flex flex-col"
-      onClick={() => alert(`Mock Click: ${title}`)}
+      className="group bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col h-full"
+      onClick={() => {}}
     >
-      <div className="w-full h-[350px] sm:h-[380px] md:h-[400px] overflow-hidden">
+      <div className="relative w-full aspect-[3/4] overflow-hidden bg-gray-100">
         <img
           src={img}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.05]"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
-      <div className="p-6 flex flex-col justify-between flex-grow">
-        <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2">
+      <div className="p-4 flex flex-col justify-between flex-grow">
+        <h3 className="text-base font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-[#16A7CB] transition-colors">
           {title}
         </h3>
-        <div className="flex justify-between items-center mt-4 pt-2 border-t border-gray-100">
-          <span className="text-sm text-gray-500 line-clamp-1">{fileSize}</span>
-          <span className="text-sm text-[#16A7CB] font-semibold hover:underline whitespace-nowrap">
-            อ่านเพิ่มเติม ↗
-          </span>
+        <div className="mt-auto pt-3 border-t border-gray-50 flex justify-between items-center text-xs text-gray-500">
+          <span className="truncate max-w-[70%]">{fileSize}</span>
+          <span className="text-[#16A7CB] font-semibold">อ่านต่อ ↗</span>
         </div>
       </div>
     </div>
@@ -73,28 +76,18 @@ function MagazineCard({ title, img, fileSize }: MagazineCardProps) {
 type PaginationProps = {
   total: number;
   current: number;
+  onChange: (next: number) => void;
 };
-function Pagination({ total, current }: PaginationProps) {
-  const pageRange = 3;
-  const pages = useMemo(() => {
-    const p: (number | string)[] = [];
-    const start = Math.max(1, current - pageRange);
-    const end = Math.min(total, current + pageRange);
-    if (start > 1) p.push(1, '...');
-    for (let i = start; i <= end; i++) p.push(i);
-    if (end < total) p.push('...', total);
-    return p;
-  }, [total, current]);
-  const buttonClass = "w-10 h-10 flex items-center justify-center rounded-lg text-lg font-semibold transition cursor-pointer";
-  const activeClass = "bg-[#74CEE2] text-white shadow-md";
-  const normalClass = "bg-gray-100 text-gray-700 hover:bg-gray-200";
-  const disabledClass = "bg-gray-50 text-gray-400 cursor-not-allowed";
+function Pagination({ total, current, onChange }: PaginationProps) {
+  if (total <= 1) return null;
+  const pages = Array.from({ length: total }, (_, i) => i + 1);
+
   return (
     <div className="flex space-x-2 items-center">
       <button
         disabled={current === 1}
         className={`${buttonClass} ${current === 1 ? disabledClass : normalClass}`}
-        onClick={() => alert("Mock: Go to previous page")}
+        onClick={() => {}}
       >
         {"<"}
       </button>
@@ -105,7 +98,7 @@ function Pagination({ total, current }: PaginationProps) {
           ) : (
             <button
               className={`${buttonClass} ${p === current ? activeClass : normalClass}`}
-              onClick={() => alert(`Mock: Go to page ${p}`)}
+              onClick={() => {}}
             >
               {p}
             </button>
@@ -115,7 +108,7 @@ function Pagination({ total, current }: PaginationProps) {
       <button
         disabled={current === total}
         className={`${buttonClass} ${current === total ? disabledClass : normalClass}`}
-        onClick={() => alert("Mock: Go to next page")}
+        onClick={() => {}}
       >
         {">"}
       </button>
@@ -127,33 +120,51 @@ function Pagination({ total, current }: PaginationProps) {
 
 export default function KnowledgeShelfSection() {
   const MENU: MenuItem[] = [
-    { label: "OKMD หนังสือนิตยสาร", value: "magazine" },
-    { label: "OKMD แนะนำหนังสือดี", value: "recommend" },
-    { label: "OKMD Infographic", value: "infographic" },
-    { label: "OKMD บทความวิจัย", value: "research" },
-    { label: "OKMD Recommended", value: "recommended" },
+    { label: "หนังสือนิตยสาร", value: "magazine" },
+    { label: "หนังสือแนะนำ", value: "recommend" },
+    { label: "Infographic", value: "infographic" },
+    { label: "บทความวิจัย", value: "research" },
+    { label: "Recommended", value: "recommended" },
   ];
   const [selectedMenu, setSelectedMenu] = useState("magazine");
   const [currentPage, setCurrentPage] = useState(1);
 
   const DATA_SOURCE: Record<string, MagazineCardProps[]> = {
     magazine: [
-      { title: "The Knowledge vol.39 (AI DEEPFAKE)", img: "/kn-1.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.38 (INFORMATION OVERLOAD)", img: "/kn-2.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.37 (GLOBAL BOILING)", img: "/kn-3.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.36 (AI)", img: "/kn-4.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.35 (FUTURE VEHICLES)", img: "/kn-5.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.34 (COST OF READING)", img: "/kn-6.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.33", img: "/kn-1.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.32", img: "/kn-2.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.31", img: "/kn-3.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.30", img: "/kn-4.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.29", img: "/kn-5.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
-      { title: "The Knowledge vol.28", img: "/kn-6.png", fileSize: "ดาวน์โหลดเอกสาร pdf ขนาด 54265.14 KB" },
+      {
+        title: "The Knowledge vol.39 (AI DEEPFAKE)",
+        img: "/kn-1.png",
+        fileSize: "54 MB",
+      },
+      {
+        title: "The Knowledge vol.38 (INFO OVERLOAD)",
+        img: "/kn-2.png",
+        fileSize: "54 MB",
+      },
+      {
+        title: "The Knowledge vol.37 (GLOBAL BOILING)",
+        img: "/kn-3.png",
+        fileSize: "54 MB",
+      },
+      {
+        title: "The Knowledge vol.36 (AI)",
+        img: "/kn-4.png",
+        fileSize: "54 MB",
+      },
+      {
+        title: "The Knowledge vol.35 (FUTURE)",
+        img: "/kn-5.png",
+        fileSize: "54 MB",
+      },
+      {
+        title: "The Knowledge vol.34 (READING)",
+        img: "/kn-6.png",
+        fileSize: "54 MB",
+      },
     ],
     recommend: [
-      { title: "แนะนำหนังสือดี 1", img: "/kn-1.png", fileSize: "1,024 KB" },
-      { title: "แนะนำหนังสือดี 2", img: "/kn-2.png", fileSize: "1,024 KB" },
+      { title: "แนะนำหนังสือดี 1", img: "/kn-1.png", fileSize: "1 MB" },
+      { title: "แนะนำหนังสือดี 2", img: "/kn-2.png", fileSize: "1 MB" },
     ],
     infographic: [
       { title: "Infographic 1", img: "/kn-3.png", fileSize: "500 KB" },
@@ -164,22 +175,17 @@ export default function KnowledgeShelfSection() {
       { title: "บทความวิจัย 2", img: "/kn-6.png", fileSize: "2 MB" },
     ],
     recommended: [
-      { title: "Recommended Item 1", img: "/kn-1.png", fileSize: "700 KB" },
-      { title: "Recommended Item 2", img: "/kn-2.png", fileSize: "700 KB" },
+      { title: "Item 1", img: "/kn-1.png", fileSize: "700 KB" },
+      { title: "Item 2", img: "/kn-2.png", fileSize: "700 KB" },
     ],
   };
 
-  const PAGE_TITLE = useMemo(() => {
-    return MENU.find((m) => m.value === selectedMenu)?.label || "";
-  }, [selectedMenu]);
   const DATA = DATA_SOURCE[selectedMenu] || [];
-  const itemsPerPage = 6;
-  const totalItems = DATA.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const itemsPerPage = 4;
+  const totalPages = Math.ceil(DATA.length / itemsPerPage);
   const paginatedData = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    return DATA.slice(start, end);
+    return DATA.slice(start, start + itemsPerPage);
   }, [DATA, currentPage]);
 
   React.useEffect(() => {
@@ -187,48 +193,38 @@ export default function KnowledgeShelfSection() {
   }, [selectedMenu]);
 
   return (
-    <section className="w-full bg-white pb-16 pt-12">
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+    <div className="w-full bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-gray-100 space-y-8">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-[#1B1D20]">
           ตู้ <span className="text-[#74CEE2]">ความรู้</span>
         </h2>
-
-        <div className="mt-8 md:mt-12 grid grid-cols-12 gap-x-12 gap-y-10">
-          {/* LEFT SIDEBAR */}
-          <aside className="col-span-12 md:col-span-3 pb-4 md:pb-0">
-            <LeftMenu
-              items={MENU}
-              active={selectedMenu}
-              onSelect={(value) => setSelectedMenu(value)}
-            />
-          </aside>
-
-          {/* RIGHT CONTENT */}
-          <section className="col-span-12 md:col-span-9 space-y-10 md:space-y-12">
-            <h3 className="text-3xl md:text-4xl font-bold leading-snug text-gray-800">
-              {PAGE_TITLE}
-            </h3>
-
-            {/* CARD GRID */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-              {paginatedData.map((item) => (
-                <div key={item.title} className="col-span-1 h-full">
-                  <MagazineCard title={item.title} img={item.img} fileSize={item.fileSize} />
-                </div>
-              ))}
-            </div>
-
-            {/* DIVIDER */}
-            <div className="w-full border-t border-black/10 mt-10"></div>
-
-            {/* PAGINATION */}
-            <div className="flex justify-center md:justify-end pt-6 pb-8">
-              <Pagination total={totalPages} current={currentPage} />
-            </div>
-
-          </section>
-        </div>
+        <p className="text-gray-500 mt-2">
+          คลังความรู้ดิจิทัลที่คัดสรรมาเพื่อคุณ
+        </p>
       </div>
-    </section>
+
+      <TabMenu
+        items={MENU}
+        active={selectedMenu}
+        onSelect={(value) => setSelectedMenu(value)}
+      />
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {paginatedData.map((item, i) => (
+          <MagazineCard
+            key={i}
+            title={item.title}
+            img={item.img}
+            fileSize={item.fileSize}
+          />
+        ))}
+      </div>
+
+      <Pagination
+        total={totalPages}
+        current={currentPage}
+        onChange={setCurrentPage}
+      />
+    </div>
   );
 }

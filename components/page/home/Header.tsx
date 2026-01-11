@@ -226,12 +226,10 @@ function MenuItem({
 /* ====================================================== */
 function MobileMenu({
   onClose,
-  active,
-  setActive,
 }: {
   onClose: () => void;
-  active: string | null;
-  setActive: (a: string | null) => void;
+  active?: string | null;
+  setActive?: (a: string | null) => void;
 }) {
   return (
     <div

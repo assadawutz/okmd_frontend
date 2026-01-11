@@ -8,8 +8,6 @@ type Props = {
 }
 
 export default function MagazineCard({ title, img, fileSize }: Props) {
-  const slug = title.toLowerCase().replace(/\s+/g, "-");
-
   return (
     <Link
       href={`/shelf-detail`}

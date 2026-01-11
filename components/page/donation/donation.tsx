@@ -1,129 +1,128 @@
 "use client";
+
+import Link from "next/link";
 import Button from "@/components/ui/Button";
-import SubHeroBanner from "@/components/ui/SubHeroBanner";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 export default function Donation() {
-  const router = useRouter();
-  // ข้อมูลโครงการบริจาค (จำลองข้อมูลจากภาพ)
-  const [projects, setProjects] = useState([
-    {
-      id: 1,
-      title: "โครงการศูนย์การเรียนรู้แห่งชาติ NKC",
-      currentAmount: 234527,
-      taxBenefit: "ลดหย่อนภาษีได้ 2 เท่า",
-      imageSrc: "/images/banner/RC1(4).jpg", // สมมติว่ามีรูปภาพนี้ในโฟลเดอร์ public/images/
-    },
-  ]);
-
-  // ฟังก์ชันสำหรับจัดรูปแบบตัวเลขให้มีคอมม่า
-  const formatAmount = (amount: number) => {
-    return amount.toLocaleString("th-TH");
-  };
-
   return (
-    <div className="">
-      <SubHeroBanner 
-        image="/images/banner/RC1(7).jpg"
-        gradient="
-          linear-gradient(
-            to right,
-            rgba(23,12,1,0.75) 0%,
-            rgba(0,0,0,0.35) 47%,
-            rgba(0,0,0,0) 80%
-          )
-        "
-      >
-        <div className="container mx-auto h-full flex flex-col justify-center px-4 md:px-0">
-          <h1 className="text-7xl font-light">
-            <svg
-              width="397"
-              height="120"
-              viewBox="0 0 397 120"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M155.675 29.8985C158.525 29.8985 160.89 30.8665 162.832 32.8181C164.758 34.7385 165.745 37.096 165.745 39.8595V40.1874C165.745 47.4473 163.881 54.1764 160.138 60.3591C156.411 66.5574 151.337 71.3973 144.931 74.9258C151.415 78.4387 156.505 83.3255 160.201 89.555C163.897 95.7689 165.745 102.576 165.745 109.914C165.745 112.724 164.758 115.082 162.816 117.049C160.843 119.016 158.478 120 155.675 120C152.871 120 150.475 119.032 148.533 117.065C146.575 115.129 145.62 112.724 145.62 109.914V99.8595C145.62 94.2545 143.709 89.5082 139.825 85.6674C135.973 81.8111 131.227 79.8907 125.605 79.8907C119.982 79.8907 115.221 81.7955 111.384 85.6674C107.516 89.5238 105.59 94.2545 105.59 99.9063V109.945C105.59 112.74 104.587 115.113 102.661 117.08C100.688 119.032 98.3071 120.016 95.5194 120.016C92.7317 120.016 90.3355 119.048 88.3935 117.08C86.4358 115.144 85.4805 112.74 85.4805 109.93V9.96097C85.4805 7.16628 86.4358 4.79313 88.3935 2.88837C90.3355 0.967994 92.6847 0 95.5194 0C98.3541 0 100.735 0.967994 102.661 2.91959C104.619 4.83997 105.59 7.1975 105.59 9.96097V75.2849C111.729 71.6628 118.401 69.8673 125.605 69.8673C131.227 69.8673 135.973 67.9469 139.825 64.0749C143.694 60.2498 145.62 55.5191 145.62 49.8985V39.8751C145.62 37.0492 146.591 34.7073 148.533 32.7869C150.459 30.8821 152.856 29.9141 155.675 29.9141"
-                fill="#75CEE1"
-              />
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M190.551 109.977C190.551 112.756 189.564 115.113 187.622 117.065C185.649 119.016 183.284 120 180.512 120C177.74 120 175.359 119.001 173.386 117.065C171.428 115.113 170.441 112.724 170.441 109.961V69.6799C170.441 58.4543 174.31 49.0242 182.078 41.3739C189.83 33.7237 199.321 29.8985 210.581 29.8985C222.484 29.8985 232.507 34.4575 240.651 43.5129C248.623 34.4575 258.678 29.8985 270.737 29.8985C282.044 29.8985 291.582 33.7393 299.303 41.4208C306.993 49.1179 310.861 58.5948 310.861 69.9141V109.961C310.861 112.724 309.859 115.098 307.917 117.065C305.959 119.016 303.579 120 300.822 120C298.066 120 295.654 119.001 293.696 117.065C291.739 115.113 290.752 112.756 290.752 109.977V59.9844C290.752 54.3013 288.81 49.555 285.004 45.7143C281.167 41.8735 276.422 39.9219 270.737 39.9219C265.052 39.9219 260.306 41.8735 256.469 45.7143C252.648 49.555 250.737 54.3013 250.737 59.9844V109.977C250.737 115.363 248.043 118.642 242.672 119.75C241.873 119.922 241.199 120 240.667 120C237.895 120 235.499 119.001 233.557 117.065C231.615 115.113 230.612 112.756 230.612 109.977V59.9844C230.612 54.3013 228.702 49.555 224.849 45.7143C221.043 41.8735 216.267 39.9219 210.597 39.9219C204.928 39.9219 200.167 41.8735 196.33 45.7143C192.508 49.555 190.582 54.3013 190.582 59.9844V109.977"
-                fill="#75CEE1"
-              />
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M386.913 0C389.763 0 392.128 0.967994 394.07 2.91959C395.997 4.83997 396.983 7.1975 396.983 9.97658V80C396.983 91.2881 393.115 100.781 385.394 108.462C377.689 116.159 368.166 120.016 356.843 120.016C345.52 120.016 335.92 116.159 328.246 108.509C320.556 100.812 316.688 91.2881 316.688 79.9375V69.9297C316.688 58.6261 320.556 49.1335 328.261 41.4364C335.967 33.7393 345.504 29.9141 356.828 29.9141C364.032 29.9141 370.688 31.7252 376.843 35.3474V9.92974C376.843 7.15066 377.829 4.79313 379.756 2.85714C381.729 0.967994 384.11 0 386.913 0ZM356.859 39.9219C351.174 39.9219 346.428 41.8735 342.591 45.7143C338.739 49.555 336.828 54.3013 336.828 59.9688V89.9297C336.828 95.5972 338.739 100.343 342.591 104.169C346.413 107.994 351.174 109.914 356.859 109.914C362.544 109.914 367.242 107.978 371.095 104.137C374.948 100.297 376.874 95.566 376.874 89.9297V59.9688C376.874 54.3482 374.948 49.6019 371.095 45.7299C367.242 41.8891 362.481 39.9219 356.859 39.9219Z"
-                fill="#75CEE1"
-              />
-              <path
-                d="M40.3124 101.343C25.7786 101.343 14.0013 89.6019 14.0013 75.1132C14.0013 60.6245 25.7786 48.8525 40.3124 48.8525C54.8461 48.8525 66.6235 60.5933 66.6235 75.1132C66.6235 89.6331 54.8461 101.343 40.3124 101.343ZM68.6281 41.4676C60.9071 33.7549 51.3849 29.8985 40.1244 29.8985C28.8639 29.8985 19.2791 33.7393 11.5581 41.4208C3.8527 49.1179 0 58.6105 0 69.9141V79.9219C0 91.2724 3.82137 100.812 11.5424 108.493C19.2478 116.144 28.7543 120 40.1401 120C51.5259 120 60.9697 116.144 68.6751 108.447C76.3961 100.749 80.2488 91.2724 80.2488 79.9219V69.9141C80.2488 58.6417 76.3961 49.1803 68.6438 41.4676"
-                fill="#75CEE1"
-              />
-            </svg>
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/donation-hero.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
+            ร่วม <span className="text-[#74CEE2]">บริจาค</span>
           </h1>
-          <h2 className="text-5xl font-bold mt-2">Donate to NKC</h2>
-          <p className="mt-4 text-xl">สามารถลดหย่อนภาษีได้ 1 เท่า</p>
-          <Button size="sm" className="mt-3" onClick={() => router.push(`/donation/${1}`)}>
-            บริจาค
-          </Button>
+          <p className="text-lg md:text-xl opacity-90">
+            สนับสนุนการเรียนรู้ เพื่ออนาคตที่ดีกว่า
+          </p>
         </div>
-      </SubHeroBanner>
+      </div>
 
-      {/* Project Section */}
-      <div className="container mx-auto py-12 px-4 md:px-0 ">
-        <div className="text-xl font-bold text-[#000000] mt-8">
-          เริ่มต้นการ
-          <span className="text-[#74CEE2] text-5xl ml-2">แบ่งปัน</span>
-        </div>
-        <div className="text-[#666971] mb-8 mt-4">
-          เลือกโครงการที่เหมาะกับคุณ
-        </div>
+      {/* BREADCRUMB */}
+      <div className="flex items-center text-sm text-gray-500 px-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span className="mx-2">›</span>
+        <span className="text-[#16A7CB] font-medium">ร่วมบริจาค</span>
+      </div>
 
-        {/* Project Card */}
-        {projects.map((project) => (
-          <div
-            key={project.id}
-            className="flex flex-col md:flex-row items-start md:items-center border-b border-gray-200 pb-6 mb-6"
-          >
-            {/* Project Image - ใช้องค์ประกอบ <img> จริง ๆ สำหรับรูปภาพ */}
-            <div className="w-full md:w-1/4 mb-4 md:mb-0 md:mr-6">
-              {/*  */}
-              <img
-                src={project.imageSrc}
-                alt={project.title}
-                className="w-full h-auto object-cover rounded-lg shadow-md"
-              />
+      {/* CONTENT GRID */}
+      <div className="w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* LEFT CONTENT */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm">
+              <h2 className="text-2xl font-bold text-[#1B1D20] mb-6">
+                ทำไมต้องบริจาคให้ OKMD?
+              </h2>
+              <div className="prose prose-lg text-gray-600 mb-8">
+                <p>
+                  OKMD หรือ สำนักงานบริหารและพัฒนาองค์ความรู้ (องค์การมหาชน)
+                  มุ่งมั่นที่จะสร้างสรรค์สังคมแห่งการเรียนรู้ ผ่านโครงการต่างๆ
+                  อาทิ ห้องสมุดมีชีวิต (TK Park), พิพิธภัณฑ์มิวเซียมสยาม
+                  และศูนย์สร้างสรรค์งานออกแบบ (TCDC)
+                </p>
+                <p>เงินบริจาคของท่าน จะถูกนำไปใช้เพื่อ:</p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>
+                    สนับสนุนสื่อการเรียนรู้สำหรับเด็กและเยาวชนในพื้นที่ห่างไกล
+                  </li>
+                  <li>จัดกิจกรรมส่งเสริมทักษะแห่งอนาคต</li>
+                  <li>พัฒนาแหล่งเรียนรู้ชุมชนให้ได้มาตรฐาน</li>
+                </ul>
+              </div>
             </div>
 
-            {/* Project Details */}
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-800">
-                {project.title}
+            <div className="bg-[#E8F6FB] rounded-3xl p-8 border border-[#16A7CB]/20">
+              <h3 className="text-xl font-bold text-[#16A7CB] mb-4 flex items-center gap-2">
+                <span className="text-2xl">✨</span> สิทธิประโยชน์ทางภาษี
               </h3>
-              <div className="mt-2">
-                <p className="text-sm text-[#666971]">ยอดบริจาคปัจจุบัน</p>
-                <p className="text-2xl font-bold text-gray-900 mt-1">
-                  {formatAmount(project.currentAmount)} บาท
+              <p className="text-gray-700">
+                การบริจาคให้แก่ OKMD สามารถนำใบเสร็จรับเงินไปลดหย่อนภาษีได้ 2
+                เท่า ของยอดบริจาคจริง (ตามประกาศกรมสรรพากร)
+              </p>
+            </div>
+          </div>
+
+          {/* RIGHT CARD */}
+          <div className="lg:col-span-5">
+            <div className="bg-white rounded-3xl overflow-hidden shadow-xl border border-gray-100 sticky top-24">
+              <div className="bg-[#16A7CB] p-8 text-white text-center relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                <h3 className="text-2xl font-bold relative z-10">
+                  ช่องทางการบริจาค
+                </h3>
+                <p className="opacity-90 mt-2 relative z-10">
+                  สะดวกรวดเร็ว ผ่าน QR Code
                 </p>
               </div>
-              <p className="text-lg font-semibold text-[#000000] mt-4 mb-4 md:mb-0">
-                {project.taxBenefit}
-              </p>
-              <Button size="sm" className="mt-3" onClick={() => router.push(`/donation/${project.id}`)}>
-                บริจาค
-              </Button>
-            </div>
 
-            {/* Donation Button */}
+              <div className="p-8 text-center space-y-8">
+                <div className="w-56 h-56 bg-white mx-auto rounded-xl flex items-center justify-center shadow-inner border border-gray-200">
+                  {/* QR Placeholder */}
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">📱</div>
+                    <span className="text-gray-400 font-bold block">
+                      E-Donation QR
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-gray-400 text-sm mb-1 uppercase tracking-wider">
+                      ชื่อบัญชี
+                    </p>
+                    <p className="text-lg font-bold text-[#1B1D20]">
+                      สำนักงานบริหารและพัฒนาองค์ความรู้
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm mb-1 uppercase tracking-wider">
+                      ธนาคาร / เลขที่บัญชี
+                    </p>
+                    <p className="text-lg font-bold text-[#1B1D20]">
+                      กรุงไทย <span className="mx-2 text-gray-300">|</span>{" "}
+                      123-4-56789-0
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-gray-100">
+                  <Button className="w-full text-lg py-4 rounded-xl shadow-lg shadow-[#16A7CB]/20">
+                    แจ้งหลักฐานการโอนเงิน
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

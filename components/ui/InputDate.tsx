@@ -14,7 +14,6 @@ interface InputDateProps {
 
 export default function InputDate({
   label,
-  required = false,
   value,
   onChange,
   error,
@@ -38,11 +37,11 @@ export default function InputDate({
           value={value}
           onChange={onChange}
           className={clsx(
-            "w-78 h-[50px]",
+            "w-full h-[50px]",
             "px-4 text-[16px] leading-[1.7]",
-            "rounded-lg border text-black bg-white",
+            "rounded-lg border text-black bg-white cursor-pointer",
             "transition-all duration-200",
-            "focus:outline-none focus:ring-0 focus:border-gray-500",
+            "focus:outline-none focus:ring-2 focus:ring-[#74CEE2]/50 focus:border-[#74CEE2]",
 
             error ? "border-red-500 animate-shake" : "border-gray-500",
 

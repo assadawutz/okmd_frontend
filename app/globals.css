@@ -1,194 +1,56 @@
 /* ------------------------------------------------------------ */
-/*  GOOGLE FONTS                                                 */
+/*  GOOGLE FONTS                                                */
 /* ------------------------------------------------------------ */
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&family=Prompt:wght@400;600&display=swap");
-
-/* SF Pro Display สำหรับหัวข้อ (Black 900) */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&family=Prompt:wght@400;600&display=swap");
 
 /* ------------------------------------------------------------ */
-/*  TAILWIND CORE (ต้องอยู่บนสุด)                               */
+/*  TAILWIND CORE (ต้องอยู่บนสุด)                              */
 /* ------------------------------------------------------------ */
 @import "tailwindcss";
 @import "tailwindcss/utilities";
-/* ------------------------------------------------------------ */
-/*  GLOBAL STYLES                                              */
-/* ------------------------------------------------------------ */
 
-/* RESET */
-/* * {
-  all: unset;
-  display: revert;
+/* ------------------------------------------------------------ */
+/*  RESET + BASE                                                */
+/* ------------------------------------------------------------ */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-} */
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-size: 16px;
-
-  line-height: normal;
+  font-family: "Kanit", "Prompt", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  scroll-behavior: smooth;
 }
 
 /* ------------------------------------------------------------ */
-/*  THEME TOKENS (Tailwind v4)                                   */
+/*  THEME TOKENS (Tailwind v4)                                  */
 /* ------------------------------------------------------------ */
 @theme {
   --color-okmd-cyan: #16a7cb;
-  --color-okmd-bg-one: #57cde5;
-  --color-okmd-bg-two: #035f74;
-  --color-okmd-bg-three: #079496;
-
   --color-okmd-cyan-dark: #0e7893;
   --color-okmd-cyan-light: #def8fe;
 
   --color-okmd-dark: #1b1d20;
   --color-okmd-gray: #6b7280;
-  --color-okmd-gray-border: #d1d5db;
   --color-okmd-gray-light: #9ca3af;
+  --color-okmd-border: #e5e7eb;
 
-  --color-okmd-light-blue: #e0f7fa;
-  --color-okmd-very-light-blue: #f1fafc;
   --color-okmd-yellow: #ffd13f;
-  --color-okmd-yellow-dark: #ccaa33;
 
   --font-sans: "Kanit", "Prompt", system-ui, sans-serif;
-  --font-heading: "Inter", "Kanit", system-ui, sans-serif;
-  
-}
-.input {
-  @apply border rounded-lg border-gray-300 w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-sky-400;
-}
-
-/* LUXURY STYLES (Recruitment) */
-.card-luxury {
-  @apply bg-white rounded-[2rem] shadow-xl p-10 md:p-16 border border-slate-100 relative overflow-hidden;
-}
-.input-luxury {
-  @apply w-full bg-slate-50 border-0 rounded-xl p-4 font-bold text-slate-700 placeholder:text-slate-300 focus:ring-4 focus:ring-blue-50 transition-all outline-none;
-}
-.btn-primary {
-  @apply bg-blue-500 text-white font-black py-4 px-8 rounded-xl shadow-lg shadow-blue-200 hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all text-sm uppercase tracking-widest;
-}
-.okmd-container {
-  @apply container mx-auto px-6 py-12;
 }
 
 /* ------------------------------------------------------------ */
-/*  ROOT — FONT SCALE + COLOR MODE                               */
+/*  FONT SCALE SYSTEM                                           */
 /* ------------------------------------------------------------ */
-:root {
-  --okmd-font-scale: 1;
-  --okmd-text-normal: #1b1d20;
-  --okmd-text-dark: #ffffff;
-  --okmd-text-high: #ffd13f;
-
-  /* โหมดพื้นฐาน */
-  --bg: #ffffff;
-
-  /* โหมด active ปัจจุบัน */
-  --text: var(--okmd-text-normal);
-}
-
-html {
-  font-size: calc(16px * var(--okmd-font-scale));
-}
-
-body {
-  font-family: var(--font-sans);
-
-  background: var(--bg);
-
-  color: var(--text);
-}
-
-.container {
-    max-width: 1440px !important;
-    width: 100% !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-}
-
-@media (min-width: 640px) {
-    .container {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
-    }
-}
-
-@media (min-width: 768px) {
-    .container {
-        padding-left: 2rem !important;
-        padding-right: 2rem !important;
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        padding-left: 3rem !important;
-        padding-right: 3rem !important;
-    }
-}
-
-@media (min-width: 1280px) {
-    .container {
-        padding-left: 4rem !important;
-        padding-right: 4rem !important;
-    }
-}
-
-@media (min-width: 1440px) {
-    .container {
-        max-width: 1440px !important;
-        padding-left: 5rem !important;
-        padding-right: 5rem !important;
-    }
-}
-
-/* ------------------------------------------------------------ */
-/* CONTRAST MODE                                                 */
-/* ------------------------------------------------------------ */
-html.contrast-dark {
-  --bg: #000000;
-  --text: #ffffff;
-}
-
-html.contrast-high {
-  --bg: #000000;
-  --text: #ffd13f;
-}
-
-/* ------------------------------------------------------------ */
-/* KEYFRAMES                                                     */
-/* ------------------------------------------------------------ */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slide-up {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* FONT SIZE SYSTEM */
 html[data-font="sm"] {
   font-size: 14px;
 }
@@ -201,105 +63,118 @@ html[data-font="lg"] {
   font-size: 18px;
 }
 
-/* CONTRAST SYSTEM */
-html[data-contrast="normal"] {
-  filter: none;
+/* ------------------------------------------------------------ */
+/*  COLOR / CONTRAST SYSTEM                                     */
+/* ------------------------------------------------------------ */
+:root {
+  --bg: #ffffff;
+  --bg-muted: #f9fafb;
+
+  --text: #1b1d20;
+  --muted: #6b7280;
+
+  --border: #e5e7eb;
+
+  --primary: #74cee2;
+  --primary-hover: #5fc4d8;
 }
 
 html[data-contrast="dark"] {
-  filter: contrast(120%) brightness(80%);
+  --bg: #0b1220;
+  --bg-muted: #111827;
+
+  --text: #f8fafc;
+  --muted: #cbd5f5;
+
+  --border: #334155;
+
+  --primary: #38bdf8;
+  --primary-hover: #0ea5e9;
 }
 
 html[data-contrast="high"] {
-  filter: contrast(150%) brightness(110%);
-}
-/* ===== HEADINGS ===== */
-/* ตามข้อกำหนด: ต้องใช้ SF Pro Display Black (900) สำหรับหัวข้อ */
-h1 {
-  font-family: var(--font-heading) !important;
-  font-size: 2.25rem !important;
-  font-weight: 900 !important;
-  margin: 1.25rem 0 !important;
-  letter-spacing: -0.02em !important;
+  --bg: #000000;
+  --bg-muted: #000000;
+
+  --text: #ffff00;
+  --muted: #fff1a8;
+
+  --border: #ffff00;
+
+  --primary: #ffff00;
+  --primary-hover: #ffea70;
 }
 
-h2 {
-  font-family: var(--font-heading) !important;
-  font-size: 1.875rem !important;
-  font-weight: 900 !important;
-  margin: 1.1rem 0 !important;
-  letter-spacing: -0.01em !important;
+/* ------------------------------------------------------------ */
+/*  BASE LAYER                                                  */
+/* ------------------------------------------------------------ */
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  p,
+  span,
+  li,
+  label {
+    color: var(--text);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  input,
+  textarea,
+  select {
+    background-color: var(--bg);
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--bg);
+  }
 }
 
-h3 {
-  font-family: var(--font-heading) !important;
-  font-size: 1.5rem !important;
-  font-weight: 900 !important;
-  margin: 1rem 0 !important;
+/* ------------------------------------------------------------ */
+/*  UTILITIES                                                   */
+/* ------------------------------------------------------------ */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.text-shadow {
+  text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-h4 {
-  font-family: var(--font-heading) !important;
-  font-size: 1.25rem !important;
-  font-weight: 800 !important;
-  margin: 0.9rem 0 !important;
+.text-shadow-soft {
+  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-h5 {
-  font-family: var(--font-heading) !important;
-  font-size: 1.125rem !important;
-  font-weight: 700 !important;
-  margin: 0.8rem 0 !important;
+.text-shadow-strong {
+  text-shadow: 0px 6px 18px rgba(0, 0, 0, 0.35);
 }
 
-h6 {
-  font-family: var(--font-heading) !important;
-  font-size: 1rem !important;
-  font-weight: 700 !important;
-  margin: 0.7rem 0 !important;
-}
-
-/* ===== PARAGRAPH ===== */
-p {
-  margin-bottom: 0.9rem !important;
-  line-height: 1.8 !important;
-  font-size: 1rem !important;
-}
-
-/* ===== LIST ===== */
-ul,
-ol {
-  padding-left: 1.75rem !important;
-  margin: 0.75rem 0 1rem !important;
-}
-/* 
-  ul {
-    list-style-type: disc !important;
-  } */
-
-ol {
-  list-style-type: decimal !important;
-}
-
-li {
-  margin-bottom: 0.4rem !important;
-  line-height: 1.7 !important;
-}
-
-/* ===== SPAN (กัน editor ใส่ font เล็กเกิน) ===== */
-span {
-  font-size: inherit !important;
-  line-height: inherit !important;
-}
-
-/* ===== STRONG / B ===== */
-strong,
-b {
-  font-weight: 700 !important;
-}
-
-/* ===== EMPHASIS ===== */
-em,
-i {
-  font-style: italic !important;
-}
+/* ------------------------------------------------------------ */
+/*  CONTAINER OVERRIDES REMOVED FOR v4 STANDARD                 */
+/* ------------------------------------------------------------ */

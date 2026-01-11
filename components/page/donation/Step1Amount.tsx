@@ -1,5 +1,24 @@
 import Button from "@/components/ui/Button";
 import { MdOutlineArrowBackIos } from "react-icons/md";
+import React from "react";
+
+interface Step1AmountProps {
+  predefinedAmounts: number[];
+  selectedAmount: number | null;
+  customAmount: string;
+  handlePredefinedClick: (amount: number) => void;
+  handleCustomChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  goToStep: (step: number) => void;
+}
+
+interface Step1AmountProps {
+  predefinedAmounts: number[];
+  selectedAmount: number | null;
+  customAmount: string;
+  handlePredefinedClick: (amount: number) => void;
+  handleCustomChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  goToStep: (step: number) => void;
+}
 
 export default function Step1Amount({
   predefinedAmounts,
@@ -8,9 +27,9 @@ export default function Step1Amount({
   handlePredefinedClick,
   handleCustomChange,
   goToStep,
-}: any) {
+}: Step1AmountProps) {
   return (
-    <div className="text-center bg-white px-4 py-10 rounded-lg">
+    <div className="text-center md:px-4 md:py-10">
       {/* Title */}
       <h2 className="text-4xl font-semibold mb-10 text-gray-900">
         เลือกจำนวนเงิน
@@ -28,8 +47,8 @@ export default function Step1Amount({
                 customAmount
                   ? "border-[#7F8288] bg-white text-[#1A8E9D]"
                   : selectedAmount === amount
-                    ? "border-[#00B4D8] bg-[#E6F7FB] text-[#1A8E9D]"
-                    : "border-[#7F8288] bg-white text-[#1A8E9D] hover:border-[#00B4D8]"
+                  ? "border-[#00B4D8] bg-[#E6F7FB] text-[#1A8E9D]"
+                  : "border-[#7F8288] bg-white text-[#1A8E9D] hover:border-[#00B4D8]"
               }
             `}
           >

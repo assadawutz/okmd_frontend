@@ -1,10 +1,11 @@
-'use client'
+"use client";
 import { Kanit } from "next/font/google";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ShareButtons from "@/components/ShareButtons";
 import RelatedNews from "@/components/RelatedNews";
-
+import Link from "next/link";
+import { ChevronLeft, Calendar as CalendarIcon, MapPin } from "lucide-react";
+import Button from "@/components/ui/Button";
 
 const kanit = Kanit({
   subsets: ["thai", "latin"],
@@ -15,7 +16,8 @@ const kanit = Kanit({
 const mockNews = [
   {
     id: 1,
-    title: "กิจกรรม Freedom Learn x Conet LANNA: Yi Peng ชวนน้อง ๆ มาสืบสานประเพณียี่เป็งผ่านการสร้างโคมแขวนรูปทรงเรขาคณิต",
+    title:
+      "กิจกรรม Freedom Learn x Conet LANNA: Yi Peng ชวนน้อง ๆ มาสืบสานประเพณียี่เป็งผ่านการสร้างโคมแขวนรูปทรงเรขาคณิต",
     date: "25 ตุลาคม 2568 เวลา: 11.00 - 15.30 น.",
     location:
       "สถานที่: ห้องเวิร์คช็อป 1 และ 2 อุทยานการเรียนรู้ TK Park ชั้น 8 centralWorld",
@@ -66,77 +68,44 @@ const mockNews = [
         text: "กิจกรรมนี้ไม่มีค่าใช้จ่ายและไม่ต้องลงทะเบียนล่วงหน้า (ลงทะเบียนที่ห้องเด็กในวันจัดกิจกรรม) โดยไม่จำกัดจำนวนผู้เข้าร่วมกิจกรรม",
         value: "event_fee_and_registration",
       },
-      {
-        type: "text",
-        text: "กิจกรรมทั้งหมดของเดือนนี้",
-        value: "all_events_month",
-      },
-      {
-        type: "text",
-        text: "กิจกรรมทั้งหมดของปีนี้",
-        value: "all_events_year",
-      },
     ],
   },
   {
-  id: 2,
-  title: "กิจกรรมเวิร์กช็อป หัวอกพ่อแม่ (ครั้งที่ 1): เลี้ยงลูกให้เวิร์ก…แม้ชีวิตจริงไม่เหมือนในตำรา",
-  date: "26 ตุลาคม 2568 | เวลา: 13.00 - 15.00 น.",
-  location: "ห้องเวิร์กช็อป 1 และ 2 อุทยานการเรียนรู้ TK Park ชั้น 8 centralwOrld",
-  banner: "/event2.png",
-  content: [
-    {
-      type: "text",
-      text: "JoyMind ร่วมกับอุทยานการเรียนรู้ TK Park ชวนพ่อแม่ ผู้ปกครอง มาประยุกต์ความรู้การเลี้ยงลูกให้ได้ผลจริง นำโดยนักจิตวิทยาเด็ก วัยรุ่น และครอบครัว",
-      value: "workshop_intro",
-    },
-    {
-      type: "text",
-      text: "กิจกรรมนี้เหมาะสำหรับพ่อแม่ที่สงสัยว่า รู้ทฤษฎีก็แล้ว ลองทำตามตำราก็แล้ว แต่ทำไม…ยังไม่เวิร์กเท่าที่หวัง? เช่น คุยกับลูกทีไร ลูกไม่ฟัง พูดเท่าไหร่ก็ไม่เข้าหู ไม่ถึงใจ",
-      value: "workshop_target_audience",
-    },
-    {
-      type: "text",
-      text: "JoyMind เตรียมกิจกรรมนี้ให้ผู้เข้าร่วมได้สวมบทบาท เข้าใจปัญหาจริง แลกเปลี่ยนวิธีปรับพฤติกรรมที่ได้ผลและที่ไม่ได้ผล พร้อมออกแบบแนวทางใหม่ที่เหมาะกับลูกและครอบครัวจริง ๆ",
-      value: "workshop_objective",
-    },
-    {
-      type: "text",
-      text: "พบกันที่ห้องเวิร์กช็อป 1 และ 2 อุทยานการเรียนรู้ TK Park ชั้น 8 centralwOrld จำกัดเพียง 40 ที่นั่ง",
-      value: "workshop_details",
-    },
-    {
-      type: "text",
-      text: "ไม่มีค่าใช้จ่ายในการเข้าร่วมกิจกรรม (อ่านรายละเอียดการมัดจำกิจกรรมได้ที่หมายเหตุด้านล่าง) ลงทะเบียนได้ตั้งแต่วันนี้ โดยทักหาทีมงาน JoyMind ทาง LINE: @joymindcommunity หรือคลิกที่นี่ แล้วจะได้รับ link ลงทะเบียนล่วงหน้าผ่าน Google Forms",
-      value: "workshop_registration",
-    },
-    {
-      type: "text",
-      text: "หมายเหตุ: กิจกรรมนี้ไม่เก็บค่าเข้าร่วมกิจกรรม แต่มีค่ามัดจำในการลงทะเบียน 200 บาท จำกัดเพียง 40 ที่นั่ง โดยผู้เข้าร่วมกิจกรรมนำใบเสร็จรับเงินมาแสดงกับทีมงานในวันงานเพื่อรับเงินมัดจำคืนเต็มจำนวนเป็นเงินสด",
-      value: "workshop_note_deposit",
-    },
-    {
-      type: "text",
-      text: "หากผู้เข้าร่วมกิจกรรมไม่ได้เป็นสมาชิก TK Park จะมีค่าเข้าพื้นที่วันละ 20 บาท/คน ไม่จำกัดจำนวนครั้งเข้า–ออกภายในวันนั้น หรือสมัครสมาชิก TK Park แบบรายปีเพื่อเข้าพื้นที่ได้ไม่จำกัดครั้งตลอดปี https://www.tkpark.or.th/tha/membership",
-      value: "workshop_note_membership",
-    },
-    {
-      type: "text",
-      text: "อุทยานการเรียนรู้ TK Park ไม่มีบริการประทับตราจอดรถฟรี ค่าใช้จ่ายเกี่ยวกับการจอดรถ เป็นไปตามเงื่อนไขของศูนย์การค้า centralwOrld",
-      value: "workshop_note_parking",
-    },
-    {
-      type: "text",
-      text: "กิจกรรมทั้งหมดของเดือนนี้",
-      value: "all_events_month",
-    },
-    {
-      type: "text",
-      text: "กิจกรรมทั้งหมดของปีนี้",
-      value: "all_events_year",
-    },
-  ],
-},
+    id: 2,
+    title:
+      "กิจกรรมเวิร์กช็อป หัวอกพ่อแม่ (ครั้งที่ 1): เลี้ยงลูกให้เวิร์ก…แม้ชีวิตจริงไม่เหมือนในตำรา",
+    date: "26 ตุลาคม 2568 | เวลา: 13.00 - 15.00 น.",
+    location:
+      "ห้องเวิร์กช็อป 1 และ 2 อุทยานการเรียนรู้ TK Park ชั้น 8 centralwOrld",
+    banner: "/event2.png",
+    content: [
+      {
+        type: "text",
+        text: "JoyMind ร่วมกับอุทยานการเรียนรู้ TK Park ชวนพ่อแม่ ผู้ปกครอง มาประยุกต์ความรู้การเลี้ยงลูกให้ได้ผลจริง นำโดยนักจิตวิทยาเด็ก วัยรุ่น และครอบครัว",
+        value: "workshop_intro",
+      },
+      {
+        type: "text",
+        text: "กิจกรรมนี้เหมาะสำหรับพ่อแม่ที่สงสัยว่า รู้ทฤษฎีก็แล้ว ลองทำตามตำราก็แล้ว แต่ทำไม…ยังไม่เวิร์กเท่าที่หวัง? เช่น คุยกับลูกทีไร ลูกไม่ฟัง พูดเท่าไหร่ก็ไม่เข้าหู ไม่ถึงใจ",
+        value: "workshop_target_audience",
+      },
+      {
+        type: "text",
+        text: "JoyMind เตรียมกิจกรรมนี้ให้ผู้เข้าร่วมได้สวมบทบาท เข้าใจปัญหาจริง แลกเปลี่ยนวิธีปรับพฤติกรรมที่ได้ผลและที่ไม่ได้ผล พร้อมออกแบบแนวทางใหม่ที่เหมาะกับลูกและครอบครัวจริง ๆ",
+        value: "workshop_objective",
+      },
+      {
+        type: "text",
+        text: "พบกันที่ห้องเวิร์กช็อป 1 และ 2 อุทยานการเรียนรู้ TK Park ชั้น 8 centralwOrld จำกัดเพียง 40 ที่นั่ง",
+        value: "workshop_details",
+      },
+      {
+        type: "text",
+        text: "ไม่มีค่าใช้จ่ายในการเข้าร่วมกิจกรรม (อ่านรายละเอียดการมัดจำกิจกรรมได้ที่หมายเหตุด้านล่าง) ลงทะเบียนได้ตั้งแต่วันนี้ โดยทักหาทีมงาน JoyMind ทาง LINE: @joymindcommunity หรือคลิกที่นี่ แล้วจะได้รับ link ลงทะเบียนล่วงหน้าผ่าน Google Forms",
+        value: "workshop_registration",
+      },
+    ],
+  },
   {
     id: 3,
     title:
@@ -146,71 +115,15 @@ const mockNews = [
       "สถานที่: อุทยานการเรียนรู้ TK Park ชั้น 8 ศูนย์การค้า centralwOrld",
     banner: "/event3.png",
     content: [
-  {
-    text: "อุทยานการเรียนรู้ TK Park ร่วมกับสถานเอกอัครราชทูตบังกลาเทศ ประจำประเทศไทยชวนคุณมาชมภาพยนตร์จาก Contemporary World Film Series ปี 2025 ส่งตรงจากประเทศบังกลาเทศ Something Like an Autobiography (2023) กำกับโดย Mostofa Sarwar Farooki ที่เล่าเรื่องชีวิตจริงของผู้กำกับและภรรยา ในช่วงล็อกดาวน์ COVID-19 ทั้งคู่ร่วมกันเขียนบทภาพยนตร์เรื่องนี้ อิงจากชีวิตของตนเอง โดยนำชื่อภาพยนตร์มาจากบรรทัดเปิดของหนังสือบันทึกความทรงจำของ Akira Kurosawa ผู้กำกับญี่ปุ่นที่ Farooki ชื่นชมอย่างยิ่ง",
-    value: "event_intro",
-  },
-  {
-    text: "ในเรื่องนี้ นอกจาก Farooki จะกำกับแล้ว เขายังปรากฏตัวในบทนำชายเป็นครั้งแรก โดยรับบทเคียงคู่กับ Tisha ผู้เป็นภรรยา ภาพยนตร์ผสมผสานเรื่องส่วนตัวกับสังคมและการเมือง",
-    value: "film_overview",
-  },
-  {
-    text: "Farooki กล่าวว่า “เรื่องราวของคนอื่นกลายเป็นเรื่องราวส่วนตัวของผมเสมอ แต่ในครั้งนี้ตัวเราเองคือเรื่องราว จึงกลายเป็นเรื่องส่วนตัวที่ลึกซึ้ง”",
-    value: "director_quote",
-  },
-  {
-    text: "ภาพยนตร์ได้รับเสียงชื่นชมจากนักวิจารณ์และผู้ชมในเทศกาลภาพยนตร์สำคัญทั่วโลก เช่น Busan (เกาหลี), Mumbai (อินเดีย), Sydney (ออสเตรเลีย) และมีฉากเปิดเรื่องที่พัทยา Farooki เคยมาไทยหลายครั้ง และกล่าวว่า “ที่นี่เหมือนบ้านหลังที่สองของผมจริง ๆ”",
-    value: "film_acclaim",
-  },
-  {
-    text: "การฉายภาพยนตร์ Something Like an Autobiography ใน Contemporary World Film Series ปี 2025 ที่ TK Park นับเป็นการฉายภาพยนตร์ครั้งแรกในประเทศไทย และเป็นโอกาสพิเศษที่ผู้กำกับและภรรยาจะเดินทางมาร่วมงาน",
-    value: "event_significance",
-  },
-  {
-    text: "พบกันวันเสาร์ที่ 25 ตุลาคม 2568 เวลา 16:00 น. (เปิดให้เข้าร่วมงานตั้งแต่ 15:30 น.) ณ ศูนย์การเรียนรู้อเนกประสงค์ อุทยานการเรียนรู้ TK Park ชั้น 8 centralwOrld",
-    value: "event_details",
-  },
-  {
-    text: "ตัวอย่างภาพยนตร์: คลิกชมตัวอย่าง",
-    value: "trailer_link",
-  },
-  {
-    text: "ลงทะเบียนล่วงหน้าตั้งแต่วันนี้เป็นต้นไป โดยส่งอีเมลไปยัง filmforum17@gmail.com",
-    value: "registration",
-  },
-  {
-    text: "ไม่มีค่าใช้จ่ายในการเข้าชม",
-    value: "free_entry",
-  },
-  {
-    text: "จำกัดจำนวนที่นั่ง และสงวนสิทธิ์เฉพาะผู้ที่สำรองที่นั่งล่วงหน้าเท่านั้น ไม่รับ walk-in หรือลงทะเบียนเพิ่มหน้างาน และโปรดแต่งกายกึ่งทางการ (smart casual) ในวันงาน",
-    value: "attendance_rules",
-  },
-  {
-    text: "การจัดฉายภาพยนตร์เรื่องนี้ จัดโปรแกรมโดย Lekha Shankar และได้รับการสนับสนุนจากสถานเอกอัครราชทูตสาธารณรัฐประชาชนบังกลาเทศประจำประเทศไทย โดยนายฟัยยาซ มูรชิด กาซี (H.E. Mr. Faiyaz Murshid Kazi) เอกอัครราชทูต จะมากล่าวแนะนำภาพยนตร์ และมีบริการอาหารว่างและเครื่องดื่มให้ผู้เข้าชมหลังจบภาพยนตร์",
-    value: "event_organizer",
-  },
-  {
-    text: "หมายเหตุ",
-    value: "note_title",
-  },
-  {
-    text: "ไม่มีค่าใช้จ่ายในการชมภาพยนตร์ แต่หากไม่ได้เป็นสมาชิก TK Park จะมีค่าเข้าพื้นที่วันละ 20 บาท ไม่จำกัดจำนวนครั้งเข้า–ออกภายในวันนั้น หรือสมัครสมาชิก TK Park แบบรายปี",
-    value: "note_membership_fee",
-  },
-  {
-    text: "อุทยานการเรียนรู้ TK Park ไม่มีบริการประทับตราจอดรถฟรี ค่าใช้จ่ายเกี่ยวกับการจอดรถ เป็นไปตามเงื่อนไขของศูนย์การค้า centralwOrld",
-    value: "note_parking",
-  },
-  {
-    text: "กิจกรรมทั้งหมดของเดือนนี้",
-    value: "all_events_month",
-  },
-  {
-    text: "กิจกรรมทั้งหมดของปีนี้",
-    value: "all_events_year",
-  },
-]
+      {
+        text: "อุทยานการเรียนรู้ TK Park ร่วมกับสถานเอกอัครราชทูตบังกลาเทศ ประจำประเทศไทยชวนคุณมาชมภาพยนตร์จาก Contemporary World Film Series ปี 2025 ส่งตรงจากประเทศบังกลาเทศ Something Like an Autobiography (2023) กำกับโดย Mostofa Sarwar Farooki ที่เล่าเรื่องชีวิตจริงของผู้กำกับและภรรยา ในช่วงล็อกดาวน์ COVID-19 ทั้งคู่ร่วมกันเขียนบทภาพยนตร์เรื่องนี้ อิงจากชีวิตของตนเอง โดยนำชื่อภาพยนตร์มาจากบรรทัดเปิดของหนังสือบันทึกความทรงจำของ Akira Kurosawa ผู้กำกับญี่ปุ่นที่ Farooki ชื่นชมอย่างยิ่ง",
+        value: "event_intro",
+      },
+      {
+        text: "ในเรื่องนี้ นอกจาก Farooki จะกำกับแล้ว เขายังปรากฏตัวในบทนำชายเป็นครั้งแรก โดยรับบทเคียงคู่กับ Tisha ผู้เป็นภรรยา ภาพยนตร์ผสมผสานเรื่องส่วนตัวกับสังคมและการเมือง",
+        value: "film_overview",
+      },
+    ],
   },
 ];
 
@@ -221,89 +134,166 @@ interface CalenderEventDetailProps {
 export default function CalenderEventDetail({
   newsId,
 }: CalenderEventDetailProps) {
-  const router = useRouter();
   const newsItem = mockNews.find((item) => item.id.toString() === newsId);
 
   if (!newsItem)
     return (
-      <div className="p-10 text-center text-red-500 text-xl">
-        ข่าวไม่พบ (404)
+      <div className="min-h-[50vh] flex flex-col items-center justify-center space-y-4">
+        <div className="text-2xl font-bold text-[#1B1D20]">ไม่พบกิจกรรมนี้</div>
+        <Link
+          href="/calendar-of-event"
+          className="text-[#16A7CB] hover:underline"
+        >
+          กลับไปหน้าปฏิทินกิจกรรม
+        </Link>
       </div>
     );
 
-  // เลือก related news: ข่าวอื่น ๆ
-   const relatedItems = mockNews
-     .filter((item) => item.id.toString() !== newsId)
-     .slice(0, 4)
-     .map((item) => ({
-       id: item.id,
-       title: item.title,
-       banner: item.banner,
-     }));
+  // เลือก related news
+  const relatedItems = mockNews
+    .filter((item) => item.id.toString() !== newsId)
+    .slice(0, 4)
+    .map((item) => ({
+      id: item.id,
+      title: item.title,
+      banner: item.banner,
+    }));
 
   return (
-    <div
-      className={`${kanit.variable} font-kanit min-h-screen bg-white text-[#333]`}
-    >
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-3">
-        {/* Header */}
-        <header className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4 items-start md:items-center ">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold leading-tight max-w-4xl text-gray-900">
+    <div className={`${kanit.variable} font-kanit w-full space-y-8`}>
+      {/* Header Block */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/bannerabout.png')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
+            ปฏิทิน <span className="text-[#74CEE2]">กิจกรรม</span>
+          </h1>
+          <p className="text-lg md:text-xl opacity-90">
+            ติดตามกิจกรรมที่น่าสนใจจาก OKMD
+          </p>
+        </div>
+      </div>
+
+      {/* Breadcrumb */}
+      <div className="flex items-center text-sm text-gray-500 px-2 gap-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span>›</span>
+        <Link
+          href="/calendar-of-event"
+          className="hover:text-[#16A7CB] transition-colors"
+        >
+          ปฏิทินกิจกรรม
+        </Link>
+        <span>›</span>
+        <span className="text-[#16A7CB] font-medium truncate max-w-[200px] md:max-w-xs">
+          {newsItem.title}
+        </span>
+      </div>
+
+      {/* Main Content */}
+      <div className="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-gray-100">
+        <header className="mb-10 space-y-6 md:flex md:items-start md:justify-between md:gap-8 md:space-y-0 border-b border-gray-100 pb-8">
+          <div className="flex-1 space-y-4">
+            <div className="inline-block px-3 py-1 bg-[#E8F6FB] text-[#16A7CB] rounded-full text-xs font-bold">
+              ปฏิทินกิจกรรม
+            </div>
+            <h1 className="text-2xl md:text-4xl font-bold leading-tight text-[#1B1D20]">
               {newsItem.title}
             </h1>
           </div>
-
-          <div className=" text-gray-500 text-sm md:text-base text-right mb-10">
-            <span className="font-medium text-gray-600 mb-1">
-              ปฏิทินกิจกรรม
-            </span>
-            <br />
-            {newsItem.date}
-            <br />
-            <span className="text-gray-400 text-xs md:text-sm">
-              {newsItem.location}
-            </span>
+          <div className="w-full md:w-auto flex flex-col gap-3 py-4 md:py-0 md:border-l md:border-gray-100 md:pl-8 text-sm text-gray-600 min-w-[250px]">
+            <div className="flex items-start gap-2">
+              <CalendarIcon className="w-5 h-5 text-[#16A7CB] shrink-0" />
+              <span>{newsItem.date}</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <MapPin className="w-5 h-5 text-[#16A7CB] shrink-0" />
+              <span>{newsItem.location}</span>
+            </div>
           </div>
         </header>
 
         {/* Banner */}
-        <div className="w-full aspect-[19/9] relative rounded-lg overflow-hidden mb-10">
+        <div className="w-full aspect-video md:aspect-[21/9] relative rounded-2xl overflow-hidden mb-12 shadow-sm">
           <Image
             src={newsItem.banner}
             alt={newsItem.title}
-            width={1140}
-            height={560}
-            className="w-full h-full object-cover rounded-lg"
+            fill
+            className="object-cover"
+            priority
           />
         </div>
 
-        {/* Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16 border-b border-gray-200 pb-16">
-          <aside className="lg:col-span-2 flex flex-col gap-4">
-            <Image
-              src="/okmd-logo-2025.png"
-              alt="okmd logo"
-              width={100}
-              height={50}
-              className="object-contain"
-            />
-            <div className="h-px w-50 bg-gray-400"></div>
-            <ShareButtons />
+        {/* Article & Sidebar */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+          <aside className="md:col-span-3 lg:col-span-2 order-2 md:order-1 space-y-6">
+            <div className="p-5 rounded-2xl border border-gray-100 bg-[#F8FAFC] text-center">
+              <span className="text-xs font-bold text-gray-400 block mb-3 uppercase tracking-wider">
+                Share
+              </span>
+              <ShareButtons />
+            </div>
+
+            <div className="hidden md:block opacity-60">
+              <Image
+                src="/okmd_logo_color.png"
+                alt="okmd logo"
+                width={100}
+                height={50}
+                className="object-contain mx-auto grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+              />
+            </div>
           </aside>
 
-          <article className="col-span-10 lg:pl-9 text-gray-700 leading-relaxed space-y-6 ">
-            {newsItem.content.map((item, idx) => (
-              <p key={idx} className={idx === 0 ? "font-normal" : ""}>
-                {item.text}
-              </p>
-            ))}
+          <article className="md:col-span-9 lg:col-span-10 order-1 md:order-2">
+            <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+              {newsItem.content.map((item, idx) => (
+                <p
+                  key={idx}
+                  className={`whitespace-pre-line ${
+                    idx === 0 ? "text-xl font-medium text-[#1B1D20]" : ""
+                  }`}
+                >
+                  {item.text || ""}
+                </p>
+              ))}
+            </div>
           </article>
         </div>
 
         {/* Related */}
-        <RelatedNews items={relatedItems} />
-      </main>
+        <div className="mt-16 pt-10 border-t border-gray-100">
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-[#1B1D20]">
+              กิจกรรมอื่นๆ ที่น่าสนใจ
+            </h3>
+            <Link
+              href="/calendar-of-event"
+              className="text-[#16A7CB] font-bold hover:underline"
+            >
+              ดูทั้งหมด
+            </Link>
+          </div>
+          <RelatedNews items={relatedItems} />
+        </div>
+
+        <div className="mt-10">
+          <Link href="/calendar-of-event">
+            <Button
+              variant="outline"
+              className="rounded-xl flex items-center gap-2"
+            >
+              <ChevronLeft size={18} /> ย้อนกลับ
+            </Button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

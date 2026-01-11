@@ -1,13 +1,11 @@
 import CalendarEventListPage from "@/components/page/CalendarEvent/CalendarEventList";
-import CalenderEventListPage from "@/components/page/CalendarEvent/CalendarEventList";
-
-
+import { ContainerPage } from "@/components/shared/ContainerPage";
 
 const page = () => {
   return (
-    <div>
+    <ContainerPage>
       <CalendarEventListPage />
-    </div>
+    </ContainerPage>
   );
 };
 

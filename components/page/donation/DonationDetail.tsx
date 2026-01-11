@@ -2,22 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Button from "@/components/ui/Button";
-import { DiFsharp } from "react-icons/di";
-import { FaStepBackward } from "react-icons/fa";
-import { MdOutlineArrowBackIos } from "react-icons/md";
-import { BsBank, BsQrCodeScan } from "react-icons/bs";
-import Input from "@/components/ui/Input";
-import Select from "@/components/ui/Select";
-import Dropzone from "@/components/ui/Dropzone";
-import DropzoneInput from "@/components/ui/Dropzone";
-import DonationLeftBanner from "./DonationLeftBanner";
 import StepIndicator from "./StepIndicator";
 import Step1Amount from "./Step1Amount";
 import Step2Receipt from "./Step2Receipt";
 import Step3Confirm from "./Step3Confirm";
-
-const predefinedAmounts = [2000, 1000, 500];
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 
 export default function DonationAmountSelector({ id }: { id: string }) {
   const router = useRouter();
@@ -33,7 +23,7 @@ export default function DonationAmountSelector({ id }: { id: string }) {
   const [paymentMethod, setPaymentMethod] = useState<string | null>("qr");
   // step 2
   const [donorType, setDonorType] = useState<"personal" | "corporate">(
-    "personal",
+    "personal"
   );
 
   const [form, setForm] = useState({
@@ -57,14 +47,15 @@ export default function DonationAmountSelector({ id }: { id: string }) {
     setCustomAmount("");
   };
 
-  const handleCustomChange = (e: any) => {
+  const handleCustomChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
     setCustomAmount(value);
     setSelectedAmount(null);
   };
 
-  const amountSelected =
+  const _amountSelected =
     selectedAmount || (customAmount ? parseInt(customAmount, 10) : 0);
+  void _amountSelected; // suppress unused warning
 
   // Sync UI เมื่อเปลี่ยน step ใน URL
   useEffect(() => {
@@ -74,14 +65,48 @@ export default function DonationAmountSelector({ id }: { id: string }) {
     ? parseInt(customAmount, 10)
     : selectedAmount || 0;
   return (
-    <div className="grid grid-cols-3">
-      {/* LEFT BANNER */}
-      <DonationLeftBanner />
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/donation-hero.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
+            บริจาค <span className="text-[#74CEE2]">สนับสนุน</span>
+          </h1>
+          <p className="text-lg md:text-xl opacity-90">
+            ร่วมขับเคลื่อนสังคมแห่งการเรียนรู้ไปด้วยกัน
+          </p>
+        </div>
+      </div>
 
-      {/* RIGHT PANEL */}
-      <div className="col-span-3 md:col-span-2 w-full md:w-2xl mx-auto px-6 py-12 my-auto">
+      {/* BREADCRUMB */}
+      <div className="flex items-center text-sm text-gray-500 px-2 gap-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span>›</span>
+        <Link
+          href="/donation"
+          className="hover:text-[#16A7CB] transition-colors"
+        >
+          บริจาค
+        </Link>
+        <span>›</span>
+        <span className="text-[#16A7CB] font-medium truncate max-w-[200px] md:max-w-xs ">
+          {id}
+        </span>
+      </div>
+
+      {/* CONTENT PANEL */}
+      <div className="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-gray-100">
         {/* STEP INDICATOR */}
-        <StepIndicator currentStep={currentStep} />
+        <div className="mb-10">
+          <StepIndicator currentStep={currentStep} />
+        </div>
 
         {/* --------------------------------------------------- */}
         {/* STEP 1: เลือกจำนวนเงิน                               */}
@@ -103,8 +128,6 @@ export default function DonationAmountSelector({ id }: { id: string }) {
         {currentStep === 2 && (
           <Step2Receipt
             goToStep={goToStep}
-            selectedAmount={selectedAmount}
-            customAmount={customAmount}
             donorType={donorType}
             setDonorType={setDonorType}
             paymentMethod={paymentMethod}
@@ -126,6 +149,14 @@ export default function DonationAmountSelector({ id }: { id: string }) {
             goToStep={goToStep}
           />
         )}
+      </div>
+
+      <div className="mt-10">
+        <Link href="/donation">
+          <div className="inline-flex items-center gap-2 text-gray-500 hover:text-[#16A7CB] transition-colors cursor-pointer">
+            <ChevronLeft size={18} /> ย้อนกลับ
+          </div>
+        </Link>
       </div>
     </div>
   );

@@ -1,9 +1,28 @@
-
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
+import Image from "next/image";
 import { BsBank, BsQrCodeScan } from "react-icons/bs";
 import { MdOutlineArrowBackIos } from "react-icons/md";
+
+interface FormData {
+  prefix: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  citizenId: string;
+}
+
+interface Step2ReceiptProps {
+  donorType: "personal" | "corporate";
+  setDonorType: (type: "personal" | "corporate") => void;
+  paymentMethod: string | null;
+  setPaymentMethod: (method: string) => void;
+  form: FormData;
+  setForm: (form: FormData) => void;
+  goToStep: (step: number) => void;
+}
 
 export default function Step2Receipt({
   donorType,
@@ -13,7 +32,7 @@ export default function Step2Receipt({
   form,
   setForm,
   goToStep,
-}: any) {
+}: Step2ReceiptProps) {
   return (
     <div className="text-center">
       {/* Title */}
@@ -64,7 +83,7 @@ export default function Step2Receipt({
       {paymentMethod === "bank" && (
         <div className="max-w-xl mx-auto mt-6 mb-6 flex items-center justify-between p-4 rounded-xl border border-[#C4C5C8]">
           <div className="flex items-center">
-            <img src="/images/krungthai.png" className="w-12 h-12 mr-4" />
+            <Image src="/images/krungthai.png" alt="Krungthai Bank" width={48} height={48} className="mr-4" />
             <div className="text-left text-[#666971]">
               <p className="font-semibold">ธนาคารกรุงไทย :</p>
               <p className="mt-1">หมายเลขบัญชี : 067-0-05895-0</p>
