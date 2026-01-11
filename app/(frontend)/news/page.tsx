@@ -1,8 +1,9 @@
-// app/NewsPage.tsx
 "use client";
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { ContainerPage } from "@/components/shared/ContainerPage";
 
 const CATE = [
   { label: "ข่าวประชาสัมพันธ์", value: "announce" },
@@ -68,136 +69,97 @@ export default function NewsPage() {
     [active]
   );
 
-  const titleText = active === "announce" ? "ข่าวประชาสัมพันธ์" : "ข่าวองค์กร";
-
   return (
-    // Applied  prefix
-    <main className="w-full bg-white pb-32">
-      {/* BREADCRUMB */}
-      {/* Applied  prefix */}
-      <div className="border-b border-zinc-200">
-        <div className="container mx-auto px-6 h-20 flex items-center text-base md:text-sm text-[#6A6A6A]">
-          {/* Added hover:text-sky-500 and cursor-pointer */}
-          <Link href="/" className="hover:text-sky-500 cursor-pointer">
+    <ContainerPage>
+      <div className="w-full space-y-8">
+        {/* HEADER */}
+        <div className="text-center">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4 text-[#1B1D20]">
+            News & <span className="text-[#16A7CB]">Update</span>
+          </h1>
+          <p className="text-gray-500">
+            ติดตามข่าวสารและการจ้างงานล่าสุดจาก OKMD
+          </p>
+        </div>
+
+        {/* BREADCRUMB */}
+        <div className="flex items-center justify-center text-sm text-gray-500">
+          <Link href="/" className="hover:text-[#16A7CB] transition-colors">
             หน้าหลัก
           </Link>
           <span className="mx-2">›</span>
-          {/* Applied  prefix */}
-          <span className="text-sky-600">ข่าวสาร</span>
+          <span className="text-[#16A7CB] font-medium">ข่าวสาร</span>
         </div>
-      </div>
 
-      {/* MAIN */}
-      {/* Adjusted padding and gap for mobile */}
-      <div className="container mx-auto px-6 pt-8 md:pt-12 grid grid-cols-12 gap-8 md:gap-16">
+        {/* CATEGORY TABS */}
+        <div className="flex justify-center gap-3 flex-wrap">
+          {CATE.map((c) => (
+            <button
+              key={c.value}
+              onClick={() => setActive(c.value)}
+              className={`
+                            px-6 py-2.5 rounded-full text-sm font-bold transition-all
+                            ${
+                              active === c.value
+                                ? "bg-[#16A7CB] text-white shadow-md"
+                                : "bg-white text-gray-600 border border-gray-200 hover:border-[#16A7CB] hover:text-[#16A7CB]"
+                            }
+                        `}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
 
-        {/* LEFT MENU */}
-        {/* Adjusted column span and added mb-8 for mobile spacing */}
-        <aside className="col-span-12 md:col-span-3 mb-8 md:mb-0">
-          {/* Applied  prefix and adjusted margin for mobile */}
-          <h1 className="text-4xl font-bold mb-6 md:mb-10 text-[#1B1D20]">News</h1>
-
-          {/* Applied  prefix */}
-          <div className="flex flex-col gap-1">
-            {CATE.map((c) => {
-              const isActive = active === c.value;
-              return (
-                <button
-                  key={c.value}
-                  onClick={() => setActive(c.value)}
-                  // Applied  prefix and added cursor-pointer
-                  className={`
-                    text-left px-4 py-3 rounded-lg text-[18px] font-semibold cursor-pointer
-                    ${isActive
-                      ? "bg-[#E8F6FB] text-[#16A7CB]"
-                      : "text-[#6A6A6A] hover:text-[#16A7CB]"
-                    }
-                  `}
-                // Removed inline style to allow full width via Tailwind utilities
-                >
-                  {c.label}
-                </button>
-              );
-            })}
-          </div>
-        </aside>
-
-        {/* RIGHT CONTENT */}
-        {/* Adjusted column span */}
-        <section className="col-span-12 md:col-span-9 lg:col-span-8">
-          {/* Applied  prefix */}
-          <h2 className="text-3xl font-bold text-[#1B1D20] mb-8 md:mb-10">{titleText}</h2>
-
-          {/* GRID items Responsive Adjustment */}
-          <div className="
-            grid grid-cols-1 
-            sm:grid-cols-2 md:grid-cols-2 
-            gap-x-8 gap-y-10 
-            place-items-center sm:place-items-start
-          ">
-            {filtered.map((n) => (
-              <Link
-                key={n.id}
-                href={`/news/detail/${n.id}`}
-                // Applied  prefix, w-full added for responsiveness, cursor-pointer added
-                className="
-                  w-full
-                  bg-white 
-                  rounded-2xl 
-                  border border-[#E5E5E5]
-                  shadow-[0_4px_12px_rgba(0,0,0,0.06)]
-                  hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)]
-                  transition-all 
-                  overflow-hidden
-                  cursor-pointer
-                "
-              // REMOVED: style={{ width: 364 }}
-              >
-                {/* IMAGE */}
-                {/* Applied  prefix, object-cover added to ensure image fills area */}
-                <div className="w-full h-[200px] sm:h-[220px] overflow-hidden">
-                  <img
-                    src={n.img}
-                    alt={n.title}
-                    className="
-                      w-full h-full object-cover 
-                      transition-all duration-300 
-                      hover:scale-[1.03]
-                    "
-                  />
-                </div>
-
-                {/* CONTENT */}
-                <div className="px-6 py-5">
-                  {/* Applied  prefix */}
-                  <p className="text-[13px] text-zinc-500 mb-1">
-                    {n.date}
-                  </p>
-
-                  {/* Applied  prefix */}
-                  <h3 className="
-                    text-[18px] font-semibold text-[#1B1D20] 
-                    leading-snug line-clamp-2 mb-2
-                  ">
-                    {n.title}
-                  </h3>
-
-                  {/* Applied  prefix */}
-                  <p className="text-[14px] text-zinc-600 leading-6 line-clamp-3">
-                    {n.desc}
-                  </p>
-
-                  {/* Applied  prefix */}
-                  <span className="inline-flex items-center gap-1 pt-3 text-[15px] text-[#16A7CB] font-semibold">
-                    อ่านเพิ่มเติม ↗
+        {/* NEWS GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {filtered.map((n) => (
+            <Link
+              key={n.id}
+              href={`/news/${n.id}`}
+              className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col md:flex-row h-full md:h-[200px]"
+            >
+              <div className="w-full md:w-[200px] h-[200px] md:h-full relative flex-shrink-0">
+                <Image
+                  src={n.img}
+                  alt={n.title}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-5 flex flex-col justify-center flex-1">
+                <span className="text-xs text-[#16A7CB] font-bold mb-2 uppercase">
+                  {n.category}
+                </span>
+                <h3 className="text-lg font-bold text-[#1B1D20] leading-snug line-clamp-2 mb-2 group-hover:text-[#16A7CB] transition-colors">
+                  {n.title}
+                </h3>
+                <p className="text-sm text-gray-500 line-clamp-2 mb-3">
+                  {n.desc}
+                </p>
+                <div className="mt-auto flex items-center justify-between">
+                  <span className="text-xs text-gray-400">{n.date}</span>
+                  <span className="text-xs font-bold text-[#16A7CB] group-hover:underline">
+                    อ่านต่อ ↗
                   </span>
                 </div>
-              </Link>
-            ))}
-          </div>
+              </div>
+            </Link>
+          ))}
+        </div>
 
-        </section>
+        {/* PAGINATION */}
+        <div className="flex justify-center gap-2 mt-8">
+          {[1, 2, 3].map((page) => (
+            <button
+              key={page}
+              className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-[#16A7CB] hover:text-[#16A7CB] text-gray-500 transition-all font-bold text-sm"
+            >
+              {page}
+            </button>
+          ))}
+        </div>
       </div>
-    </main>
+    </ContainerPage>
   );
 }
