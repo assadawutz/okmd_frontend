@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import SubHeroBanner from "@/components/ui/SubHeroBanner";
+import { CiSearch } from "react-icons/ci";
 import Input from "@/components/ui/Input";
 import Dropdown from "@/components/ui/Dropdown";
 import Button from "@/components/ui/Button";
-import { CiSearch } from "react-icons/ci";
 
 type ContractCardProps = {
   id: string;
@@ -30,50 +29,56 @@ function ContractCard({
   return (
     <Link
       href={`/contract/${id}`}
-      className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] p-6 transition-all duration-300 hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] cursor-pointer border border-gray-100"
+      className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100 hover:border-[#16A7CB] hover:shadow-md transition-all duration-300 group h-full flex flex-col relative overflow-hidden"
     >
-      <div className="flex flex-col gap-4">
-        <div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
-          <p className="text-gray-600 text-sm">เลขที่สัญญา: {contractNumber}</p>
-        </div>
-
-        <div className="border-t border-gray-100 pt-4 space-y-2">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span className="font-semibold">ผู้รับจ้าง:</span>
-            <span>{contractor}</span>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span className="font-semibold">วันที่ลงนาม:</span>
-            <span>{contractDate}</span>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span className="font-semibold">มูลค่าสัญญา:</span>
-            <span className="text-[#16A7CB] font-bold">{amount}</span>
-          </div>
-        </div>
-
-        <div className="pt-2">
-          <span
-            className={`px-4 py-2 rounded-lg text-sm font-semibold inline-block ${
-              status === "active"
-                ? "bg-green-100 text-green-800"
-                : status === "completed"
-                ? "bg-blue-100 text-blue-800"
-                : "bg-gray-100 text-gray-600"
-            }`}
-          >
-            {status === "active"
-              ? "กำลังดำเนินการ"
+      <div className="absolute top-0 right-0 p-4">
+        <span
+          className={`px-3 py-1 rounded-full text-xs font-semibold ${
+            status === "active"
+              ? "bg-green-50 text-green-600 border border-green-100"
               : status === "completed"
-              ? "เสร็จสิ้น"
-              : "ยกเลิก"}
-          </span>
+              ? "bg-blue-50 text-blue-600 border border-blue-100"
+              : "bg-gray-50 text-gray-500 border border-gray-100"
+          }`}
+        >
+          {status === "active"
+            ? "กำลังดำเนินการ"
+            : status === "completed"
+            ? "เสร็จสิ้น"
+            : "ยกเลิก"}
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-4 flex-grow mt-2">
+        <div>
+          <div className="text-xs text-gray-400 mb-1 font-medium">
+            เลขที่สัญญา: {contractNumber}
+          </div>
+          <h3 className="text-xl font-bold text-[#1B1D20] mb-2 group-hover:text-[#16A7CB] transition-colors leading-snug">
+            {title}
+          </h3>
         </div>
 
-        <div className="pt-2">
-          <span className="text-[#16A7CB] font-semibold text-sm hover:underline">
-            ดูรายละเอียดเพิ่มเติม →
+        <div className="border-t border-gray-100 pt-4 space-y-3 mt-auto">
+          <div className="flex items-center justify-between text-sm text-gray-600">
+            <span className="text-gray-400">ผู้รับจ้าง</span>
+            <span className="font-medium text-right max-w-[60%] truncate">
+              {contractor}
+            </span>
+          </div>
+          <div className="flex items-center justify-between text-sm text-gray-600">
+            <span className="text-gray-400">วันที่ลงนาม</span>
+            <span className="font-medium">{contractDate}</span>
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-gray-400">มูลค่าสัญญา</span>
+            <span className="text-[#16A7CB] font-bold text-lg">{amount}</span>
+          </div>
+        </div>
+
+        <div className="pt-2 mt-2">
+          <span className="w-full text-center block bg-gray-50 text-gray-600 py-2 rounded-xl text-sm font-semibold group-hover:bg-[#16A7CB] group-hover:text-white transition-all">
+            ดูรายละเอียด
           </span>
         </div>
       </div>
@@ -132,95 +137,89 @@ export default function Contract() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-white">
-      {/* Hero Banner */}
-      <SubHeroBanner image="/contract-hero.jpg" height="h-[300px]">
-        <div className="container mx-auto px-6 md:px-12">
-          <h1 className="text-4xl md:text-5xl font-bold">
+    <div className="w-full space-y-8">
+      {/* HEADER BLOCK */}
+      <div className="w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden relative shadow-sm">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/contract-hero.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2">
             สัญญา <span className="text-[#74CEE2]">และข้อตกลง</span>
           </h1>
-          <p className="text-xl mt-4 text-white/90">
+          <p className="text-lg md:text-xl opacity-90">
             ข้อมูลสัญญาและข้อตกลงของ OKMD
           </p>
         </div>
-      </SubHeroBanner>
+      </div>
 
       {/* Breadcrumb */}
-      <div className="container mx-auto pt-4 sm:pt-6 md:pt-8 mb-4 sm:mb-6 md:mb-8">
-        <div className="grid grid-cols-12">
-          <div className="col-span-12">
-            <div className="text-sm sm:text-base md:text-lg text-gray-500 font-medium">
-              <Link href="/" className="hover:underline">
-                หน้าหลัก
-              </Link>
-              {" > "}
-              <span className="text-[#74CEE2]">สัญญาและข้อตกลง</span>
-            </div>
+      <div className="flex items-center text-sm text-gray-500 px-2 gap-2">
+        <Link href="/" className="hover:text-[#16A7CB] transition-colors">
+          หน้าหลัก
+        </Link>
+        <span>›</span>
+        <span className="text-[#16A7CB] font-medium">สัญญาและข้อตกลง</span>
+      </div>
+
+      {/* Filter Section */}
+      <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-end">
+          <div className="col-span-1 md:col-span-4">
+            <Input
+              label="ค้นหาสัญญา"
+              placeholder="ค้นหาสัญญา..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              icon={<CiSearch className="text-gray-400" size={20} />}
+            />
+          </div>
+
+          <div className="col-span-1 md:col-span-3">
+            <Dropdown
+              label="สถานะ"
+              value={status}
+              onChange={setStatus}
+              placeholder="เลือกสถานะ"
+              options={statusOptions}
+            />
+          </div>
+
+          <div className="col-span-1 md:col-span-3">
+            <Dropdown
+              label="ปีงบประมาณ"
+              value={year}
+              onChange={setYear}
+              placeholder="เลือกปี"
+              options={yearOptions}
+            />
+          </div>
+
+          <div className="col-span-1 md:col-span-2">
+            <Button className="w-full rounded-xl shadow-lg shadow-[#16A7CB]/20 h-[48px] md:h-auto">
+              ค้นหา
+            </Button>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto pb-8 sm:pb-12 md:pb-16">
-        <div className="grid grid-cols-12 gap-4 sm:gap-6">
-          {/* Filters */}
-          <div className="col-span-12">
-            <div className="bg-gray-50 rounded-xl p-4 sm:p-5 md:p-6 mb-6 sm:mb-7 md:mb-8">
-              <div className="grid grid-cols-12 gap-3 sm:gap-4">
-                <div className="col-span-12 sm:col-span-6 md:col-span-4">
-                  <Input
-                    label="ค้นหาสัญญา"
-                    placeholder="ค้นหาสัญญา..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    icon={<CiSearch size={22} />}
-                  />
-                </div>
+      {/* Listing Section */}
+      <div className="space-y-6">
+        <h2 className="text-xl md:text-2xl font-bold text-[#1B1D20] px-2 flex items-center gap-2">
+          <span className="w-2 h-6 bg-[#16A7CB] rounded-full block"></span>
+          รายการสัญญา ({contracts.length})
+        </h2>
 
-                <div className="col-span-12 sm:col-span-6 md:col-span-4">
-                  <Dropdown
-                    label="สถานะ"
-                    value={status}
-                    onChange={setStatus}
-                    placeholder="เลือกสถานะ"
-                    options={statusOptions}
-                  />
-                </div>
-
-                <div className="col-span-12 sm:col-span-6 md:col-span-4">
-                  <Dropdown
-                    label="ปี"
-                    value={year}
-                    onChange={setYear}
-                    placeholder="เลือกปี"
-                    options={yearOptions}
-                  />
-                </div>
-              </div>
-
-              <div className="mt-4 flex justify-end">
-                <Button className="w-full sm:w-auto">ค้นหา</Button>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {contracts.map((contract) => (
+            <div key={contract.id} className="w-full">
+              <ContractCard {...contract} />
             </div>
-          </div>
-
-          {/* Contract Listings */}
-          <div className="col-span-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 sm:mb-5 md:mb-6">
-              สัญญาและข้อตกลง ({contracts.length})
-            </h2>
-
-            <div className="grid grid-cols-12 gap-4 sm:gap-5 md:gap-6">
-              {contracts.map((contract) => (
-                <div key={contract.id} className="col-span-12 sm:col-span-6 lg:col-span-6">
-                  <ContractCard {...contract} />
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
-

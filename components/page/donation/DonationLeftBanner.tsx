@@ -6,13 +6,13 @@ export default function DonationLeftBanner({
   return (
     <div
       className="
-        col-span-1 
+        col-span-12 lg:col-span-4 
         hidden 
-        md:flex      /* Tablet เริ่มแสดง */
+        lg:flex
         items-start 
         justify-center 
         relative 
-        h-[300px] md:h-full
+        min-h-[400px] lg:min-h-full
       "
       style={{
         backgroundImage: "url('/images/donation.png')",

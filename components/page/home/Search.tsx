@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import type { KeyboardEvent } from "react";
 import Image from "next/image";
 import { Search, Loader2 } from "lucide-react";
+import { NEWS_DATA } from "@/data/news";
 
 // Mock data for AI summary based on search query
 const MOCK_AI_SUMMARIES: Record<string, string> = {
@@ -11,79 +13,155 @@ const MOCK_AI_SUMMARIES: Record<string, string> = {
 การศึกษาและการพัฒนาทักษะ: การเรียนรู้วิธีการเรียนรู้ (Meta Learning) จะเป็นสิ่งสำคัญในการปรับตัวในโลกที่เปลี่ยนแปลง
 นวัตกรรมและการออกแบบ: การเรียนรู้ด้านการออกแบบผลิตภัณฑ์และบริการที่ตอบโจทย์ผู้ใช้จะมีความสำคัญ
 การพัฒนาทักษะทางสังคมและอารมณ์: ทักษะการสื่อสารและการทำงานร่วมกับผู้อื่นจะยังคงมีความสำคัญในทุกอาชีพ
-การเลือกเรียนในด้านที่มีความสนใจและสามารถปรับตัวได้ตามแนวโน้มในอนาคตจะช่วยให้คุณประสบความสำเร็จในอาชีพได้
-`,
+การเลือกเรียนในด้านที่มีความสนใจและสามารถปรับตัวได้ตามแนวโน้มในอนาคตจะช่วยให้คุณประสบความสำเร็จในอาชีพได้`,
 };
+
+// Mock search results
+const MOCK_SEARCH_RESULTS = [
+  {
+    title: "การเรียนรู้ตลอดชีวิต: กุญแจสู่ความสำเร็จในยุคดิจิทัล",
+    text: "ในยุคที่เทคโนโลยีเปลี่ยนแปลงอย่างรวดเร็ว การเรียนรู้ตลอดชีวิตกลายเป็นทักษะที่จำเป็นสำหรับทุกคน ไม่ว่าจะอยู่ในวัยใดก็ตาม",
+  },
+  {
+    title: "AI และอนาคตของการศึกษาไทย",
+    text: "ปัญญาประดิษฐ์กำลังเปลี่ยนแปลงวิธีการเรียนรู้และการสอน ตั้งแต่การปรับเนื้อหาให้เหมาะกับผู้เรียนแต่ละคน ไปจนถึงการประเมินผลอัตโนมัติ",
+  },
+  {
+    title: "ทักษะแห่งอนาคต: สิ่งที่เด็กไทยต้องเตรียมพร้อม",
+    text: "ความคิดสร้างสรรค์ การคิดวิเคราะห์ และความฉลาดทางอารมณ์ คือทักษะสำคัญที่จะช่วยให้เด็กไทยพร้อมรับมือกับโลกในอนาคต",
+  },
+];
 
 export default function OkmdSearchSection() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
   const [aiSummary, setAiSummary] = useState("");
-  const [searchResults, setSearchResults] = useState<{ title: string; text: string }[]>([]);
+  const [searchResults, setSearchResults] = useState<
+    typeof MOCK_SEARCH_RESULTS
+  >([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSearch = () => {
-    if (!searchQuery.trim()) return;
+    if (!searchQuery.trim()) {
+      setError("กรุณาใส่คำค้นหา");
+      return;
+    }
+
     setIsSearching(true);
-    
-    // Simulate API call
+    setError(null);
+
+    // Simulate API call with mock data
     setTimeout(() => {
-      setHasSearched(true);
-      setAiSummary(MOCK_AI_SUMMARIES.default);
-      setSearchResults([
-        {
-          title: "แนวโน้มอาชีพในปี 2025: ทักษะที่ตลาดแรงงานต้องการ",
-          text: "ในปี 2025 ตลาดแรงงานจะต้องการทักษะด้านเทคโนโลยีสารสนเทศ การวิเคราะห์ข้อมูล และความสามารถในการปรับตัว..."
-        },
-        {
-          title: "การพัฒนาทักษะ Soft Skills เพื่อความสำเร็จในยุคดิจิทัล",
-          text: "Soft Skills เช่น การสื่อสาร การทำงานร่วมกัน และการคิดเชิงวิพากษ์ จะเป็นกุญแจสำคัญในการทำงานร่วมกับ AI..."
-        },
-        {
-          title: "การเรียนรู้ตลอดชีวิต (Lifelong Learning) กับการเปลี่ยนแปลงของโลก",
-          text: "การเรียนรู้ไม่หยุดนิ่งเป็นสิ่งจำเป็นในยุคที่เทคโนโลยีเปลี่ยนแปลงเร็ว การ Upskill และ Reskill จะช่วยให้คุณ..."
-        }
-      ]);
-      setIsSearching(false);
+      try {
+        setAiSummary(MOCK_AI_SUMMARIES.default);
+        setSearchResults(MOCK_SEARCH_RESULTS);
+        setHasSearched(true);
+        setError(null);
+      } catch (err) {
+        console.error("Search error:", err);
+        setError("เกิดข้อผิดพลาดในการค้นหา กรุณาลองใหม่อีกครั้ง");
+      } finally {
+        setIsSearching(false);
+      }
     }, 1500);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleSearch();
     }
   };
 
   return (
-    <section className="bg-white py-12 md:py-16">
-      <div className="container mx-auto px-6 lg:px-10">
+    <div className="w-full space-y-8">
+      {/* HEADER SEARCH ZONE */}
+      <div className="flex flex-col items-center text-center w-full">
+        {/* Small Title */}
+        <div className="text-xs sm:text-sm font-light uppercase tracking-[8px] sm:tracking-[12px] text-okmd-cyan mb-4">
+          KNOWLEDGE IS OPPORTUNITY
+        </div>
 
-        {/* -------------------------------------------------------------- */}
-        {/* HEADER SEARCH ZONE */}
-        {/* -------------------------------------------------------------- */}
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+        {/* Main Title */}
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#1B1D20] mb-2">
+          รวมไอเดียเด็ด แรงบันดาลใจเจ๋ง ๆ และความรู้มืออคํ่าจาก{" "}
+          <span className="text-[#74CEE2]">OKMD</span>
+        </h2>
 
-          {/* Small Title */}
-          <div className="text-xs sm:text-sm font-light uppercase tracking-[8px] sm:tracking-[12px] text-okmd-cyan">
-            KNOWLEDGE IS OPPORTUNITY
-          </div>
+        {/* Subtitle */}
+        <p className="text-lg sm:text-xl text-[#74CEE2] mb-10">
+          โลกของคนชอบคิดต่าง
+        </p>
 
-          {/* SEARCH BLOCK */}
-          <div className="mt-10 max-w-4xl mx-auto w-full">
-            {/* Dark container */}
-            <div className="bg-[#1B1D20] rounded-2xl sm:rounded-3xl p-4 sm:p-5">
-              {/* Intro text */}
-              <p className="text-sm sm:text-base font-medium text-white mb-4">
-                เรามอบประสบการณ์การค้นหาอย่างแม่นยำ ช่วยให้คุณได้คำตอบตรงใจ รวดเร็ว
+        {/* SEARCH BLOCK */}
+        <div className="w-full">
+          {/* Dark container */}
+          <div className="bg-[#1B1D20] rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-lg">
+            {/* Intro text */}
+            <p className="text-sm sm:text-base font-normal text-white mb-4">
+              เรามอบประสบการณ์การค้นหาที่แม่นยำได้ในทันทีที่ต้องการคำตอบ
+              ที่รอให้คุณใส่คีย์เวิร์ดในช่องนี้
+            </p>
+
+            {/* White card with search */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-sm">
+              <p className="text-sm font-medium text-[#1B1D20] mb-3 text-left">
+                การค้นหาที่ฉลาดและแม่นยำของคุณที่นี่
               </p>
+              <div className="flex items-center gap-3">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="พิมพ์เป้าหมายของคุณที่นี่"
+                  className="
+                    flex-1 border-b-2 border-[#74CEE2] bg-transparent
+                    py-2 text-base
+                    text-[#1B1D20] font-normal
+                    outline-none placeholder:text-gray-400
+                    focus:border-[#5FC4D8] transition-colors
+                  "
+                />
+                <button
+                  type="button"
+                  onClick={handleSearch}
+                  disabled={isSearching || !searchQuery.trim()}
+                  className="flex-shrink-0 flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#74CEE2] hover:bg-[#5FC4D8] hover:scale-105 active:scale-95 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 cursor-pointer"
+                >
+                  {isSearching ? (
+                    <Loader2 className="h-5 w-5 text-white animate-spin" />
+                  ) : (
+                    <Search className="h-5 w-5 text-white" />
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-              {/* White card with search */}
-              <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
-                <p className="text-sm font-medium text-okmd-dark mb-2 text-left">
-                  การค้นหาที่ฉลาดและแม่นยำ
+        {/* SECTION: ข้อมูลภาพรวมโดย AI (Show only when searched) */}
+        {hasSearched && (
+          <div className="mt-12 w-full text-left animate-fadeIn">
+            {/* Title row */}
+            <div className="flex items-center gap-3 sm:gap-4 mb-4">
+              <Image
+                src="/okmd_ai_logo.png"
+                alt="AI Logo"
+                width={44}
+                height={44}
+                className="object-contain drop-shadow-sm"
+              />
+              <div>
+                <h2 className="text-2xl font-semibold text-[#1B1D20]">
+                  ข้อมูลภาพรวมโดย AI
+                </h2>
+                <p className="text-sm text-gray-500 mt-0.5">
+                  ผลการค้นหาสำหรับ: &quot;{searchQuery}&quot;
                 </p>
                 <div className="flex items-center gap-3">
                   <input
+                    aria-label="ค้นหาข้อมูล"
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -98,6 +176,7 @@ export default function OkmdSearchSection() {
                     "
                   />
                   <button
+                    aria-label="เริ่มค้นหา"
                     type="button"
                     onClick={handleSearch}
                     disabled={isSearching || !searchQuery.trim()}
@@ -114,96 +193,74 @@ export default function OkmdSearchSection() {
             </div>
           </div>
 
-          {/* -------------------------------------------------------------- */}
-          {/*             SECTION: ข้อมูลภาพรวมโดย AI (Show only when searched) */}
-          {/* -------------------------------------------------------------- */}
-          {hasSearched && (
-            <div className="mt-12 md:mt-16 animate-fadeIn w-full text-left">
+            {/* Divider */}
+            <hr className="border-t border-[#E4E4E4] mb-6" />
 
-              {/* Title row */}
-              <div className="flex items-center gap-3 sm:gap-4 mb-4">
-                <Image
-                  src="/okmd_ai_logo.png"
-                  alt="AI Logo"
-                  width={44}
-                  height={44}
-                  className="object-contain drop-shadow-sm"
-                />
-                <div>
-                  <h2 className="text-2xl sm:text-3xl font-semibold text-[#1B1D20]">
-                    ข้อมูลภาพรวมโดย AI
-                  </h2>
-                  <p className="text-sm text-gray-500 mt-0.5">
-                    ผลการค้นหาสำหรับ: &quot;{searchQuery}&quot;
-                  </p>
-                </div>
-              </div>
+            {/* Summary Box */}
+            <div
+              className="
+              border border-[#E6E6E6]
+              bg-white
+              p-6 sm:p-8
+              rounded-xl sm:rounded-2xl
+              shadow-[0_4px_20px_rgba(0,0,0,0.05)]
+              text-base leading-relaxed text-[#444]
+            "
+            >
+              <p className="whitespace-pre-line">{aiSummary}</p>
 
-              {/* Divider */}
-              <hr className="border-t border-[#E4E4E4] mb-6 sm:mb-8" />
+              <button
+                className="
+                mt-5 sm:mt-6 inline-flex items-center gap-2
+                text-[#1B9DBC] text-base font-medium
+                hover:text-[#168AAF] hover:underline
+                transition-all cursor-pointer
+              "
+              >
+                อ่านเพิ่มเติม
+                <svg
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M5 3l6 5-6 5" />
+                </svg>
+              </button>
+            </div>
 
-              {/* Summary Box */}
-              <div className="
-                border border-[#E6E6E6]
-                bg-white
-                p-6 sm:p-8 lg:p-10
-                rounded-xl sm:rounded-2xl
-                shadow-[0_4px_20px_rgba(0,0,0,0.05)]
-                text-base sm:text-lg leading-relaxed text-[#444]
-              ">
-                <p className="whitespace-pre-line">
-                  {aiSummary}
-                </p>
+            {/* SEARCH RESULTS LIST */}
+            <div className="mt-10">
+              <h3 className="text-xl font-semibold text-[#1B1D20] mb-6">
+                ผลการค้นหา {searchResults.length} รายการ
+              </h3>
 
-                <button className="
-                  mt-5 sm:mt-6 inline-flex items-center gap-2
-                  text-[#1B9DBC] text-base font-medium
-                  hover:text-[#168AAF] hover:underline
-                  transition-all
-                ">
-                  อ่านเพิ่มเติม
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 3l6 5-6 5" />
-                  </svg>
-                </button>
-              </div>
+              <div className="flex flex-col gap-6">
+                {searchResults.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="group cursor-pointer hover:bg-gray-50 p-4 rounded-xl transition-colors"
+                  >
+                    <h4 className="text-lg font-semibold text-[#1B1D20] mb-2 group-hover:text-[#168AAF] transition-colors">
+                      {item.title}
+                    </h4>
 
-              {/* -------------------------------------------------------------- */}
-              {/*                     SEARCH RESULTS LIST                         */}
-              {/* -------------------------------------------------------------- */}
-              <div className="mt-10 md:mt-12">
+                    <p className="text-sm text-[#898989] leading-relaxed line-clamp-2">
+                      {item.text}
+                    </p>
 
-                <h3 className="text-xl sm:text-2xl font-semibold text-[#1B1D20] mb-6 sm:mb-8">
-                  ผลการค้นหา {searchResults.length} รายการ
-                </h3>
-
-                <div className="flex flex-col gap-6 sm:gap-8">
-
-                  {searchResults.map((item, index) => (
-                    <div key={index} className="group cursor-pointer">
-
-                      <h4 className="text-lg sm:text-xl lg:text-2xl font-semibold text-[#1B1D20] mb-2 group-hover:text-[#168AAF] transition-colors">
-                        {item.title}
-                      </h4>
-
-                      <p className="text-sm sm:text-base text-[#898989] leading-relaxed">
-                        {item.text}
-                      </p>
-
-                      {/* Divider */}
-                      {index < searchResults.length - 1 && (
-                        <hr className="mt-6 sm:mt-8 border-t border-[#E5E5E5]" />
-                      )}
-                    </div>
-                  ))}
-
-                </div>
+                    {/* Divider */}
+                    {idx < searchResults.length - 1 && (
+                      <hr className="mt-4 border-t border-[#E5E5E5]" />
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
-          )}
-
-        </div>
+          </div>
+        )}
       </div>
-    </section>
+    </div>
   );
 }
