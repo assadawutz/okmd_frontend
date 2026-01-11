@@ -83,23 +83,35 @@ function Pagination({ total, current, onChange }: PaginationProps) {
   const pages = Array.from({ length: total }, (_, i) => i + 1);
 
   return (
-    <div className="flex justify-center gap-2 mt-8">
-      {pages.map((p) => (
-        <button
-          key={p}
-          onClick={() => onChange(p)}
-          className={`
-            w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all
-            ${
-              p === current
-                ? "bg-[#16A7CB] text-white"
-                : "bg-gray-100 text-gray-500 hover:bg-gray-200"
-            }
-          `}
-        >
-          {p}
-        </button>
+    <div className="flex space-x-2 items-center">
+      <button
+        disabled={current === 1}
+        className={`${buttonClass} ${current === 1 ? disabledClass : normalClass}`}
+        onClick={() => {}}
+      >
+        {"<"}
+      </button>
+      {pages.map((p, index) => (
+        <React.Fragment key={index}>
+          {p === '...' ? (
+            <span className="w-10 h-10 flex items-center justify-center text-gray-500">...</span>
+          ) : (
+            <button
+              className={`${buttonClass} ${p === current ? activeClass : normalClass}`}
+              onClick={() => {}}
+            >
+              {p}
+            </button>
+          )}
+        </React.Fragment>
       ))}
+      <button
+        disabled={current === total}
+        className={`${buttonClass} ${current === total ? disabledClass : normalClass}`}
+        onClick={() => {}}
+      >
+        {">"}
+      </button>
     </div>
   );
 }

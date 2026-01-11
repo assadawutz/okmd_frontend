@@ -6,6 +6,22 @@ import { usePathname } from "next/navigation";
 import Button from "@/components/ui/Button";
 import { ChevronLeft } from "lucide-react";
 
+// --- Import Blueprint Components ---
+import Reports from './Reports';
+import Structure from './Structure';
+import StructureOkmd from './Structureokmd';
+import BoardInformation from './BoardInformation';
+import Executives from './Executives';
+import AnnualReport from './AnnualReport';
+import AnalysisReport from './AnalysisReport';
+import OutcomeReport from './OutcomeReport';
+import ValueForMoneyReport from './ValueForMoneyReport';
+import Plan from './Plan';
+import ActionPlan from './ActionPlan';
+// If these exist, import them. If not, I'll check first or assume they exist based on previous `ls`.
+// Executives.tsx exists in my ls list.
+// ActionPlan.tsx exists in my ls list.
+
 interface AboutUsData {
   title?: string;
   content?: string;
@@ -46,6 +62,30 @@ const AboutOkmd = ({ page }: AboutUsProps) => {
     fetchMenu();
   }, []);
 
+  // --- Component Mapping based on Blueprint Slugs ---
+  // Note: These keys must match the slug used in the Sidebar/Menu or URL.
+  const BLUEPRINT_COMPONENTS: Record<string, React.ComponentType<any>> = {
+    'structure': Structure,
+    'structureokmd': StructureOkmd,
+    'board-information': BoardInformation,
+    'executives': Executives,
+    'reports': Reports,
+    'annual-report': AnnualReport,
+    'analysis-report': AnalysisReport,
+    'outcome-report': OutcomeReport,
+    'value-for-money-report': ValueForMoneyReport,
+    'strategic-plan': Plan,
+    'action-plan': ActionPlan,
+  };
+
+  const SpecificComponent = BLUEPRINT_COMPONENTS[page];
+
+  // If a specific component exists for this page, render it directly.
+  if (SpecificComponent) {
+    return <SpecificComponent />;
+  }
+
+  // --- Fallback: Fetch from API ---
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,12 +107,7 @@ const AboutOkmd = ({ page }: AboutUsProps) => {
     fetchData();
   }, [page]);
 
-  if (loading)
-    return (
-      <div className="w-full h-[60vh] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#16A7CB]"></div>
-      </div>
-    );
+  if (loading) return null; // Or a skeleton loader
 
   if (!data) {
     return (

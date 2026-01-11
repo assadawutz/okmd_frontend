@@ -106,19 +106,10 @@ export default function RecommendSection() {
                 {item.title}
               </h3>
 
-              <p className="text-gray-300 text-sm line-clamp-2 mb-4">
-                {item.desc}
-              </p>
-
-              <div className="flex items-center text-white text-sm font-medium group/btn w-fit">
-                View collection
-                <span className="ml-2 bg-white/20 p-1.5 rounded-full group-hover/btn:bg-[#74CEE2] transition-colors">
-                  <ArrowUpRight size={14} />
-                </span>
-              </div>
-            </div>
-          </article>
-        ))}
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
