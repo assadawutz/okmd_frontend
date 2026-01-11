@@ -159,8 +159,39 @@ export default function OkmdSearchSection() {
                 <p className="text-sm text-gray-500 mt-0.5">
                   ผลการค้นหาสำหรับ: &quot;{searchQuery}&quot;
                 </p>
+                <div className="flex items-center gap-3">
+                  <input
+                    aria-label="ค้นหาข้อมูล"
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="พิมพ์เป้าหมายของคุณที่นี่ เช่น AI, OKMD, การเรียนรู้"
+                    className="
+                      flex-1 border-b-2 border-okmd-cyan bg-transparent
+                      py-2 text-base sm:text-lg
+                      text-okmd-dark font-light
+                      outline-none placeholder:text-okmd-gray-light
+                      focus:border-okmd-cyan-dark transition-colors
+                    "
+                  />
+                  <button
+                    aria-label="เริ่มค้นหา"
+                    type="button"
+                    onClick={handleSearch}
+                    disabled={isSearching || !searchQuery.trim()}
+                    className="flex-shrink-0 flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#74CEE2] hover:bg-[#5FC4D8] hover:scale-105 active:scale-95 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  >
+                    {isSearching ? (
+                      <Loader2 className="h-5 w-5 text-white animate-spin" />
+                    ) : (
+                      <Search className="h-5 w-5 text-white" />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
+          </div>
 
             {/* Divider */}
             <hr className="border-t border-[#E4E4E4] mb-6" />
