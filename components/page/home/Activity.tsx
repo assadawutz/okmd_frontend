@@ -195,7 +195,7 @@ export default function ActivityBlock() {
               <article
                 key={item.id}
                 aria-label={item.title}
-                className="relative w-[85vw] max-w-[320px] h-[200px] flex-shrink-0 rounded-2xl overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.12)] ml-4 first:ml-0"
+                className="relative w-[85vw] max-w-[320px] h-[200px] flex-shrink-0 rounded-2xl overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.12)]"
               >
                 <Image
                   src={item.img}
