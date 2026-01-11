@@ -16,36 +16,49 @@ export interface HighlightItem {
  * TODO: Replace with actual API call
  */
 export async function getHighlights(): Promise<HighlightItem[]> {
-  return [
-    {
-      id: 1,
-      img: "/hi1.png",
-      title: "เพราะทุกครั้งที่คุณสูบ \nคือการทำร้ายตัวเองอย่างช้า ๆ",
-      desc: "ทุกคำสูบ คือก้าวถอยจากสุขภาพดี",
-      link: "#",
-    },
-    {
-      id: 2,
-      img: "/hi2.png",
-      title: "The Knowledge\nvol.36",
-      desc: "",
-      link: "#",
-    },
-    {
-      id: 3,
-      img: "/hi3.png",
-      title: "สำรวจธุรกิจและองค์กรทั่วโลก เสริมพลังด้านวัฒนธรรมด้วย AI",
-      desc: "sk Mona ใช้ AI ส่งเสริมการเข้าถึงวัฒนธรรม ศิลปะ และพิพิธภัณฑ์",
-      link: "#",
-    },
-    { id: 4, img: "/hi4.png", title: "", desc: "", link: "#" },
-    {
-      id: 5,
-      img: "/hi5.png",
-      title: "เรียนรู้แบบเถื่อนๆ ไปกับ สิงห์ วรรณสิงห์",
-      desc: "",
-      link: "#",
-    },
-  ];
+  try {
+    // In production, this would be an API call
+    // const response = await fetch('/api/highlights');
+    // if (!response.ok) throw new Error('Failed to fetch highlights');
+    // return await response.json();
+    
+    const highlights: HighlightItem[] = [
+      {
+        id: 1,
+        img: "/hi1.png",
+        title: "เพราะทุกครั้งที่คุณสูบ \nคือการทำร้ายตัวเองอย่างช้า ๆ",
+        desc: "ทุกคำสูบ คือก้าวถอยจากสุขภาพดี",
+        link: "#",
+      },
+      {
+        id: 2,
+        img: "/hi2.png",
+        title: "The Knowledge\nvol.36",
+        desc: "",
+        link: "#",
+      },
+      {
+        id: 3,
+        img: "/hi3.png",
+        title: "สำรวจธุรกิจและองค์กรทั่วโลก เสริมพลังด้านวัฒนธรรมด้วย AI",
+        desc: "sk Mona ใช้ AI ส่งเสริมการเข้าถึงวัฒนธรรม ศิลปะ และพิพิธภัณฑ์",
+        link: "#",
+      },
+      { id: 4, img: "/hi4.png", title: "", desc: "", link: "#" },
+      {
+        id: 5,
+        img: "/hi5.png",
+        title: "เรียนรู้แบบเถื่อนๆ ไปกับ สิงห์ วรรณสิงห์",
+        desc: "",
+        link: "#",
+      },
+    ];
+    
+    return highlights;
+  } catch (error) {
+    console.error('Error fetching highlights:', error);
+    // Return empty array as fallback
+    return [];
+  }
 }
 

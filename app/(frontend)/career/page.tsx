@@ -1,6 +1,10 @@
 import Career from "@/components/page/career/Career";
+import { ContainerPage } from "@/components/shared/ContainerPage";
 
 export default function CareerPage() {
-  return <Career />;
+  return (
+    <ContainerPage>
+      <Career />
+    </ContainerPage>
+  );
 }
-
