@@ -1,20 +1,22 @@
-import ProcureMentDetail from '@/components/page/procurement/ProcureMentDetail';
-import React from 'react';
+import script from "@/components/page/procurement/ProcureMentDetail";
+import ProcureMentDetail from "@/components/page/procurement/ProcureMentDetail";
+import React from "react";
+import { ContainerPage } from "@/components/shared/ContainerPage";
 
 interface PageProps {
-    params: {
-        id: string;
-    };
+  params: {
+    id: string;
+  };
 }
 
-const Page = ({params}: PageProps) => {
-    const {id} = params;
+const Page = ({ params }: PageProps) => {
+  const { id } = params;
 
-    return (
-        <div>
-            <ProcureMentDetail id={id}/>        
-        </div>
-    );
-}
+  return (
+    <ContainerPage>
+      <ProcureMentDetail id={id} />
+    </ContainerPage>
+  );
+};
 
 export default Page;
